@@ -27,7 +27,7 @@ const Home = () => {
             <path fill="url(#89188piuaa)" transform="rotate(180 6 6)" d="M6 0L12 12 0 12z" fill-rule="evenodd" />
           </svg>
         </div>
-        <h2>Coming Soon</h2>
+        <h2>Coming&nbsp;&nbsp;Soon</h2>
       </HomeInnerInner>
     </HomeInner>
   );
