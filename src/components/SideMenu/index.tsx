@@ -30,10 +30,11 @@ const SideMenu: FC<{ className?: string }> = ({ className, children }) => {
       setCollapsed(false);
     }
   }, [isXs, isSm, isMd]);
-  const hidenHeader = window.location.pathname === '/';
+  // const hidenHeader = window.location.pathname === '/';
   return (
     <Wrapper className={className} collapsed={collapsed}>
-      {hidenHeader ? null : <Header setCollapsed={setCollapsed} collapsed={collapsed} />}
+      <Header setCollapsed={setCollapsed} collapsed={collapsed} />
+      {/* {hidenHeader ? null : <Header setCollapsed={setCollapsed} collapsed={collapsed} />} */}
       <BodyContainer collapsed={collapsed}>
         <div className="content">
           <div className="bg-holder">{children}</div>

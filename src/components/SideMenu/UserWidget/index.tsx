@@ -24,7 +24,7 @@ const UserWidget = () => {
   return (
     <User>
       {/* <SwitchChain /> */}
-      <TextLinerStyle>{allTotal ? `TVL: $${allTotal}` : ''}</TextLinerStyle>
+      <TextLinerStyle>{`TVL: $${allTotal}`}</TextLinerStyle>
       {isMobile ? null : <WalletAccountInfo />}
     </User>
   );

@@ -2,10 +2,10 @@ import React, { lazy } from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
 import { ResetCSS } from '@avault/ui';
 import BigNumber from 'bignumber.js';
-import useEagerConnect from 'hooks/useEagerConnect';
+import useEagerConnect from './hooks/useEagerConnect';
 // import { usePollBlockNumber } from 'state/block/hooks';
 // import { useFetchProfile } from 'state/profile/hooks';
-import { DatePickerPortal } from 'components/DatePicker';
+import { DatePickerPortal } from './components/DatePicker';
 import GlobalStyle from './style/Global';
 import SuspenseWithChunkError from './components/SuspenseWithChunkError';
 import { ToastListener } from './contexts/ToastsContext';
@@ -14,18 +14,18 @@ import EasterEgg from './components/EasterEgg';
 import history from './routerHistory';
 // Views included in the main bundle
 
-import { PriceProvider } from 'contexts/PriceProvider';
+import { PriceProvider } from './contexts/PriceProvider';
 import SideMenu from './components/SideMenu';
 // import { usePollCoreFarmData } from './state/farms/hooks';
 
 // Route-based code splitting
 // Only pool is included in the main bundle because of it's the most visited page
+const Compounding = lazy(() => import('./views/Compounding/index'));
 
 const Home = lazy(() => import('./views/Home'));
-// const Compounding = lazy(() => import('./views/Compounding/index'));
-// const Farms = lazy(() => import('./views/Farms'));
-// const Stake = lazy(() => import('./views/Stake/Stake'));
-// const UnStake = lazy(() => import('./views/Stake/Unstake'));
+const Farms = lazy(() => import('./views/Farms'));
+const Stake = lazy(() => import('./views/Stake/Stake'));
+const UnStake = lazy(() => import('./views/Stake/Unstake'));
 const NotFound = lazy(() => import('./views/NotFound'));
 
 // This config is required for number formatting
@@ -51,7 +51,7 @@ const App: React.FC = () => {
             <Route path="/" exact>
               <Home />
             </Route>
-            {/* <Route path="/compounding" exact>
+            <Route path="/compounding" exact>
               <Compounding />
             </Route>
             <Route path="/stake">
@@ -62,7 +62,7 @@ const App: React.FC = () => {
             </Route>
             <Route path="/farms">
               <Farms />
-            </Route> */}
+            </Route>
 
             {/* 404 */}
             <Route component={NotFound} />
