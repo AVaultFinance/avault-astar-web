@@ -1,212 +1,99 @@
-import React from 'react';
 import styled from 'styled-components';
-import HomeBgPng from './components/home-bg.png';
-import BannerPng from './components/banner.svg';
-import InfoPng from './components/kaco-info-bg.png';
-import { useTranslation } from 'contexts/Localization';
-import { Text, Flex } from '@avault/ui';
-import { useMatchBreakpoints } from '@avault/ui';
-import { useBurnedBalance, useTotalSupply } from 'hooks/useTokenBalance';
-import formatLocalisedCompactNumber, { getBalanceNumber } from 'utils/formatBalance';
-import { getCakeAddress } from 'utils/addressHelpers';
-import useCap from './hooks/useCap';
-import useTotalLiquidity from './hooks/useTotalLiquidity';
-import Balance from 'components/Balance';
-import { useAvaultPrice } from 'hooks/useAvaultPrice';
 
-const Home: React.FC<{ className?: string }> = ({ className }) => {
-  const { t } = useTranslation();
-  const { isXs, isSm } = useMatchBreakpoints();
-  const totalSupply = useTotalSupply();
-  const burnedBalance = getBalanceNumber(useBurnedBalance(getCakeAddress()));
-  const cakeSupply = totalSupply ? getBalanceNumber(totalSupply) - burnedBalance : 0;
-  const kacoPrice = useAvaultPrice();
-  const mcap = kacoPrice.times(cakeSupply);
-
-  const mcapString = formatLocalisedCompactNumber(mcap.isNaN() ? 0 : mcap.toNumber());
-
-  const cap = useCap();
-  const totalLiquidity = useTotalLiquidity();
-
+const Home = () => {
   return (
-    <div className={className}>
-      <div>
-        <div className="banner">
-          <div className="left">
-            <h1>
-              $<Balance value={totalLiquidity.toNumber()} />
-            </h1>
-            <span>{t('Liquidity')}</span>
-          </div>
-          <div className="right">
-            <img src={BannerPng} alt="" />
-          </div>
+    <HomeInner>
+      <HomeInnerInner>
+        <img src="./images/home/logo.png" alt="Avault" />
+        <h1>The First Native Yield Aggregator</h1>
+        <h1>on Astar Network</h1>
+        <div className="icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" width="12">
+            <defs>
+              <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="89188piuaa">
+                <stop stop-color="#8C1AB5" offset="0%" />
+                <stop stop-color="#17B38D" offset="100%" />
+              </linearGradient>
+            </defs>
+            <path fill="url(#89188piuaa)" transform="rotate(180 6 6)" d="M6 0L12 12 0 12z" fill-rule="evenodd" />
+          </svg>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" width="20">
+            <defs>
+              <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="89188piuaa">
+                <stop stop-color="#8C1AB5" offset="0%" />
+                <stop stop-color="#17B38D" offset="100%" />
+              </linearGradient>
+            </defs>
+            <path fill="url(#89188piuaa)" transform="rotate(180 6 6)" d="M6 0L12 12 0 12z" fill-rule="evenodd" />
+          </svg>
         </div>
-        <div className="kac-info">
-          <h3>KAC INFO</h3>
-
-          {[isXs, isSm].some(Boolean) ? (
-            <>
-              <Text mb="20px" style={{ whiteSpace: 'nowrap', minWidth: '230px' }} color="">
-                KAC Price： ${kacoPrice.isNaN() ? '0' : kacoPrice.toFixed(4)}
-              </Text>
-              <Text mb="20px" style={{ whiteSpace: 'nowrap', minWidth: '230px' }} color="">
-                KAC Total：{cap}
-              </Text>
-              <Text mb="20px" style={{ whiteSpace: 'nowrap', minWidth: '230px' }} color="">
-                KAC Circulation：{cakeSupply.toFixed()}
-              </Text>
-
-              <Text mb="20px" style={{ whiteSpace: 'nowrap', minWidth: '230px' }} color="">
-                KAC Burnt：{burnedBalance.toFixed()}
-              </Text>
-              <Text mb="20px" style={{ whiteSpace: 'nowrap', minWidth: '230px' }} color="">
-                KAC Market CAP： ${mcapString}
-              </Text>
-            </>
-          ) : (
-            <>
-              <Flex flexWrap="wrap">
-                <Text mb="35px" style={{ whiteSpace: 'nowrap', minWidth: '230px' }} color="">
-                  KAC Price： ${kacoPrice.isNaN() ? '0' : kacoPrice.toFixed(2)}
-                </Text>
-                <Text mb="35px" style={{ whiteSpace: 'nowrap', minWidth: '230px' }} color="">
-                  KAC Total：{cap}
-                </Text>
-                <Text mb="35px" style={{ whiteSpace: 'nowrap', minWidth: '230px' }} color="">
-                  KAC Circulation：{cakeSupply.toFixed()}
-                </Text>
-              </Flex>
-              <Flex>
-                <Text mb="35px" style={{ whiteSpace: 'nowrap', minWidth: '230px' }} color="">
-                  KAC Burnt：{burnedBalance.toFixed()}
-                </Text>
-                <Text mb="35px" style={{ whiteSpace: 'nowrap', minWidth: '230px' }} color="">
-                  KAC Market CAP： ${mcapString}
-                </Text>
-                <Text mb="35px" style={{ whiteSpace: 'nowrap', minWidth: '230px' }} color=""></Text>
-              </Flex>
-            </>
-          )}
-        </div>
-      </div>
-    </div>
+        <h2>Coming Soon</h2>
+      </HomeInnerInner>
+    </HomeInner>
   );
 };
 
-const lg = `@media screen and (max-width: 1150px)`;
-
-export default styled(Home)`
-  overflow: hidden;
-  top: 72px;
-  bottom: 0px;
-  left: 0px;
-  right: 0px;
-  background-image: url(${HomeBgPng});
-  background-size: 100%;
-  background-position-y: 30%;
-  background-repeat: no-repeat;
-  color: ${({ theme }) => theme.colors.primary};
-  padding-bottom: 30px;
-  /* ${({ theme }) => theme.mediaQueries.md} {
-    padding-left: 64px;
-  }
-  ${({ theme }) => theme.mediaQueries.lg} {
-    padding-left: 0px;
-  } */
-
-  > div {
-    margin: 0 auto;
-    max-width: 1200px;
-    width: 100%;
+const HomeInnerInner = styled.div`
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  text-align: center;
+  img {
+    margin-bottom: 30px;
+    width: 144px;
+    ${({ theme }) => theme.mediaQueries.sm} {
+      margin-bottom: 50px;
+    }
     ${({ theme }) => theme.mediaQueries.md} {
-      padding: 0px 80px;
+      margin-bottom: 70px;
     }
-    > .banner {
-      ${lg} {
-        flex-direction: column-reverse;
-        flex-wrap: wrap;
-      }
-      ${({ theme }) => theme.mediaQueries.md} {
-        /* flex-wrap: no-wrap;
-        flex-direction: initial;
-        justify-content: center; */
-      }
-      ${({ theme }) => theme.mediaQueries.xl} {
-        justify-content: space-between;
-      }
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 7px;
-
-      ${lg} {
-        margin-bottom: 30px;
-      }
-      > .left {
-        ${lg} {
-          text-align: center;
-        }
-        text-align: left;
-        padding-left: 10px;
-        margin-top: 30px;
-        margin-bottom: 30px;
-
-        ${({ theme }) => theme.mediaQueries.md} {
-          margin-top: 0px;
-          margin-bottom: 0px;
-        }
-        h1 {
-          display: flex;
-          align-items: center;
-          font-size: 60px;
-          > div > span {
-            font-size: 60px;
-            color: ${({ theme }) => theme.colors.primary};
-          }
-          ${lg} {
-            font-size: 40px;
-            text-align: center;
-            > div > span {
-              font-size: 40px;
-            }
-          }
-          ${({ theme }) => theme.mediaQueries.md} {
-          }
-          font-weight: 500;
-          margin-bottom: 30px;
-        }
-        span {
-          font-weight: 500;
-          font-size: 20px;
-        }
-      }
-      > .right > img {
-        width: 480px;
-      }
+  }
+  h1 {
+    color: ${({ theme }) => theme.colors.text};
+    line-height: 38px;
+    font-size: 18px;
+    ${({ theme }) => theme.mediaQueries.sm} {
+      line-height: 48px;
+      font-size: 30px;
     }
-    > .kac-info {
-      margin: 0px 30px;
-      ${({ theme }) => theme.mediaQueries.md} {
-        margin: 0px;
-        background-image: url(${InfoPng});
-      }
-      max-width: 1006px;
-      background-repeat: no-repeat;
-      background-size: 100% 100%;
-      /* border: 3px solid #1f373b; */
-      /* border-radius: 20px; */
-      padding: 48px 30px;
-      > h3 {
-        font-size: 18px;
-        margin-bottom: 35px;
-        ${({ theme }) => theme.mediaQueries.md} {
-          font-size: 24px;
-          margin-bottom: 51px;
-        }
-        font-weight: 500;
-        color: ${({ theme }) => theme.colors.primary};
-      }
+    ${({ theme }) => theme.mediaQueries.md} {
+      line-height: 68px;
+      font-size: 44px;
+    }
+  }
+  .icon {
+    svg {
+      display: block;
+      margin: 10px auto;
+    }
+  }
+  h2 {
+    display: inline-block;
+    background-image: linear-gradient(270deg, #f94ef9 0%, #05e9b5 100%);
+    -webkit-background-clip: text;
+    color: transparent;
+    font-weight: 600;
+    font-size: 14px;
+    margin-top: 20px;
+    ${({ theme }) => theme.mediaQueries.sm} {
+      font-size: 20px;
+    }
+    ${({ theme }) => theme.mediaQueries.md} {
+      font-size: 28px;
     }
   }
 `;
+const HomeInner = styled.div`
+  background-image: url('./images/home/bg.png');
+  background-size: 105%;
+  background-position: center;
+  min-height: 100vh;
+  background-repeat: no-repeat;
+  @media screen and (min-width: 1500px) {
+    background-size: 1840px;
+  }
+`;
+
+export default Home;

@@ -20,11 +20,12 @@ import SideMenu from './components/SideMenu';
 
 // Route-based code splitting
 // Only pool is included in the main bundle because of it's the most visited page
-const Compounding = lazy(() => import('./views/Compounding/index'));
 
-const Farms = lazy(() => import('./views/Farms'));
-const Stake = lazy(() => import('./views/Stake/Stake'));
-const UnStake = lazy(() => import('./views/Stake/Unstake'));
+const Home = lazy(() => import('./views/Home'));
+// const Compounding = lazy(() => import('./views/Compounding/index'));
+// const Farms = lazy(() => import('./views/Farms'));
+// const Stake = lazy(() => import('./views/Stake/Stake'));
+// const UnStake = lazy(() => import('./views/Stake/Unstake'));
 const NotFound = lazy(() => import('./views/NotFound'));
 
 // This config is required for number formatting
@@ -48,6 +49,9 @@ const App: React.FC = () => {
         <SuspenseWithChunkError fallback={<PageLoader />}>
           <Switch>
             <Route path="/" exact>
+              <Home />
+            </Route>
+            {/* <Route path="/compounding" exact>
               <Compounding />
             </Route>
             <Route path="/stake">
@@ -58,7 +62,7 @@ const App: React.FC = () => {
             </Route>
             <Route path="/farms">
               <Farms />
-            </Route>
+            </Route> */}
 
             {/* 404 */}
             <Route component={NotFound} />
