@@ -1,0 +1,100 @@
+import { Button, Flex, useModal } from '@avault/ui';
+import BigNumber from 'bignumber.js';
+import { FC } from 'react';
+import { useAppDispatch } from 'state';
+import { fetchCompoundingFarmUserDataAsync } from 'state/compounding';
+import { useCompounding } from 'state/compounding/hooks';
+import styled from 'styled-components';
+import useCompoundingDeposit from 'views/Compounding/hooks/useCompoundingDeposit';
+import useCompoundingWithdraw from 'views/Compounding/hooks/useCompoundingWithdraw';
+import DepositModal from '../../DepositModal';
+import WithdrawModal from '../../WithdrawModal';
+import { LongButton } from './styles';
+
+interface MobileActionProps {
+  userDataReady: boolean;
+  displayBalance: string;
+  earnings: BigNumber;
+  isApproved: boolean;
+  handleApprove: any;
+  requestedApproval: boolean;
+  account: string;
+  pid: number;
+  lpSymbol?: string;
+  stakingTokenBalance?: BigNumber;
+  displayEarningsBalance?: string;
+  contractAddress: string;
+  quoteTokenDecimals: number;
+}
+const Container = styled(Flex)`
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+`;
+const ButtonStyled = styled(Button)`
+  width: 45%;
+  height: 36px;
+`;
+const MobileAction: FC<MobileActionProps> = ({
+  userDataReady,
+  isApproved,
+  handleApprove,
+  earnings,
+  requestedApproval,
+  pid,
+  account,
+  displayBalance,
+  lpSymbol,
+  stakingTokenBalance,
+  displayEarningsBalance,
+  contractAddress,
+  quoteTokenDecimals,
+}) => {
+  const { data: compoundings } = useCompounding();
+  const { onDeposit } = useCompoundingDeposit(account, contractAddress, quoteTokenDecimals);
+  const { onWithdraw } = useCompoundingWithdraw(account, contractAddress, quoteTokenDecimals);
+  const dispatch = useAppDispatch();
+  const handleDeposit = async (amount: string) => {
+    await onDeposit(amount);
+    dispatch(fetchCompoundingFarmUserDataAsync({ account, compoundings }));
+  };
+
+  const handleWithdraw = async (amount: string) => {
+    await onWithdraw(amount);
+    dispatch(fetchCompoundingFarmUserDataAsync({ account, compoundings }));
+  };
+  const [onPresentDeposit] = useModal(
+    <DepositModal
+      max={stakingTokenBalance}
+      lpSymbol={lpSymbol}
+      displayBalance={displayBalance}
+      onDeposit={handleDeposit}
+    />,
+  );
+  const [onPresentWithdraw] = useModal(
+    <WithdrawModal
+      max={earnings}
+      lpSymbol={lpSymbol}
+      displayEarningsBalance={displayEarningsBalance}
+      onWithdraw={handleWithdraw}
+    />,
+  );
+
+  return (
+    <Container>
+      {isApproved ? (
+        <>
+          <ButtonStyled onClick={onPresentDeposit}>Deposit</ButtonStyled>
+          <ButtonStyled variant="tertiary" onClick={onPresentWithdraw}>
+            Withdraw
+          </ButtonStyled>
+        </>
+      ) : (
+        <LongButton disabled={requestedApproval} onClick={handleApprove} variant="secondary">
+          Approve
+        </LongButton>
+      )}
+    </Container>
+  );
+};
+export default MobileAction;
