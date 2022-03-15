@@ -69,6 +69,7 @@ const MobileAction: FC<MobileActionProps> = ({
       lpSymbol={lpSymbol}
       displayBalance={displayBalance}
       onDeposit={handleDeposit}
+      quoteTokenDecimals={quoteTokenDecimals}
     />,
   );
   const [onPresentWithdraw] = useModal(
@@ -76,6 +77,7 @@ const MobileAction: FC<MobileActionProps> = ({
       max={earnings}
       lpSymbol={lpSymbol}
       displayEarningsBalance={displayEarningsBalance}
+      quoteTokenDecimals={quoteTokenDecimals}
       onWithdraw={handleWithdraw}
     />,
   );

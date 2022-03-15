@@ -88,6 +88,7 @@ const StakeAction: React.FC<CompoundingCardActionsProps> = ({
 
   const [onPresentDeposit] = useModal(
     <DepositModal
+      quoteTokenDecimals={compounding.farm.quoteTokenDecimals}
       lpSymbol={lpSymbol}
       max={stakingTokenBalance}
       displayBalance={displayBalance()}
@@ -96,6 +97,7 @@ const StakeAction: React.FC<CompoundingCardActionsProps> = ({
   );
   const [onPresentWithdraw] = useModal(
     <WithdrawModal
+      quoteTokenDecimals={compounding.farm.quoteTokenDecimals}
       lpSymbol={lpSymbol}
       displayEarningsBalance={displayBalance()}
       max={stakedBalance}

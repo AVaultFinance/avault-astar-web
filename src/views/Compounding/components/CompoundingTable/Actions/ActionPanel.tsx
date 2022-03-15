@@ -16,12 +16,12 @@ import MobileAction from './MobileAction';
 import { useSpecialApproveFarm } from 'views/Compounding/hooks/useApproveFarm';
 import { useERC20 } from 'hooks/useContract';
 import { useAppDispatch } from 'state';
-import { fetchFarmUserDataAsync } from 'state/farms';
 import { ICompounding } from 'state/compounding/types';
 import { getDisplayApy } from 'views/Compounding/Compounding';
-import { useCompoundingFarmUser } from 'state/compounding/hooks';
+import { useCompounding, useCompoundingFarmUser } from 'state/compounding/hooks';
 import useAuth from 'hooks/useAuth';
 import { chainId } from 'config/constants/tokens';
+import { fetchCompoundingFarmUserDataAsync } from 'state/compounding';
 
 export interface ActionPanelProps {
   apr: AprProps;
@@ -175,10 +175,9 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
   const lpAddress = getAddress(compounding.farm.lpAddresses);
   const bsc = getBscScanLink(lpAddress, 'address');
   const { account } = useWeb3React();
-  const { avaultAddressBalance } = useCompoundingFarmUser(compounding.farm.pid);
-  const isApproved = account && avaultAddressBalance && avaultAddressBalance.isGreaterThan(0);
+  const { avaultAddressBalance, allowance } = useCompoundingFarmUser(compounding.farm.pid);
+  const isApproved = account && allowance && allowance.isGreaterThan(0);
   // const stakingBigNumber = new BigNumber(compounding.farm.userData.stakingTokenBalance);
-
   let earnings = BIG_ZERO;
   let displayEarningsBalance: string = '';
 
@@ -186,15 +185,14 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
   if (isApproved) {
     const _wantLockedTotal = new BigNumber(compounding.compounding.wantLockedTotal);
     const _totalSupply = new BigNumber(compounding.compounding.totalSupply);
+    // _totalSupply： 282962782793973
+    // avaultAddressBalance： 89962782593973
+    // _wantLockedTotal： 284598115334499
     earnings = _wantLockedTotal.dividedBy(_totalSupply).times(avaultAddressBalance);
     // earnings = getBalanceAmount(_value, compounding.farm.quoteTokenDecimals);
     // wantLockedTotal / totalSupply()*CLpAmount
     // earningsBusd = earnings.multipliedBy(cakePrice).toNumber();
-    displayEarningsBalance = Number(
-      getBalanceAmount(earnings, compounding.farm.quoteTokenDecimals).toFixed(8, BigNumber.ROUND_DOWN),
-    ).toLocaleString('en-US', {
-      maximumFractionDigits: 8,
-    });
+    displayEarningsBalance = getFullDisplayBalance(earnings, compounding.farm.quoteTokenDecimals, 5);
   }
 
   const lpContract = useERC20(lpAddress);
@@ -202,6 +200,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
   const { onApprove } = useSpecialApproveFarm(lpContract, compounding.contractAddress[chainId]);
   const dispatch = useAppDispatch();
   const { login } = useAuth();
+  const { data: compoundings } = useCompounding();
   const handleApprove = useCallback(async () => {
     if (!account) {
       const connectorId = (window.localStorage.getItem(connectorLocalStorageKey) ?? 'injected') as ConnectorNames;
@@ -211,13 +210,13 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
     try {
       setRequestedApproval(true);
       await onApprove();
-      dispatch(fetchFarmUserDataAsync({ account, pids: [compounding.farm.pid] }));
+      dispatch(fetchCompoundingFarmUserDataAsync({ account, compoundings }));
 
       setRequestedApproval(false);
     } catch (e) {
       console.error(e);
     }
-  }, [onApprove, dispatch, login, account, compounding]);
+  }, [onApprove, dispatch, login, account, compoundings]);
 
   return (
     <Container expanded={expanded}>
@@ -251,7 +250,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
               {getFullDisplayBalance(
                 new BigNumber(compounding.farm.userData.stakingTokenBalance),
                 compounding.farm.quoteTokenDecimals,
-                2,
+                4,
               )}{' '}
               {compounding.farm.lpSymbol}
             </i>
@@ -270,7 +269,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
           displayBalance={getFullDisplayBalance(
             new BigNumber(compounding.farm.userData.stakingTokenBalance),
             compounding.farm.quoteTokenDecimals,
-            2,
+            4,
           )}
           displayEarningsBalance={displayEarningsBalance}
           earnings={earnings}
@@ -292,7 +291,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
             displayBalance={getFullDisplayBalance(
               new BigNumber(compounding?.farm?.userData?.stakingTokenBalance ?? '0'),
               compounding.farm.quoteTokenDecimals,
-              2,
+              4,
             )}
             displayEarningsBalance={displayEarningsBalance}
             earnings={earnings}
@@ -311,7 +310,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
             displayBalance={getFullDisplayBalance(
               new BigNumber(compounding?.farm?.userData?.stakingTokenBalance ?? '0'),
               compounding.farm.quoteTokenDecimals,
-              2,
+              4,
             )}
             displayEarningsBalance={displayEarningsBalance}
             earnings={earnings}

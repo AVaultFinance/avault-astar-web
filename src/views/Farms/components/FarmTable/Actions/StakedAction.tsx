@@ -51,7 +51,7 @@ const Staked: React.FunctionComponent<StackedActionProps> = ({ farm, userDataRea
   const { onStake } = useStakeFarms(pid);
   const { onUnstake } = useUnstakeFarms(pid);
   const location = useLocation();
-
+  console.log(account, allowance, allowance.toString(), allowance.isGreaterThan(0));
   const isApproved = account && allowance && allowance.isGreaterThan(0);
 
   const lpAddress = getAddress(lpAddresses);
@@ -139,6 +139,7 @@ const Staked: React.FunctionComponent<StackedActionProps> = ({ farm, userDataRea
       </ActionContainer>
     );
   }
+
   if (!isApproved) {
     return (
       <ActionContainer smallBorder={false}>

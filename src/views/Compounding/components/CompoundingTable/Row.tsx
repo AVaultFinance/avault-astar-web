@@ -174,7 +174,7 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
                         ? getFullDisplayBalance(
                             new BigNumber(details.farm.userData.stakingTokenBalance),
                             details.farm.quoteTokenDecimals,
-                            2,
+                            6,
                           )
                         : ''}{' '}
                       {details.farm.lpSymbol}

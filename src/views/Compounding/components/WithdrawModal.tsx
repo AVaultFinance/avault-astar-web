@@ -12,6 +12,7 @@ interface WithdrawModalProps {
   displayEarningsBalance: string;
   max: BigNumber;
   lpSymbol: string;
+  quoteTokenDecimals: number;
   onWithdraw: (amount: string) => void;
   onDismiss?: () => void;
 }
@@ -27,14 +28,15 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
   max,
   displayEarningsBalance,
   lpSymbol,
+  quoteTokenDecimals,
 }) => {
   const [val, setVal] = useState('');
   const { toastSuccess, toastError } = useToast();
   const [pendingTx, setPendingTx] = useState(false);
   const { t } = useTranslation();
   const fullBalance = useMemo(() => {
-    return getFullDisplayBalance(max);
-  }, [max]);
+    return getFullDisplayBalance(max, quoteTokenDecimals, 4);
+  }, [max, quoteTokenDecimals]);
 
   const handleChange = useCallback(
     (e: React.FormEvent<HTMLInputElement>) => {

@@ -11,6 +11,7 @@ interface DepositModalProps {
   lpSymbol?: string;
   max: BigNumber;
   displayBalance: string;
+  quoteTokenDecimals: number;
   onDeposit: (amount: string) => void;
   onDismiss?: () => void;
 }
@@ -20,14 +21,21 @@ const ModalInputStyled = styled.div`
   padding: 12px 16px 16px;
   margin-top: 8px;
 `;
-const DepositModal: React.FC<DepositModalProps> = ({ lpSymbol, max, onDeposit, onDismiss, displayBalance }) => {
+const DepositModal: React.FC<DepositModalProps> = ({
+  lpSymbol,
+  quoteTokenDecimals,
+  max,
+  onDeposit,
+  onDismiss,
+  displayBalance,
+}) => {
   const [val, setVal] = useState('');
   const { toastSuccess, toastError } = useToast();
   const [pendingTx, setPendingTx] = useState(false);
   const { t } = useTranslation();
   const fullBalance = useMemo(() => {
-    return getFullDisplayBalance(max);
-  }, [max]);
+    return getFullDisplayBalance(max, quoteTokenDecimals, 4);
+  }, [max, quoteTokenDecimals]);
 
   const valNumber = new BigNumber(val);
   const fullBalanceNumber = new BigNumber(fullBalance);

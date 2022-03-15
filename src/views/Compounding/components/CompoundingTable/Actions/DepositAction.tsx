@@ -61,8 +61,8 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
   const [val, setVal] = useState('');
   const { stakingTokenBalance } = useCompoundingFarmUser(pid);
   const fullBalance = useMemo(() => {
-    return getFullDisplayBalance(stakingTokenBalance);
-  }, [stakingTokenBalance]);
+    return getFullDisplayBalance(stakingTokenBalance, quoteTokenDecimals, 4);
+  }, [stakingTokenBalance, quoteTokenDecimals]);
   const fullBalanceNumber = new BigNumber(fullBalance);
   const handleChange = useCallback(
     (e: React.FormEvent<HTMLInputElement>) => {
@@ -79,12 +79,13 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
   const valNumber = new BigNumber(val);
   const disabled =
     requestedApproval ||
-    earnings.eq(BIG_ZERO) ||
+    stakingTokenBalance.eq(BIG_ZERO) ||
     pendingTx ||
     !userDataReady ||
     !valNumber.isFinite() ||
     valNumber.eq(0) ||
     valNumber.gt(fullBalanceNumber);
+
   return (
     <div>
       <Text textAlign="right" fontSize="12px" marginBottom="8px" fontWeight="500">
@@ -106,15 +107,13 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
                 try {
                   await onDeposit(val);
                   dispatch(fetchCompoundingFarmUserDataAsync({ account, compoundings }));
-                  toastSuccess(
-                    `${t('Harvested')}!`,
-                    t('Your %symbol% earnings have been sent to your wallet!', { symbol: 'KAC' }),
-                  );
+                  toastSuccess(`Deposit!`, t('Your %symbol% deposit!', { symbol: lpSymbol }));
                 } catch (e) {
                   toastError(
                     t('Error'),
                     t('Please try again. Confirm the transaction and make sure you are paying enough gas!'),
                   );
+                  setVal('');
                   console.error(e);
                 } finally {
                   setPendingTx(false);

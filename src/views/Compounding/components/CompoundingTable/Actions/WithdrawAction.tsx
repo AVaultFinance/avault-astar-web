@@ -62,9 +62,8 @@ const WithdrawAction: React.FunctionComponent<WithdrawActionProps> = ({
   const { onWithdraw } = useCompoundingWithdraw(account, contractAddress, quoteTokenDecimals);
   const [val, setVal] = useState('');
   const fullBalance = useMemo(() => {
-    console.log('earnings: ', earnings.toString());
-    return getFullDisplayBalance(earnings);
-  }, [earnings]);
+    return getFullDisplayBalance(earnings, quoteTokenDecimals, 5);
+  }, [earnings, quoteTokenDecimals]);
   const handleChange = useCallback(
     (e: React.FormEvent<HTMLInputElement>) => {
       if (e.currentTarget.validity.valid) {
@@ -98,38 +97,33 @@ const WithdrawAction: React.FunctionComponent<WithdrawActionProps> = ({
       <ActionContainer smallBorder={disabled ? false : true}>
         <FlexStyled>
           <CInput value={val} onSelectMax={handleSelectMax} onChange={handleChange} />
-          {!isApproved ? (
-            <LongButton disabled={requestedApproval} onClick={handleApprove} variant="secondary">
-              Approve
-            </LongButton>
-          ) : (
-            <LongButton
-              variant="primary"
-              disabled={disabled}
-              onClick={async () => {
-                setPendingTx(true);
-                try {
-                  await onWithdraw(val);
-                  dispatch(fetchCompoundingFarmUserDataAsync({ account, compoundings }));
-                  toastSuccess(
-                    `${t('Harvested')}!`,
-                    t('Your %symbol% earnings have been sent to your wallet!', { symbol: 'KAC' }),
-                  );
-                } catch (e) {
-                  toastError(
-                    t('Error'),
-                    t('Please try again. Confirm the transaction and make sure you are paying enough gas!'),
-                  );
-                  console.error(e);
-                } finally {
-                  setPendingTx(false);
-                }
-                dispatch(fetchFarmUserDataAsync({ account, pids: [pid] }));
-              }}
-            >
-              {pendingTx ? 'Withdrawing' : 'Withdraw'}
-            </LongButton>
-          )}
+          <LongButton
+            variant="primary"
+            disabled={disabled}
+            onClick={async () => {
+              setPendingTx(true);
+              try {
+                await onWithdraw(val);
+                dispatch(fetchCompoundingFarmUserDataAsync({ account, compoundings }));
+                toastSuccess(
+                  `Withdraw!`,
+                  t('Your %symbol% earnings have been sent to your wallet!', { symbol: lpSymbol }),
+                );
+                setVal('');
+              } catch (e) {
+                toastError(
+                  t('Error'),
+                  t('Please try again. Confirm the transaction and make sure you are paying enough gas!'),
+                );
+                console.error(e);
+              } finally {
+                setPendingTx(false);
+              }
+              dispatch(fetchFarmUserDataAsync({ account, pids: [pid] }));
+            }}
+          >
+            {pendingTx ? 'Withdrawing' : 'Withdraw'}
+          </LongButton>
         </FlexStyled>
       </ActionContainer>
     </div>

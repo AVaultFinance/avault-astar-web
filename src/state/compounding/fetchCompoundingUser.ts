@@ -12,7 +12,7 @@ import AVaultPCS_ABI from 'config/abi/AVaultPCS_ABI.json';
 export const fetchCompoundingsFarmUserAllowances = async (account: string, compoundings: ICompounding[]) => {
   const calls = compoundings.map((compounding: ICompounding) => {
     const lpAddresses = compounding.farm.lpAddresses;
-    const masterChef = compounding.compounding.masterChef;
+    const masterChef = compounding.contractAddress[chainId];
     return {
       address: lpAddresses,
       name: 'allowance',
@@ -21,6 +21,7 @@ export const fetchCompoundingsFarmUserAllowances = async (account: string, compo
   });
 
   const rawLpAllowances = await multicall(erc20ABI, calls);
+  console.log('rawLpAllowances: ', rawLpAllowances);
   const parsedLpAllowances = rawLpAllowances.map((lpBalance) => {
     return new BigNumber(lpBalance).toString();
   });

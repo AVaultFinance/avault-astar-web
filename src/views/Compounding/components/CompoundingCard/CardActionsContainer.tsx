@@ -12,6 +12,8 @@ import StakeAction from './StakeAction';
 import HarvestAction from './HarvestAction';
 import useApproveFarm from '../../hooks/useApproveFarm';
 import { ICompounding } from 'state/compounding/types';
+import { fetchCompoundingFarmUserDataAsync } from 'state/compounding';
+import { useCompounding } from 'state/compounding/hooks';
 
 const Action = styled.div`
   padding-top: 16px;
@@ -45,6 +47,7 @@ const CardActions: React.FC<CompoundingCardActionsProps> = ({ compounding, accou
   const dispatch = useAppDispatch();
 
   const lpContract = useERC20(lpAddress);
+  const { data: compoundings } = useCompounding();
 
   const { onApprove } = useApproveFarm(lpContract);
 
@@ -52,7 +55,7 @@ const CardActions: React.FC<CompoundingCardActionsProps> = ({ compounding, accou
     try {
       setRequestedApproval(true);
       await onApprove();
-      dispatch(fetchFarmUserDataAsync({ account, pids: [pid] }));
+      dispatch(fetchCompoundingFarmUserDataAsync({ account, compoundings }));
       setRequestedApproval(false);
     } catch (e) {
       console.error(e);
@@ -87,7 +90,7 @@ const CardActions: React.FC<CompoundingCardActionsProps> = ({ compounding, accou
           {t('Earned')}
         </Text>
       </Flex>
-      <HarvestAction earnings={earnings} pid={pid} />
+      <HarvestAction lpSymbol={lpSymbol} earnings={earnings} pid={pid} />
       <Flex>
         <Text bold textTransform="uppercase" color="text" fontSize="12px" pr="4px">
           {compounding.compounding.name}
