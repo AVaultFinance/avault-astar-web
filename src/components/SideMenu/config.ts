@@ -44,7 +44,7 @@ export const MorePathConfig: IMenuDetail[] = [
 const avaultMenuItems: IMenu[] = [
   {
     text: 'Compounding',
-    link: '/',
+    link: '/compounding',
   },
   {
     text: 'Farm',

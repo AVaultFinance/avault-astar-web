@@ -2,12 +2,13 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 const Logo: FC<{ collapsed: boolean }> = ({ collapsed }) => {
   return (
-    <LogoStyle>
+    <LogoStyle href="/">
       <img src={collapsed ? '/images/logo_small.svg' : '/images/logo.svg'} alt="" />
     </LogoStyle>
   );
 };
-const LogoStyle = styled.div`
+const LogoStyle = styled.a`
+  display: block;
   height: 40px;
   margin-right: 0;
   margin-top: 0;

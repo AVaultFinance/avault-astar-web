@@ -12,8 +12,6 @@ import { ToastListener } from './contexts/ToastsContext';
 import PageLoader from './components/Loader/PageLoader';
 import EasterEgg from './components/EasterEgg';
 import history from './routerHistory';
-// Views included in the main bundle
-
 import { PriceProvider } from './contexts/PriceProvider';
 import SideMenu from './components/SideMenu';
 // import { usePollCoreFarmData } from './state/farms/hooks';
@@ -51,7 +49,7 @@ const App: React.FC = () => {
             <Route path="/" exact>
               <Home />
             </Route>
-            <Route path="/compounding" exact>
+            <Route path="/compounding">
               <Compounding />
             </Route>
             <Route path="/stake">

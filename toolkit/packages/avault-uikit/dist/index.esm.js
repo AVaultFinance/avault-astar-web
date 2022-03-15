@@ -1992,7 +1992,7 @@ var Overlay = styled.div.attrs({ role: "presentation" })(templateObject_1$B || (
     return theme.colors.overlay;
 }, function (_a) {
     var show = _a.show;
-    return (show ? 0.1 : 0);
+    return (show ? 0.6 : 0);
 }, function (_a) {
     var zIndex = _a.zIndex;
     return zIndex;
@@ -3299,7 +3299,7 @@ var baseColors = {
     warning: "#D87E2C",
 };
 var tooltipColors = {
-    background: "#030222",
+    background: "#181733",
     borderColor: "#19183E",
 };
 var additionalColors = {
@@ -4705,7 +4705,7 @@ var connectors = [
 var connectorLocalStorageKey = "connectorIdv2";
 var walletLocalStorageKey = "wallet";
 
-var WalletButton = styled(Button).attrs({ width: "100%", variant: "text", padding: "10px 20px" })(templateObject_1$3 || (templateObject_1$3 = __makeTemplateObject(["\n  align-items: center;\n  display: flex;\n  height: auto;\n  justify-content: space-between;\n  margin-left: auto;\n  margin-right: auto;\n  background-color: #fff4eb;\n  border-radius: 12px;\n"], ["\n  align-items: center;\n  display: flex;\n  height: auto;\n  justify-content: space-between;\n  margin-left: auto;\n  margin-right: auto;\n  background-color: #fff4eb;\n  border-radius: 12px;\n"])));
+var WalletButton = styled(Button).attrs({ width: "100%", variant: "text", padding: "10px 20px" })(templateObject_1$3 || (templateObject_1$3 = __makeTemplateObject(["\n  align-items: center;\n  display: flex;\n  height: auto;\n  justify-content: space-between;\n  margin-left: auto;\n  margin-right: auto;\n  background-color: #ffa14e;\n  border-radius: 12px;\n"], ["\n  align-items: center;\n  display: flex;\n  height: auto;\n  justify-content: space-between;\n  margin-left: auto;\n  margin-right: auto;\n  background-color: #ffa14e;\n  border-radius: 12px;\n"])));
 var WalletCard = function (_a) {
     var login = _a.login, walletConfig = _a.walletConfig, onDismiss = _a.onDismiss;
     var title = walletConfig.title, Icon = walletConfig.icon;

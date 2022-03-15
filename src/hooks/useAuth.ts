@@ -59,6 +59,7 @@ const useAuth = () => {
   );
 
   const logout = useCallback(() => {
+    console.log('logout');
     dispatch(profileClear());
     deactivate();
     // This localStorage key is set by @web3-react/walletconnect-connector

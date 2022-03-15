@@ -43,7 +43,7 @@ export default styled(Header)`
     align-items: center;
     justify-content: space-between;
     height: 72px;
-    border-bottom: 1px dashed ${({ theme }) => theme.colors.cardBorder};
+    border-bottom: 1px solid ${({ theme }) => theme.colors.cardBorder};
     ${({ theme }) => theme.mediaQueries.md} {
       height: 82px;
       padding-left: 10px;
