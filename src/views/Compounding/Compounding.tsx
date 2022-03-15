@@ -17,6 +17,7 @@ import { RowProps } from './components/CompoundingTable/Row';
 import { useCompounding, useCompoundingUserData, usePollCompoundingData } from 'state/compounding/hooks';
 import { ICompounding } from 'state/compounding/types';
 import { usePrice } from 'state/price/hooks';
+import PageLoader from 'components/Loader/PageLoader';
 // const StyledImage = styled(Image)`
 //   margin-left: auto;
 //   margin-right: auto;
@@ -119,7 +120,6 @@ const Compoundings: React.FC = () => {
   const loadMoreRef = useRef<HTMLDivElement>(null);
 
   const [numberOfFarmsVisible, setNumberOfFarmsVisible] = useState(NUMBER_OF_FARMS_VISIBLE);
-  const [observerIsSet, setObserverIsSet] = useState(false);
 
   const chosenFarmsMemoized = useMemo(() => {
     let chosenFarms = [];
@@ -160,28 +160,6 @@ const Compoundings: React.FC = () => {
 
   chosenFarmsLength.current = chosenFarmsMemoized.length;
 
-  useEffect(() => {
-    const showMoreFarms = (entries) => {
-      const [entry] = entries;
-      if (entry.isIntersecting) {
-        setNumberOfFarmsVisible((compoundingsCurrentlyVisible) => {
-          if (compoundingsCurrentlyVisible <= chosenFarmsLength.current) {
-            return compoundingsCurrentlyVisible + NUMBER_OF_FARMS_VISIBLE;
-          }
-          return compoundingsCurrentlyVisible;
-        });
-      }
-    };
-
-    if (!observerIsSet) {
-      const loadMoreObserver = new IntersectionObserver(showMoreFarms, {
-        rootMargin: '0px',
-        threshold: 1,
-      });
-      loadMoreObserver.observe(loadMoreRef.current);
-      setObserverIsSet(true);
-    }
-  }, [chosenFarmsMemoized, observerIsSet]);
   const rowData = chosenFarmsMemoized.map((compounding: ICompounding) => {
     const {
       compounding: { token0Address, token1Address },
@@ -264,11 +242,10 @@ const Compoundings: React.FC = () => {
       />
     );
   };
-
   return (
     <Page>
       {renderContent()}
-      <div ref={loadMoreRef} />
+      {!rowData.length ? <PageLoader /> : null}
     </Page>
   );
 };

@@ -7,9 +7,9 @@ import { useCompounding } from 'state/compounding/hooks';
 import styled from 'styled-components';
 import useCompoundingDeposit from 'views/Compounding/hooks/useCompoundingDeposit';
 import useCompoundingWithdraw from 'views/Compounding/hooks/useCompoundingWithdraw';
-import DepositModal from '../../DepositModal';
-import WithdrawModal from '../../WithdrawModal';
+import DepositModal from './DepositModal';
 import { LongButton } from './styles';
+import WithdrawModal from './WithdrawModal';
 
 interface MobileActionProps {
   userDataReady: boolean;
@@ -25,6 +25,7 @@ interface MobileActionProps {
   displayEarningsBalance?: string;
   contractAddress: string;
   quoteTokenDecimals: number;
+  lpToCLpRate: string;
 }
 const Container = styled(Flex)`
   justify-content: space-between;
@@ -49,6 +50,7 @@ const MobileAction: FC<MobileActionProps> = ({
   displayEarningsBalance,
   contractAddress,
   quoteTokenDecimals,
+  lpToCLpRate,
 }) => {
   const { data: compoundings } = useCompounding();
   const { onDeposit } = useCompoundingDeposit(account, contractAddress, quoteTokenDecimals);
@@ -60,7 +62,8 @@ const MobileAction: FC<MobileActionProps> = ({
   };
 
   const handleWithdraw = async (amount: string) => {
-    await onWithdraw(amount);
+    const _amount = new BigNumber(amount).times(1 / Number(lpToCLpRate));
+    await onWithdraw(_amount.toString());
     dispatch(fetchCompoundingFarmUserDataAsync({ account, compoundings }));
   };
   const [onPresentDeposit] = useModal(

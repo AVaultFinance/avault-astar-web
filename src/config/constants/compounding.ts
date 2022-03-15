@@ -6,8 +6,8 @@ const compounding: ICompoundingConfigItem[] =
     ? [
         {
           contractAddress: {
-            [ChainId.SDN_TESTNET]: '0xcd6b723AFF8F57D01FE2FFD17B72f27c2A8398D7',
-            [ChainId.SDN_MAINNET]: '0xcd6b723AFF8F57D01FE2FFD17B72f27c2A8398D7',
+            [ChainId.SDN_TESTNET]: '0xFB6Ae2A33e95C21d06A583D762BAfEC0F4967403',
+            [ChainId.SDN_MAINNET]: '0xFB6Ae2A33e95C21d06A583D762BAfEC0F4967403',
           },
           fromSource: IFarmProject.kaco, // from which swap
           abiType: IABIType.AVaultPCS, // use which abi

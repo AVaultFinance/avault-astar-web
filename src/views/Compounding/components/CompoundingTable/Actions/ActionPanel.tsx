@@ -179,7 +179,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
   const isApproved = account && allowance && allowance.isGreaterThan(0);
   // const stakingBigNumber = new BigNumber(compounding.farm.userData.stakingTokenBalance);
   let earnings = BIG_ZERO;
-  let displayEarningsBalance: string = '';
+  let displayEarningsBalance: string = '0';
 
   // If user didn't connect wallet default balance will be 0
   if (isApproved) {
@@ -188,11 +188,15 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
     // _totalSupply： 282962782793973
     // avaultAddressBalance： 89962782593973
     // _wantLockedTotal： 284598115334499
-    earnings = _wantLockedTotal.dividedBy(_totalSupply).times(avaultAddressBalance);
-    // earnings = getBalanceAmount(_value, compounding.farm.quoteTokenDecimals);
-    // wantLockedTotal / totalSupply()*CLpAmount
-    // earningsBusd = earnings.multipliedBy(cakePrice).toNumber();
-    displayEarningsBalance = getFullDisplayBalance(earnings, compounding.farm.quoteTokenDecimals, 5);
+    console.log('earnings: ', _wantLockedTotal.toString(), _totalSupply.toString(), avaultAddressBalance.toString());
+    if (avaultAddressBalance.toNumber() > 0) {
+      earnings = _wantLockedTotal.dividedBy(_totalSupply).times(avaultAddressBalance);
+      console.log('earnings: ', earnings);
+      // earnings = getBalanceAmount(_value, compounding.farm.quoteTokenDecimals);
+      // wantLockedTotal / totalSupply()*CLpAmount
+      // earningsBusd = earnings.multipliedBy(cakePrice).toNumber();
+      displayEarningsBalance = getFullDisplayBalance(earnings, compounding.farm.quoteTokenDecimals, 8);
+    }
   }
 
   const lpContract = useERC20(lpAddress);
@@ -250,7 +254,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
               {getFullDisplayBalance(
                 new BigNumber(compounding.farm.userData.stakingTokenBalance),
                 compounding.farm.quoteTokenDecimals,
-                4,
+                8,
               )}{' '}
               {compounding.farm.lpSymbol}
             </i>
@@ -263,13 +267,14 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
       </DetailContainer>
       {isMobile ? (
         <MobileAction
+          lpToCLpRate={compounding.compounding.lpToCLpRate}
           requestedApproval={requestedApproval}
           isApproved={isApproved}
           pid={compounding.farm.pid}
           displayBalance={getFullDisplayBalance(
             new BigNumber(compounding.farm.userData.stakingTokenBalance),
             compounding.farm.quoteTokenDecimals,
-            4,
+            8,
           )}
           displayEarningsBalance={displayEarningsBalance}
           earnings={earnings}
@@ -291,7 +296,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
             displayBalance={getFullDisplayBalance(
               new BigNumber(compounding?.farm?.userData?.stakingTokenBalance ?? '0'),
               compounding.farm.quoteTokenDecimals,
-              4,
+              8,
             )}
             displayEarningsBalance={displayEarningsBalance}
             earnings={earnings}
@@ -303,6 +308,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
           />
           <div className="w20"></div>
           <WithdrawAction
+            lpToCLpRate={compounding.compounding.lpToCLpRate}
             contractAddress={compounding.contractAddress[chainId]}
             quoteTokenDecimals={compounding.farm.quoteTokenDecimals}
             requestedApproval={requestedApproval}
@@ -310,7 +316,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
             displayBalance={getFullDisplayBalance(
               new BigNumber(compounding?.farm?.userData?.stakingTokenBalance ?? '0'),
               compounding.farm.quoteTokenDecimals,
-              4,
+              8,
             )}
             displayEarningsBalance={displayEarningsBalance}
             earnings={earnings}

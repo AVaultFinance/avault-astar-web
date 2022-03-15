@@ -61,7 +61,7 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
   const [val, setVal] = useState('');
   const { stakingTokenBalance } = useCompoundingFarmUser(pid);
   const fullBalance = useMemo(() => {
-    return getFullDisplayBalance(stakingTokenBalance, quoteTokenDecimals, 4);
+    return getFullDisplayBalance(stakingTokenBalance, quoteTokenDecimals, 8);
   }, [stakingTokenBalance, quoteTokenDecimals]);
   const fullBalanceNumber = new BigNumber(fullBalance);
   const handleChange = useCallback(

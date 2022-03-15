@@ -13,6 +13,7 @@ import SideMenu from './components/SideMenu';
 import { usePollCoreFarmData } from 'state/farms/hooks';
 import { usePollCompoundingData } from 'state/compounding/hooks';
 import { usePollBlockNumber } from 'state/block/hooks';
+import PageLoader from 'components/Loader/PageLoader';
 // import { useFetchProfile } from 'state/profile/hooks';
 // import { usePollCoreFarmData } from './state/farms/hooks';
 
@@ -44,7 +45,7 @@ const App: React.FC = () => {
       <GlobalStyle />
       <PriceProvider />
       <SideMenu>
-        <SuspenseWithChunkError fallback={<></>}>
+        <SuspenseWithChunkError fallback={<PageLoader />}>
           <Switch>
             <Route path="/" exact>
               <Home />

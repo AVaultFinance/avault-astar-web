@@ -10,8 +10,6 @@ import { useAppDispatch } from 'state';
 import { fetchFarmUserDataAsync } from 'state/farms';
 import { useLpTokenPrice } from 'state/farms/hooks';
 import { getBalanceAmount, getBalanceNumber, getFullDisplayBalance } from 'utils/formatBalance';
-import DepositModal from '../DepositModal';
-import WithdrawModal from '../WithdrawModal';
 import MinusIconPrimary from 'components/svg/minusIconPrimary';
 import AddIconPrimary from 'components/svg/addIconPrimary';
 import { ICompounding } from 'state/compounding/types';
@@ -20,6 +18,8 @@ import { chainId } from 'config/constants/tokens';
 import useCompoundingWithdraw from 'views/Compounding/hooks/useCompoundingWithdraw';
 import { useCompounding } from 'state/compounding/hooks';
 import { fetchCompoundingFarmUserDataAsync } from 'state/compounding';
+import DepositModal from '../CompoundingTable/Actions/DepositModal';
+import WithdrawModal from '../CompoundingTable/Actions/WithdrawModal';
 
 interface CompoundingCardActionsProps {
   stakedBalance?: BigNumber;
@@ -29,6 +29,7 @@ interface CompoundingCardActionsProps {
   addLiquidityUrl?: string;
   compounding: ICompounding;
   lpSymbol: string;
+  lpToCLpRate: string;
 }
 
 const IconButtonWrapper = styled.div`
@@ -46,6 +47,7 @@ const StakeAction: React.FC<CompoundingCardActionsProps> = ({
   addLiquidityUrl,
   compounding,
   lpSymbol,
+  lpToCLpRate,
 }) => {
   const { t } = useTranslation();
 
@@ -71,7 +73,8 @@ const StakeAction: React.FC<CompoundingCardActionsProps> = ({
   };
 
   const handleWithdraw = async (amount: string) => {
-    await onWithdraw(amount);
+    const _amount = new BigNumber(amount).times(1 / Number(lpToCLpRate));
+    await onWithdraw(_amount.toString());
     dispatch(fetchCompoundingFarmUserDataAsync({ account, compoundings }));
   };
 

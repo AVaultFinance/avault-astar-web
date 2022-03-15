@@ -24,9 +24,16 @@ interface CompoundingCardActionsProps {
   account?: string;
   addLiquidityUrl?: string;
   lpSymbol: string;
+  lpToCLpRate: string;
 }
 
-const CardActions: React.FC<CompoundingCardActionsProps> = ({ compounding, account, addLiquidityUrl, lpSymbol }) => {
+const CardActions: React.FC<CompoundingCardActionsProps> = ({
+  compounding,
+  account,
+  addLiquidityUrl,
+  lpSymbol,
+  lpToCLpRate,
+}) => {
   const { t } = useTranslation();
   const [requestedApproval, setRequestedApproval] = useState(false);
   const {
@@ -72,6 +79,7 @@ const CardActions: React.FC<CompoundingCardActionsProps> = ({ compounding, accou
         addLiquidityUrl={addLiquidityUrl}
         compounding={compounding}
         lpSymbol={lpSymbol}
+        lpToCLpRate={lpToCLpRate}
       />
     ) : (
       <Button mt="8px" width="100%" disabled={requestedApproval} onClick={handleApprove}>
