@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState, useMemo, useRef } from 'react';
+import React, { useCallback, useState, useMemo, useRef } from 'react';
 import BigNumber from 'bignumber.js';
 import { useWeb3React } from '@web3-react/core';
 import { RowType } from '@avault/ui';
@@ -23,8 +23,6 @@ import PageLoader from 'components/Loader/PageLoader';
 //   margin-right: auto;
 //   margin-top: 58px;
 // `;
-const NUMBER_OF_FARMS_VISIBLE = 12;
-
 export const getDisplayApr = (cakeRewardsApr?: number, lpRewardsApr?: number): string => {
   if (cakeRewardsApr && lpRewardsApr) {
     return (cakeRewardsApr + lpRewardsApr).toLocaleString('en-US', { maximumFractionDigits: 2 });
@@ -117,10 +115,6 @@ const Compoundings: React.FC = () => {
     [cakePrice, priceVsBusdMap, kacPerBlock],
   );
 
-  const loadMoreRef = useRef<HTMLDivElement>(null);
-
-  const [numberOfFarmsVisible, setNumberOfFarmsVisible] = useState(NUMBER_OF_FARMS_VISIBLE);
-
   const chosenFarmsMemoized = useMemo(() => {
     let chosenFarms = [];
 
@@ -155,8 +149,8 @@ const Compoundings: React.FC = () => {
     };
 
     chosenFarms = compoundingsList(compoundingsLP);
-    return sortFarms(chosenFarms).slice(0, numberOfFarmsVisible);
-  }, [sortKey, compoundingsLP, compoundingsList, numberOfFarmsVisible, sortDir]);
+    return sortFarms(chosenFarms);
+  }, [sortKey, compoundingsLP, compoundingsList, sortDir]);
 
   chosenFarmsLength.current = chosenFarmsMemoized.length;
 

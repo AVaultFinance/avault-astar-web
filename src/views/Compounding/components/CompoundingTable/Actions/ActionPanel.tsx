@@ -201,6 +201,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
 
   const lpContract = useERC20(lpAddress);
   const [requestedApproval, setRequestedApproval] = useState(false);
+  // const { onApprove } = useSpecialApproveFarm(lpContract, compounding.compounding.masterChef);
   const { onApprove } = useSpecialApproveFarm(lpContract, compounding.contractAddress[chainId]);
   const dispatch = useAppDispatch();
   const { login } = useAuth();
