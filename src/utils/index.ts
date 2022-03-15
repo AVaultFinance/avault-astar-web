@@ -20,6 +20,7 @@ export const getImageUrlFromToken = (token: any) => {
   if (typeof token === 'string') {
     return `/images/tokens/${chainKey}/${token.toLocaleLowerCase()}.svg`;
   }
+  console.log('getImageUrlFromToken: ', token);
   if (typeof token.address === 'string') {
     return `/images/tokens/${chainKey}/${token.address.toLocaleLowerCase()}.svg`;
   }

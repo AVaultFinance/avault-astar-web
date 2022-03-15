@@ -79,6 +79,9 @@ const StyledLinkExternal = styled(LinkExternal)`
   padding: 5px 10px 5px 0;
   svg {
     width: 14px;
+    path {
+      fill: ${({ theme }) => theme.colors.primaryDark};
+    }
   }
 `;
 
@@ -248,6 +251,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
               {getFullDisplayBalance(
                 new BigNumber(compounding.farm.userData.stakingTokenBalance),
                 compounding.farm.quoteTokenDecimals,
+                2,
               )}{' '}
               {compounding.farm.lpSymbol}
             </i>
@@ -266,6 +270,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
           displayBalance={getFullDisplayBalance(
             new BigNumber(compounding.farm.userData.stakingTokenBalance),
             compounding.farm.quoteTokenDecimals,
+            2,
           )}
           displayEarningsBalance={displayEarningsBalance}
           earnings={earnings}
@@ -287,6 +292,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
             displayBalance={getFullDisplayBalance(
               new BigNumber(compounding?.farm?.userData?.stakingTokenBalance ?? '0'),
               compounding.farm.quoteTokenDecimals,
+              2,
             )}
             displayEarningsBalance={displayEarningsBalance}
             earnings={earnings}
@@ -305,6 +311,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
             displayBalance={getFullDisplayBalance(
               new BigNumber(compounding?.farm?.userData?.stakingTokenBalance ?? '0'),
               compounding.farm.quoteTokenDecimals,
+              2,
             )}
             displayEarningsBalance={displayEarningsBalance}
             earnings={earnings}

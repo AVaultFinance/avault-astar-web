@@ -74,6 +74,9 @@ const StyledLinkExternal = styled(LinkExternal)`
   font-weight: 600;
   font-size: 12px;
   svg {
+    path {
+      fill: ${({ theme }) => theme.colors.primaryDark};
+    }
     width: 14px;
   }
 `;

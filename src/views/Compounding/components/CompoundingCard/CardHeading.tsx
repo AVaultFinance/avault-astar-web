@@ -24,8 +24,8 @@ const CardHeading: React.FC<ExpandableSectionProps> = ({ lpLabel, multiplier, is
     <Wrapper justifyContent="space-between" alignItems="center" mb="12px">
       <TokenPairImage
         variant="inverted"
-        primaryToken={quoteToken[chainId]}
-        secondaryToken={token[chainId]}
+        primaryToken={quoteToken.address[chainId]}
+        secondaryToken={token.address[chainId]}
         width={40}
         height={40}
       />

@@ -167,13 +167,14 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
                 return (
                   <td key={key}>
                     <Text color="text" bold fontSize="14px">
-                      {details.compounding.symbol}
+                      - {details.compounding.symbol}
                     </Text>
                     <Text color="text" bold fontSize="14px">
                       {details?.farm?.userData?.stakingTokenBalance
                         ? getFullDisplayBalance(
                             new BigNumber(details.farm.userData.stakingTokenBalance),
                             details.farm.quoteTokenDecimals,
+                            2,
                           )
                         : ''}{' '}
                       {details.farm.lpSymbol}

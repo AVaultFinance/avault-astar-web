@@ -23,6 +23,7 @@ const FirstTh = styled(TextStyled)`
 const SortIconStyled = styled(SortIcon)`
   width: 12px;
   margin-left: 4px;
+  cursor: pointer;
 `;
 interface Iprops {
   sortKey: string;

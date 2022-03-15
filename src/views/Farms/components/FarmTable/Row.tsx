@@ -158,7 +158,6 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
   return (
     <>
       {handleRenderRow()}
-
       {shouldRenderChild || isMobile ? (
         <StyledDetailTr>
           <td colSpan={6}>

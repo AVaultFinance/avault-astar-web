@@ -25,7 +25,7 @@ const WalletAccountInfo = () => {
       {tooltipVisible_P && tooltip_P}
       {account ? (
         <WalletAccount onClick={logout}>
-          {account ? `${account.substring(0, 2)}...${account.substring(account.length - 4)}` : ''}
+          {account ? `${account.substring(0, 5)}...${account.substring(account.length - 4)}` : ''}
         </WalletAccount>
       ) : (
         <ConnectWalletButton scale="sm" />

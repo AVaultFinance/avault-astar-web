@@ -28,7 +28,7 @@ export const lightColors: Colors = {
   tooltipColors,
   background: "#030222",
   background02: "#030222",
-  backgroundDisabled: "#f1ecef",
+  backgroundDisabled: "#040222",
   backgroundAlt: "#181733",
   cardBorder: "#19183E",
   cardBackground: "#181733",

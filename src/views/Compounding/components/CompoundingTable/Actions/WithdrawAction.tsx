@@ -11,7 +11,7 @@ import { ActionContainer, LongButton } from './styles';
 import styled from 'styled-components';
 import CInput from './C_Input';
 import { getFullDisplayBalance } from 'utils/formatBalance';
-import { useCompounding, useCompoundingFarmUser } from 'state/compounding/hooks';
+import { useCompounding } from 'state/compounding/hooks';
 import useCompoundingWithdraw from 'views/Compounding/hooks/useCompoundingWithdraw';
 import { fetchCompoundingFarmUserDataAsync } from 'state/compounding';
 
@@ -61,10 +61,10 @@ const WithdrawAction: React.FunctionComponent<WithdrawActionProps> = ({
   const { account } = useWeb3React();
   const { onWithdraw } = useCompoundingWithdraw(account, contractAddress, quoteTokenDecimals);
   const [val, setVal] = useState('');
-  const { stakingTokenBalance } = useCompoundingFarmUser(pid);
   const fullBalance = useMemo(() => {
-    return getFullDisplayBalance(stakingTokenBalance);
-  }, [stakingTokenBalance]);
+    console.log('earnings: ', earnings.toString());
+    return getFullDisplayBalance(earnings);
+  }, [earnings]);
   const handleChange = useCallback(
     (e: React.FormEvent<HTMLInputElement>) => {
       if (e.currentTarget.validity.valid) {
