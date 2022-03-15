@@ -1,39 +1,92 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 const Home = () => {
   return (
     <HomeInner>
       <HomeInnerInner>
-        <img src="./images/home/logo.png" alt="Avault" />
+        <img src="./images/home/logo.svg" alt="Avault" />
         <h1>The First Native Yield Aggregator</h1>
         <h1>on Astar Network</h1>
         <div className="icon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" width="12">
-            <defs>
-              <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="89188piuaa">
-                <stop stop-color="#8C1AB5" offset="0%" />
-                <stop stop-color="#17B38D" offset="100%" />
-              </linearGradient>
-            </defs>
-            <path fill="url(#89188piuaa)" transform="rotate(180 6 6)" d="M6 0L12 12 0 12z" fill-rule="evenodd" />
-          </svg>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" width="20">
-            <defs>
-              <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="89188piuaa">
-                <stop stop-color="#8C1AB5" offset="0%" />
-                <stop stop-color="#17B38D" offset="100%" />
-              </linearGradient>
-            </defs>
-            <path fill="url(#89188piuaa)" transform="rotate(180 6 6)" d="M6 0L12 12 0 12z" fill-rule="evenodd" />
-          </svg>
+          <div className="svg">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" className="small">
+              <defs>
+                <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="89188piuaa">
+                  <stop stop-color="#8C1AB5" offset="0%" />
+                  <stop stop-color="#17B38D" offset="100%" />
+                </linearGradient>
+              </defs>
+              <path fill="url(#89188piuaa)" transform="rotate(180 6 6)" d="M6 0L12 12 0 12z" fill-rule="evenodd" />
+            </svg>
+          </div>
+          <div className="svg">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" className="big">
+              <defs>
+                <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="89188piuaa">
+                  <stop stop-color="#8C1AB5" offset="0%" />
+                  <stop stop-color="#17B38D" offset="100%" />
+                </linearGradient>
+              </defs>
+              <path fill="url(#89188piuaa)" transform="rotate(180 6 6)" d="M6 0L12 12 0 12z" fill-rule="evenodd" />
+            </svg>
+          </div>
         </div>
         <h2>Coming&nbsp;&nbsp;Soon</h2>
       </HomeInnerInner>
     </HomeInner>
   );
 };
+const smallAnimation = keyframes`
+  0% {
+    opacity: 1;
+  transform: scale(0.8);
+  }
+  50% {
+    opacity: .5;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(0.8);
+  }
+`;
+
+const bigAnimation = keyframes`
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: .5;
+    transform: scale(.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+`;
 
 const HomeInnerInner = styled.div`
+  .small {
+    width: 12px;
+    animation: 1s ${smallAnimation} linear infinite;
+  }
+  .big {
+    width: 20px;
+    animation: 1s ${bigAnimation} linear infinite;
+  }
+  .svg {
+    width: 30px;
+    height: 15px;
+    margin: 0 auto;
+    // svg {
+    //   position: absolute;
+    //   width: 100%;
+    //   top: 50%;
+    //   left: 50%;
+    //   transform: translateY(-50%) translateX(-50%);
+    // }
+  }
   position: absolute;
   width: 100%;
   top: 50%;
@@ -77,6 +130,7 @@ const HomeInnerInner = styled.div`
     font-weight: 600;
     font-size: 14px;
     margin-top: 20px;
+    padding-bottom: 10px;
     ${({ theme }) => theme.mediaQueries.sm} {
       font-size: 20px;
     }
