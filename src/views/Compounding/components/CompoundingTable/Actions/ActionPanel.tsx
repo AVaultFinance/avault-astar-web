@@ -10,7 +10,7 @@ import { AprProps } from '../Apr';
 import { MultiplierProps } from '../Multiplier';
 import BigNumber from 'bignumber.js';
 import { BIG_ZERO } from 'utils/bigNumber';
-import { getBalanceAmount, getFullDisplayBalance } from 'utils/formatBalance';
+import { getFullDisplayBalance } from 'utils/formatBalance';
 import { useWeb3React } from '@web3-react/core';
 import MobileAction from './MobileAction';
 import { useSpecialApproveFarm } from 'views/Compounding/hooks/useApproveFarm';
