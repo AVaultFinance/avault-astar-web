@@ -14,15 +14,15 @@ export const isNaNString = (num: string | number) => {
 export const depositCompoundingUtil = async (contract, account: string, amount, decimal: number) => {
   const value = new BigNumber(amount).times(BIG_TEN.pow(decimal)).toString();
   console.log({ amount, account, value, options, decimal });
-  const tx = await contract.deposit(account, value, options);
+  const tx = await contract.deposit(account, `${value}`, options);
   const receipt = await tx.wait();
   return receipt.status;
 };
 
 export const withdrawCompoundingUtil = async (contract, account: string, amount, decimal: number) => {
-  const value = new BigNumber(amount).times(BIG_TEN.pow(decimal)).toString();
+  const value = parseInt(new BigNumber(amount).times(BIG_TEN.pow(decimal)).toString());
   console.log({ amount, account, value, options, decimal });
-  const tx = await contract.withdraw(account, value, options);
+  const tx = await contract.withdraw(account, `${value}`, options);
   const receipt = await tx.wait();
   return receipt.status;
 };

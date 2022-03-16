@@ -54,30 +54,30 @@ const TableHeader: FC<Iprops> = ({ sortKey, sortDir, onOptionChange }) => {
     return (
       <TableHeaderStyled>
         <tr>
-          <th>
+          <TrStyled>
             <FirstTh>Token</FirstTh>
-          </th>
-          <th>
+          </TrStyled>
+          <TrStyled>
             <TextStyled>Net Value</TextStyled>
-          </th>
-          <th>
+          </TrStyled>
+          <TrStyled>
             <TextStyled onClick={() => HandleClick('TVL', 'liquidity')}>
               <p>TVL</p>
               <SortIconStyled sortDir={sortKey === 'liquidity' ? sortDir : ISortDir.default} />
             </TextStyled>
-          </th>
-          <th>
-            <TextStyled onClick={() => HandleClick('APY', 'apr')}>
-              <p>APY</p>
+          </TrStyled>
+          <TrStyled>
+            <TextStyled onClick={() => HandleClick('APR', 'apr')}>
+              <p>APR</p>
               <SortIconStyled sortDir={sortKey === 'apr' ? sortDir : ISortDir.default} />
             </TextStyled>
-          </th>
-          <th>
+          </TrStyled>
+          <TrStyled>
             <TextStyled>wallet balance</TextStyled>
-          </th>
-          <th>
+          </TrStyled>
+          <TrStyled>
             <TextStyled></TextStyled>
-          </th>
+          </TrStyled>
         </tr>
       </TableHeaderStyled>
     );
@@ -85,4 +85,7 @@ const TableHeader: FC<Iprops> = ({ sortKey, sortDir, onOptionChange }) => {
   // mobie
   return null;
 };
+const TrStyled = styled.th`
+  padding-left: 18px;
+`;
 export default TableHeader;

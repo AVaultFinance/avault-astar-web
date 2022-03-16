@@ -47,6 +47,7 @@ const TextBgStyled = styled(Text)`
   height: 36px;
   line-height: 36px;
   margin-top: 120px;
+  white-space: nowrap;
 `;
 const TextStyle = styled(Text)`
   color: ${({ theme }) => theme.colors.textSubtle};
@@ -55,7 +56,10 @@ const TextStyle = styled(Text)`
   padding-bottom: 10px;
 `;
 const HeadingStyled = styled(Heading)`
-  font-size: 30px;
+  font-size: 24px;
   padding-bottom: 30px;
+  ${({ theme }) => theme.mediaQueries.md} {
+    font-size: 30px;
+  }
 `;
 export default StakeFr;

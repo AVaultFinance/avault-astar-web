@@ -6,7 +6,7 @@ export const baseColors = {
   primaryDark: "#CC64F2",
   secondary: "#25234C",
   failure: "#e6017a",
-  success: "#23AD7F",
+  success: "#31DAB1",
   warning: "#D87E2C",
 };
 
@@ -28,9 +28,9 @@ export const lightColors: Colors = {
   tooltipColors,
   background: "#030222",
   background02: "#030222",
-  backgroundDisabled: "#040222",
+  backgroundDisabled: "#37365E",
   backgroundAlt: "#181733",
-  cardBorder: "#19183E",
+  cardBorder: "#2E2D5B",
   cardBackground: "#181733",
   contrast: "#181733",
   dropdown: "#1E1D20",

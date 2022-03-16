@@ -49,7 +49,7 @@ const InputContainer = styled(Flex)<{ focused: boolean }>`
   justify-content: space-between;
   border-radius: ${({ theme }) => theme.radii.card};
   background: ${({ theme }) => theme.colors.background};
-  padding: 9px 20px;
+  padding: 17px 20px;
   margin-bottom: 20px;
   border: 1px solid ${({ theme, focused }) => (focused ? theme.colors.text : theme.colors.cardBorder)};
   transition: all 0.3s ease;

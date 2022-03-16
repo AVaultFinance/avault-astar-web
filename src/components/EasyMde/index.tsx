@@ -27,8 +27,8 @@ const Wrapper = styled.div`
   .editor-toolbar {
     background: ${({ theme }) => theme.card.background};
     border-color: ${({ theme }) => theme.colors.cardBorder};
-    border-top-left-radius: 16px;
-    border-top-right-radius: 16px;
+    // border-top-left-radius: 16px;
+    // border-top-right-radius: 16px;
     color: ${({ theme }) => theme.colors.text};
 
     a,

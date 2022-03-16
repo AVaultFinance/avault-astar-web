@@ -254,7 +254,10 @@ const GlobalStyle = createGlobalStyle`
   body {
     height: 100%;
     background-color: ${({ theme }) => theme.colors.background02};
-
+    padding: 0;
+    ${({ theme }) => theme.mediaQueries.md} {
+      padding: 0 20px;
+    }
     img {
       height: auto;
       max-width: 100%;

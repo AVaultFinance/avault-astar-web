@@ -35,7 +35,7 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
   const [pendingTx, setPendingTx] = useState(false);
   const { t } = useTranslation();
   const fullBalance = useMemo(() => {
-    return getFullDisplayBalance(max, quoteTokenDecimals, 8);
+    return getFullDisplayBalance(max, quoteTokenDecimals, 2);
   }, [max, quoteTokenDecimals]);
 
   const handleChange = useCallback(
@@ -59,7 +59,7 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
   return (
     <Modal title="Withdraw" minWidth={isMobile ? '280px' : '520px'} bodyPadding="0 24px 34px" onDismiss={onDismiss}>
       <Text fontSize="12px" fontWeight="500" textAlign="right">
-        Withdraw able: {displayEarningsBalance}
+        LP Withdrawable: {displayEarningsBalance}
         {lpSymbol ? ` ${lpSymbol}` : ''}
       </Text>
       <ModalInputStyled>

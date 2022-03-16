@@ -81,7 +81,7 @@ const StyledTr = styled.tr<{ isLast: boolean }>`
     padding-right: 16px;
     width: 60px;
     ${({ theme }) => theme.mediaQueries.sm} {
-      padding-left: 40px;
+      padding-right: 40px;
     }
   }
   td {

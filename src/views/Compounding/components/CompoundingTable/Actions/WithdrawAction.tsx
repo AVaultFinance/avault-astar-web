@@ -64,7 +64,7 @@ const WithdrawAction: React.FunctionComponent<WithdrawActionProps> = ({
   const { onWithdraw } = useCompoundingWithdraw(account, contractAddress, quoteTokenDecimals);
   const [val, setVal] = useState('');
   const fullBalance = useMemo(() => {
-    return getFullDisplayBalance(earnings, quoteTokenDecimals, 8);
+    return getFullDisplayBalance(earnings, quoteTokenDecimals, 4);
   }, [earnings, quoteTokenDecimals]);
   const handleChange = useCallback(
     (e: React.FormEvent<HTMLInputElement>) => {
@@ -93,7 +93,7 @@ const WithdrawAction: React.FunctionComponent<WithdrawActionProps> = ({
   return (
     <div>
       <Text textAlign="right" fontSize="12px" marginBottom="8px" fontWeight="500">
-        Withdraw able: {displayEarningsBalance}
+        LP Withdrawable: {displayEarningsBalance}
         {/* {lpSymbol ? ` ${lpSymbol}` : ''} */}
       </Text>
       <ActionContainer smallBorder={disabled ? false : true}>
@@ -105,8 +105,8 @@ const WithdrawAction: React.FunctionComponent<WithdrawActionProps> = ({
             onClick={async () => {
               setPendingTx(true);
               try {
-                const _amount = new BigNumber(val).times(1 / Number(lpToCLpRate));
-                await onWithdraw(_amount.toString());
+                const _amount = new BigNumber(val).times(1 / Number(lpToCLpRate)).toString();
+                await onWithdraw(_amount);
                 dispatch(fetchCompoundingFarmUserDataAsync({ account, compoundings }));
                 toastSuccess(
                   `Withdraw!`,

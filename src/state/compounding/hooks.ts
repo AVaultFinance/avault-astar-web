@@ -1,4 +1,5 @@
 import { useWeb3React } from '@web3-react/core';
+import BigNumber from 'bignumber.js';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from 'state';
@@ -36,22 +37,24 @@ export const useCompoundingAllTotal = () => {
   return compounding.allLiquidity;
 };
 export const useCompoundingFarmUser = (pid?: number) => {
-  // try {
-  // const { farm } = useCompoundingPid(pid);
-  //   return {
-  //     allowance: farm.userData ? new BigNumber(farm.userData.allowance) : BIG_ZERO,
-  //     stakingTokenBalance: farm.userData ? new BigNumber(farm.userData.stakingTokenBalance) : BIG_ZERO,
-  //     stakedBalance: farm.userData ? new BigNumber(farm.userData.stakedBalance) : BIG_ZERO,
-  //     pendingReward: farm.userData ? new BigNumber(farm.userData.pendingReward) : BIG_ZERO,
-  //     avaultAddressBalance: farm.userData ? new BigNumber(farm.userData.avaultAddressBalance) : BIG_ZERO,
-  //   };
-  // } catch (e) {
-  return {
-    allowance: BIG_ZERO,
-    stakingTokenBalance: BIG_ZERO,
-    stakedBalance: BIG_ZERO,
-    pendingReward: BIG_ZERO,
-    avaultAddressBalance: BIG_ZERO,
-  };
-  // }
+  try {
+    const compounding = useSelector((state: State) => state.compounding.data.find((f) => f.farm.pid === pid));
+    // const { farm } = useCompoundingPid(pid);
+    const { farm } = compounding;
+    return {
+      allowance: farm.userData ? new BigNumber(farm.userData.allowance) : BIG_ZERO,
+      stakingTokenBalance: farm.userData ? new BigNumber(farm.userData.stakingTokenBalance) : BIG_ZERO,
+      stakedBalance: farm.userData ? new BigNumber(farm.userData.stakedBalance) : BIG_ZERO,
+      pendingReward: farm.userData ? new BigNumber(farm.userData.pendingReward) : BIG_ZERO,
+      avaultAddressBalance: farm.userData ? new BigNumber(farm.userData.avaultAddressBalance) : BIG_ZERO,
+    };
+  } catch (e) {
+    return {
+      allowance: BIG_ZERO,
+      stakingTokenBalance: BIG_ZERO,
+      stakedBalance: BIG_ZERO,
+      pendingReward: BIG_ZERO,
+      avaultAddressBalance: BIG_ZERO,
+    };
+  }
 };

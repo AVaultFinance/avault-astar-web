@@ -22,11 +22,13 @@ const LabelStyled = styled.div`
   font-size: 13px;
   font-weight: 600;
   color: ${({ theme }) => theme.colors.text};
+  margin-left: 0;
   ${({ theme }) => theme.mediaQueries.sm} {
     font-size: 16px;
+    margin-left: -6px;
   }
   p {
-    margin-top: 2px;
+    margin-top: 6px;
     font-size: 12px;
     font-weight: 500;
   }
@@ -35,7 +37,11 @@ const LabelStyled = styled.div`
 const TokenWrapper = styled.div`
   padding-right: 8px;
   width: 44px;
-
+  .img {
+    display: block;
+    width: 62%;
+    margin: 0 auto;
+  }
   ${({ theme }) => theme.mediaQueries.sm} {
     padding-right: 20px;
     width: 70px;
@@ -53,14 +59,14 @@ const Compounding: React.FunctionComponent<CompoundingProps> = ({
     <Container>
       <TokenWrapper>
         {isSingle ? (
-          <img src={getImageUrlFromToken(token0Address)} width="40px" alt="" />
+          <img src={getImageUrlFromToken(token0Address)} className="img" alt="" />
         ) : (
           <TokenPairImage
             variant="inverted"
             primaryToken={token0Address}
             secondaryToken={token1Address}
-            width={48}
-            height={48}
+            width={60}
+            height={60}
           />
         )}
       </TokenWrapper>

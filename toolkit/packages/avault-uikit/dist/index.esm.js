@@ -220,7 +220,7 @@ var getDisabledStyles = function (_a) {
     if ($isLoading === true) {
         return "\n      &:disabled,\n      &.pancake-button--disabled {\n        cursor: not-allowed;\n      }\n    ";
     }
-    return "\n    &:disabled,\n    &.pancake-button--disabled {\n      background-color: " + (v === "primary" ? "#030222" : "#030222") + ";\n      border-color: " + (v === "primary" ? "#4814FF" : "#030222") + ";\n      color: " + (v === "primary" ? "#4814FF" : "#484E4E") + ";\n      box-shadow: none;\n      cursor: not-allowed;\n    }\n  ";
+    return "\n    &:disabled,\n    &.pancake-button--disabled {\n      background-color: " + (v === "primary" ? "#201F43" : "#030222") + ";\n      border-color: " + (v === "primary" ? "#201F43" : "#030222") + ";\n      color: " + (v === "primary" ? "#37365E" : "#484E4E") + ";\n      box-shadow: none;\n      cursor: not-allowed;\n    }\n  ";
 };
 /**
  * This is to get around an issue where if you use a Link component
@@ -443,7 +443,7 @@ var Icon$1w = function (props) {
     return (React.createElement(Svg, __assign({ viewBox: "0 0 20 20" }, props),
         React.createElement("g", { fill: "none", fillRule: "evenodd" },
             React.createElement("path", { fill: "#201F43", d: "M10 0A10 10 0 1 0 10 20A10 10 0 1 0 10 0Z" }),
-            React.createElement("path", { d: "M10.7071068,8.70710678 L14.2928932,12.2928932 C14.6834175,12.6834175 14.6834175,13.3165825 14.2928932,13.7071068 C14.1053568,13.8946432 13.8510029,14 13.5857864,14 L6.41421356,14 C5.86192881,14 5.41421356,13.5522847 5.41421356,13 C5.41421356,12.7347835 5.5195704,12.4804296 5.70710678,12.2928932 L9.29289322,8.70710678 C9.68341751,8.31658249 10.3165825,8.31658249 10.7071068,8.70710678 Z", fill: "#4814FF", transform: "rotate(180 10 11)" }))));
+            React.createElement("path", { d: "M10.7071068,8.70710678 L14.2928932,12.2928932 C14.6834175,12.6834175 14.6834175,13.3165825 14.2928932,13.7071068 C14.1053568,13.8946432 13.8510029,14 13.5857864,14 L6.41421356,14 C5.86192881,14 5.41421356,13.5522847 5.41421356,13 C5.41421356,12.7347835 5.5195704,12.4804296 5.70710678,12.2928932 L9.29289322,8.70710678 C9.68341751,8.31658249 10.3165825,8.31658249 10.7071068,8.70710678 Z", fill: "#1476FF", transform: "rotate(180 10 11)" }))));
 };
 
 var Icon$1v = function (props) {
@@ -460,7 +460,7 @@ var Icon$1t = function (props) {
     return (React.createElement(Svg, __assign({ viewBox: "0 0 20 20" }, props),
         React.createElement("g", { fill: "none", fillRule: "evenodd" },
             React.createElement("path", { fill: "#201F43", d: "M10 0A10 10 0 1 0 10 20A10 10 0 1 0 10 0Z" }),
-            React.createElement("path", { d: "M10.7071068,6.70710678 L14.2928932,10.2928932 C14.6834175,10.6834175 14.6834175,11.3165825 14.2928932,11.7071068 C14.1053568,11.8946432 13.8510029,12 13.5857864,12 L6.41421356,12 C5.86192881,12 5.41421356,11.5522847 5.41421356,11 C5.41421356,10.7347835 5.5195704,10.4804296 5.70710678,10.2928932 L9.29289322,6.70710678 C9.68341751,6.31658249 10.3165825,6.31658249 10.7071068,6.70710678 Z", fill: "#4814FF" }))));
+            React.createElement("path", { d: "M10.7071068,6.70710678 L14.2928932,10.2928932 C14.6834175,10.6834175 14.6834175,11.3165825 14.2928932,11.7071068 C14.1053568,11.8946432 13.8510029,12 13.5857864,12 L6.41421356,12 C5.86192881,12 5.41421356,11.5522847 5.41421356,11 C5.41421356,10.7347835 5.5195704,10.4804296 5.70710678,10.2928932 L9.29289322,6.70710678 C9.68341751,6.31658249 10.3165825,6.31658249 10.7071068,6.70710678 Z", fill: "#1476FF" }))));
 };
 
 var Icon$1s = function (props) {
@@ -1849,7 +1849,7 @@ var StyledPrimaryImage = styled(TokenImage)(templateObject_1$I || (templateObjec
     "; // 92, 72 are arbitrary numbers to fit the variant\n\n  ",
     "\n"])), function (_a) {
     var variant = _a.variant;
-    return variant === variants$4.DEFAULT ? "92%" : "72%";
+    return variant === variants$4.DEFAULT ? "92%" : "62%";
 }, variant$1({
     variants: (_a$3 = {},
         _a$3[variants$4.DEFAULT] = {
@@ -1872,7 +1872,7 @@ var StyledSecondaryImage = styled(TokenImage)(templateObject_2$n || (templateObj
     "; // 92, 72 are arbitrary numbers to fit the variant\n\n  ",
     "\n"])), function (_a) {
     var variant = _a.variant;
-    return variant === variants$4.DEFAULT ? "92%" : "72%";
+    return variant === variants$4.DEFAULT ? "92%" : "62%";
 }, variant$1({
     variants: (_b$2 = {},
         _b$2[variants$4.DEFAULT] = {
@@ -3297,7 +3297,7 @@ var baseColors = {
     primaryDark: "#CC64F2",
     secondary: "#25234C",
     failure: "#e6017a",
-    success: "#23AD7F",
+    success: "#31DAB1",
     warning: "#D87E2C",
 };
 var tooltipColors = {
@@ -3311,7 +3311,7 @@ var additionalColors = {
     silver: "#B2B2B2",
     bronze: "#E7974D",
 };
-var lightColors = __assign(__assign(__assign({}, baseColors), additionalColors), { tooltipColors: tooltipColors, background: "#030222", background02: "#030222", backgroundDisabled: "#040222", backgroundAlt: "#181733", cardBorder: "#19183E", cardBackground: "#181733", contrast: "#181733", dropdown: "#1E1D20", dropdownDeep: "#100C18", invertedContrast: "#191326", input: "#fff", inputSecondary: "#262130", tertiary: "#FDFBFB", text: "#FFFFFF", textDisabled: "#37365E", textSubtle: "#6A6991", textSubSubtle: "#C2C2C2", disabled: "#524B63", btnTextColor: "#F7F3F6", btnBgSecondaryColor: "#01100f", gradients: {
+var lightColors = __assign(__assign(__assign({}, baseColors), additionalColors), { tooltipColors: tooltipColors, background: "#030222", background02: "#030222", backgroundDisabled: "#37365E", backgroundAlt: "#181733", cardBorder: "#2E2D5B", cardBackground: "#181733", contrast: "#181733", dropdown: "#1E1D20", dropdownDeep: "#100C18", invertedContrast: "#191326", input: "#fff", inputSecondary: "#262130", tertiary: "#FDFBFB", text: "#FFFFFF", textDisabled: "#37365E", textSubtle: "#6A6991", textSubSubtle: "#C2C2C2", disabled: "#524B63", btnTextColor: "#F7F3F6", btnBgSecondaryColor: "#01100f", gradients: {
         bubblegum: "linear-gradient(139.73deg, #313D5C 0%, #3D2A54 100%)",
         inverseBubblegum: "linear-gradient(139.73deg, #3D2A54 0%, #313D5C 100%)",
         cardHeader: "linear-gradient(166.77deg, #3B4155 0%, #3A3045 100%)",

@@ -51,7 +51,7 @@ const Stake = () => {
         <DappstakePage contract={contract} pool={pool}>
           <Balance
             balance={balance}
-            decimals={decimals}
+            decimals={18}
             symbol="AVA"
             isBalanceZero={isBalanceZero}
             handleSelectMax={handleSelectMax}
@@ -103,7 +103,7 @@ const Stake = () => {
             //   }
             // }}
           >
-            ComingSoon
+            Confirm
             {/* {pendingTx ? 'Confirming' : ''} */}
           </Button>
         </DappstakePage>

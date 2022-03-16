@@ -57,12 +57,13 @@ const Container = styled.div<{ expanded }>`
   display: flex;
   flex-direction: column;
   margin: -44px 16px 20px;
-  border-radius: 12px;
+  // border-radius: 12px;
   ${({ theme }) => theme.mediaQueries.sm} {
     overflow: hidden;
-    margin: 0 40px;
+    margin: 0;
     background-color: ${({ theme }) => theme.colors.background02};
-    padding: 24px;
+    // padding: 24px;
+    padding: 24px 64px;
   }
   ${({ theme }) => theme.mediaQueries.md} {
     flex-direction: row;

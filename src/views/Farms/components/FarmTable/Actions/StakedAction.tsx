@@ -51,7 +51,6 @@ const Staked: React.FunctionComponent<StackedActionProps> = ({ farm, userDataRea
   const { onStake } = useStakeFarms(pid);
   const { onUnstake } = useUnstakeFarms(pid);
   const location = useLocation();
-  console.log(account, allowance, allowance.toString(), allowance.isGreaterThan(0));
   const isApproved = account && allowance && allowance.isGreaterThan(0);
 
   const lpAddress = getAddress(lpAddresses);
@@ -100,6 +99,11 @@ const Staked: React.FunctionComponent<StackedActionProps> = ({ farm, userDataRea
   const { onApprove } = useApproveFarm(lpContract);
 
   const handleApprove = useCallback(async () => {
+    if (!account) {
+      const connectorId = (window.localStorage.getItem(connectorLocalStorageKey) ?? 'injected') as ConnectorNames;
+      login(connectorId);
+      return;
+    }
     try {
       setRequestedApproval(true);
       await onApprove();
@@ -109,7 +113,7 @@ const Staked: React.FunctionComponent<StackedActionProps> = ({ farm, userDataRea
     } catch (e) {
       console.error(e);
     }
-  }, [onApprove, dispatch, account, pid]);
+  }, [onApprove, dispatch, account, login, pid]);
   if (isApproved && stakedBalance.gt(0)) {
     return (
       <ActionContainer smallBorder={true}>

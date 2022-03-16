@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { ChevronDownIcon, useMatchBreakpoints } from '@avault/ui';
 import { useTranslation } from 'contexts/Localization';
+import { ArrowIcon } from 'views/Compounding/components/CompoundingTable/Details';
 
 interface DetailsProps {
   actionPanelToggled: boolean;
@@ -17,11 +18,6 @@ const Container = styled.div`
   ${({ theme }) => theme.mediaQueries.sm} {
     padding-right: 0px;
   }
-`;
-
-const ArrowIcon = styled(ChevronDownIcon)<{ toggled: boolean }>`
-  transform: ${({ toggled }) => (toggled ? 'rotate(180deg)' : 'rotate(0)')};
-  height: 20px;
 `;
 
 const Details: React.FC<DetailsProps> = ({ actionPanelToggled }) => {

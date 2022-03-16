@@ -34,6 +34,7 @@ export const fetchCompoundingFarmUserDataAsync = createAsyncThunk<
   const userCompoundingsStakedBalances = await fetchCompoundingsFarmStakedBalances(account, compoundings);
   const userCompoundingEarnings = await fetchCompoundingsFarmEarnings(account, compoundings);
   const userCompoundingUsers = await fetchCompoundingsUsers(account, compoundings);
+  console.log(userCompoundingsStakedBalances);
   return userCompoundingsFarmAllowances.map((farmAllowance, index) => {
     return {
       pid: compoundings[index].farm.pid,

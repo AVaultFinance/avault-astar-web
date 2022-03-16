@@ -34,7 +34,7 @@ const DepositModal: React.FC<DepositModalProps> = ({
   const [pendingTx, setPendingTx] = useState(false);
   const { t } = useTranslation();
   const fullBalance = useMemo(() => {
-    return getFullDisplayBalance(max, quoteTokenDecimals, 8);
+    return getFullDisplayBalance(max, quoteTokenDecimals, 2);
   }, [max, quoteTokenDecimals]);
 
   const valNumber = new BigNumber(val);
@@ -58,7 +58,8 @@ const DepositModal: React.FC<DepositModalProps> = ({
   return (
     <Modal title={'Deposit'} minWidth={isMobile ? '280px' : '520px'} bodyPadding="0 24px 34px" onDismiss={onDismiss}>
       <Text fontSize="12px" fontWeight="500" textAlign="right">
-        {lpSymbol ?? ''} Balance: {displayBalance}
+        {/* {lpSymbol ?? ''} */}
+        LP Balance: {displayBalance}
       </Text>
       <ModalInputStyled>
         <CInput value={val} autoFocus={true} onSelectMax={handleSelectMax} onChange={handleChange} />

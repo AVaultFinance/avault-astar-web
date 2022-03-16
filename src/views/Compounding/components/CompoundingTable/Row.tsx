@@ -91,7 +91,7 @@ const StyledTr = styled.tr<{ isLast: boolean }>`
     }
     ${({ theme }) => theme.mediaQueries.md} {
       padding-left: 40px;
-      width: 240px;
+      width: 180px;
     }
   }
   td: nth-child(3) {
@@ -114,6 +114,8 @@ const StyledTr = styled.tr<{ isLast: boolean }>`
     padding-top: 20px;
     padding-bottom: 20px;
     white-space: wrap;
+    padding-left: 18px;
+
     ${({ theme }) => theme.mediaQueries.lg} {
       white-space: nowrap;
     }
@@ -123,7 +125,7 @@ const StyledTr = styled.tr<{ isLast: boolean }>`
 const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
   const { details, userDataReady } = props;
   const hasStakedAmount = false;
-  const [actionPanelExpanded, setActionPanelExpanded] = useState(hasStakedAmount);
+  const [actionPanelExpanded, setActionPanelExpanded] = useState(false);
   const shouldRenderChild = useDelayedUnmount(actionPanelExpanded, 300);
 
   const toggleActionPanel = () => {
@@ -171,14 +173,19 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
                 return (
                   <td key={key}>
                     <Text color="text" bold fontSize="14px">
-                      - {details.compounding.symbol}
+                      {getFullDisplayBalance(
+                        new BigNumber(details?.farm?.userData?.avaultAddressBalance ?? '0'),
+                        18,
+                        3,
+                      )}{' '}
+                      {details.compounding.symbol}
                     </Text>
                     <Text color="text" bold fontSize="14px">
                       {details?.farm?.userData?.stakingTokenBalance
                         ? getFullDisplayBalance(
                             new BigNumber(details.farm.userData.stakingTokenBalance),
                             details.farm.quoteTokenDecimals,
-                            8,
+                            3,
                           )
                         : ''}{' '}
                       {details.lpSymbol}

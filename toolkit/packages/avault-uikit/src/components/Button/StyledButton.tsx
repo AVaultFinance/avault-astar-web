@@ -24,9 +24,9 @@ const getDisabledStyles = ({ $isLoading, theme, variant: v }: TransientButtonPro
   return `
     &:disabled,
     &.pancake-button--disabled {
-      background-color: ${v === "primary" ? "#030222" : "#030222"};
-      border-color: ${v === "primary" ? "#4814FF" : "#030222"};
-      color: ${v === "primary" ? "#4814FF" : "#484E4E"};
+      background-color: ${v === "primary" ? "#201F43" : "#030222"};
+      border-color: ${v === "primary" ? "#201F43" : "#030222"};
+      color: ${v === "primary" ? "#37365E" : "#484E4E"};
       box-shadow: none;
       cursor: not-allowed;
     }

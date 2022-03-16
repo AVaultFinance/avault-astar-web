@@ -18,9 +18,9 @@ const Container = styled.div`
   }
 `;
 
-const ArrowIcon = styled(ChevronDownIcon)<{ toggled: boolean }>`
+export const ArrowIcon = styled(ChevronDownIcon)<{ toggled: boolean }>`
   transform: ${({ toggled }) => (toggled ? 'rotate(180deg)' : 'rotate(0)')};
-  height: 20px;
+  width: 24px;
 `;
 
 const Details: React.FC<DetailsProps> = ({ actionPanelToggled }) => {

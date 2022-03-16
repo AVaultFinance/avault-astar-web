@@ -5,8 +5,6 @@ import styled from 'styled-components';
 // import { Text } from '@avault/ui';
 // import { getBalanceNumber } from 'utils/formatBalance';
 import { Token } from 'config/constants/types';
-import { TokenPairImage } from 'components/TokenImage';
-import { chainId } from 'config/constants/tokens';
 import { getImageUrlFromToken } from 'utils';
 
 export interface FarmProps {

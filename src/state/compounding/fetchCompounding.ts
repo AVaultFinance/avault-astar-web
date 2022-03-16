@@ -56,8 +56,8 @@ const fetch = async (
   } = await fetchFarmDataABI(masterChef, lpAddresses, token0Address, token1Address, priceVsBusdMap);
   const lpToCLpRate =
     wantLockedTotal && compoundingTotalSupply && wantLockedTotal > 0 && compoundingTotalSupply > 0
-      ? (Number(wantLockedTotal) / Number(compoundingTotalSupply)).toFixed(2)
-      : '1';
+      ? (Number(wantLockedTotal) / Number(compoundingTotalSupply)).toFixed(4)
+      : '1.0000';
   return {
     ...compounding,
     compounding: {

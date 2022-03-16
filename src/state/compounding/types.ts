@@ -118,6 +118,7 @@ export const compoundingData = [
         token1Address: '0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d',
         cakePrice: new BigNumber('0.0296'),
         originalValue: 10.020219078151138,
+        fromSource: IFarmProject.arthswap,
       },
       earned: { earnings: 0, pid: 1 },
       multiplier: { multiplier: '20X' },
@@ -145,7 +146,7 @@ export const compoundingData = [
           totalSupply: '110000000000000',
           AVAAddress: '0x55d398326f99059ff775485246999027b3197955',
           decimals: 18,
-          lpToCLpRate: '1.00',
+          lpToCLpRate: '1.0000',
           liquidity: '0.00',
         },
         farm: {
@@ -236,7 +237,7 @@ export const compoundingData = [
             totalSupply: '110000000000000',
             AVAAddress: '0x55d398326f99059ff775485246999027b3197955',
             decimals: '18',
-            lpToCLpRate: '1.01',
+            lpToCLpRate: '1.0122',
             liquidity: '0.00',
           },
           farm: {
@@ -328,7 +329,7 @@ export const compoundingData = [
           totalSupply: '110000000000000',
           AVAAddress: '0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d',
           decimals: 18,
-          lpToCLpRate: '1.00',
+          lpToCLpRate: '1.0000',
           liquidity: '0.00',
         },
         farm: {
@@ -419,7 +420,7 @@ export const compoundingData = [
             totalSupply: '110000000000000',
             AVAAddress: '0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d',
             decimals: '18',
-            lpToCLpRate: '1.01',
+            lpToCLpRate: '1.0000',
             liquidity: '0.00',
           },
           farm: {
@@ -467,10 +468,10 @@ export const farmData = [
     hidden: false,
     original: {
       farm: {
-        label: 'AKJU',
+        label: 'AAUU',
         pid: 1,
         token: {
-          symbol: 'KAC',
+          symbol: 'AVA',
           address: {
             '82': '0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c',
             '336': '0xb12c13e66ade1f72f71834f2fc5082db8c091358',
@@ -498,7 +499,7 @@ export const farmData = [
         apy: '188.6',
         apr: '3.12',
         multiplier: '20X',
-        lpLabel: 'AKJU',
+        lpLabel: 'AAUU',
         tokenAddress: {
           '82': '0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c',
           '336': '0xb12c13e66ade1f72f71834f2fc5082db8c091358',
@@ -514,13 +515,13 @@ export const farmData = [
       multiplier: { multiplier: '20X' },
       details: {
         pid: 1,
-        lpSymbol: 'AKJU LP',
+        lpSymbol: 'AAUU',
         lpAddresses: {
           '82': '0x0bA819e30016Cf682C7795b44859148C65e62292',
           '336': '0x456C0082DE0048EE883881fF61341177FA1FEF40',
         },
         token: {
-          symbol: 'KAC',
+          symbol: 'AVA',
           address: {
             '82': '0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c',
             '336': '0xb12c13e66ade1f72f71834f2fc5082db8c091358',
@@ -564,10 +565,10 @@ export const farmData = [
         hidden: false,
         field: 'farm',
         value: {
-          label: 'AKJU',
+          label: 'AAUU',
           pid: 1,
           token: {
-            symbol: 'KAC',
+            symbol: 'AVA',
             address: {
               '82': '0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c',
               '336': '0xb12c13e66ade1f72f71834f2fc5082db8c091358',
@@ -603,7 +604,7 @@ export const farmData = [
           apy: '188.6',
           apr: '63.5',
           multiplier: '20X',
-          lpLabel: 'AKJU',
+          lpLabel: 'AAUU',
           tokenAddress: {
             '82': '0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c',
             '336': '0xb12c13e66ade1f72f71834f2fc5082db8c091358',
@@ -623,13 +624,13 @@ export const farmData = [
         field: 'details',
         value: {
           pid: 1,
-          lpSymbol: 'AKJU LP',
+          lpSymbol: 'AAUU',
           lpAddresses: {
             '82': '0x0bA819e30016Cf682C7795b44859148C65e62292',
             '336': '0x456C0082DE0048EE883881fF61341177FA1FEF40',
           },
           token: {
-            symbol: 'KAC',
+            symbol: 'AVA',
             address: {
               '82': '0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c',
               '336': '0xb12c13e66ade1f72f71834f2fc5082db8c091358',
@@ -676,10 +677,10 @@ export const farmData = [
     hidden: false,
     original: {
       farm: {
-        label: 'AVA',
+        label: 'aAVA',
         pid: 1,
         token: {
-          symbol: 'KAC',
+          symbol: 'AVA',
           address: {
             '82': '0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c',
             '336': '0xb12c13e66ade1f72f71834f2fc5082db8c091358',
@@ -723,13 +724,13 @@ export const farmData = [
       multiplier: { multiplier: '20X' },
       details: {
         pid: 1,
-        lpSymbol: 'AVA LP',
+        lpSymbol: 'AVA',
         lpAddresses: {
           '82': '0x0bA819e30016Cf682C7795b44859148C65e62292',
           '336': '0x456C0082DE0048EE883881fF61341177FA1FEF40',
         },
         token: {
-          symbol: 'KAC',
+          symbol: 'AVA',
           address: {
             '82': '0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c',
             '336': '0xb12c13e66ade1f72f71834f2fc5082db8c091358',
@@ -776,7 +777,7 @@ export const farmData = [
           label: 'AVA',
           pid: 1,
           token: {
-            symbol: 'KAC',
+            symbol: 'AVA',
             address: {
               '82': '0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c',
               '336': '0xb12c13e66ade1f72f71834f2fc5082db8c091358',
@@ -832,13 +833,13 @@ export const farmData = [
         field: 'details',
         value: {
           pid: 1,
-          lpSymbol: 'AVA LP',
+          lpSymbol: 'AVA',
           lpAddresses: {
             '82': '0x0bA819e30016Cf682C7795b44859148C65e62292',
             '336': '0x456C0082DE0048EE883881fF61341177FA1FEF40',
           },
           token: {
-            symbol: 'KAC',
+            symbol: 'AVA',
             address: {
               '82': '0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c',
               '336': '0xb12c13e66ade1f72f71834f2fc5082db8c091358',

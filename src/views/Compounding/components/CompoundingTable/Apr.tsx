@@ -52,6 +52,7 @@ const PStyled = styled.p`
   color: ${({ theme }) => theme.colors.text};
   font-size: 12px;
   font-weight: 500;
+  line-height: 20px;
 `;
 const Apr: React.FC<AprProps> = ({ apy, originalValue, fromSource, compoundingSymbol, lpLabel }) => {
   const tooltipContent = <div>APY: {apy}%</div>;
@@ -68,7 +69,7 @@ const Apr: React.FC<AprProps> = ({ apy, originalValue, fromSource, compoundingSy
           <AprWrapper>{apy}%</AprWrapper>
           <PStyled>
             {/* {compoundingSymbol} */}
-            Avault's APR: -%
+            Avault APR: 0.00%
           </PStyled>
           <PStyled>
             {fromSource} APY:{apy}%

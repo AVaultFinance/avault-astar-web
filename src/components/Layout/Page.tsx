@@ -14,8 +14,8 @@ const StyledPage = styled(Container)`
   padding-left: 16px;
   padding-right: 16px;
   ${({ theme }) => theme.mediaQueries.md} {
-    padding-left: 24px;
-    padding-right: 24px;
+    padding-left: 0;
+    padding-right: 0;
     padding-top: 60px;
     padding-bottom: 16px;
   }

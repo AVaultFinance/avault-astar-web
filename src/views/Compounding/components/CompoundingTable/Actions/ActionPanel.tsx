@@ -62,13 +62,13 @@ const Container = styled.div<{ expanded }>`
   display: flex;
   flex-direction: column;
   margin: -44px 16px 20px;
-  border-radius: 12px;
+  // border-radius: 12px;
   ${({ theme }) => theme.mediaQueries.md} {
     flex-direction: row;
     overflow: hidden;
-    margin: 0 40px;
+    margin: 0;
     background-color: ${({ theme }) => theme.colors.background02};
-    padding: 24px;
+    padding: 24px 64px;
   }
 `;
 
@@ -194,7 +194,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
       // earnings = getBalanceAmount(_value, compounding.farm.quoteTokenDecimals);
       // wantLockedTotal / totalSupply()*CLpAmount
       // earningsBusd = earnings.multipliedBy(cakePrice).toNumber();
-      displayEarningsBalance = getFullDisplayBalance(earnings, compounding.farm.quoteTokenDecimals, 8);
+      displayEarningsBalance = getFullDisplayBalance(earnings, compounding.farm.quoteTokenDecimals, 3);
     }
   }
 
@@ -239,7 +239,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
           APY
           <em>
             <i className="green">{compounding?.farm?.apy ? getDisplayApy(Number(compounding.farm.apy)) + '%' : ''}</i>
-            <i className="grey">CTO APY: -%</i>
+            <i className="grey">CTO APY: 0.00%</i>
             <i className="grey">
               {compounding.lpSymbol} APY:
               {compounding?.farm?.apy ? getDisplayApy(Number(compounding.farm.apy)) + '%' : ''}
@@ -250,13 +250,13 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
           wallet balance
           <em>
             <i>
-              - {compounding.compounding.balance} {compounding?.compounding.symbol}
+              {compounding.compounding.balance} {compounding?.compounding.symbol}
             </i>
             <i>
               {getFullDisplayBalance(
                 new BigNumber(compounding.farm.userData.stakingTokenBalance),
                 compounding.farm.quoteTokenDecimals,
-                8,
+                3,
               )}{' '}
               {compounding.lpSymbol}
             </i>
@@ -278,7 +278,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
           displayBalance={getFullDisplayBalance(
             new BigNumber(compounding.farm.userData.stakingTokenBalance),
             compounding.farm.quoteTokenDecimals,
-            8,
+            3,
           )}
           displayEarningsBalance={displayEarningsBalance}
           earnings={earnings}
@@ -300,7 +300,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
             displayBalance={getFullDisplayBalance(
               new BigNumber(compounding?.farm?.userData?.stakingTokenBalance ?? '0'),
               compounding.farm.quoteTokenDecimals,
-              8,
+              3,
             )}
             displayEarningsBalance={displayEarningsBalance}
             earnings={earnings}
@@ -320,7 +320,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
             displayBalance={getFullDisplayBalance(
               new BigNumber(compounding?.farm?.userData?.stakingTokenBalance ?? '0'),
               compounding.farm.quoteTokenDecimals,
-              8,
+              3,
             )}
             displayEarningsBalance={displayEarningsBalance}
             earnings={earnings}

@@ -60,9 +60,13 @@ export const TableHeaderStyled = styled.thead`
 const TableBody = styled.tbody`
   & tr {
     background: ${({ theme }) => theme.colors.cardBackground};
+    transition: all 0.3s ease;
     td {
       font-size: 16px;
       vertical-align: middle;
+    }
+    &:hover {
+      background: ${({ theme }) => theme.colors.secondary};
     }
   }
 `;
@@ -76,13 +80,13 @@ const TableContainer = styled.div`
   table tr:last-child td:last-child {
     border-bottom-right-radius: 10px;
   }
-  table tr:first-child td:first-child {
-    border-top-left-radius: 10px;
-  }
+  // table tr:first-child td:first-child {
+  //   border-top-left-radius: 10px;
+  // }
 
-  table tr:first-child td:last-child {
-    border-top-right-radius: 10px;
-  }
+  // table tr:first-child td:last-child {
+  //   border-top-right-radius: 10px;
+  // }
 `;
 
 const FarmTable: React.FC<ITableProps> = (props) => {

@@ -17,6 +17,7 @@ interface HarvestActionProps extends FarmWithStakedValue {
   userDataReady: boolean;
   displayBalance: string | JSX.Element;
   earnings: BigNumber;
+  lpSymbol: string;
 }
 const RewardsTitleStyled = styled(Flex)<{ disabled: boolean }>`
   display: ${({ disabled }) => (disabled ? 'none' : 'block')};
@@ -45,6 +46,7 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
   earnings,
   displayBalance,
   userDataReady,
+  lpSymbol,
 }) => {
   const { toastSuccess, toastError } = useToast();
 
@@ -54,11 +56,12 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
   const dispatch = useAppDispatch();
   const { account } = useWeb3React();
   const disabled = earnings.eq(BIG_ZERO) || pendingTx || !userDataReady;
+  console.log(lpSymbol);
   return (
     <ActionContainer smallBorder={disabled ? false : true}>
       <FlexStyled>
         <RewardsTitleStyled disabled={disabled}>
-          <ActionTitlesTitle>KAC Rewards</ActionTitlesTitle>
+          <ActionTitlesTitle>{lpSymbol === 'AVA' ? 'AVA-ASTR LP' : 'AVA'} Rewards</ActionTitlesTitle>
           <ActionTitlesBalance balance={(earnings || BIG_ZERO).toNumber()}>{displayBalance}</ActionTitlesBalance>
         </RewardsTitleStyled>
         <ActionContentStyled disabled={disabled}>

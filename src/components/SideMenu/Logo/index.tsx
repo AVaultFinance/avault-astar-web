@@ -9,9 +9,9 @@ const Logo: FC<{ collapsed: boolean }> = ({ collapsed }) => {
 };
 const LogoStyle = styled.a`
   display: block;
-  height: 40px;
   margin-right: 0;
   margin-top: 0;
+  height: 34px;
   ${({ theme }) => theme.mediaQueries.md} {
     height: 26px;
     margin-top: 0;
@@ -19,11 +19,12 @@ const LogoStyle = styled.a`
   }
   img {
     display: block;
-    margin-top: -4px;
+    margin-top: 0;
     height: 34px;
     width: 34px;
     ${({ theme }) => theme.mediaQueries.md} {
-      width: 134px;
+      margin-top: -4px;
+      width: 120px;
     }
   }
 `;

@@ -53,13 +53,13 @@ const TableContainer = styled.div`
   table tr:last-child td:last-child {
     border-bottom-right-radius: 10px;
   }
-  table tr:first-child td:first-child {
-    border-top-left-radius: 10px;
-  }
+  // table tr:first-child td:first-child {
+  //   border-top-left-radius: 10px;
+  // }
 
-  table tr:first-child td:last-child {
-    border-top-right-radius: 10px;
-  }
+  // table tr:first-child td:last-child {
+  //   border-top-right-radius: 10px;
+  // }
 `;
 const PoolsTable: React.FC<PoolsTableProps> = ({ pools, userDataReady, account }) => {
   const tableWrapperEl = useRef<HTMLDivElement>(null);
