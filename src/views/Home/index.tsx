@@ -1,7 +1,7 @@
 // import { Button } from '@avault/ui';
 import styled, { keyframes } from 'styled-components';
 const _Link = [
-  { name: 'Discord', link: 'discord.gg/WcARFMy2t8' },
+  { name: 'Discord', link: 'https://discord.gg/WcARFMy2t8' },
   { name: 'Twitter', link: 'https://twitter.com/Avault_Astar ' },
   { name: 'Medium', link: 'https://medium.com/@avault ' },
   { name: 'Github', link: 'https://github.com/AVaultFinance ' },
