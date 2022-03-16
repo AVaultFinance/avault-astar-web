@@ -73,7 +73,7 @@ const TableHeader: FC<Iprops> = ({ sortKey, sortDir, onOptionChange }) => {
             </TextStyled>
           </th>
           <th>
-            <TextStyled>You Balance</TextStyled>
+            <TextStyled>wallet balance</TextStyled>
           </th>
           <th>
             <TextStyled></TextStyled>

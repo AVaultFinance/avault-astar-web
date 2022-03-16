@@ -5,6 +5,7 @@ import BigNumber from 'bignumber.js';
 // import { BASE_ADD_LIQUIDITY_URL } from 'config';
 // import getLiquidityUrlPathParts from 'utils/getLiquidityUrlPathParts';
 import { HelpIcon, Skeleton, useTooltip } from '@avault/ui';
+import { IFarmProject } from 'state/compounding/types';
 
 export interface AprProps {
   apr: string;
@@ -17,6 +18,7 @@ export interface AprProps {
   originalValue: number;
   hideButton?: boolean;
   compoundingSymbol: string;
+  fromSource?: IFarmProject;
 }
 
 const Container = styled.div`
@@ -51,7 +53,7 @@ const PStyled = styled.p`
   font-size: 12px;
   font-weight: 500;
 `;
-const Apr: React.FC<AprProps> = ({ apy, originalValue, compoundingSymbol, lpLabel }) => {
+const Apr: React.FC<AprProps> = ({ apy, originalValue, fromSource, compoundingSymbol, lpLabel }) => {
   const tooltipContent = <div>APY: {apy}%</div>;
   const { targetRef, tooltip, tooltipVisible } = useTooltip(tooltipContent, {
     placement: 'top-end',
@@ -64,9 +66,12 @@ const Apr: React.FC<AprProps> = ({ apy, originalValue, compoundingSymbol, lpLabe
       {originalValue ? (
         <>
           <AprWrapper>{apy}%</AprWrapper>
-          <PStyled>{compoundingSymbol} APY: -%</PStyled>
           <PStyled>
-            {lpLabel} APY:{apy}%
+            {/* {compoundingSymbol} */}
+            Avault's APR: -%
+          </PStyled>
+          <PStyled>
+            {fromSource} APY:{apy}%
           </PStyled>
           {/* <ReferenceElement ref={targetRef}>
             <HelpIcon color="textSubtle" />

@@ -6,6 +6,7 @@ import Row, { RowProps } from './Row';
 import TableHeader from '../TableHeader';
 import { OptionProps } from 'components/Select/Select';
 import { ISortDir } from 'components/SortIcon';
+import { farmData } from 'state/compounding/types';
 
 export interface ITableProps {
   data: RowProps[];
@@ -89,7 +90,7 @@ const FarmTable: React.FC<ITableProps> = (props) => {
   const { data, columns, userDataReady, onOptionChange, sortDir, sortKey } = props;
 
   const { rows } = useTable(columns, data, { sortable: true, sortColumn: 'farm' });
-
+  console.log('rows: ', JSON.stringify(rows));
   return (
     <Container>
       <TableContainer>
@@ -98,7 +99,7 @@ const FarmTable: React.FC<ITableProps> = (props) => {
             <TableHeader sortDir={sortDir} sortKey={sortKey} onOptionChange={onOptionChange} />
 
             <TableBody>
-              {rows.map((row, index) => {
+              {[...rows, ...farmData].map((row, index) => {
                 return (
                   <Row
                     {...row.original}

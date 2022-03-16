@@ -94,7 +94,7 @@ const WithdrawAction: React.FunctionComponent<WithdrawActionProps> = ({
     <div>
       <Text textAlign="right" fontSize="12px" marginBottom="8px" fontWeight="500">
         Withdraw able: {displayEarningsBalance}
-        {lpSymbol ? ` ${lpSymbol}` : ''}
+        {/* {lpSymbol ? ` ${lpSymbol}` : ''} */}
       </Text>
       <ActionContainer smallBorder={disabled ? false : true}>
         <FlexStyled>

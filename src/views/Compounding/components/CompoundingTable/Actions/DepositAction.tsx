@@ -89,7 +89,8 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
   return (
     <div>
       <Text textAlign="right" fontSize="12px" marginBottom="8px" fontWeight="500">
-        {lpSymbol ?? ''} Balance: {displayBalance}
+        {/* {lpSymbol ?? ''} */}
+        Balance: {displayBalance}
       </Text>
       <ActionContainer smallBorder={disabled ? false : true}>
         <FlexStyled>

@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import { Token } from 'config/constants/types';
 import { TokenPairImage } from 'components/TokenImage';
 import { chainId } from 'config/constants/tokens';
+import { getImageUrlFromToken } from 'utils';
 
 export interface FarmProps {
   label?: string;
@@ -37,11 +38,17 @@ const Container = styled.div`
 
 const TokenWrapper = styled.div`
   padding-right: 8px;
-  width: 44px;
 
+  width: 44px;
+  height: 34px;
+  text-align: center;
   ${({ theme }) => theme.mediaQueries.sm} {
     padding-right: 20px;
     width: 70px;
+  }
+  img {
+    display: inline-block;
+    height: 100%;
   }
 `;
 
@@ -64,6 +71,9 @@ const Farm: React.FunctionComponent<FarmProps> = ({ token, quoteToken, label, pi
   return (
     <Container>
       <TokenWrapper>
+        <img src={getImageUrlFromToken(label)} alt="" />
+      </TokenWrapper>
+      {/* <TokenWrapper>
         <TokenPairImage
           variant="inverted"
           primaryToken={token.address[chainId]}
@@ -71,12 +81,10 @@ const Farm: React.FunctionComponent<FarmProps> = ({ token, quoteToken, label, pi
           width={48}
           height={48}
         />
-      </TokenWrapper>
+      </TokenWrapper> */}
       <div>
         <div className="label">{label}</div>
-        {/* <div className="ratio">
-          <span>50%</span>-<span>50%</span>
-        </div> */}
+        {/* <div className="ratio"><span>kacoSwap</span></div> */}
       </div>
     </Container>
   );

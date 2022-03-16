@@ -3306,7 +3306,7 @@ var useKonamiCheatCode = function (matchedCodeHandler) {
 };
 
 var baseColors = {
-    primary: "#4814FF",
+    primary: "#1476FF",
     primaryBright: "#53DEE9",
     primaryDark: "#CC64F2",
     secondary: "#25234C",

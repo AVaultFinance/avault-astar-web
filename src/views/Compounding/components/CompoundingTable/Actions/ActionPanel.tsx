@@ -247,7 +247,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
           </em>
         </p>
         <p>
-          You Balance
+          wallet balance
           <em>
             <i>
               - {compounding.compounding.balance} {compounding?.compounding.symbol}

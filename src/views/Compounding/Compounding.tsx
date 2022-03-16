@@ -170,6 +170,7 @@ const Compoundings: React.FC = () => {
         token1Address,
         cakePrice,
         originalValue: Number(compounding.farm.apy),
+        fromSource: compounding.fromSource,
       },
       compounding: {
         label: compounding.lpSymbol,

@@ -162,7 +162,8 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
                 return (
                   <td key={key}>
                     <Text color="text" bold fontSize="15px">
-                      1 {details.compounding.symbol}={details.compounding.lpToCLpRate} {details.lpSymbol}
+                      1 : {details.compounding.lpToCLpRate}
+                      {/* 1 {details.compounding.symbol}={details.compounding.lpToCLpRate} {details.lpSymbol} */}
                     </Text>
                   </td>
                 );
@@ -214,7 +215,8 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
             <Compounding {...props.compounding} />
           </CellLayout>
           <TextStyled>
-            1 {details.compounding.symbol}={details.compounding.lpToCLpRate} {details.lpSymbol}
+            1:{details.compounding.lpToCLpRate}
+            {/* 1 {details.compounding.symbol}={details.compounding.lpToCLpRate} {details.lpSymbol} */}
           </TextStyled>
         </td>
         <td></td>
