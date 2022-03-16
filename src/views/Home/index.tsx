@@ -1,4 +1,4 @@
-// import { Button } from '@avault/ui';
+import { Button } from '@avault/ui';
 import styled, { keyframes } from 'styled-components';
 const _Link = [
   { name: 'Discord', link: 'discord.gg/WcARFMy2t8' },
@@ -37,10 +37,10 @@ const Home = () => {
             </svg>
           </div>
         </div>
-        <h2>Coming&nbsp;&nbsp;Soon</h2>
-        {/* <ButtonStyled>
+        {/* <h2>Coming&nbsp;&nbsp;Soon</h2> */}
+        <ButtonStyled>
           <a href="/vault">Launch Dapp</a>
-        </ButtonStyled> */}
+        </ButtonStyled>
         <UlStyled>
           {_Link.map((v, index) => (
             <li key={index}>
@@ -54,26 +54,27 @@ const Home = () => {
     </HomeInner>
   );
 };
-// const ButtonStyled = styled(Button)`
-//   align-items: center;
-//   justify-content: center;
-//   font-size: 16px;
-//   font-weight: 600;
-//   color: #fff;
-//   height: 44px;
-//   background-image: linear-gradient(90deg, #8c1ab5 0%, #17b38d 100%);
-//   border-radius: 8px;
-//   width: 200px;
-//   padding: 0;
-//   cursor: pointer;
-//   margin-top: 50px;
-//   a {
-//     display: block;
-//     height: 44px;
-//     width: 200px;
-//     line-height: 44px;
-//   }
-// `;
+const ButtonStyled = styled(Button)`
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  height: 44px;
+  background-image: linear-gradient(90deg, #8c1ab5 0%, #17b38d 100%);
+  border-radius: 8px;
+  width: 200px;
+  padding: 0;
+  cursor: pointer;
+  margin-top: 50px;
+  a {
+    display: block;
+    height: 44px;
+    width: 200px;
+    line-height: 44px;
+  }
+`;
+
 const UlStyled = styled.ul`
   list-style: none;
   margin-top: 24px;
