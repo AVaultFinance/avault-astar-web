@@ -72,7 +72,7 @@ const Apr: React.FC<AprProps> = ({ apy, originalValue, fromSource, compoundingSy
             Avault APR: 0.00%
           </PStyled>
           <PStyled>
-            {fromSource} APY:{apy}%
+            {fromSource} APY: {apy}%
           </PStyled>
           {/* <ReferenceElement ref={targetRef}>
             <HelpIcon color="textSubtle" />
