@@ -241,7 +241,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
             <i className="green">{compounding?.farm?.apy ? getDisplayApy(Number(compounding.farm.apy)) + '%' : ''}</i>
             <i className="grey">CTO APY: -%</i>
             <i className="grey">
-              {compounding.farm.lpSymbol} APY:
+              {compounding.lpSymbol} APY:
               {compounding?.farm?.apy ? getDisplayApy(Number(compounding.farm.apy)) + '%' : ''}
             </i>
           </em>
@@ -258,7 +258,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
                 compounding.farm.quoteTokenDecimals,
                 8,
               )}{' '}
-              {compounding.farm.lpSymbol}
+              {compounding.lpSymbol}
             </i>
           </em>
         </p>
@@ -285,7 +285,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
           userDataReady={userDataReady}
           handleApprove={handleApprove}
           account={account}
-          lpSymbol={compounding.farm.lpSymbol}
+          lpSymbol={compounding.lpSymbol}
           contractAddress={compounding.contractAddress[chainId]}
           stakingTokenBalance={new BigNumber(compounding?.farm?.userData?.stakingTokenBalance ?? '0')}
           quoteTokenDecimals={compounding.farm.quoteTokenDecimals}
@@ -308,7 +308,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
             userDataReady={userDataReady}
             pid={compounding.farm.pid}
             name={compounding.compounding.name}
-            lpSymbol={compounding.farm.lpSymbol}
+            lpSymbol={compounding.lpSymbol}
           />
           <div className="w20"></div>
           <WithdrawAction
@@ -328,7 +328,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
             handleApprove={handleApprove}
             pid={compounding.farm.pid}
             name={compounding.compounding.name}
-            lpSymbol={compounding.farm.lpSymbol}
+            lpSymbol={compounding.lpSymbol}
           />
         </ActionContainer>
       )}

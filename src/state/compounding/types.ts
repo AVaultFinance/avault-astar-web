@@ -27,6 +27,7 @@ export interface ICompoundingConfigItem {
   fromSource: IFarmProject;
   abiType: IABIType;
   swapLink: string;
+  lpSymbol: string;
 }
 export interface ICompoundingFarm {
   // abi
@@ -85,6 +86,7 @@ export interface ICompounding {
   fromSource: IFarmProject;
   abiType: IABIType;
   swapLink: string;
+  lpSymbol: string;
   compounding: ICompoundingComp;
   farm: ICompoundingFarm;
 }
@@ -119,6 +121,8 @@ export const compoundingData = [
       earned: { earnings: 0, pid: 1 },
       multiplier: { multiplier: '20X' },
       details: {
+        lpSymbol: 'USDT-USDC LP',
+
         contractAddress: {
           '82': '0xFB6Ae2A33e95C21d06A583D762BAfEC0F4967403',
           '336': '0xFB6Ae2A33e95C21d06A583D762BAfEC0F4967403',
@@ -306,6 +310,7 @@ export const compoundingData = [
           '82': '0xFB6Ae2A33e95C21d06A583D762BAfEC0F4967403',
           '336': '0xFB6Ae2A33e95C21d06A583D762BAfEC0F4967403',
         },
+        lpSymbol: 'USDC',
         fromSource: IFarmProject.starlay,
         swapLink: ISwapLink.starlay,
         abiType: 0,
