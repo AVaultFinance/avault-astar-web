@@ -13,7 +13,6 @@ export const fetchCompoundingsFarmUserAllowances = async (account: string, compo
   const calls = compoundings.map((compounding: ICompounding) => {
     const lpAddresses = compounding.farm.lpAddresses;
     const masterChef = compounding.contractAddress[chainId];
-    console.log(lpAddresses, account, masterChef);
     return {
       address: lpAddresses,
       name: 'allowance',
@@ -22,7 +21,6 @@ export const fetchCompoundingsFarmUserAllowances = async (account: string, compo
   });
 
   const rawLpAllowances = await multicall(erc20ABI, calls);
-  console.log('rawLpAllowances: ', rawLpAllowances);
   const parsedLpAllowances = rawLpAllowances.map((lpBalance) => {
     return new BigNumber(lpBalance).toString();
   });

@@ -59,7 +59,7 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const [val, setVal] = useState('');
-  const { stakingTokenBalance } = useCompoundingFarmUser(pid);
+  const { stakingTokenBalance } = useCompoundingFarmUser(pid ?? 0);
   const fullBalance = useMemo(() => {
     return getFullDisplayBalance(stakingTokenBalance, quoteTokenDecimals, 8);
   }, [stakingTokenBalance, quoteTokenDecimals]);

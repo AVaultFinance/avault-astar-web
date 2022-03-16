@@ -20,7 +20,6 @@ export const fetchCompoundingsPublicDataAsync = createAsyncThunk<
   { priceVsBusdMap: Record<string, string> }
 >('compounding/fetchCompoundingsPublicDataAsync', async ({ priceVsBusdMap }) => {
   const compoundings = await fetchCompoundings(compoundingsConfig, priceVsBusdMap);
-  console.log('compoundings: ', compoundings);
   return compoundings;
 });
 export const fetchCompoundingFarmUserDataAsync = createAsyncThunk<

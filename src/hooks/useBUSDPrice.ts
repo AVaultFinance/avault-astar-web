@@ -13,7 +13,6 @@ const BUSD_MAINNET = BUSD[myChainId];
  * @param currency currency to compute the BUSD price of
  */
 export default function useBUSDPrice(currency?: Currency): Price | undefined {
-  console.log(1111);
   const { chainId } = useActiveWeb3React();
   const wrapped = wrappedCurrency(currency, myChainId);
   const tokenPairs: [Currency | undefined, Currency | undefined][] = useMemo(
@@ -43,7 +42,6 @@ export default function useBUSDPrice(currency?: Currency): Price | undefined {
     }
     // handle busd
     if (wrapped.equals(BUSD_MAINNET)) {
-      console.log(9999);
       return new Price(BUSD_MAINNET, BUSD_MAINNET, '1', '1');
     }
 
@@ -61,7 +59,6 @@ export default function useBUSDPrice(currency?: Currency): Price | undefined {
       busdPair.reserveOf(BUSD_MAINNET).greaterThan(ethPairETHBUSDValue)
     ) {
       const price = busdPair.priceOf(wrapped);
-      console.log(3333);
       return new Price(currency, BUSD_MAINNET, price.denominator, price.numerator);
     }
     if (ethPairState === PairState.EXISTS && ethPair && busdEthPairState === PairState.EXISTS && busdEthPair) {
@@ -69,7 +66,6 @@ export default function useBUSDPrice(currency?: Currency): Price | undefined {
         const ethBusdPrice = busdEthPair.priceOf(BUSD_MAINNET);
         const currencyEthPrice = ethPair.priceOf(WETH[myChainId]);
         const busdPrice = ethBusdPrice.multiply(currencyEthPrice).invert();
-        console.log(3444);
         return new Price(currency, BUSD_MAINNET, busdPrice.denominator, busdPrice.numerator);
       }
     }

@@ -36,11 +36,7 @@ const BigNav: FC<{ menuItems: IMenu[] }> = ({ menuItems }) => {
       tooltipOffset: [100, 10],
     },
   );
-  const {
-    targetRef: BorrowTargetRef,
-    tooltip: BorrowTooltip,
-    tooltipVisible: BorrowTooltipVisible,
-  } = useTooltip('Comming Soon', {
+  const { tooltip: BorrowTooltip, tooltipVisible: BorrowTooltipVisible } = useTooltip('Comming Soon', {
     placement: 'right-start',
     trigger: 'hover',
     tootipStyle: {
@@ -95,7 +91,7 @@ const BigNav: FC<{ menuItems: IMenu[] }> = ({ menuItems }) => {
         {/* <IconMoreStyle ref={MoreTargetRef}>
           <IconMore />
         </IconMoreStyle> */}
-        <NavLinkP ref={BorrowTargetRef}>Borrow</NavLinkP>
+        {/* <NavLinkP ref={BorrowTargetRef}>Borrow</NavLinkP> */}
       </NavWrap>
     </>
   );
@@ -127,18 +123,5 @@ const NavLink = styled(Link)<{ active: 't' | 'f' }>`
     transform: ${({ active }) => (active === 't' ? '' : 'scaleY(-1)')};
   }
 `;
-const NavLinkP = styled.div`
-  display: flex;
-  align-items: center;
-  font-size: 16px;
-  color: ${({ theme }) => theme.colors.textSubtle};
-  height: 40px;
-  transition: all 0.3s ease;
-  font-weight: 600;
-  margin-right: 34px;
-  position: relative;
-  &:hover {
-    color: ${({ theme }) => theme.colors.text};
-  }
-`;
+
 export default BigNav;

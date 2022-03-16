@@ -27,10 +27,13 @@ export const StyledTokenInputTop = styled(Flex)<InputProps>`
   align-items: center;
   box-shadow: ${getBoxShadow};
   color: ${({ theme }) => theme.colors.text};
-  padding: 10px 20px 10px 10px;
+  padding: 20px 20px 20px 20px;
   width: 100%;
   box-shadow: none;
-  border-bottom: 2px solid #fff;
+  border-bottom: 2px solid ${({ theme }) => theme.colors.cardBackground};
+  &:last-child {
+    border-bottom: none;
+  }
 `;
 
 export const StyledInput = styled(Input)`

@@ -4,14 +4,12 @@ import BigNumber from 'bignumber.js';
 import useToast from 'hooks/useToast';
 import { InputWrap, StyledTokenInputTop, StyledInput, PageContainerWrap } from './style/DappstakeStyle';
 import Balance from './components/StakeTableBalance';
-import StakeTableReceive from './components/StakeTableReceive';
 import DappstakePage from './components/DappstakePage';
 import PageLayout from 'components/Layout/Page';
 import UnbindList from './components/UnbindList';
 import { useDAppStackingContract } from 'hooks/useContract';
 import { GetPoolUpdate, IDappPoolDataInterface } from './hooks/getPoolUpdate';
 import useStakeWrap from './hooks/useStakeWrap';
-import { getReceiveNum } from './hooks/getReceiveNum';
 import { UseUnbindDApp } from './hooks/useUnbindDApp';
 import { UseStakeDApp } from './hooks/useStakeDApp';
 import { GetUserList } from './hooks/getUserList';
@@ -59,13 +57,13 @@ const Unbind = () => {
           <Balance
             balance={balance}
             decimals={decimals}
-            symbol="CCTO"
+            symbol="aAVA"
             isBalanceZero={isBalanceZero}
             handleSelectMax={handleSelectMax}
           />
           <InputWrap>
             <StyledTokenInputTop isWarning={isBalanceZero}>
-              <TokenIconItem symbol="CCTO" tokenAddress="0x0a3A21356793B49154Fd3BbE91CBc2A16c0457f5" />
+              <TokenIconItem symbol="aAVA" tokenAddress="aava" />
               <StyledInput
                 pattern={`^[0-9]*[.,]?[0-9]{0,${decimals}}$`}
                 inputMode="decimal"
@@ -78,7 +76,7 @@ const Unbind = () => {
             </StyledTokenInputTop>
 
             <StyledTokenInputTop isWarning={isBalanceZero}>
-              <TokenIconItem symbol="CTO" tokenAddress="0x0a3A21356793B49154Fd3BbE91CBc2A16c0457f5" />
+              <TokenIconItem symbol="AVA" tokenAddress="0x0a3A21356793B49154Fd3BbE91CBc2A16c0457f5" />
               <StyledInput
                 pattern={`^[0-9]*[.,]?[0-9]{0,${decimals}}$`}
                 inputMode="decimal"

@@ -13,7 +13,6 @@ import { DesktopColumnSchema } from '../types';
 import Compounding, { CompoundingProps } from './Compounding';
 import { ICompounding } from 'state/compounding/types';
 import BigNumber from 'bignumber.js';
-import { useCompoundingFarmUser } from 'state/compounding/hooks';
 import { getFullDisplayBalance } from 'utils/formatBalance';
 
 export interface RowProps {
@@ -114,12 +113,16 @@ const StyledTr = styled.tr<{ isLast: boolean }>`
   td {
     padding-top: 20px;
     padding-bottom: 20px;
+    white-space: wrap;
+    ${({ theme }) => theme.mediaQueries.lg} {
+      white-space: nowrap;
+    }
   }
 `;
 
 const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
   const { details, userDataReady } = props;
-  const hasStakedAmount = !!useCompoundingFarmUser(details.farm.pid).stakedBalance.toNumber();
+  const hasStakedAmount = false;
   const [actionPanelExpanded, setActionPanelExpanded] = useState(hasStakedAmount);
   const shouldRenderChild = useDelayedUnmount(actionPanelExpanded, 300);
 

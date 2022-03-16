@@ -3,7 +3,6 @@ import styled, { keyframes, css } from 'styled-components';
 import { useTranslation } from 'contexts/Localization';
 import { connectorLocalStorageKey, ConnectorNames, Flex, LinkExternal, useMatchBreakpoints } from '@avault/ui';
 import { getAddress } from 'utils/addressHelpers';
-import { getBscScanLink } from 'utils';
 import DepositAction from './DepositAction';
 import WithdrawAction from './WithdrawAction';
 import { AprProps } from '../Apr';
@@ -22,6 +21,7 @@ import { useCompounding, useCompoundingFarmUser } from 'state/compounding/hooks'
 import useAuth from 'hooks/useAuth';
 import { chainId } from 'config/constants/tokens';
 import { fetchCompoundingFarmUserDataAsync } from 'state/compounding';
+import { BASE_BSC_SCAN_URL } from 'config';
 
 export interface ActionPanelProps {
   apr: AprProps;
@@ -173,9 +173,8 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
 
   const { t } = useTranslation();
   const lpAddress = getAddress(compounding.farm.lpAddresses);
-  const bsc = getBscScanLink(lpAddress, 'address');
   const { account } = useWeb3React();
-  const { avaultAddressBalance, allowance } = useCompoundingFarmUser(compounding.farm.pid);
+  const { avaultAddressBalance, allowance } = useCompoundingFarmUser(compounding?.farm?.pid ?? 0);
   const isApproved = account && allowance && allowance.isGreaterThan(0);
   // const stakingBigNumber = new BigNumber(compounding.farm.userData.stakingTokenBalance);
   let earnings = BIG_ZERO;
@@ -226,8 +225,10 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
   return (
     <Container expanded={expanded}>
       <InfoContainer>
-        <StyledLinkExternal href={bsc}>{t('Add Liquidity')}</StyledLinkExternal>
-        <StyledLinkExternal href={bsc}>{t('View Contract')}</StyledLinkExternal>
+        <StyledLinkExternal href={compounding.swapLink}>{t('Add Liquidity')}</StyledLinkExternal>
+        <StyledLinkExternal href={`${BASE_BSC_SCAN_URL}/address/${compounding.contractAddress[chainId]}`}>
+          {t('View Contract')}
+        </StyledLinkExternal>
       </InfoContainer>
       <DetailContainer>
         <p>
@@ -262,8 +263,10 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
           </em>
         </p>
         <InfoContainerSmall>
-          <StyledLinkExternal href={bsc}>{t('Add Liquidity')}</StyledLinkExternal>
-          <StyledLinkExternal href={bsc}>{t('View Contract')}</StyledLinkExternal>
+          <StyledLinkExternal href={compounding.swapLink}>{t('Add Liquidity')}</StyledLinkExternal>
+          <StyledLinkExternal href={`${BASE_BSC_SCAN_URL}/address/${compounding.contractAddress[chainId]}`}>
+            {t('View Contract')}
+          </StyledLinkExternal>
         </InfoContainerSmall>
       </DetailContainer>
       {isMobile ? (

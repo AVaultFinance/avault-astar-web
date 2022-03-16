@@ -57,9 +57,13 @@ const DappstakeSubNav = () => {
           Unstake
         </ButtonMenuItem>
         {/* <ButtonMenuItem
-          style={activeIndex === 1 ? { color: '#1BD3D5', background: '#1F373B' } : { color: 'white' }}
-          height="44px"
-          width="112px"
+          style={
+            activeIndex === 1
+              ? { color: theme.colors.text, background: theme.colors.cardBackground }
+              : { color: theme.colors.textSubtle }
+          }
+          width="120px"
+          height="32px"
           id="Unstake-nav-link"
           to="/unbind"
           as={Link}

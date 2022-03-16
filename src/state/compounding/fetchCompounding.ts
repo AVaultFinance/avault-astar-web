@@ -23,7 +23,6 @@ const fetch = async (
   compounding: ICompoundingConfigItem,
   priceVsBusdMap: Record<string, string>,
 ): Promise<ICompounding> => {
-  console.log(233323121);
   const AVaultPCS = getAddress(compounding.contractAddress[chainId]);
   const {
     masterChef,
@@ -41,7 +40,6 @@ const fetch = async (
   } = await fetchCompoundingABI(AVaultPCS);
 
   const { lpAddresses, poolWeight, multiplier } = await fetchMasterChefABI(masterChef, pid);
-  console.log(5666);
 
   const {
     tokenAmountMc,
@@ -56,7 +54,6 @@ const fetch = async (
     liquidity,
     lpTokenPrice,
   } = await fetchFarmDataABI(masterChef, lpAddresses, token0Address, token1Address, priceVsBusdMap);
-  console.log(9999);
   const lpToCLpRate =
     wantLockedTotal && compoundingTotalSupply && wantLockedTotal > 0 && compoundingTotalSupply > 0
       ? (Number(wantLockedTotal) / Number(compoundingTotalSupply)).toFixed(2)
@@ -231,7 +228,6 @@ const fetchFarmDataABI = async (
   quoteToken: string,
   priceVsBusdMap: Record<string, string>,
 ) => {
-  console.log('asddd');
   const calls = [
     {
       address: token,
@@ -302,7 +298,6 @@ const fetchFarmDataABI = async (
   const quoteTokenAmountMc = quoteTokenAmountTotal.times(lpTokenRatio);
   // 在LP中的总质押，以报价代币价值计算
   const lpTotalInQuoteToken = quoteTokenAmountMc.times(new BigNumber(2));
-  console.log('1111dddd---', priceVsBusdMap);
   const totalLiquidity = priceVsBusdMap[quoteToken.toLocaleLowerCase()]
     ? lpTotalInQuoteToken.times(priceVsBusdMap[quoteToken.toLocaleLowerCase()] ?? 1).toString()
     : '';

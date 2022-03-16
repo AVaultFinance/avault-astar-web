@@ -252,16 +252,16 @@ const farms: FarmConfig[] =
           token: main_tokens.sdn,
           quoteToken: tokens[chainKey].usdc,
         },
-        {
-          pid: 6,
-          lpSymbol: 'SDN-JPYC LP',
-          lpAddresses: {
-            [ChainId.SDN_TESTNET]: '0x756f158A2C02246Bf00bbdB051729804F2efd9c7',
-            [ChainId.SDN_MAINNET]: '0x1Ba530cf929ea5bc7f1Af241495C97331Ddb4f70',
-          },
-          token: tokens[chainKey].jpyc,
-          quoteToken: main_tokens.sdn,
-        },
+        // {
+        //   pid: 6,
+        //   lpSymbol: 'SDN-JPYC LP',
+        //   lpAddresses: {
+        //     [ChainId.SDN_TESTNET]: '0x756f158A2C02246Bf00bbdB051729804F2efd9c7',
+        //     [ChainId.SDN_MAINNET]: '0x1Ba530cf929ea5bc7f1Af241495C97331Ddb4f70',
+        //   },
+        //   token: tokens[chainKey].jpyc,
+        //   quoteToken: main_tokens.sdn,
+        // },
         {
           pid: 3,
           lpSymbol: 'ETH-SDN LP',
@@ -282,26 +282,26 @@ const farms: FarmConfig[] =
           token: tokens[chainKey].eth,
           quoteToken: tokens[chainKey].usdc,
         },
-        {
-          pid: 7,
-          lpSymbol: 'JPYC-USDC LP',
-          lpAddresses: {
-            [ChainId.SDN_TESTNET]: '0xe2c19eb0f91c80275cc254f90ed0f18f26650ec5',
-            [ChainId.SDN_MAINNET]: '0xe2c19eb0f91c80275cc254f90ed0f18f26650ec5',
-          },
-          token: tokens[chainKey].jpyc,
-          quoteToken: tokens[chainKey].usdc,
-        },
-        {
-          pid: 5,
-          lpSymbol: 'BUSD-USDC LP',
-          lpAddresses: {
-            [ChainId.SDN_TESTNET]: '0x756f158A2C02246Bf00bbdB051729804F2efd9c7',
-            [ChainId.SDN_MAINNET]: '0x8644e9AC84273cA0609F2A2B09b2ED2A5aD2e9DD',
-          },
-          token: tokens[chainKey].busd,
-          quoteToken: tokens[chainKey].usdc,
-        },
+        // {
+        //   pid: 7,
+        //   lpSymbol: 'JPYC-USDC LP',
+        //   lpAddresses: {
+        //     [ChainId.SDN_TESTNET]: '0xe2c19eb0f91c80275cc254f90ed0f18f26650ec5',
+        //     [ChainId.SDN_MAINNET]: '0xe2c19eb0f91c80275cc254f90ed0f18f26650ec5',
+        //   },
+        //   token: tokens[chainKey].jpyc,
+        //   quoteToken: tokens[chainKey].usdc,
+        // },
+        // {
+        //   pid: 5,
+        //   lpSymbol: 'BUSD-USDC LP',
+        //   lpAddresses: {
+        //     [ChainId.SDN_TESTNET]: '0x756f158A2C02246Bf00bbdB051729804F2efd9c7',
+        //     [ChainId.SDN_MAINNET]: '0x8644e9AC84273cA0609F2A2B09b2ED2A5aD2e9DD',
+        //   },
+        //   token: tokens[chainKey].busd,
+        //   quoteToken: tokens[chainKey].usdc,
+        // },
       ]
     : [];
 

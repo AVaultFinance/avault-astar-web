@@ -13,23 +13,7 @@ const SmallNavTooltip: FC<{
 }> = ({ _menuItems, setTooltipVisible }) => {
   const { pathname } = useLocation();
   const [menuItems, setMenuItems] = useState(_menuItems);
-  const { targetRef: BorrowTargetRef } = useTooltip('', {
-    placement: 'right-start',
-    trigger: 'hover',
-    tootipStyle: {
-      padding: '0 14px',
-      backgroundImage: 'linear-gradient(270deg, #FC00FF 0%, #7D49FF 100%)',
-      borderRadius: '12px',
-      fontSize: '10px',
-      lineHeight: '24px',
-      border: 'none',
-      fontWeight: 'bold',
-      width: '120px',
-      textAlign: 'center',
-      top: '19px',
-    },
-    hideArrow: true,
-  });
+
   return (
     <NavWrap>
       <NavWrapInner>
@@ -83,10 +67,10 @@ const SmallNavTooltip: FC<{
             )}
           </div>
         ))}
-        <NavLinkP ref={BorrowTargetRef}>
+        {/* <NavLinkP ref={BorrowTargetRef}>
           Borrow
           <i>Comming Soon</i>
-        </NavLinkP>
+        </NavLinkP> */}
       </NavWrapInner>
     </NavWrap>
   );
@@ -189,7 +173,7 @@ const expandAnimation = keyframes`
   bottom: -260px;
   }
   to {
-  bottom: 60px;
+  bottom: 0;
   }
 `;
 
@@ -198,7 +182,8 @@ const NavWrapInner = styled.div`
   width: 100vw;
   padding: 20px 30px 40px;
   border-radius: 24px 24px 0 0;
-  bottom: 60px;
+  bottom: 0;
+  background: ${({ theme }) => theme.colors.background};
   animation: ${() =>
     css`
       ${expandAnimation} 300ms linear forwards
@@ -235,35 +220,35 @@ const NavLink = styled(Link)<{ active: 't' | 'f' }>`
     transform: ${({ active }) => (active === 't' ? 'none' : 'scaleY(-1)')};
   }
 `;
-const NavLinkP = styled.div`
-  font-size: 16px;
-  color: ${({ theme }) => theme.colors.textSubtle};
-  height: 48px;
-  line-height: 48px;
-  transition: all 0.3s ease;
-  font-weight: 600;
-  position: relative;
-  text-align: left;
-  display: block;
-  padding-left: 20px;
-  &:hover {
-    color: ${({ theme }) => theme.colors.text};
-  }
-  i {
-    display: inline-block;
-    font-style: normal;
-    padding: 0 14px;
-    background-image: linear-gradient(270deg, #fc00ff 0%, #7d49ff 100%);
-    border-radius: 12px;
-    color: #fff;
-    font-size: 10px;
-    line-height: 24px;
-    border: none;
-    font-weight: bold;
-    text-align: center;
-    margin-left: 12px;
-    font-weight: 400;
-  }
-`;
+// const NavLinkP = styled.div`
+//   font-size: 16px;
+//   color: ${({ theme }) => theme.colors.textSubtle};
+//   height: 48px;
+//   line-height: 48px;
+//   transition: all 0.3s ease;
+//   font-weight: 600;
+//   position: relative;
+//   text-align: left;
+//   display: block;
+//   padding-left: 20px;
+//   &:hover {
+//     color: ${({ theme }) => theme.colors.text};
+//   }
+//   i {
+//     display: inline-block;
+//     font-style: normal;
+//     padding: 0 14px;
+//     background-image: linear-gradient(270deg, #fc00ff 0%, #7d49ff 100%);
+//     border-radius: 12px;
+//     color: #fff;
+//     font-size: 10px;
+//     line-height: 24px;
+//     border: none;
+//     font-weight: bold;
+//     text-align: center;
+//     margin-left: 12px;
+//     font-weight: 400;
+//   }
+// `;
 
 export default SmallNav;

@@ -4,11 +4,14 @@ import styled from 'styled-components';
 // import { Text } from '@avault/ui';
 // import { getBalanceNumber } from 'utils/formatBalance';
 import { TokenPairImage } from 'components/TokenImage';
+import { getImageUrlFromToken } from 'utils';
 
 export interface CompoundingProps {
   label?: string;
   token0Address: string;
   token1Address: string;
+  farmProject?: string;
+  isSingle?: boolean;
 }
 
 const Container = styled.div`
@@ -39,21 +42,31 @@ const TokenWrapper = styled.div`
   }
 `;
 
-const Compounding: React.FunctionComponent<CompoundingProps> = ({ token0Address, token1Address, label }) => {
+const Compounding: React.FunctionComponent<CompoundingProps> = ({
+  token0Address,
+  token1Address,
+  label,
+  farmProject,
+  isSingle,
+}) => {
   return (
     <Container>
       <TokenWrapper>
-        <TokenPairImage
-          variant="inverted"
-          primaryToken={token0Address}
-          secondaryToken={token1Address}
-          width={48}
-          height={48}
-        />
+        {isSingle ? (
+          <img src={getImageUrlFromToken(token0Address)} width="40px" alt="" />
+        ) : (
+          <TokenPairImage
+            variant="inverted"
+            primaryToken={token0Address}
+            secondaryToken={token1Address}
+            width={48}
+            height={48}
+          />
+        )}
       </TokenWrapper>
       <LabelStyled>
         <h2>{label}</h2>
-        <p>Kacoswap</p>
+        <p>{farmProject ?? 'Kacoswap'}</p>
       </LabelStyled>
     </Container>
   );

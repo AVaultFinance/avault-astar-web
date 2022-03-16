@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 import DappstakeSubNav from './SubNav';
-import StakeTableHeader from './StakeTableHeader';
 import { IDappStakingInterface } from 'utils/types';
 import { IDappPoolDataInterface } from '../hooks/getPoolUpdate';
 
@@ -29,18 +28,20 @@ const StyledPage = ({ children, ...props }) => {
 const StakePageLayout = styled.div`
   min-height: 0px;
   width: 480px;
-  background-image: linear-gradient(270deg, #fc00ff 0%, #7d49ff 100%);
-  box-shadow: 2px 4px 7px 1px rgba(9, 2, 18, 0.3);
+  // background-image: linear-gradient(270deg, #fc00ff 0%, #7d49ff 100%);
+  // box-shadow: 2px 4px 7px 1px rgba(9, 2, 18, 0.3);
   border-radius: 23px;
   padding: 0;
+  border: 1px solid #2e2d5b;
+  overflow: hidden;
   // margin: 100px auto;
+  background: ${({ theme }) => theme.colors.cardBackground};
 `;
 const TableContent = styled.div`
-  background: ${({ theme }) => theme.colors.cardBackground};
   border-radius: 20px;
-  padding: 20px 16px 30px;
+  padding: 30px 16px 30px;
   ${({ theme }) => theme.mediaQueries.md} {
-    padding: 20px 30px 30px;
+    padding: 30px 30px 30px;
   }
 `;
 // slippageAdjustedAmounts
@@ -52,7 +53,6 @@ interface Iprops {
 const DappstakePage: FC<Iprops> = ({ children, contract, pool, ...props }) => {
   return (
     <StakePageLayout>
-      <StakeTableHeader contract={contract} pool={pool} />
       <TableContent>
         <DappstakeSubNav />
         <StyledPage>{children}</StyledPage>

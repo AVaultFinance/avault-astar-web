@@ -1,5 +1,4 @@
 import { useWeb3React } from '@web3-react/core';
-import BigNumber from 'bignumber.js';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from 'state';
@@ -28,22 +27,31 @@ export const useCompounding = (): CompoundingState => {
   const compounding = useSelector((state: State) => state.compounding);
   return compounding;
 };
-export const useCompoundingPid = (pid: number) => {
-  const compounding = useSelector((state: State) => state.compounding.data.find((f) => f.farm.pid === pid));
-  return compounding;
-};
+// const useCompoundingPid = (pid: number) => {
+//   const compounding = useSelector((state: State) => state.compounding.data.find((f) => f.farm.pid === pid));
+//   return compounding;
+// };
 export const useCompoundingAllTotal = () => {
   const compounding = useSelector((state: State) => state.compounding);
-  console.log('allLiquidity: ', compounding.allLiquidity);
   return compounding.allLiquidity;
 };
-export const useCompoundingFarmUser = (pid: number) => {
-  const { farm } = useCompoundingPid(pid);
+export const useCompoundingFarmUser = (pid?: number) => {
+  // try {
+  // const { farm } = useCompoundingPid(pid);
+  //   return {
+  //     allowance: farm.userData ? new BigNumber(farm.userData.allowance) : BIG_ZERO,
+  //     stakingTokenBalance: farm.userData ? new BigNumber(farm.userData.stakingTokenBalance) : BIG_ZERO,
+  //     stakedBalance: farm.userData ? new BigNumber(farm.userData.stakedBalance) : BIG_ZERO,
+  //     pendingReward: farm.userData ? new BigNumber(farm.userData.pendingReward) : BIG_ZERO,
+  //     avaultAddressBalance: farm.userData ? new BigNumber(farm.userData.avaultAddressBalance) : BIG_ZERO,
+  //   };
+  // } catch (e) {
   return {
-    allowance: farm.userData ? new BigNumber(farm.userData.allowance) : BIG_ZERO,
-    stakingTokenBalance: farm.userData ? new BigNumber(farm.userData.stakingTokenBalance) : BIG_ZERO,
-    stakedBalance: farm.userData ? new BigNumber(farm.userData.stakedBalance) : BIG_ZERO,
-    pendingReward: farm.userData ? new BigNumber(farm.userData.pendingReward) : BIG_ZERO,
-    avaultAddressBalance: farm.userData ? new BigNumber(farm.userData.avaultAddressBalance) : BIG_ZERO,
+    allowance: BIG_ZERO,
+    stakingTokenBalance: BIG_ZERO,
+    stakedBalance: BIG_ZERO,
+    pendingReward: BIG_ZERO,
+    avaultAddressBalance: BIG_ZERO,
   };
+  // }
 };

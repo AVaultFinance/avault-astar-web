@@ -14,6 +14,7 @@ import { usePollCoreFarmData } from 'state/farms/hooks';
 import { usePollCompoundingData } from 'state/compounding/hooks';
 import { usePollBlockNumber } from 'state/block/hooks';
 import PageLoader from 'components/Loader/PageLoader';
+import Unbind from 'views/Stake/Unbind';
 // import { useFetchProfile } from 'state/profile/hooks';
 // import { usePollCoreFarmData } from './state/farms/hooks';
 
@@ -50,11 +51,14 @@ const App: React.FC = () => {
             <Route path="/" exact>
               <Home />
             </Route>
-            <Route path="/compounding">
+            <Route path="/vault">
               <Compounding />
             </Route>
             <Route path="/stake">
               <Stake />
+            </Route>
+            <Route path="/unbind">
+              <Unbind />
             </Route>
             <Route path="/unstake">
               <UnStake />

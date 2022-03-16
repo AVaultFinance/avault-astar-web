@@ -11,6 +11,7 @@ const compounding: ICompoundingConfigItem[] =
           },
           fromSource: IFarmProject.kaco, // from which swap
           abiType: IABIType.AVaultPCS, // use which abi
+          swapLink: 'https://shiden.kaco.finance',
         },
       ]
     : [];

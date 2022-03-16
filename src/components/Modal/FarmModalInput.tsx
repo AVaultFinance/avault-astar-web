@@ -96,7 +96,6 @@ const ModalInput: React.FC<ModalInputProps> = ({
   const onBlurHandler = () => {
     setFocused(false);
   };
-  console.log({ focused });
   return (
     <>
       <TextFlexStyled>
