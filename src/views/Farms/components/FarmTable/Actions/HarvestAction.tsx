@@ -61,7 +61,7 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
     <ActionContainer smallBorder={disabled ? false : true}>
       <FlexStyled>
         <RewardsTitleStyled disabled={disabled}>
-          <ActionTitlesTitle>{lpSymbol === 'AVA' ? 'AVA-ASTR LP' : 'AVA'} Rewards</ActionTitlesTitle>
+          <ActionTitlesTitle>{lpSymbol === 'AVAT' ? 'AVAT-ASTR LP' : 'AVAT'} Rewards</ActionTitlesTitle>
           <ActionTitlesBalance balance={(earnings || BIG_ZERO).toNumber()}>{displayBalance}</ActionTitlesBalance>
         </RewardsTitleStyled>
         <ActionContentStyled disabled={disabled}>
