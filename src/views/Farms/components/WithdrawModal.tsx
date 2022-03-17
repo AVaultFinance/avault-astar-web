@@ -44,7 +44,7 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({ onConfirm, onDismiss, max
 
   return (
     <Modal
-      title={t('Unstake LP tokens')}
+      title={t('Stake LP tokens')}
       minWidth={isMobile ? '280px' : '520px'}
       bodyPadding="0 24px 34px"
       onDismiss={onDismiss}

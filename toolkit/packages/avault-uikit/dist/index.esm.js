@@ -3311,7 +3311,7 @@ var additionalColors = {
     silver: "#B2B2B2",
     bronze: "#E7974D",
 };
-var lightColors = __assign(__assign(__assign({}, baseColors), additionalColors), { tooltipColors: tooltipColors, background: "#030222", background02: "#030222", backgroundDisabled: "#37365E", backgroundAlt: "#181733", cardBorder: "#2E2D5B", cardBackground: "#181733", contrast: "#181733", dropdown: "#1E1D20", dropdownDeep: "#100C18", invertedContrast: "#191326", input: "#fff", inputSecondary: "#262130", tertiary: "#FDFBFB", text: "#FFFFFF", textDisabled: "#37365E", textSubtle: "#6A6991", textSubSubtle: "#C2C2C2", disabled: "#524B63", btnTextColor: "#F7F3F6", btnBgSecondaryColor: "#01100f", gradients: {
+var lightColors = __assign(__assign(__assign({}, baseColors), additionalColors), { tooltipColors: tooltipColors, background: "#030222", background02: "#030222", backgroundDisabled: "#37365E", backgroundAlt: "#181733", cardBorder: "#2E2D5B", cardBackground: "#181733", contrast: "#181733", dropdown: "#1E1D20", dropdownDeep: "#100C18", invertedContrast: "#191326", input: "#fff", inputSecondary: "#262130", tertiary: "#030222", text: "#FFFFFF", textDisabled: "#37365E", textSubtle: "#6A6991", textSubSubtle: "#C2C2C2", disabled: "#524B63", btnTextColor: "#F7F3F6", btnBgSecondaryColor: "#01100f", gradients: {
         bubblegum: "linear-gradient(139.73deg, #313D5C 0%, #3D2A54 100%)",
         inverseBubblegum: "linear-gradient(139.73deg, #3D2A54 0%, #313D5C 100%)",
         cardHeader: "linear-gradient(166.77deg, #3B4155 0%, #3A3045 100%)",

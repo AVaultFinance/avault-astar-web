@@ -64,8 +64,11 @@ const TableBody = styled.tbody`
   & tr {
     background: ${({ theme }) => theme.colors.cardBackground};
     transition: all 0.3s ease;
-    &:hover {
-      background: ${({ theme }) => theme.colors.secondary};
+
+    ${({ theme }) => theme.mediaQueries.md} {
+      &:hover {
+        background: ${({ theme }) => theme.colors.secondary};
+      }
     }
     td {
       font-size: 16px;
