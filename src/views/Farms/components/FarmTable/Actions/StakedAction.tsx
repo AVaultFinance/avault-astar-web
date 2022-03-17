@@ -149,7 +149,7 @@ const Staked: React.FunctionComponent<StackedActionProps> = ({ farm, userDataRea
       <ActionContainer smallBorder={false}>
         <TextTop>
           <Text bold color="text" fontSize="12px" lineHeight="27px">
-            Approve {lpSymbol}
+            Approve {lpSymbol === 'AVAT' ? 'aAVAT' : 'AVAT'}
           </Text>
         </TextTop>
         <LongButton disabled={requestedApproval} onClick={handleApprove} variant="secondary">
