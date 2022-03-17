@@ -7,8 +7,8 @@ const compounding: ICompoundingConfigItem[] =
         {
           lpSymbol: 'KAC-wSDN LP',
           contractAddress: {
-            [ChainId.SDN_TESTNET]: '0x12119c66F58585E9C9371c75c5ca365eeD41b0A3',
-            [ChainId.SDN_MAINNET]: '0x12119c66F58585E9C9371c75c5ca365eeD41b0A3',
+            [ChainId.SDN_TESTNET]: '0xABf1F913097e0d72a0BBF605d16DE22a6bBA4491',
+            [ChainId.SDN_MAINNET]: '0xABf1F913097e0d72a0BBF605d16DE22a6bBA4491',
           },
           fromSource: IFarmProject.kaco, // from which swap
           abiType: IABIType.AVaultPCS, // use which abi
