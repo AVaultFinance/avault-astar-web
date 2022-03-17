@@ -138,7 +138,7 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
   const shouldRenderChild = useDelayedUnmount(actionPanelExpanded, 300);
 
   const { targetRef, tooltip, tooltipVisible } = useTooltip(
-    `1 ${details.compounding.symbol}=${details.compounding.lpToCLpRate} ${details.lpSymbol}`,
+    `1 ${details.compounding.symbol} = ${details.compounding.lpToCLpRate} ${details.lpSymbol}`,
     {
       trigger: 'hover',
       tootipStyle: { padding: '10px', whiteSpace: 'break-spaces', textAlign: 'center', fontSize: '14px' },
