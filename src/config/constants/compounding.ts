@@ -5,7 +5,7 @@ const compounding: ICompoundingConfigItem[] =
   chainKey === CHAINKEY.SDN
     ? [
         {
-          lpSymbol: 'KAC-WSDN LP',
+          lpSymbol: 'KAC-wSDN LP',
           contractAddress: {
             [ChainId.SDN_TESTNET]: '0x12119c66F58585E9C9371c75c5ca365eeD41b0A3',
             [ChainId.SDN_MAINNET]: '0x12119c66F58585E9C9371c75c5ca365eeD41b0A3',

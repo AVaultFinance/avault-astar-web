@@ -57,13 +57,13 @@ const Unbind = () => {
           <Balance
             balance={balance}
             decimals={decimals}
-            symbol="aAVA"
+            symbol="aAVAT"
             isBalanceZero={isBalanceZero}
             handleSelectMax={handleSelectMax}
           />
           <InputWrap>
             <StyledTokenInputTop isWarning={isBalanceZero}>
-              <TokenIconItem symbol="aAVA" tokenAddress="aava" />
+              <TokenIconItem symbol="aAVAT" tokenAddress="aava" />
               <StyledInput
                 pattern={`^[0-9]*[.,]?[0-9]{0,${decimals}}$`}
                 inputMode="decimal"
@@ -76,7 +76,7 @@ const Unbind = () => {
             </StyledTokenInputTop>
 
             <StyledTokenInputTop isWarning={isBalanceZero}>
-              <TokenIconItem symbol="AVA" tokenAddress="0x0a3A21356793B49154Fd3BbE91CBc2A16c0457f5" />
+              <TokenIconItem symbol="AVAT" tokenAddress="0x0a3A21356793B49154Fd3BbE91CBc2A16c0457f5" />
               <StyledInput
                 pattern={`^[0-9]*[.,]?[0-9]{0,${decimals}}$`}
                 inputMode="decimal"

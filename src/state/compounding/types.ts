@@ -112,7 +112,7 @@ export const compoundingData = [
         apy: '10.02',
         apr: '63.5',
         multiplier: '20X',
-        compoundingSymbol: 'AAUU',
+        compoundingSymbol: 'aAUU',
         lpLabel: 'USDT-USDC LP',
         token0Address: '0x55d398326f99059ff775485246999027b3197955',
         token1Address: '0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d',
@@ -133,8 +133,8 @@ export const compoundingData = [
         swapLink: ISwapLink.arthswap,
         abiType: 0,
         compounding: {
-          symbol: 'AAUU',
-          name: 'Avault Kaco KAC-WSDN LP',
+          symbol: 'aAUU',
+          name: 'Avault Arthswap USDT-USDC LP',
           masterChef: '0x293A7824582C56B0842535f94F6E3841888168C8',
           token0Address: '0x55d398326f99059ff775485246999027b3197955',
           token1Address: '0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d',
@@ -202,7 +202,7 @@ export const compoundingData = [
           apy: '10.02',
           apr: '63.5',
           multiplier: '20X',
-          compoundingSymbol: 'AAUU',
+          compoundingSymbol: 'aAUU',
           lpLabel: 'USDT-USDC LP',
           token0Address: '0x55d398326f99059ff775485246999027b3197955',
           token1Address: '0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d',
@@ -223,8 +223,8 @@ export const compoundingData = [
           fromSource: IFarmProject.arthswap,
           abiType: 0,
           compounding: {
-            symbol: 'AAUU',
-            name: 'Avault Kaco KAC-WSDN LP',
+            symbol: 'aAUU',
+            name: 'Avault Arthswap USDT-USDC LP',
             masterChef: '0x293A7824582C56B0842535f94F6E3841888168C8',
             token0Address: '0x55d398326f99059ff775485246999027b3197955',
             token1Address: '0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d',
@@ -296,7 +296,7 @@ export const compoundingData = [
         apy: '8.91',
         apr: '63.5',
         multiplier: '20X',
-        compoundingSymbol: 'AUSDC',
+        compoundingSymbol: 'aSUSDC',
         fromSource: IFarmProject.starlay,
         lpLabel: 'USDC',
         token0Address: '0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d',
@@ -316,8 +316,8 @@ export const compoundingData = [
         swapLink: ISwapLink.starlay,
         abiType: 0,
         compounding: {
-          symbol: 'AUSDC',
-          name: 'Avault Kaco KAC-WSDN LP',
+          symbol: 'aSUSDC',
+          name: 'Avault Starlay USDC',
           masterChef: '0x293A7824582C56B0842535f94F6E3841888168C8',
           token0Address: '0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d',
           token1Address: '0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d',
@@ -385,7 +385,7 @@ export const compoundingData = [
           apy: '8.91',
           apr: '63.5',
           multiplier: '20X',
-          compoundingSymbol: 'AUSDC',
+          compoundingSymbol: 'aSUSDC',
           lpLabel: 'USDC',
           token0Address: '0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d',
           token1Address: '0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d',
@@ -407,8 +407,8 @@ export const compoundingData = [
           swapLink: ISwapLink.starlay,
           abiType: 0,
           compounding: {
-            symbol: 'AUSDC',
-            name: 'Avault Kaco KAC-WSDN LP',
+            symbol: 'aSUSDC',
+            name: 'Avault Starlay USDC',
             masterChef: '0x293A7824582C56B0842535f94F6E3841888168C8',
             token0Address: '0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d',
             token1Address: '0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d',
@@ -468,7 +468,7 @@ export const farmData = [
     hidden: false,
     original: {
       farm: {
-        label: 'AAUU',
+        label: 'aAUU',
         pid: 1,
         token: {
           symbol: 'AVA',
@@ -499,7 +499,7 @@ export const farmData = [
         apy: '188.6',
         apr: '3.12',
         multiplier: '20X',
-        lpLabel: 'AAUU',
+        lpLabel: 'aAUU',
         tokenAddress: {
           '82': '0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c',
           '336': '0xb12c13e66ade1f72f71834f2fc5082db8c091358',
@@ -515,7 +515,7 @@ export const farmData = [
       multiplier: { multiplier: '20X' },
       details: {
         pid: 1,
-        lpSymbol: 'AAUU',
+        lpSymbol: 'aAUU',
         lpAddresses: {
           '82': '0x0bA819e30016Cf682C7795b44859148C65e62292',
           '336': '0x456C0082DE0048EE883881fF61341177FA1FEF40',
@@ -565,7 +565,7 @@ export const farmData = [
         hidden: false,
         field: 'farm',
         value: {
-          label: 'AAUU',
+          label: 'aAUU',
           pid: 1,
           token: {
             symbol: 'AVA',
@@ -604,7 +604,7 @@ export const farmData = [
           apy: '188.6',
           apr: '63.5',
           multiplier: '20X',
-          lpLabel: 'AAUU',
+          lpLabel: 'aAUU',
           tokenAddress: {
             '82': '0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c',
             '336': '0xb12c13e66ade1f72f71834f2fc5082db8c091358',
@@ -624,7 +624,7 @@ export const farmData = [
         field: 'details',
         value: {
           pid: 1,
-          lpSymbol: 'AAUU',
+          lpSymbol: 'aAUU',
           lpAddresses: {
             '82': '0x0bA819e30016Cf682C7795b44859148C65e62292',
             '336': '0x456C0082DE0048EE883881fF61341177FA1FEF40',

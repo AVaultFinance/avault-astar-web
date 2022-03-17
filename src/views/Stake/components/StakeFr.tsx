@@ -9,7 +9,7 @@ const StakeFr = () => {
 
       <TextStyle>APR</TextStyle>
       <HeadingStyled>89%</HeadingStyled>
-      <TextBgStyled>1 AVA=1.001256 aAVA</TextBgStyled>
+      <TextBgStyled>1 AVAT=1.001256 aAVAT</TextBgStyled>
     </UnbindListStyled>
   );
 };

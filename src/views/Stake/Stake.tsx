@@ -52,13 +52,13 @@ const Stake = () => {
           <Balance
             balance={balance}
             decimals={18}
-            symbol="AVA"
+            symbol="AVAT"
             isBalanceZero={isBalanceZero}
             handleSelectMax={handleSelectMax}
           />
           <InputWrap>
             <StyledTokenInputTop isWarning={false}>
-              <TokenIconItem symbol="AVA" tokenAddress="0x0a3A21356793B49154Fd3BbE91CBc2A16c0457f5" />
+              <TokenIconItem symbol="AVAT" tokenAddress="0x0a3A21356793B49154Fd3BbE91CBc2A16c0457f5" />
               <StyledInput
                 pattern={`^[0-9]*[.,]?[0-9]{0,${decimals}}$`}
                 inputMode="decimal"
@@ -70,7 +70,7 @@ const Stake = () => {
               />
             </StyledTokenInputTop>
             <StyledTokenInputTop isWarning={false}>
-              <TokenIconItem symbol="aAVA" tokenAddress="aava" />
+              <TokenIconItem symbol="aAVAT" tokenAddress="aava" />
               <StyledInput
                 pattern={`^[0-9]*[.,]?[0-9]{0,${decimals}}$`}
                 inputMode="decimal"

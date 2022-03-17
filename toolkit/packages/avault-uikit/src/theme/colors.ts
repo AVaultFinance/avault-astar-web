@@ -11,8 +11,8 @@ export const baseColors = {
 };
 
 export const tooltipColors = {
-  background: "#181733",
-  borderColor: "#19183E",
+  background: "#030222",
+  borderColor: "#2E2D5B",
 };
 
 export const additionalColors = {
