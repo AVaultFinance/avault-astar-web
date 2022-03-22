@@ -12,16 +12,16 @@ import { BIG_ZERO } from 'utils/bigNumber';
 import { getFullDisplayBalance } from 'utils/formatBalance';
 import { useWeb3React } from '@web3-react/core';
 import MobileAction from './MobileAction';
-import { useSpecialApproveFarm } from 'views/Compounding/hooks/useApproveFarm';
 import { useERC20 } from 'hooks/useContract';
 import { useAppDispatch } from 'state';
-import { ICompounding } from 'state/compounding/types';
-import { getDisplayApy } from 'views/Compounding/Compounding';
-import { useCompounding, useCompoundingFarmUser } from 'state/compounding/hooks';
+import { ICompounding } from 'state/vault/types';
+import { useCompounding, useCompoundingFarmUser } from 'state/vault/hooks';
 import useAuth from 'hooks/useAuth';
 import { chainId } from 'config/constants/tokens';
-import { fetchCompoundingFarmUserDataAsync } from 'state/compounding';
+import { fetchCompoundingFarmUserDataAsync } from 'state/vault';
 import { BASE_BSC_SCAN_URL } from 'config';
+import { useSpecialApproveFarm } from 'views/Vault/hooks/useApproveFarm';
+import { getDisplayApy } from 'views/Farms/Farms';
 
 export interface ActionPanelProps {
   apr: AprProps;
@@ -211,6 +211,10 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
       login(connectorId);
       return;
     }
+    // setRequestedApproval(true);
+    // setTimeout(() => {
+    //   setRequestedApproval(false);
+    // }, 80000);
     try {
       setRequestedApproval(true);
       await onApprove();

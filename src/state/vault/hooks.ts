@@ -6,7 +6,8 @@ import { useAppDispatch } from 'state';
 import { usePrice } from 'state/price/hooks';
 import { CompoundingState, State } from 'state/types';
 import { BIG_ZERO } from 'utils/bigNumber';
-import { fetchCompoundingsPublicDataAsync, fetchCompoundingFarmUserDataAsync } from './index';
+import { fetchCompoundingsPublicDataAsync, fetchCompoundingFarmUserDataAsync, changeLoading } from './index';
+import { ICompounding } from './types';
 export const usePollCompoundingData = () => {
   const dispatch = useAppDispatch();
   const { priceVsBusdMap } = usePrice();
@@ -14,15 +15,18 @@ export const usePollCompoundingData = () => {
     dispatch(fetchCompoundingsPublicDataAsync({ priceVsBusdMap }));
   }, [dispatch, priceVsBusdMap]);
 };
-export const useCompoundingUserData = () => {
-  const { data: compoundings } = useCompounding();
+export const useCompoundingUserData = (compoundings: ICompounding[]) => {
+  // const { data: compoundings } = useCompounding();
   const { account } = useWeb3React();
   const dispatch = useAppDispatch();
   useEffect(() => {
     if (account) {
+      console.log('dddd');
+      dispatch(changeLoading());
       dispatch(fetchCompoundingFarmUserDataAsync({ account, compoundings }));
     }
-  }, [dispatch, account, compoundings]);
+    // eslint-disable-next-line
+  }, [dispatch, account]);
 };
 export const useCompounding = (): CompoundingState => {
   const compounding = useSelector((state: State) => state.compounding);

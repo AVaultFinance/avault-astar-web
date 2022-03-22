@@ -11,9 +11,9 @@ import { ActionContainer, LongButton } from './styles';
 import styled from 'styled-components';
 import CInput from './C_Input';
 import { getFullDisplayBalance } from 'utils/formatBalance';
-import { useCompounding } from 'state/compounding/hooks';
-import useCompoundingWithdraw from 'views/Compounding/hooks/useCompoundingWithdraw';
-import { fetchCompoundingFarmUserDataAsync } from 'state/compounding';
+import { useCompounding } from 'state/vault/hooks';
+import useCompoundingWithdraw from 'views/Vault/hooks/useCompoundingWithdraw';
+import { fetchCompoundingFarmUserDataAsync } from 'state/vault';
 
 interface WithdrawActionProps {
   userDataReady: boolean;

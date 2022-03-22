@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ArrowIcon } from 'views/Compounding/components/CompoundingTable/Details';
+import { ArrowIcon } from 'views/Vault/components/CompoundingTable/Details';
 
 interface DetailsProps {
   actionPanelToggled: boolean;

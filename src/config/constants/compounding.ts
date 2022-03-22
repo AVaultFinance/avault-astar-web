@@ -1,6 +1,6 @@
 import { ChainId, CHAINKEY } from '@avault/sdk';
 import { chainKey } from 'config';
-import { IFarmProject, IABIType, ICompoundingConfigItem } from 'state/compounding/types';
+import { IFarmProject, IABIType, ICompoundingConfigItem } from 'state/vault/types';
 const compounding: ICompoundingConfigItem[] =
   chainKey === CHAINKEY.SDN
     ? [

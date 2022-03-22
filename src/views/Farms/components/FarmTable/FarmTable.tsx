@@ -6,7 +6,7 @@ import Row, { RowProps } from './Row';
 import TableHeader from '../TableHeader';
 import { OptionProps } from 'components/Select/Select';
 import { ISortDir } from 'components/SortIcon';
-import { farmData } from 'state/compounding/types';
+import { farmData } from 'state/vault/types';
 
 export interface ITableProps {
   data: RowProps[];

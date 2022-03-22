@@ -11,7 +11,7 @@ import history from './routerHistory';
 import { PriceProvider } from './contexts/PriceProvider';
 import SideMenu from './components/SideMenu';
 import { usePollCoreFarmData } from 'state/farms/hooks';
-import { usePollCompoundingData } from 'state/compounding/hooks';
+import { usePollCompoundingData } from 'state/vault/hooks';
 import { usePollBlockNumber } from 'state/block/hooks';
 import PageLoader from 'components/Loader/PageLoader';
 import Unbind from 'views/Stake/Unbind';
@@ -20,7 +20,7 @@ import Unbind from 'views/Stake/Unbind';
 
 // Route-based code splitting
 // Only pool is included in the main bundle because of it's the most visited page
-const Compounding = lazy(() => import('./views/Compounding/index'));
+const Vault = lazy(() => import('./views/Vault/index'));
 
 const Home = lazy(() => import('./views/Home'));
 const Farms = lazy(() => import('./views/Farms'));
@@ -52,7 +52,7 @@ const App: React.FC = () => {
               <Home />
             </Route>
             <Route path="/vault">
-              <Compounding />
+              <Vault />
             </Route>
             <Route path="/stake">
               <Stake />

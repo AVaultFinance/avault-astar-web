@@ -6,12 +6,13 @@ import Row, { RowProps } from './Row';
 import TableHeader from '../TableHeader';
 import { OptionProps } from 'components/Select/Select';
 import { ISortDir } from 'components/SortIcon';
-import { compoundingData } from 'state/compounding/types';
+import { compoundingData } from 'state/vault/types';
 
 export interface ITableProps {
   data: RowProps[];
   columns: ColumnType<RowProps>[];
   userDataReady: boolean;
+  dataLoaded: boolean;
   sortDir: ISortDir;
   sortKey: string;
   sortColumn?: string;
@@ -97,7 +98,7 @@ const TableContainer = styled.div`
 
 const CompoundingTable: React.FC<ITableProps> = (props) => {
   const tableWrapperEl = useRef<HTMLDivElement>(null);
-  const { data, columns, userDataReady, onOptionChange, sortDir, sortKey } = props;
+  const { data, columns, userDataReady, dataLoaded, onOptionChange, sortDir, sortKey } = props;
 
   const { rows } = useTable(columns, data, { sortable: true, sortColumn: 'compounding' });
   if (!rows.length) {
@@ -117,6 +118,7 @@ const CompoundingTable: React.FC<ITableProps> = (props) => {
                     {...row.original}
                     isLast={index === rows.length - 1}
                     userDataReady={userDataReady}
+                    dataLoaded={dataLoaded}
                     key={`table-row-${row.id}`}
                   />
                 );

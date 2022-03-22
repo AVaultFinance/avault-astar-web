@@ -11,9 +11,10 @@ import ActionPanel from './Actions/ActionPanel';
 import CellLayout from './CellLayout';
 import { DesktopColumnSchema } from '../types';
 import Compounding, { CompoundingProps } from './Compounding';
-import { ICompounding } from 'state/compounding/types';
+import { ICompounding } from 'state/vault/types';
 import BigNumber from 'bignumber.js';
-import { getFullDisplayBalance } from 'utils/formatBalance';
+import { getBalanceNumber } from 'utils/formatBalance';
+import Balance from 'components/Balance';
 
 export interface RowProps {
   apr: AprProps;
@@ -29,6 +30,7 @@ export interface RowProps {
 
 interface RowPropsWithLoading extends RowProps {
   userDataReady: boolean;
+  dataLoaded: boolean;
   isLast: boolean;
 }
 
@@ -216,28 +218,44 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
                   <td key={key}>
                     {balanceTooltipVisible && balanceTooltip}
                     <Flex alignItems="center" justifyContent="start" ref={balanceTargetRef}>
-                      <Text color="text" bold fontSize="14px">
-                        {getFullDisplayBalance(
+                      <Balance
+                        fontSize="14px"
+                        color="text"
+                        fontWeight="600"
+                        decimals={5}
+                        value={getBalanceNumber(new BigNumber(details?.farm?.userData?.avaultAddressBalance ?? '0'))}
+                      />
+                      <Text color="text" bold fontSize="14px" paddingLeft="4px">
+                        {/* {getFullDisplayBalance(
                           new BigNumber(details?.farm?.userData?.avaultAddressBalance ?? '0'),
                           18,
                           3,
-                        )}{' '}
+                        )} */}
                         {details.compounding.symbol}
                       </Text>
                       <QuestionWrapper>
                         <HelpIcon color="textSubtle" width="18px" height="18px" />
                       </QuestionWrapper>
                     </Flex>
-                    <Text color="text" bold fontSize="14px">
-                      {details?.farm?.userData?.stakingTokenBalance
-                        ? getFullDisplayBalance(
-                            new BigNumber(details.farm.userData.stakingTokenBalance),
-                            details.farm.quoteTokenDecimals,
-                            3,
-                          )
-                        : ''}{' '}
-                      {details.lpSymbol}
-                    </Text>
+                    <Flex alignItems="center" justifyContent="start">
+                      <Balance
+                        fontSize="14px"
+                        color="text"
+                        fontWeight="600"
+                        decimals={5}
+                        value={getBalanceNumber(
+                          new BigNumber(
+                            details?.farm?.userData?.stakingTokenBalance
+                              ? details.farm.userData.stakingTokenBalance
+                              : '0',
+                          ),
+                          details.farm.quoteTokenDecimals,
+                        )}
+                      />
+                      <Text color="text" bold fontSize="14px" paddingLeft="4px">
+                        {details.lpSymbol}
+                      </Text>
+                    </Flex>
                   </td>
                 );
               case 'details':

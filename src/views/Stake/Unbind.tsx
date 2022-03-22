@@ -63,7 +63,7 @@ const Unbind = () => {
           />
           <InputWrap>
             <StyledTokenInputTop isWarning={isBalanceZero}>
-              <TokenIconItem symbol="aAVAT" tokenAddress="aava" />
+              <TokenIconItem symbol="aAVAT" tokenAddress="aavat" />
               <StyledInput
                 pattern={`^[0-9]*[.,]?[0-9]{0,${decimals}}$`}
                 inputMode="decimal"

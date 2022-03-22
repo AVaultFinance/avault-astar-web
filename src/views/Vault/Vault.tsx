@@ -14,8 +14,8 @@ import useKacPerBlock from './hooks/useAvaultPerBlock';
 import { OptionProps } from 'components/Select/Select';
 import { ISortDir } from 'components/SortIcon';
 import { RowProps } from './components/CompoundingTable/Row';
-import { useCompounding, useCompoundingUserData, usePollCompoundingData } from 'state/compounding/hooks';
-import { ICompounding } from 'state/compounding/types';
+import { useCompounding, useCompoundingUserData, usePollCompoundingData } from 'state/vault/hooks';
+import { ICompounding } from 'state/vault/types';
 import { usePrice } from 'state/price/hooks';
 import PageLoader from 'components/Loader/PageLoader';
 // const StyledImage = styled(Image)`
@@ -50,7 +50,7 @@ export const getDisplayApy = (cakeRewardsApy?: number): string => {
 };
 
 const Compoundings: React.FC = () => {
-  const { data: compoundingsLP, userDataLoaded } = useCompounding();
+  const { data: compoundingsLP, userDataLoaded, dataLoaded } = useCompounding();
   const cakePrice = usePriceCakeBusd();
   const { account } = useWeb3React();
   const [sortKey, setSortKey] = useState('hot');
@@ -58,12 +58,13 @@ const Compoundings: React.FC = () => {
   const chosenFarmsLength = useRef(0);
   const kacPerBlock = useKacPerBlock();
   const { priceVsBusdMap } = usePrice();
+  const { data: compoundings } = useCompounding();
   usePollCompoundingData();
-  useCompoundingUserData();
+  useCompoundingUserData(compoundings);
   // Users with no wallet connected should see 0 as Earned amount
   // Connected users should see loading indicator until first userData has loaded
   const userDataReady = !account || (!!account && userDataLoaded);
-
+  console.log('userDataReady_wwww: ', userDataReady, account, userDataLoaded);
   const compoundingsList = useCallback(
     (compoundingsToDisplay: ICompounding[]): ICompounding[] => {
       const compoundingsToDisplayWithAPR: ICompounding[] = compoundingsToDisplay.map((compounding) => {
@@ -234,9 +235,11 @@ const Compoundings: React.FC = () => {
         sortDir={sortDir}
         columns={columns}
         userDataReady={userDataReady}
+        dataLoaded={dataLoaded}
       />
     );
   };
+  // console.log('userDataLoaded: ', userDataLoaded, 'dataLoaded: ', dataLoaded);
   return (
     <Page>
       {renderContent()}

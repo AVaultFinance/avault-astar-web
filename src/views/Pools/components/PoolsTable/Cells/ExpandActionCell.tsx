@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { ChevronDownIcon, useMatchBreakpoints } from '@avault/ui';
 import { useTranslation } from 'contexts/Localization';
-import { ArrowIcon } from 'views/Compounding/components/CompoundingTable/Details';
+import { ArrowIcon } from 'views/Vault/components/CompoundingTable/Details';
 
 interface DetailsProps {
   actionPanelToggled: boolean;

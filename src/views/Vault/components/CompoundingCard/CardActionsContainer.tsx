@@ -11,9 +11,9 @@ import ConnectWalletButton from 'components/ConnectWalletButton';
 import StakeAction from './StakeAction';
 import HarvestAction from './HarvestAction';
 import useApproveFarm from '../../hooks/useApproveFarm';
-import { ICompounding } from 'state/compounding/types';
-import { fetchCompoundingFarmUserDataAsync } from 'state/compounding';
-import { useCompounding } from 'state/compounding/hooks';
+import { ICompounding } from 'state/vault/types';
+import { fetchCompoundingFarmUserDataAsync } from 'state/vault';
+import { useCompounding } from 'state/vault/hooks';
 
 const Action = styled.div`
   padding-top: 16px;

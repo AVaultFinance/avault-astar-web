@@ -45,4 +45,19 @@ export const LongButton = styled(Button)<{ disabled: boolean }>`
   border-radius: 8px;
   width: 100%;
   margin-top: 4px;
+  transition: all 0.3s ease;
+  position: relative;
+  &.loading {
+    color: ${({ theme }) => theme.colors.primary};
+    text-align: left;
+    justify-content: flex-start;
+  }
+  svg {
+    position: absolute;
+    top: 6px;
+    right: 20px;
+    path {
+      fill: ${({ theme }) => theme.colors.primary};
+    }
+  }
 `;

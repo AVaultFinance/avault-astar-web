@@ -1,5 +1,36 @@
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 import { Input, InputProps, Button, Flex } from '@avault/ui';
+export const StakeGlobalStyle = createGlobalStyle`
+body {
+  background-image: url('./images/stake/stake_bg.svg');
+  background-size: 100%;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  margin-bottom: -40px;
+  &:before,&:after{
+    content:"";
+    width: 420px;
+    height: 150px;
+    background-image: url('./images/stake/bg_element.svg');
+    background-size: 100%;
+    position: absolute;
+    // opacity: 0.1;
+  }
+  &:before{
+    top: 160px;
+    right: 50%;
+  }
+  &:after{
+    top: 560px;
+    left: 50%;
+  }
+}
+#root{
+  position: relative;
+  z-index: 3;
+}
+`;
+
 export const InnerWrapper = styled.div`
   width: 90%;
   max-width: 500px;
@@ -66,6 +97,7 @@ export const PageContainer = styled(Flex)`
   justify-content: center;
   aligncontent: center;
   padding-top: 20px;
+
   ${({ theme }) => theme.mediaQueries.md} {
     padding-top: 80px;
   }

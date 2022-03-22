@@ -11,9 +11,10 @@ import { ActionContainer, LongButton } from './styles';
 import styled from 'styled-components';
 import CInput from './C_Input';
 import { getFullDisplayBalance } from 'utils/formatBalance';
-import { useCompounding, useCompoundingFarmUser } from 'state/compounding/hooks';
-import useCompoundingDeposit from 'views/Compounding/hooks/useCompoundingDeposit';
-import { fetchCompoundingFarmUserDataAsync } from 'state/compounding';
+import { useCompounding, useCompoundingFarmUser } from 'state/vault/hooks';
+import useCompoundingDeposit from 'views/Vault/hooks/useCompoundingDeposit';
+import { fetchCompoundingFarmUserDataAsync } from 'state/vault';
+import LoadingIcon from 'components/svg/loading';
 
 interface HarvestActionProps {
   userDataReady: boolean;
@@ -60,6 +61,7 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
   const dispatch = useAppDispatch();
   const [val, setVal] = useState('');
   const { stakingTokenBalance } = useCompoundingFarmUser(pid ?? 0);
+
   const fullBalance = useMemo(() => {
     return getFullDisplayBalance(stakingTokenBalance, quoteTokenDecimals, 6);
   }, [stakingTokenBalance, quoteTokenDecimals]);
@@ -85,7 +87,7 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
     !valNumber.isFinite() ||
     valNumber.eq(0) ||
     valNumber.gt(fullBalanceNumber);
-
+  console.log('userDataReady: ', userDataReady);
   return (
     <div>
       <Text textAlign="right" fontSize="12px" marginBottom="8px" fontWeight="500">
@@ -96,8 +98,14 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
         <FlexStyled>
           <CInput value={val} onSelectMax={handleSelectMax} onChange={handleChange} />
           {!isApproved ? (
-            <LongButton disabled={requestedApproval} onClick={handleApprove} variant="secondary">
-              Approve
+            <LongButton
+              disabled={requestedApproval || !userDataReady}
+              className={requestedApproval || !userDataReady ? 'loading' : ''}
+              onClick={handleApprove}
+              variant="secondary"
+            >
+              {account ? 'Approve' : 'Connect Wallet'}
+              {requestedApproval || !userDataReady ? <LoadingIcon /> : null}
             </LongButton>
           ) : (
             <LongButton

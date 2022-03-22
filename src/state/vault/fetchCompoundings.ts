@@ -2,7 +2,7 @@ import fetchCompounding from './fetchCompounding';
 import { ICompounding, ICompoundingConfigItem } from './types';
 import BigNumber from 'bignumber.js';
 import { BIG_TEN, BIG_ZERO } from 'utils/bigNumber';
-import { isNaNString } from 'views/Compounding/utils';
+import { isNaNString } from 'views/Vault/utils';
 
 const fetchCompoundings = async (
   compoundings: ICompoundingConfigItem[],
