@@ -98,19 +98,25 @@ Svg.defaultProps = {
 };
 var templateObject_1$18, templateObject_2$u, templateObject_3$e;
 
-var Icon$1V = function (props) {
-    return (React__default['default'].createElement(Svg, __assign({ viewBox: "0 0 24 24" }, props),
-        React__default['default'].createElement("path", { d: "M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20ZM15.88 8.29L10 14.17L8.12 12.29C7.73 11.9 7.1 11.9 6.71 12.29C6.32 12.68 6.32 13.31 6.71 13.7L9.3 16.29C9.69 16.68 10.32 16.68 10.71 16.29L17.3 9.7C17.69 9.31 17.69 8.68 17.3 8.29C16.91 7.9 16.27 7.9 15.88 8.29Z" })));
+var Icon$1U = function (props) {
+    return (React__default['default'].createElement(Svg, __assign({ viewBox: "0 0 36 36" }, props),
+        React__default['default'].createElement("g", { fill: "none", fillRule: "evenodd" },
+            React__default['default'].createElement("path", { fill: "#FFF", d: "M18 0A18 18 0 1 0 18 36A18 18 0 1 0 18 0Z" }),
+            React__default['default'].createElement("path", { d: "M22.375,5.75 C23.4105339,5.75 24.25,6.58946609 24.25,7.625 L24.25,22.5 C24.25,23.6045695 23.3545695,24.5 22.25,24.5 L20.5,24.5 L20.5,24.499 L14.875,24.5 C13.8394661,24.5 13,23.6605339 13,22.625 C13,21.5894661 13.8394661,20.75 14.875,20.75 L20.5,20.749 L20.5,7.625 C20.5,6.58946609 21.3394661,5.75 22.375,5.75 Z", fill: "#31DAB1", transform: "rotate(45 18.625 15.125)" }))));
 };
 
-var Icon$1U = function (props) {
-    return (React__default['default'].createElement(Svg, __assign({ viewBox: "0 0 24 24" }, props),
-        React__default['default'].createElement("path", { d: "M12 7C12.55 7 13 7.45 13 8V12C13 12.55 12.55 13 12 13C11.45 13 11 12.55 11 12V8C11 7.45 11.45 7 12 7ZM11.99 2C6.47 2 2 6.48 2 12C2 17.52 6.47 22 11.99 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 11.99 2ZM12 20C7.58 20 4 16.42 4 12C4 7.58 7.58 4 12 4C16.42 4 20 7.58 20 12C20 16.42 16.42 20 12 20ZM13 17H11V15H13V17Z" })));
+var ErrorIcon = function (props) {
+    return (React__default['default'].createElement(Svg, __assign({ viewBox: "0 0 36 36" }, props),
+        React__default['default'].createElement("g", { fill: "none", fillRule: "evenodd" },
+            React__default['default'].createElement("path", { fill: "#FFF", d: "M18 0A18 18 0 1 0 18 36A18 18 0 1 0 18 0Z" }),
+            React__default['default'].createElement("path", { d: "M17.875,9 C18.9105339,9 19.75,9.83946609 19.75,10.875 L19.75,16.499 L25.375,16.5 C26.4105339,16.5 27.25,17.3394661 27.25,18.375 C27.25,19.4105339 26.4105339,20.25 25.375,20.25 L19.75,20.25 L19.75,25.875 C19.75,26.9105339 18.9105339,27.75 17.875,27.75 C16.8394661,27.75 16,26.9105339 16,25.875 L16,20.25 L10.375,20.25 C9.33946609,20.25 8.5,19.4105339 8.5,18.375 C8.5,17.3394661 9.33946609,16.5 10.375,16.5 L16,16.5 L16,10.875 C16,9.83946609 16.8394661,9 17.875,9 Z", fill: "#E6007A", transform: "rotate(45 17.875 18.375)" }))));
 };
 
 var Icon$1T = function (props) {
-    return (React__default['default'].createElement(Svg, __assign({ viewBox: "0 0 24 24" }, props),
-        React__default['default'].createElement("path", { d: "M12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22ZM12 4C16.42 4 20 7.58 20 12C20 13.85 19.37 15.55 18.31 16.9L7.1 5.69C8.45 4.63 10.15 4 12 4ZM5.69 7.1L16.9 18.31C15.55 19.37 13.85 20 12 20C7.58 20 4 16.42 4 12C4 10.15 4.63 8.45 5.69 7.1Z" })));
+    return (React__default['default'].createElement(Svg, __assign({ viewBox: "0 0 36 36" }, props),
+        React__default['default'].createElement("g", { fill: "none", fillRule: "evenodd" },
+            React__default['default'].createElement("path", { fill: "#FFF", d: "M18 0A18 18 0 1 0 18 36A18 18 0 1 0 18 0Z" }),
+            React__default['default'].createElement("path", { d: "M18,23 C19.6568542,23 21,24.3431458 21,26 C21,27.6568542 19.6568542,29 18,29 C16.3431458,29 15,27.6568542 15,26 C15,24.3431458 16.3431458,23 18,23 Z M17.875,8 C17.9431393,8 18.0112535,8.00261591 18.0791921,8.00784196 C19.5452306,8.12061415 20.6422698,9.40049312 20.5294976,10.8665316 L20.5294976,10.8665316 L19.8938059,19.1305228 C19.8126598,20.1854222 18.9330158,21 17.875,21 C16.8169842,21 15.9373402,20.1854222 15.8561941,19.1305228 L15.8561941,19.1305228 L15.2205024,10.8665316 C15.2152764,10.798593 15.2126605,10.7304788 15.2126605,10.6623395 C15.2126605,9.19197001 16.4046305,8 17.875,8 Z", fill: "#EE9F45" }))));
 };
 
 var Icon$1S = function (props) {
@@ -479,7 +485,7 @@ var Icon$1s = function (props) {
 
 var Icon$1r = function (props) {
     return (React__default['default'].createElement(Svg, __assign({ viewBox: "0 0 28 28" }, props),
-        React__default['default'].createElement("path", { d: "M14.1499158,4.10050506 C14.9783429,4.10050506 15.6499158,4.77207794 15.6499158,5.60050506 L15.6495051,12.3495051 L22.3994949,12.3500842 C23.2279221,12.3500842 23.8994949,13.0216571 23.8994949,13.8500842 L23.8994949,14.1499158 C23.8994949,14.9783429 23.2279221,15.6499158 22.3994949,15.6499158 L15.6495051,15.6495051 L15.6499158,22.3994949 C15.6499158,23.2279221 14.9783429,23.8994949 14.1499158,23.8994949 L13.8500842,23.8994949 C13.0216571,23.8994949 12.3500842,23.2279221 12.3500842,22.3994949 L12.3495051,15.6495051 L5.60050506,15.6499158 C4.77207794,15.6499158 4.10050506,14.9783429 4.10050506,14.1499158 L4.10050506,13.8500842 C4.10050506,13.0216571 4.77207794,12.3500842 5.60050506,12.3500842 L12.3495051,12.3495051 L12.3500842,5.60050506 C12.3500842,4.77207794 13.0216571,4.10050506 13.8500842,4.10050506 L14.1499158,4.10050506 Z", fill: "#C2C2C2", transform: "rotate(45 14 14)", fillRule: "evenodd" })));
+        React__default['default'].createElement("path", { d: "M14.1499158,4.10050506 C14.9783429,4.10050506 15.6499158,4.77207794 15.6499158,5.60050506 L15.6495051,12.3495051 L22.3994949,12.3500842 C23.2279221,12.3500842 23.8994949,13.0216571 23.8994949,13.8500842 L23.8994949,14.1499158 C23.8994949,14.9783429 23.2279221,15.6499158 22.3994949,15.6499158 L15.6495051,15.6495051 L15.6499158,22.3994949 C15.6499158,23.2279221 14.9783429,23.8994949 14.1499158,23.8994949 L13.8500842,23.8994949 C13.0216571,23.8994949 12.3500842,23.2279221 12.3500842,22.3994949 L12.3495051,15.6495051 L5.60050506,15.6499158 C4.77207794,15.6499158 4.10050506,14.9783429 4.10050506,14.1499158 L4.10050506,13.8500842 C4.10050506,13.0216571 4.77207794,12.3500842 5.60050506,12.3500842 L12.3495051,12.3495051 L12.3500842,5.60050506 C12.3500842,4.77207794 13.0216571,4.10050506 13.8500842,4.10050506 L14.1499158,4.10050506 Z", fill: "#fff", transform: "rotate(45 14 14)", fillRule: "evenodd" })));
 };
 
 var Icon$1q = function (props) {
@@ -1280,17 +1286,17 @@ var getIcon = function (variant) {
     if (variant === void 0) { variant = variants$5.INFO; }
     switch (variant) {
         case variants$5.DANGER:
-            return Icon$1T;
+            return ErrorIcon;
         case variants$5.WARNING:
-            return Icon$1U;
+            return Icon$1T;
         case variants$5.SUCCESS:
-            return Icon$1V;
+            return Icon$1U;
         case variants$5.INFO:
         default:
             return Icon$1S;
     }
 };
-var IconLabel = styled__default['default'].div(templateObject_1$11 || (templateObject_1$11 = __makeTemplateObject(["\n  background-color: ", ";\n  border-radius: 16px 0 0 16px;\n  color: ", ";\n  padding: 12px;\n"], ["\n  background-color: ", ";\n  border-radius: 16px 0 0 16px;\n  color: ", ";\n  padding: 12px;\n"])), getThemeColor, function (_a) {
+var IconLabel = styled__default['default'].div(templateObject_1$11 || (templateObject_1$11 = __makeTemplateObject(["\n  border-radius: 12px 0 0 12px;\n  color: ", ";\n  padding: 16px 0 16px 20px;\n"], ["\n  border-radius: 12px 0 0 12px;\n  color: ", ";\n  padding: 16px 0 16px 20px;\n"])), function (_a) {
     var theme = _a.theme;
     return theme.alert.background;
 });
@@ -1299,23 +1305,20 @@ var Details = styled__default['default'].div(templateObject_2$t || (templateObje
     var hasHandler = _a.hasHandler;
     return (hasHandler ? withHandlerSpacing + "px" : "12px");
 });
-var CloseHandler = styled__default['default'].div(templateObject_3$d || (templateObject_3$d = __makeTemplateObject(["\n  border-radius: 0 16px 16px 0;\n  right: 8px;\n  position: absolute;\n  top: 8px;\n"], ["\n  border-radius: 0 16px 16px 0;\n  right: 8px;\n  position: absolute;\n  top: 8px;\n"])));
-var StyledAlert = styled__default['default'](Flex)(templateObject_4$8 || (templateObject_4$8 = __makeTemplateObject(["\n  position: relative;\n  background-color: ", ";\n  border-radius: 16px;\n  box-shadow: 0px 20px 36px -8px rgba(14, 14, 44, 0.1), 0px 1px 1px rgba(0, 0, 0, 0.05);\n"], ["\n  position: relative;\n  background-color: ", ";\n  border-radius: 16px;\n  box-shadow: 0px 20px 36px -8px rgba(14, 14, 44, 0.1), 0px 1px 1px rgba(0, 0, 0, 0.05);\n"])), function (_a) {
-    var theme = _a.theme;
-    return theme.alert.background;
-});
+var CloseHandler = styled__default['default'].div(templateObject_3$d || (templateObject_3$d = __makeTemplateObject(["\n  border-radius: 0 12px 12px 0;\n  right: 8px;\n  position: absolute;\n  top: 8px;\n"], ["\n  border-radius: 0 12px 12px 0;\n  right: 8px;\n  position: absolute;\n  top: 8px;\n"])));
+var StyledAlert = styled__default['default'](Flex)(templateObject_4$8 || (templateObject_4$8 = __makeTemplateObject(["\n  position: relative;\n  background-color: ", ";\n  border-radius: 12px 0 0 12px;\n  box-shadow: 0px 20px 36px -8px rgba(14, 14, 44, 0.1), 0px 1px 1px rgba(0, 0, 0, 0.05);\n"], ["\n  position: relative;\n  background-color: ", ";\n  border-radius: 12px 0 0 12px;\n  box-shadow: 0px 20px 36px -8px rgba(14, 14, 44, 0.1), 0px 1px 1px rgba(0, 0, 0, 0.05);\n"])), getThemeColor);
 var Alert = function (_a) {
     var title = _a.title, children = _a.children, variant = _a.variant, onClick = _a.onClick;
     var Icon = getIcon(variant);
-    return (React__default['default'].createElement(StyledAlert, null,
-        React__default['default'].createElement(IconLabel, { variant: variant, hasDescription: !!children },
-            React__default['default'].createElement(Icon, { color: "currentColor", width: "24px" })),
+    return (React__default['default'].createElement(StyledAlert, { variant: variant, hasDescription: !!children },
+        React__default['default'].createElement(IconLabel, null,
+            React__default['default'].createElement(Icon, { color: "currentColor", width: "36px" })),
         React__default['default'].createElement(Details, { hasHandler: !!onClick },
-            React__default['default'].createElement(Text, { bold: true }, title),
-            typeof children === "string" ? React__default['default'].createElement(Text, { as: "p" }, children) : children),
+            React__default['default'].createElement(Text, { fontWeight: "700" }, title),
+            typeof children === "string" ? (React__default['default'].createElement(Text, { as: "p", fontSize: "12px", lineHeight: "16px", fontWeight: "500" }, children)) : (children)),
         onClick && (React__default['default'].createElement(CloseHandler, null,
             React__default['default'].createElement(IconButton, { scale: "sm", variant: "text", onClick: onClick },
-                React__default['default'].createElement(Icon$1r, { width: "30px", color: "currentColor" }))))));
+                React__default['default'].createElement(Icon$1r, { width: "24px", color: "currentColor" }))))));
 };
 var templateObject_1$11, templateObject_2$t, templateObject_3$d, templateObject_4$8;
 
@@ -1969,7 +1972,7 @@ var variants$3 = {
 
 var Icons$3 = {
     warning: Icon$n,
-    danger: Icon$1U,
+    danger: ErrorIcon,
 };
 var MessageContainer = styled__default['default'].div(templateObject_1$D || (templateObject_1$D = __makeTemplateObject(["\n  display: flex;\n  background-color: gray;\n  padding: 16px;\n  border-radius: 16px;\n  border: solid 1px;\n\n  ", "\n  ", "\n"], ["\n  display: flex;\n  background-color: gray;\n  padding: 16px;\n  border-radius: 16px;\n  border: solid 1px;\n\n  ", "\n  ",
     "\n"])), styledSystem.space, styledSystem.variant({
@@ -3310,9 +3313,9 @@ var baseColors = {
     primaryBright: "#53DEE9",
     primaryDark: "#CC64F2",
     secondary: "#25234C",
-    failure: "#e6017a",
+    failure: "#E6007A",
     success: "#31DAB1",
-    warning: "#D87E2C",
+    warning: "#EE9F45",
 };
 var tooltipColors = {
     background: "#030222",
@@ -4608,7 +4611,7 @@ var alertTypeMap = (_a = {},
     _a[types.DANGER] = variants$5.DANGER,
     _a[types.WARNING] = variants$5.WARNING,
     _a);
-var StyledToast = styled__default['default'].div(templateObject_1$5 || (templateObject_1$5 = __makeTemplateObject(["\n  right: 16px;\n  position: fixed;\n  max-width: calc(100% - 32px);\n  transition: all 250ms ease-in;\n  width: 100%;\n\n  ", " {\n    max-width: 400px;\n  }\n"], ["\n  right: 16px;\n  position: fixed;\n  max-width: calc(100% - 32px);\n  transition: all 250ms ease-in;\n  width: 100%;\n\n  ", " {\n    max-width: 400px;\n  }\n"])), function (_a) {
+var StyledToast = styled__default['default'].div(templateObject_1$5 || (templateObject_1$5 = __makeTemplateObject(["\n  right: 0;\n  position: fixed;\n  max-width: calc(100% - 32px);\n  transition: all 250ms ease-in;\n  width: 100%;\n\n  ", " {\n    max-width: 280px;\n  }\n"], ["\n  right: 0;\n  position: fixed;\n  max-width: calc(100% - 32px);\n  transition: all 250ms ease-in;\n  width: 100%;\n\n  ", " {\n    max-width: 280px;\n  }\n"])), function (_a) {
     var theme = _a.theme;
     return theme.mediaQueries.sm;
 });
@@ -4641,7 +4644,7 @@ var Toast = function (_a) {
             clearTimeout(timer.current);
         };
     }, [timer, ttl, handleRemove]);
-    return (React__default['default'].createElement(reactTransitionGroup.CSSTransition, __assign({ nodeRef: ref, timeout: 250, style: style }, props),
+    return (React__default['default'].createElement(reactTransitionGroup.CSSTransition, __assign({ nodeRef: ref, timeout: 250000, style: style }, props),
         React__default['default'].createElement(StyledToast, { ref: ref, onMouseEnter: handleMouseEnter, onMouseLeave: handleMouseLeave },
             React__default['default'].createElement(Alert, { title: title, variant: alertTypeMap[type], onClick: handleRemove }, description))));
 };
@@ -4900,7 +4903,7 @@ exports.CardsLayout = GridLayout;
 exports.ChartIcon = Icon$1y;
 exports.Checkbox = Checkbox;
 exports.CheckmarkCircleFillIcon = Icon$1w;
-exports.CheckmarkCircleIcon = Icon$1V;
+exports.CheckmarkCircleIcon = Icon$1U;
 exports.CheckmarkIcon = Icon$1x;
 exports.ChevronDownIcon = Icon$1v;
 exports.ChevronLeftIcon = Icon$1u;
@@ -4916,7 +4919,7 @@ exports.CrownIcon = Icon$1m;
 exports.CurrencyIcon = Icon$1l;
 exports.Dropdown = Dropdown;
 exports.EllipsisIcon = Icon$1k;
-exports.ErrorIcon = Icon$1U;
+exports.ErrorIcon = ErrorIcon;
 exports.ExpandableButton = ExpandableButton;
 exports.ExpandableLabel = ExpandableLabel;
 exports.FallingBunnies = FallingBunnies;

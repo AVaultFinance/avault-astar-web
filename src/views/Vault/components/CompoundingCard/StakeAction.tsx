@@ -13,9 +13,9 @@ import { getBalanceAmount, getBalanceNumber, getFullDisplayBalance } from 'utils
 import MinusIconPrimary from 'components/svg/minusIconPrimary';
 import AddIconPrimary from 'components/svg/addIconPrimary';
 import { ICompounding } from 'state/compounding/types';
-import useCompoundingDeposit from 'views/Compounding/hooks/useCompoundingDeposit';
+import useCompoundingDeposit from 'views/Vault/hooks/useCompoundingDeposit';
 import { chainId } from 'config/constants/tokens';
-import useCompoundingWithdraw from 'views/Compounding/hooks/useCompoundingWithdraw';
+import useCompoundingWithdraw from 'views/Vault/hooks/useCompoundingWithdraw';
 import { useCompounding } from 'state/compounding/hooks';
 import { fetchCompoundingFarmUserDataAsync } from 'state/compounding';
 import DepositModal from '../CompoundingTable/Actions/DepositModal';

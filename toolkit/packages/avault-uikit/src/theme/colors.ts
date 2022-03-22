@@ -5,9 +5,9 @@ export const baseColors = {
   primaryBright: "#53DEE9",
   primaryDark: "#CC64F2",
   secondary: "#25234C",
-  failure: "#e6017a",
+  failure: "#E6007A",
   success: "#31DAB1",
-  warning: "#D87E2C",
+  warning: "#EE9F45",
 };
 
 export const tooltipColors = {

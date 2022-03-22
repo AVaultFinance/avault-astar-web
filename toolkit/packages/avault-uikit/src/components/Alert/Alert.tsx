@@ -33,9 +33,9 @@ const getThemeColor = ({ theme, variant = variants.INFO }: ThemedIconLabel) => {
 const getIcon = (variant: AlertProps["variant"] = variants.INFO) => {
   switch (variant) {
     case variants.DANGER:
-      return BlockIcon;
-    case variants.WARNING:
       return ErrorIcon;
+    case variants.WARNING:
+      return BlockIcon;
     case variants.SUCCESS:
       return CheckmarkCircleIcon;
     case variants.INFO:
@@ -44,11 +44,10 @@ const getIcon = (variant: AlertProps["variant"] = variants.INFO) => {
   }
 };
 
-const IconLabel = styled.div<ThemedIconLabel>`
-  background-color: ${getThemeColor};
-  border-radius: 16px 0 0 16px;
+const IconLabel = styled.div`
+  border-radius: 12px 0 0 12px;
   color: ${({ theme }) => theme.alert.background};
-  padding: 12px;
+  padding: 16px 0 16px 20px;
 `;
 
 const withHandlerSpacing = 32 + 12 + 8; // button size + inner spacing + handler position
@@ -61,16 +60,16 @@ const Details = styled.div<{ hasHandler: boolean }>`
 `;
 
 const CloseHandler = styled.div`
-  border-radius: 0 16px 16px 0;
+  border-radius: 0 12px 12px 0;
   right: 8px;
   position: absolute;
   top: 8px;
 `;
 
-const StyledAlert = styled(Flex)`
+const StyledAlert = styled(Flex)<ThemedIconLabel>`
   position: relative;
-  background-color: ${({ theme }) => theme.alert.background};
-  border-radius: 16px;
+  background-color: ${getThemeColor};
+  border-radius: 12px 0 0 12px;
   box-shadow: 0px 20px 36px -8px rgba(14, 14, 44, 0.1), 0px 1px 1px rgba(0, 0, 0, 0.05);
 `;
 
@@ -78,18 +77,24 @@ const Alert: React.FC<AlertProps> = ({ title, children, variant, onClick }) => {
   const Icon = getIcon(variant);
 
   return (
-    <StyledAlert>
-      <IconLabel variant={variant} hasDescription={!!children}>
-        <Icon color="currentColor" width="24px" />
+    <StyledAlert variant={variant} hasDescription={!!children}>
+      <IconLabel>
+        <Icon color="currentColor" width="36px" />
       </IconLabel>
       <Details hasHandler={!!onClick}>
-        <Text bold>{title}</Text>
-        {typeof children === "string" ? <Text as="p">{children}</Text> : children}
+        <Text fontWeight="700">{title}</Text>
+        {typeof children === "string" ? (
+          <Text as="p" fontSize="12px" lineHeight="16px" fontWeight="500">
+            {children}
+          </Text>
+        ) : (
+          children
+        )}
       </Details>
       {onClick && (
         <CloseHandler>
           <IconButton scale="sm" variant="text" onClick={onClick}>
-            <CloseIcon width="30px" color="currentColor" />
+            <CloseIcon width="24px" color="currentColor" />
           </IconButton>
         </CloseHandler>
       )}

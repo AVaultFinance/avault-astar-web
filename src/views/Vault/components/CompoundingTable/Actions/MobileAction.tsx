@@ -5,8 +5,8 @@ import { useAppDispatch } from 'state';
 import { fetchCompoundingFarmUserDataAsync } from 'state/compounding';
 import { useCompounding } from 'state/compounding/hooks';
 import styled from 'styled-components';
-import useCompoundingDeposit from 'views/Compounding/hooks/useCompoundingDeposit';
-import useCompoundingWithdraw from 'views/Compounding/hooks/useCompoundingWithdraw';
+import useCompoundingDeposit from 'views/Vault/hooks/useCompoundingDeposit';
+import useCompoundingWithdraw from 'views/Vault/hooks/useCompoundingWithdraw';
 import DepositModal from './DepositModal';
 import { LongButton } from './styles';
 import WithdrawModal from './WithdrawModal';
@@ -96,7 +96,7 @@ const MobileAction: FC<MobileActionProps> = ({
         </>
       ) : (
         <LongButton disabled={requestedApproval} onClick={handleApprove} variant="secondary">
-          Approve
+          {account ? 'Approve' : 'Connect Wallet'}
         </LongButton>
       )}
     </Container>

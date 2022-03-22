@@ -11,11 +11,11 @@ import { ActionContainer, LongButton } from './styles';
 import styled from 'styled-components';
 import CInput from './C_Input';
 import { getFullDisplayBalance } from 'utils/formatBalance';
-import { useCompounding } from 'state/compounding/hooks';
-import useCompoundingWithdraw from 'views/Compounding/hooks/useCompoundingWithdraw';
+import { useCompounding, useCompoundingFarmUser } from 'state/compounding/hooks';
+import useCompoundingDeposit from 'views/Vault/hooks/useCompoundingDeposit';
 import { fetchCompoundingFarmUserDataAsync } from 'state/compounding';
 
-interface WithdrawActionProps {
+interface HarvestActionProps {
   userDataReady: boolean;
   displayBalance: string | JSX.Element;
   earnings: BigNumber;
@@ -28,7 +28,6 @@ interface WithdrawActionProps {
   lpSymbol: string;
   contractAddress: string;
   quoteTokenDecimals: number;
-  lpToCLpRate: string;
 }
 const FlexStyled = styled(Flex)`
   margin-top: 0;
@@ -39,33 +38,33 @@ const FlexStyled = styled(Flex)`
   }
 `;
 
-const WithdrawAction: React.FunctionComponent<WithdrawActionProps> = ({
+const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
   pid,
   earnings,
   userDataReady,
-  name,
   isApproved,
   handleApprove,
   requestedApproval,
-  displayEarningsBalance,
   lpSymbol,
+  displayBalance,
   contractAddress,
   quoteTokenDecimals,
-  lpToCLpRate,
 }) => {
-  const { data: compoundings } = useCompounding();
   const { toastSuccess, toastError } = useToast();
+  const { data: compoundings } = useCompounding();
 
   const [pendingTx, setPendingTx] = useState(false);
-
+  const { account } = useWeb3React();
+  const { onDeposit } = useCompoundingDeposit(account, contractAddress, quoteTokenDecimals);
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const { account } = useWeb3React();
-  const { onWithdraw } = useCompoundingWithdraw(account, contractAddress, quoteTokenDecimals);
   const [val, setVal] = useState('');
+  const { stakingTokenBalance } = useCompoundingFarmUser(pid ?? 0);
+
   const fullBalance = useMemo(() => {
-    return getFullDisplayBalance(earnings, quoteTokenDecimals, 4);
-  }, [earnings, quoteTokenDecimals]);
+    return getFullDisplayBalance(stakingTokenBalance, quoteTokenDecimals, 6);
+  }, [stakingTokenBalance, quoteTokenDecimals]);
+  const fullBalanceNumber = new BigNumber(fullBalance);
   const handleChange = useCallback(
     (e: React.FormEvent<HTMLInputElement>) => {
       if (e.currentTarget.validity.valid) {
@@ -78,12 +77,10 @@ const WithdrawAction: React.FunctionComponent<WithdrawActionProps> = ({
   const handleSelectMax = useCallback(() => {
     setVal(fullBalance);
   }, [fullBalance, setVal]);
-
   const valNumber = new BigNumber(val);
-  const fullBalanceNumber = new BigNumber(fullBalance);
   const disabled =
     requestedApproval ||
-    earnings.eq(BIG_ZERO) ||
+    stakingTokenBalance.eq(BIG_ZERO) ||
     pendingTx ||
     !userDataReady ||
     !valNumber.isFinite() ||
@@ -93,44 +90,46 @@ const WithdrawAction: React.FunctionComponent<WithdrawActionProps> = ({
   return (
     <div>
       <Text textAlign="right" fontSize="12px" marginBottom="8px" fontWeight="500">
-        LP Withdrawable: {displayEarningsBalance}
-        {/* {lpSymbol ? ` ${lpSymbol}` : ''} */}
+        {/* {lpSymbol ?? ''} */}
+        LP Balance: {displayBalance}
       </Text>
       <ActionContainer smallBorder={disabled ? false : true}>
         <FlexStyled>
           <CInput value={val} onSelectMax={handleSelectMax} onChange={handleChange} />
-          <LongButton
-            variant="primary"
-            disabled={disabled}
-            onClick={async () => {
-              setPendingTx(true);
-              try {
-                const _amount = new BigNumber(val).times(1 / Number(lpToCLpRate)).toString();
-                await onWithdraw(_amount);
-                dispatch(fetchCompoundingFarmUserDataAsync({ account, compoundings }));
-                toastSuccess(
-                  `Withdraw!`,
-                  t('Your %symbol% earnings have been sent to your wallet!', { symbol: lpSymbol }),
-                );
-                setVal('');
-              } catch (e) {
-                toastError(
-                  t('Error'),
-                  t('Please try again. Confirm the transaction and make sure you are paying enough gas!'),
-                );
-                console.error(e);
-              } finally {
-                setPendingTx(false);
-              }
-              dispatch(fetchFarmUserDataAsync({ account, pids: [pid] }));
-            }}
-          >
-            {pendingTx ? 'Withdrawing' : 'Withdraw'}
-          </LongButton>
+          {!isApproved ? (
+            <LongButton disabled={requestedApproval} onClick={handleApprove} variant="secondary">
+              {account ? 'Approve' : 'Connect Wallet'}
+            </LongButton>
+          ) : (
+            <LongButton
+              variant="primary"
+              disabled={disabled}
+              onClick={async () => {
+                setPendingTx(true);
+                try {
+                  await onDeposit(val);
+                  dispatch(fetchCompoundingFarmUserDataAsync({ account, compoundings }));
+                  toastSuccess(`Deposit!`, t('Your %symbol% deposit!', { symbol: lpSymbol }));
+                } catch (e) {
+                  toastError(
+                    t('Error'),
+                    t('Please try again. Confirm the transaction and make sure you are paying enough gas!'),
+                  );
+                  setVal('');
+                  console.error(e);
+                } finally {
+                  setPendingTx(false);
+                }
+                dispatch(fetchFarmUserDataAsync({ account, pids: [pid] }));
+              }}
+            >
+              {pendingTx ? 'Depositing' : 'Deposit'}
+            </LongButton>
+          )}
         </FlexStyled>
       </ActionContainer>
     </div>
   );
 };
 
-export default WithdrawAction;
+export default HarvestAction;
