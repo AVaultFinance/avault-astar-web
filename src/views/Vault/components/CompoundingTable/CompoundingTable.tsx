@@ -112,7 +112,8 @@ const CompoundingTable: React.FC<ITableProps> = (props) => {
             <TableHeader sortDir={sortDir} sortKey={sortKey} onOptionChange={onOptionChange} />
 
             <TableBody>
-              {[...rows, ...compoundingData].map((row, index) => {
+              {/* {[...rows, ...compoundingData].map((row, index) => { */}
+              {rows.map((row, index) => {
                 return (
                   <Row
                     {...row.original}
