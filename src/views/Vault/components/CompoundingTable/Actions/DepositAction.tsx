@@ -100,12 +100,12 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
           {!isApproved ? (
             <LongButton
               disabled={requestedApproval || !userDataReady}
-              className={requestedApproval || !userDataReady ? 'loading' : ''}
+              className={requestedApproval ? 'loading' : ''}
               onClick={handleApprove}
               variant="secondary"
             >
               {account ? 'Approve' : 'Connect Wallet'}
-              {requestedApproval || !userDataReady ? <LoadingIcon /> : null}
+              {requestedApproval ? <LoadingIcon /> : null}
             </LongButton>
           ) : (
             <LongButton
