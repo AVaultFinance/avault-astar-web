@@ -24,17 +24,18 @@ const getDisabledStyles = ({ $isLoading, theme, variant: v }: TransientButtonPro
   return `
     &:disabled,
     &.pancake-button--disabled {
-      background-color: ${v === "primary" ? "#201F43" : "#030222"};
-      border-color: ${v === "primary" ? "#201F43" : "#030222"};
-      color: ${v === "primary" ? "#37365E" : "#484E4E"};
+      background-color: #201F43;
+      border-color: #201F43;
+      color: #37365E;
       box-shadow: none;
       cursor: not-allowed;
     }
   `;
 };
-
-/**
- * This is to get around an issue where if you use a Link component
+// background-color: ${v === "primary" ? "#201F43" : "#030222"};
+// border-color: ${v === "primary" ? "#201F43" : "#030222"};
+// color: ${v === "primary" ? "#37365E" : "#484E4E"};
+/*** This is to get around an issue where if you use a Link component
  * React will throw a invalid DOM attribute error
  * @see https://github.com/styled-components/styled-components/issues/135
  */

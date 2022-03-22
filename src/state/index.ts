@@ -2,7 +2,7 @@ import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import { save, load } from 'redux-localstorage-simple';
 import { useDispatch } from 'react-redux';
 import farmsReducer from './farms';
-import compoundingReducer from './compounding';
+import compoundingReducer from './vault';
 import poolsReducer from './pools';
 import predictionsReducer from './predictions';
 import profileReducer from './profile';

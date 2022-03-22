@@ -14,6 +14,7 @@ const initialState: CompoundingState = {
   data: [],
   allLiquidity: '',
   userDataLoaded: false,
+  dataLoaded: false,
 };
 export const fetchCompoundingsPublicDataAsync = createAsyncThunk<
   [ICompounding[], string],
@@ -34,7 +35,6 @@ export const fetchCompoundingFarmUserDataAsync = createAsyncThunk<
   const userCompoundingsStakedBalances = await fetchCompoundingsFarmStakedBalances(account, compoundings);
   const userCompoundingEarnings = await fetchCompoundingsFarmEarnings(account, compoundings);
   const userCompoundingUsers = await fetchCompoundingsUsers(account, compoundings);
-  console.log(userCompoundingsStakedBalances);
   return userCompoundingsFarmAllowances.map((farmAllowance, index) => {
     return {
       pid: compoundings[index].farm.pid,
@@ -49,11 +49,12 @@ export const fetchCompoundingFarmUserDataAsync = createAsyncThunk<
 export const compoundingSlice = createSlice({
   name: 'Compounding',
   initialState,
-  reducers: {},
-  extraReducers: (builder) => {
-    builder.addCase(fetchCompoundingsPublicDataAsync.pending, (state, action) => {
+  reducers: {
+    changeLoading: (state) => {
       state.userDataLoaded = false;
-    });
+    },
+  },
+  extraReducers: (builder) => {
     builder.addCase(fetchCompoundingsPublicDataAsync.fulfilled, (state, action) => {
       state.userDataLoaded = true;
       state.data = action.payload[0];
@@ -78,4 +79,7 @@ export const compoundingSlice = createSlice({
     });
   },
 });
+// Actions
+export const { changeLoading } = compoundingSlice.actions;
+
 export default compoundingSlice.reducer;

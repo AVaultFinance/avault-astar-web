@@ -23,9 +23,6 @@ export declare const styleVariants: {
         border: string;
         borderColor: string;
         color: string;
-        ":disabled": {
-            backgroundColor: string;
-        };
     };
     tertiary: {
         backgroundColor: string;

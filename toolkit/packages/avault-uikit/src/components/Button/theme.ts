@@ -26,9 +26,9 @@ export const styleVariants = {
     border: "1px solid",
     borderColor: "primary",
     color: "primary",
-    ":disabled": {
-      backgroundColor: "transparent",
-    },
+    // ":disabled": {
+    //   backgroundColor: "transparent",
+    // },
   },
   [variants.TERTIARY]: {
     backgroundColor: "tertiary",

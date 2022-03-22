@@ -5,7 +5,7 @@ import BigNumber from 'bignumber.js';
 // import { BASE_ADD_LIQUIDITY_URL } from 'config';
 // import getLiquidityUrlPathParts from 'utils/getLiquidityUrlPathParts';
 import { HelpIcon, Skeleton, useTooltip } from '@avault/ui';
-import { IFarmProject } from 'state/compounding/types';
+import { IFarmProject } from 'state/vault/types';
 
 export interface AprProps {
   apr: string;

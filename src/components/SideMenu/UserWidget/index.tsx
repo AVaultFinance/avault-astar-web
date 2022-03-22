@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Flex, Text, useMatchBreakpoints } from '@avault/ui';
 import WalletAccountInfo from './WalletAccount';
-import { useCompoundingAllTotal } from 'state/compounding/hooks';
+import { useCompoundingAllTotal } from 'state/vault/hooks';
 const TextLinerStyle = styled(Text)`
   font-size: 18px;
   background: linear-gradient(270deg, #00f4b9 0%, #ff4afb 100%);

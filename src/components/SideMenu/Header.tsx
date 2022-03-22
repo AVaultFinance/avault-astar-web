@@ -43,7 +43,7 @@ export default styled(Header)`
     align-items: center;
     justify-content: space-between;
     height: 72px;
-    border-bottom: 1px solid ${({ theme }) => theme.colors.tooltipColors.borderColor};
+    border-bottom: 1px solid ${({ theme }) => theme.colors.borderColor};
     ${({ theme }) => theme.mediaQueries.md} {
       height: 82px;
       padding-left: 0;

@@ -1,7 +1,13 @@
 import React, { useState, useCallback } from 'react';
 import { Button } from '@avault/ui';
 import BigNumber from 'bignumber.js';
-import { InputWrap, PageContainerWrap, StyledInput, StyledTokenInputTop } from './style/DappstakeStyle';
+import {
+  StakeGlobalStyle,
+  InputWrap,
+  PageContainerWrap,
+  StyledInput,
+  StyledTokenInputTop,
+} from './style/DappstakeStyle';
 import Balance from './components/StakeTableBalance';
 import DappstakePage from './components/DappstakePage';
 import PageLayout from 'components/Layout/Page';
@@ -47,6 +53,7 @@ const Stake = () => {
   }, [fullBalance, setVal]);
   return (
     <PageLayout>
+      <StakeGlobalStyle />
       <PageContainerWrap>
         <DappstakePage contract={contract} pool={pool}>
           <Balance
@@ -70,7 +77,7 @@ const Stake = () => {
               />
             </StyledTokenInputTop>
             <StyledTokenInputTop isWarning={false}>
-              <TokenIconItem symbol="aAVAT" tokenAddress="aava" />
+              <TokenIconItem symbol="aAVAT" tokenAddress="aavat" />
               <StyledInput
                 pattern={`^[0-9]*[.,]?[0-9]{0,${decimals}}$`}
                 inputMode="decimal"

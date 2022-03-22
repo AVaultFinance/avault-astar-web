@@ -14,11 +14,11 @@ import { useWeb3React } from '@web3-react/core';
 import MobileAction from './MobileAction';
 import { useERC20 } from 'hooks/useContract';
 import { useAppDispatch } from 'state';
-import { ICompounding } from 'state/compounding/types';
-import { useCompounding, useCompoundingFarmUser } from 'state/compounding/hooks';
+import { ICompounding } from 'state/vault/types';
+import { useCompounding, useCompoundingFarmUser } from 'state/vault/hooks';
 import useAuth from 'hooks/useAuth';
 import { chainId } from 'config/constants/tokens';
-import { fetchCompoundingFarmUserDataAsync } from 'state/compounding';
+import { fetchCompoundingFarmUserDataAsync } from 'state/vault';
 import { BASE_BSC_SCAN_URL } from 'config';
 import { useSpecialApproveFarm } from 'views/Vault/hooks/useApproveFarm';
 import { getDisplayApy } from 'views/Farms/Farms';
@@ -211,6 +211,10 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
       login(connectorId);
       return;
     }
+    // setRequestedApproval(true);
+    // setTimeout(() => {
+    //   setRequestedApproval(false);
+    // }, 80000);
     try {
       setRequestedApproval(true);
       await onApprove();
