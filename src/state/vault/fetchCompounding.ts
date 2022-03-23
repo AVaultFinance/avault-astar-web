@@ -57,7 +57,7 @@ const fetch = async (
   const lpToCLpRate =
     wantLockedTotal && compoundingTotalSupply && wantLockedTotal > 0 && compoundingTotalSupply > 0
       ? (Number(wantLockedTotal) / Number(compoundingTotalSupply)).toFixed(4)
-      : '1.0000';
+      : '1';
   return {
     ...compounding,
     compounding: {
@@ -300,7 +300,10 @@ const fetchFarmDataABI = async (
   // 在LP中的总质押，以报价代币价值计算
   const lpTotalInQuoteToken = quoteTokenAmountMc.times(new BigNumber(2));
   const totalLiquidity = priceVsBusdMap[quoteToken.toLocaleLowerCase()]
-    ? lpTotalInQuoteToken.times(priceVsBusdMap[quoteToken.toLocaleLowerCase()] ?? 1).toString()
+    ? lpTotalInQuoteToken
+        .times(priceVsBusdMap[quoteToken.toLocaleLowerCase()] ?? 1)
+        .toFixed(2)
+        .toString()
     : '';
 
   let lpTokenPrice = BIG_ZERO;

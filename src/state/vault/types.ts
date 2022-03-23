@@ -148,7 +148,7 @@ export const compoundingData = [
           totalSupply: '110000000000000',
           AVAAddress: '0x55d398326f99059ff775485246999027b3197955',
           decimals: 18,
-          lpToCLpRate: '1.0000',
+          lpToCLpRate: '1',
           liquidity: '0.00',
         },
         farm: {

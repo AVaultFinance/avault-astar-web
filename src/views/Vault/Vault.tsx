@@ -104,7 +104,7 @@ const Compoundings: React.FC = () => {
             ...compounding.farm,
             apr: `${kacRewardsApr}`,
             lpRewardsApr: `${lpRewardsApr}`,
-            liquidity: totalLiquidity.toString(),
+            liquidity: totalLiquidity.toFixed(2).toString(),
             apy: `${kacRewardApy}`,
           },
         };

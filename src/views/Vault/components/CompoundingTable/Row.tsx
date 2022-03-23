@@ -118,7 +118,7 @@ const StyledTr = styled.tr<{ isLast: boolean }>`
     white-space: wrap;
     padding-left: 18px;
 
-    ${({ theme }) => theme.mediaQueries.lg} {
+    ${({ theme }) => theme.mediaQueries.md} {
       white-space: nowrap;
     }
   }
@@ -288,7 +288,7 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
             <Compounding {...props.compounding} />
           </CellLayout>
           <TextStyled>
-            1:{details.compounding.lpToCLpRate}
+            1:{`${details.compounding.lpToCLpRate.toString() === 'NaN' ? '1' : details.compounding.lpToCLpRate}`}
             {/* 1 {details.compounding.symbol}={details.compounding.lpToCLpRate} {details.lpSymbol} */}
           </TextStyled>
         </td>
