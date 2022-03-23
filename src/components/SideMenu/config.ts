@@ -46,13 +46,13 @@ const avaultMenuItems: IMenu[] = [
     text: 'Vault',
     link: '/vault',
   },
-  {
-    text: 'Farm',
-    link: '/farms',
-  },
-  {
-    text: 'Stake',
-    link: '/stake',
-  },
+  // {
+  //   text: 'Farm',
+  //   link: '/farms',
+  // },
+  // {
+  //   text: 'Stake',
+  //   link: '/stake',
+  // },
 ];
 export const menuItemsDefault = avaultMenuItems;

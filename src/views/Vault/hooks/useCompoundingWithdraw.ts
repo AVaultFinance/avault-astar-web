@@ -8,7 +8,11 @@ const useCompoundingWithdraw = (account: string, contractAddress: string, decima
   const handleWithdraw = useCallback(
     async (amount: string) => {
       // const txHash =
-      await withdrawCompoundingUtil(contractAddressContract, account, amount, decimal);
+      try {
+        return await withdrawCompoundingUtil(contractAddressContract, account, amount, decimal);
+      } catch (e) {
+        return false;
+      }
     },
     [contractAddressContract, account, decimal],
   );

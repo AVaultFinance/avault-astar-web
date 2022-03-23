@@ -64,7 +64,6 @@ const Compoundings: React.FC = () => {
   // Users with no wallet connected should see 0 as Earned amount
   // Connected users should see loading indicator until first userData has loaded
   const userDataReady = !account || (!!account && userDataLoaded);
-  console.log('userDataReady_wwww: ', userDataReady, account, userDataLoaded);
   const compoundingsList = useCallback(
     (compoundingsToDisplay: ICompounding[]): ICompounding[] => {
       const compoundingsToDisplayWithAPR: ICompounding[] = compoundingsToDisplay.map((compounding) => {

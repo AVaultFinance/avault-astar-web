@@ -49,13 +49,13 @@ export const LongButton = styled(Button)<{ disabled: boolean }>`
   position: relative;
   &.loading {
     color: ${({ theme }) => theme.colors.primary};
-    text-align: left;
-    justify-content: flex-start;
+    // text-align: left;
+    // justify-content: space-between;
   }
   svg {
-    position: absolute;
-    top: 6px;
-    right: 20px;
+    // position: absolute;
+    // top: 6px;
+    // right: 20px;
     path {
       fill: ${({ theme }) => theme.colors.primary};
     }

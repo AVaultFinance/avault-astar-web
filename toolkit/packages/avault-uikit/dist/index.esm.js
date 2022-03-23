@@ -255,7 +255,7 @@ var Button = function (props) {
     var isDisabled = isLoading || disabled;
     var classNames = className ? [className] : [];
     if (isLoading) {
-        classNames.push("pancake-button--loading");
+        classNames.push("loading");
     }
     if (isDisabled && !isLoading) {
         classNames.push("pancake-button--disabled");
@@ -4632,7 +4632,7 @@ var Toast = function (_a) {
             clearTimeout(timer.current);
         };
     }, [timer, ttl, handleRemove]);
-    return (React.createElement(CSSTransition, __assign({ nodeRef: ref, timeout: 250000, style: style }, props),
+    return (React.createElement(CSSTransition, __assign({ nodeRef: ref, timeout: 250, style: style }, props),
         React.createElement(StyledToast, { ref: ref, onMouseEnter: handleMouseEnter, onMouseLeave: handleMouseLeave },
             React.createElement(Alert, { title: title, variant: alertTypeMap[type], onClick: handleRemove }, description))));
 };

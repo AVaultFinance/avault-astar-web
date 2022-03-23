@@ -61,6 +61,8 @@ export interface ICompoundingUserData {
   stakedBalance: string;
   pendingReward: string;
   avaultAddressBalance: string;
+  userCompoundingSupply: string;
+  compoundingWantLockedTotal?: string;
 }
 export interface ICompoundingComp {
   // abi

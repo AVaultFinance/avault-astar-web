@@ -1,5 +1,5 @@
 import Flex from 'components/Layout/Flex';
-import Spinner from 'components/TransactionConfirmationModal/Spinner';
+import PageLoading from 'components/TransactionConfirmationModal/PageLoading';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -16,7 +16,7 @@ const Wrapper = styled(Flex)`
 const PageLoader: React.FC = () => {
   return (
     <Wrapper>
-      <Spinner />
+      <PageLoading />
     </Wrapper>
   );
 };

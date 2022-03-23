@@ -22,6 +22,7 @@ import { fetchCompoundingFarmUserDataAsync } from 'state/vault';
 import { BASE_BSC_SCAN_URL } from 'config';
 import { useSpecialApproveFarm } from 'views/Vault/hooks/useApproveFarm';
 import { getDisplayApy } from 'views/Farms/Farms';
+import useToast from 'hooks/useToast';
 
 export interface ActionPanelProps {
   apr: AprProps;
@@ -178,7 +179,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
   const isApproved = account && allowance && allowance.isGreaterThan(0);
   // const stakingBigNumber = new BigNumber(compounding.farm.userData.stakingTokenBalance);
   let earnings = BIG_ZERO;
-  let displayEarningsBalance: string = '0';
+  let displayEarningsBalance: string = '0.000';
 
   // If user didn't connect wallet default balance will be 0
   if (isApproved) {
@@ -188,7 +189,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
     // avaultAddressBalance： 89962782593973
     // _wantLockedTotal： 284598115334499
     console.log('earnings: ', _wantLockedTotal.toString(), _totalSupply.toString(), avaultAddressBalance.toString());
-    if (avaultAddressBalance.toNumber() > 0) {
+    if (avaultAddressBalance.toNumber() > 0 && _totalSupply.toNumber() > 0) {
       earnings = _wantLockedTotal.dividedBy(_totalSupply).times(avaultAddressBalance);
       console.log('earnings: ', earnings);
       // earnings = getBalanceAmount(_value, compounding.farm.quoteTokenDecimals);
@@ -200,31 +201,41 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
 
   const lpContract = useERC20(lpAddress);
   const [requestedApproval, setRequestedApproval] = useState(false);
+  const [requestedApprovalSuccess, setRequestedApprovalSuccess] = useState(true);
   // const { onApprove } = useSpecialApproveFarm(lpContract, compounding.compounding.masterChef);
   const { onApprove } = useSpecialApproveFarm(lpContract, compounding.contractAddress[chainId]);
   const dispatch = useAppDispatch();
   const { login } = useAuth();
   const { data: compoundings } = useCompounding();
+  const { toastSuccess, toastError } = useToast();
   const handleApprove = useCallback(async () => {
     if (!account) {
       const connectorId = (window.localStorage.getItem(connectorLocalStorageKey) ?? 'injected') as ConnectorNames;
       login(connectorId);
       return;
     }
-    // setRequestedApproval(true);
-    // setTimeout(() => {
-    //   setRequestedApproval(false);
-    // }, 80000);
     try {
       setRequestedApproval(true);
-      await onApprove();
+      const result = await onApprove();
       dispatch(fetchCompoundingFarmUserDataAsync({ account, compoundings }));
-
-      setRequestedApproval(false);
+      if (result) {
+        toastSuccess('Approve!', 'Your are Approved');
+        setRequestedApproval(false);
+        setTimeout(() => {
+          setRequestedApprovalSuccess(true);
+        }, 30000);
+      } else {
+        setRequestedApproval(false);
+        setRequestedApprovalSuccess(false);
+        setTimeout(() => {
+          setRequestedApprovalSuccess(true);
+        }, 1500);
+        toastError('Approve!', 'Your approved failed');
+      }
     } catch (e) {
       console.error(e);
     }
-  }, [onApprove, dispatch, login, account, compoundings]);
+  }, [onApprove, dispatch, login, account, compoundings, toastError, toastSuccess]);
 
   return (
     <Container expanded={expanded}>
@@ -300,6 +311,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
             contractAddress={compounding.contractAddress[chainId]}
             quoteTokenDecimals={compounding.farm.quoteTokenDecimals}
             requestedApproval={requestedApproval}
+            requestedApprovalSuccess={requestedApprovalSuccess}
             isApproved={isApproved}
             displayBalance={getFullDisplayBalance(
               new BigNumber(compounding?.farm?.userData?.stakingTokenBalance ?? '0'),

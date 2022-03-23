@@ -77,16 +77,40 @@ export const fetchCompoundingsFarmEarnings = async (account: string, compounding
 };
 
 export const fetchCompoundingsUsers = async (account: string, compoundings: ICompounding[]) => {
-  const calls = compoundings.map((compounding: ICompounding) => {
+  const calls01 = compoundings.map((compounding: ICompounding) => {
     return {
       address: compounding.contractAddress[chainId],
       name: 'balanceOf',
       params: [account],
     };
   });
-  const rawEarnings = await multicall(AVaultPCS_ABI, calls);
-  const parsedEarnings = rawEarnings.map((balances) => {
-    return new BigNumber(balances).toJSON();
+  const calls02 = compoundings.map((compounding: ICompounding) => {
+    return {
+      address: compounding.contractAddress[chainId],
+      name: 'totalSupply',
+    };
   });
-  return parsedEarnings;
+  const calls03 = compoundings.map((compounding: ICompounding) => {
+    return {
+      address: compounding.contractAddress[chainId],
+      name: 'wantLockedTotal',
+    };
+  });
+
+  if (calls01.length && calls02.length) {
+    const rawEarnings01 = await multicall(AVaultPCS_ABI, calls01);
+    const rawEarnings02 = await multicall(AVaultPCS_ABI, calls02);
+    const rawEarnings03 = await multicall(AVaultPCS_ABI, calls03);
+    const parsedEarnings = rawEarnings01.map((balances) => {
+      return new BigNumber(balances).toJSON();
+    });
+    const compoundingTotalSupply = rawEarnings02.map((balances) => {
+      return balances ? balances[0].toString() : null;
+    });
+    const compoundingWantLockedTotal = rawEarnings03.map((balances) => {
+      return balances ? balances[0].toString() : null;
+    });
+
+    return [parsedEarnings, compoundingTotalSupply, compoundingWantLockedTotal];
+  }
 };

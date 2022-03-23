@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 
 const Wrapper = styled.div``;
 
-function Spinner() {
+function PageLoading() {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -14,7 +14,7 @@ function Spinner() {
       renderer: 'svg' as any,
       loop: true,
       autoplay: true,
-      path: '/media/spinner.json',
+      path: '/media/pageLoading.json',
     });
 
     return () => animation.destroy();
@@ -23,4 +23,4 @@ function Spinner() {
   return <Wrapper ref={ref}></Wrapper>;
 }
 
-export default Spinner;
+export default PageLoading;

@@ -34,15 +34,20 @@ export const fetchCompoundingFarmUserDataAsync = createAsyncThunk<
   const userCompoundingsFarmTokenBalances = await fetchCompoundingsFarmUserTokenBalances(account, compoundings);
   const userCompoundingsStakedBalances = await fetchCompoundingsFarmStakedBalances(account, compoundings);
   const userCompoundingEarnings = await fetchCompoundingsFarmEarnings(account, compoundings);
-  const userCompoundingUsers = await fetchCompoundingsUsers(account, compoundings);
+  const [userCompoundingUsers, userCompoundingSupply, compoundingWantLockedTotal] = await fetchCompoundingsUsers(
+    account,
+    compoundings,
+  );
   return userCompoundingsFarmAllowances.map((farmAllowance, index) => {
     return {
       pid: compoundings[index].farm.pid,
-      allowance: userCompoundingsFarmAllowances[index],
+      allowance: farmAllowance,
       stakingTokenBalance: userCompoundingsFarmTokenBalances[index],
       stakedBalance: userCompoundingsStakedBalances[index],
       pendingReward: userCompoundingEarnings[index],
       avaultAddressBalance: userCompoundingUsers[index],
+      userCompoundingSupply: userCompoundingSupply[index],
+      compoundingWantLockedTotal: compoundingWantLockedTotal[index],
     };
   });
 });
@@ -64,10 +69,18 @@ export const compoundingSlice = createSlice({
       action.payload.forEach((userDataEl) => {
         const { pid } = userDataEl;
         const index = state.data.findIndex((compounding: ICompounding) => compounding.farm.pid === pid);
+
+        const lpToCLpRate = (
+          Number(userDataEl.compoundingWantLockedTotal) / Number(userDataEl.userCompoundingSupply)
+        ).toFixed(4);
+
         state.data[index] = {
           ...state.data[index],
           compounding: {
             ...state.data[index].compounding,
+            totalSupply: userDataEl.userCompoundingSupply,
+            wantLockedTotal: userDataEl.compoundingWantLockedTotal,
+            lpToCLpRate: lpToCLpRate,
           },
           farm: {
             ...state.data[index].farm,

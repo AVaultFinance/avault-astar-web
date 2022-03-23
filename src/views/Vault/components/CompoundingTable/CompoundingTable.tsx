@@ -6,7 +6,6 @@ import Row, { RowProps } from './Row';
 import TableHeader from '../TableHeader';
 import { OptionProps } from 'components/Select/Select';
 import { ISortDir } from 'components/SortIcon';
-import { compoundingData } from 'state/vault/types';
 
 export interface ITableProps {
   data: RowProps[];
@@ -112,7 +111,8 @@ const CompoundingTable: React.FC<ITableProps> = (props) => {
             <TableHeader sortDir={sortDir} sortKey={sortKey} onOptionChange={onOptionChange} />
 
             <TableBody>
-              {[...rows, ...compoundingData].map((row, index) => {
+              {/* {[...rows, ...compoundingData].map((row, index) => { */}
+              {rows.map((row, index) => {
                 return (
                   <Row
                     {...row.original}

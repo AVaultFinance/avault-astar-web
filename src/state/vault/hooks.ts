@@ -21,7 +21,6 @@ export const useCompoundingUserData = (compoundings: ICompounding[]) => {
   const dispatch = useAppDispatch();
   useEffect(() => {
     if (account) {
-      console.log('dddd');
       dispatch(changeLoading());
       dispatch(fetchCompoundingFarmUserDataAsync({ account, compoundings }));
     }

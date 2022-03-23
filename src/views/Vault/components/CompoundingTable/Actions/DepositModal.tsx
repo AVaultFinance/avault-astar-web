@@ -34,7 +34,7 @@ const DepositModal: React.FC<DepositModalProps> = ({
   const [pendingTx, setPendingTx] = useState(false);
   const { t } = useTranslation();
   const fullBalance = useMemo(() => {
-    return getFullDisplayBalance(max, quoteTokenDecimals, 2);
+    return getFullDisplayBalance(max, quoteTokenDecimals, 6);
   }, [max, quoteTokenDecimals]);
 
   const valNumber = new BigNumber(val);

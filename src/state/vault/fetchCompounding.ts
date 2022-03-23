@@ -99,6 +99,7 @@ const fetch = async (
         stakedBalance: '0',
         pendingReward: '0',
         avaultAddressBalance: '0',
+        userCompoundingSupply: '0',
       },
     },
   };

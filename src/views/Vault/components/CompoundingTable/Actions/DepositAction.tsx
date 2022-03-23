@@ -6,7 +6,6 @@ import { BIG_ZERO } from 'utils/bigNumber';
 import { useAppDispatch } from 'state';
 import { fetchFarmUserDataAsync } from 'state/farms';
 import useToast from 'hooks/useToast';
-import { useTranslation } from 'contexts/Localization';
 import { ActionContainer, LongButton } from './styles';
 import styled from 'styled-components';
 import CInput from './C_Input';
@@ -14,7 +13,7 @@ import { getFullDisplayBalance } from 'utils/formatBalance';
 import { useCompounding, useCompoundingFarmUser } from 'state/vault/hooks';
 import useCompoundingDeposit from 'views/Vault/hooks/useCompoundingDeposit';
 import { fetchCompoundingFarmUserDataAsync } from 'state/vault';
-import LoadingIcon from 'components/svg/loading';
+import Loading from 'components/TransactionConfirmationModal/Loading';
 
 interface HarvestActionProps {
   userDataReady: boolean;
@@ -23,6 +22,7 @@ interface HarvestActionProps {
   isApproved: boolean;
   handleApprove: any;
   requestedApproval: boolean;
+  requestedApprovalSuccess: boolean;
   pid: number;
   name: string;
   displayEarningsBalance?: string;
@@ -50,14 +50,16 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
   displayBalance,
   contractAddress,
   quoteTokenDecimals,
+  requestedApprovalSuccess,
 }) => {
   const { toastSuccess, toastError } = useToast();
   const { data: compoundings } = useCompounding();
 
   const [pendingTx, setPendingTx] = useState(false);
+  const [pendingTxSuccess, setPendingTxSuccess] = useState(true);
+
   const { account } = useWeb3React();
   const { onDeposit } = useCompoundingDeposit(account, contractAddress, quoteTokenDecimals);
-  const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const [val, setVal] = useState('');
   const { stakingTokenBalance } = useCompoundingFarmUser(pid ?? 0);
@@ -79,6 +81,39 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
     setVal(fullBalance);
   }, [fullBalance, setVal]);
   const valNumber = new BigNumber(val);
+
+  const handleDeposit = useCallback(async () => {
+    setPendingTx(true);
+    let result = null;
+    try {
+      result = await onDeposit(val);
+      console.log({ result });
+      dispatch(fetchCompoundingFarmUserDataAsync({ account, compoundings }));
+      if (result) {
+        toastSuccess(`Deposit!`, `Your ${lpSymbol} deposit!`);
+        setTimeout(() => {
+          setPendingTxSuccess(true);
+        }, 10000);
+      } else {
+        toastError('Error', `Your ${lpSymbol} deposit failed!`);
+        setPendingTxSuccess(false);
+        setTimeout(() => {
+          setPendingTxSuccess(true);
+        }, 1500);
+      }
+    } catch (e) {
+      toastError('Error', `Your ${lpSymbol} deposit failed!`);
+      setPendingTxSuccess(false);
+      setTimeout(() => {
+        setPendingTxSuccess(true);
+      }, 1500);
+      // toastError('Error', `Your ${lpSymbol} deposit failed!`);
+    } finally {
+      setVal('');
+      setPendingTx(false);
+    }
+    dispatch(fetchFarmUserDataAsync({ account, pids: [pid] }));
+  }, [val, account, compoundings, dispatch, lpSymbol, onDeposit, pid, toastError, toastSuccess]);
   const disabled =
     requestedApproval ||
     stakingTokenBalance.eq(BIG_ZERO) ||
@@ -87,7 +122,6 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
     !valNumber.isFinite() ||
     valNumber.eq(0) ||
     valNumber.gt(fullBalanceNumber);
-  console.log('userDataReady: ', userDataReady);
   return (
     <div>
       <Text textAlign="right" fontSize="12px" marginBottom="8px" fontWeight="500">
@@ -100,37 +134,22 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
           {!isApproved ? (
             <LongButton
               disabled={requestedApproval || !userDataReady}
-              className={requestedApproval || !userDataReady ? 'loading' : ''}
+              className={requestedApproval ? 'loading' : ''}
               onClick={handleApprove}
               variant="secondary"
             >
               {account ? 'Approve' : 'Connect Wallet'}
-              {requestedApproval || !userDataReady ? <LoadingIcon /> : null}
+              <Loading isLoading={requestedApproval} success={requestedApprovalSuccess} />
             </LongButton>
           ) : (
             <LongButton
               variant="primary"
+              className={pendingTx ? 'loading' : ''}
               disabled={disabled}
-              onClick={async () => {
-                setPendingTx(true);
-                try {
-                  await onDeposit(val);
-                  dispatch(fetchCompoundingFarmUserDataAsync({ account, compoundings }));
-                  toastSuccess(`Deposit!`, t('Your %symbol% deposit!', { symbol: lpSymbol }));
-                } catch (e) {
-                  toastError(
-                    t('Error'),
-                    t('Please try again. Confirm the transaction and make sure you are paying enough gas!'),
-                  );
-                  setVal('');
-                  console.error(e);
-                } finally {
-                  setPendingTx(false);
-                }
-                dispatch(fetchFarmUserDataAsync({ account, pids: [pid] }));
-              }}
+              onClick={handleDeposit}
             >
-              {pendingTx ? 'Depositing' : 'Deposit'}
+              Deposit
+              <Loading isLoading={pendingTx} success={pendingTxSuccess} />
             </LongButton>
           )}
         </FlexStyled>

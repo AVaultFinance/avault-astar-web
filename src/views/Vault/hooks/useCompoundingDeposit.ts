@@ -7,7 +7,11 @@ const useCompoundingDeposit = (account: string, contractAddress: string, decimal
   const handleDeposit = useCallback(
     async (amount: string) => {
       // const txHash =
-      await depositCompoundingUtil(contractAddressContract, account, amount, decimal);
+      try {
+        return await depositCompoundingUtil(contractAddressContract, account, amount, decimal);
+      } catch (e) {
+        return false;
+      }
     },
     [contractAddressContract, account, decimal],
   );

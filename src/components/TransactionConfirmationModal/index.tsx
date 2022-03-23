@@ -8,7 +8,7 @@ import useActiveWeb3React from 'hooks/useActiveWeb3React';
 import { AutoColumn, ColumnCenter } from '../Layout/Column';
 import { RowFixed } from '../Layout/Row';
 import { getBscScanLink } from '../../utils';
-import Spinner from './Spinner';
+import PageLoading from './PageLoading';
 import IconSvg from '../svg/icon.svg';
 import { wrappedCurrency } from 'utils/wrappedCurrency';
 
@@ -24,7 +24,7 @@ function ConfirmationPendingContent({ pendingText }: { pendingText: string }) {
   return (
     <Wrapper>
       <ConfirmedIcon style={{ padding: '0px 0px 24px 0px' }}>
-        <Spinner />
+        <PageLoading />
       </ConfirmedIcon>
       <AutoColumn gap="12px" justify="center">
         <Text fontSize="12px" color="secondary">

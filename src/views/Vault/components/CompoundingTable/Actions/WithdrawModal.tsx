@@ -35,7 +35,7 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
   const [pendingTx, setPendingTx] = useState(false);
   const { t } = useTranslation();
   const fullBalance = useMemo(() => {
-    return getFullDisplayBalance(max, quoteTokenDecimals, 2);
+    return getFullDisplayBalance(max, quoteTokenDecimals, 6);
   }, [max, quoteTokenDecimals]);
 
   const handleChange = useCallback(
