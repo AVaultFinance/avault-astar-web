@@ -214,6 +214,10 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
       login(connectorId);
       return;
     }
+    // setRequestedApproval(true);
+    // setTimeout(() => {
+    //   setRequestedApproval(false);
+    // }, 80000);
     try {
       setRequestedApproval(true);
       const result = await onApprove();

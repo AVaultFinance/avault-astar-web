@@ -47,17 +47,9 @@ export const LongButton = styled(Button)<{ disabled: boolean }>`
   margin-top: 4px;
   transition: all 0.3s ease;
   position: relative;
-  &.loading {
-    color: ${({ theme }) => theme.colors.primary};
-    // text-align: left;
-    // justify-content: space-between;
-  }
-  svg {
-    // position: absolute;
-    // top: 6px;
-    // right: 20px;
-    path {
-      fill: ${({ theme }) => theme.colors.primary};
-    }
-  }
+  // &.loading {
+  // color: ${({ theme }) => theme.colors.primary};
+  // text-align: left;
+  // justify-content: space-between;
+  // }
 `;

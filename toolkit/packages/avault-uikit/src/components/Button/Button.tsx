@@ -19,7 +19,7 @@ const Button = <E extends ElementType = "button">(props: ButtonProps<E>): JSX.El
 
   return (
     <StyledButton
-      $isLoading={isLoading}
+      isLoading={isLoading}
       className={classNames.join(" ")}
       disabled={isDisabled}
       {...internalProps}

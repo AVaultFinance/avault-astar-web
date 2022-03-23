@@ -1,19 +1,24 @@
 import BigNumber from 'bignumber.js';
 import React, { useCallback, useMemo, useState } from 'react';
 import { Button, Modal, Text, useMatchBreakpoints } from '@avault/ui';
-import { useTranslation } from 'contexts/Localization';
 import { getFullDisplayBalance } from 'utils/formatBalance';
-import useToast from 'hooks/useToast';
 import CInput from './C_Input';
 import styled from 'styled-components';
+import Loading from 'components/TransactionConfirmationModal/Loading';
+import { fetchCompoundingFarmUserDataAsync } from 'state/vault';
+import { useAppDispatch } from 'state';
+import { useWeb3React } from '@web3-react/core';
+import { useCompounding } from 'state/vault/hooks';
+import useToast from 'hooks/useToast';
+import useCompoundingDeposit from 'views/Vault/hooks/useCompoundingDeposit';
 
 interface DepositModalProps {
   lpSymbol?: string;
   max: BigNumber;
   displayBalance: string;
   quoteTokenDecimals: number;
-  onDeposit: (amount: string) => void;
   onDismiss?: () => void;
+  contractAddress: string;
 }
 const ModalInputStyled = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.cardBorder};
@@ -21,18 +26,21 @@ const ModalInputStyled = styled.div`
   padding: 12px 16px 16px;
   margin-top: 8px;
 `;
+const ButtonStyled = styled(Button)<{ isLoading: boolean; isMobile: boolean }>`
+  margin-top: 8px;
+  width: 100%;
+  // isLoading={pendingTx}
+  height: ${({ isMobile }) => (isMobile ? '38px' : '48px')};
+`;
 const DepositModal: React.FC<DepositModalProps> = ({
-  lpSymbol,
   quoteTokenDecimals,
   max,
-  onDeposit,
   onDismiss,
   displayBalance,
+  lpSymbol,
+  contractAddress,
 }) => {
   const [val, setVal] = useState('');
-  const { toastSuccess, toastError } = useToast();
-  const [pendingTx, setPendingTx] = useState(false);
-  const { t } = useTranslation();
   const fullBalance = useMemo(() => {
     return getFullDisplayBalance(max, quoteTokenDecimals, 6);
   }, [max, quoteTokenDecimals]);
@@ -54,6 +62,44 @@ const DepositModal: React.FC<DepositModalProps> = ({
   }, [fullBalance, setVal]);
   const { isMd, isXl, isLg } = useMatchBreakpoints();
   const isMobile = !(isMd || isXl || isLg);
+  const [pendingTx, setPendingTx] = useState(false);
+  const [pendingTxSuccess, setPendingTxSuccess] = useState(true);
+
+  const { account } = useWeb3React();
+  const { data: compoundings } = useCompounding();
+  const { toastSuccess, toastError } = useToast();
+  const dispatch = useAppDispatch();
+  const { onDeposit } = useCompoundingDeposit(account, contractAddress, quoteTokenDecimals);
+  const handleDeposit = useCallback(async () => {
+    setPendingTx(true);
+    let result = null;
+    try {
+      result = await onDeposit(val);
+      dispatch(fetchCompoundingFarmUserDataAsync({ account, compoundings }));
+      if (result) {
+        toastSuccess(`Deposit!`, `Your ${lpSymbol} deposit!`);
+        setTimeout(() => {
+          setPendingTxSuccess(true);
+        }, 10000);
+      } else {
+        toastError('Error', `Your ${lpSymbol} deposit failed!`);
+        setPendingTxSuccess(false);
+        setTimeout(() => {
+          setPendingTxSuccess(true);
+        }, 1500);
+      }
+    } catch (e) {
+      toastError('Error', `Your ${lpSymbol} deposit failed!`);
+      setPendingTxSuccess(false);
+      setTimeout(() => {
+        setPendingTxSuccess(true);
+      }, 1500);
+      // toastError('Error', `Your ${lpSymbol} deposit failed!`);
+    } finally {
+      setVal('');
+      setPendingTx(false);
+    }
+  }, [val, account, compoundings, dispatch, lpSymbol, onDeposit, toastError, toastSuccess]);
 
   return (
     <Modal title={'Deposit'} minWidth={isMobile ? '280px' : '520px'} bodyPadding="0 24px 34px" onDismiss={onDismiss}>
@@ -63,30 +109,15 @@ const DepositModal: React.FC<DepositModalProps> = ({
       </Text>
       <ModalInputStyled>
         <CInput value={val} autoFocus={true} onSelectMax={handleSelectMax} onChange={handleChange} />
-        <Button
-          marginTop="8px"
-          width="100%"
-          height={isMobile ? '38px' : '48px'}
+        <ButtonStyled
+          isLoading={pendingTx}
+          isMobile={isMobile}
           disabled={pendingTx || !valNumber.isFinite() || valNumber.eq(0) || valNumber.gt(fullBalanceNumber)}
-          onClick={async () => {
-            setPendingTx(true);
-            try {
-              await onDeposit(val);
-              toastSuccess(t('Deposit!'), t('Your funds have been deposited in the compounding'));
-              onDismiss();
-            } catch (e) {
-              toastError(
-                t('Error'),
-                t('Please try again. Confirm the transaction and make sure you are paying enough gas!'),
-              );
-              console.error(e);
-            } finally {
-              setPendingTx(false);
-            }
-          }}
+          onClick={handleDeposit}
         >
-          {pendingTx ? 'Depositing' : 'Deposit'}
-        </Button>
+          Deposit
+          <Loading isLoading={pendingTx} success={pendingTxSuccess} />
+        </ButtonStyled>
       </ModalInputStyled>
     </Modal>
   );

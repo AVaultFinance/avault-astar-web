@@ -1,12 +1,7 @@
 import { Button, Flex, useModal } from '@avault/ui';
 import BigNumber from 'bignumber.js';
 import { FC } from 'react';
-import { useAppDispatch } from 'state';
-import { fetchCompoundingFarmUserDataAsync } from 'state/vault';
-import { useCompounding } from 'state/vault/hooks';
 import styled from 'styled-components';
-import useCompoundingDeposit from 'views/Vault/hooks/useCompoundingDeposit';
-import useCompoundingWithdraw from 'views/Vault/hooks/useCompoundingWithdraw';
 import DepositModal from './DepositModal';
 import { LongButton } from './styles';
 import WithdrawModal from './WithdrawModal';
@@ -42,7 +37,6 @@ const MobileAction: FC<MobileActionProps> = ({
   handleApprove,
   earnings,
   requestedApproval,
-  pid,
   account,
   displayBalance,
   lpSymbol,
@@ -52,27 +46,13 @@ const MobileAction: FC<MobileActionProps> = ({
   quoteTokenDecimals,
   lpToCLpRate,
 }) => {
-  const { data: compoundings } = useCompounding();
-  const { onDeposit } = useCompoundingDeposit(account, contractAddress, quoteTokenDecimals);
-  const { onWithdraw } = useCompoundingWithdraw(account, contractAddress, quoteTokenDecimals);
-  const dispatch = useAppDispatch();
-  const handleDeposit = async (amount: string) => {
-    await onDeposit(amount);
-    dispatch(fetchCompoundingFarmUserDataAsync({ account, compoundings }));
-  };
-
-  const handleWithdraw = async (amount: string) => {
-    const _amount = new BigNumber(amount).times(1 / Number(lpToCLpRate));
-    await onWithdraw(_amount.toString());
-    dispatch(fetchCompoundingFarmUserDataAsync({ account, compoundings }));
-  };
   const [onPresentDeposit] = useModal(
     <DepositModal
       max={stakingTokenBalance}
       lpSymbol={lpSymbol}
       displayBalance={displayBalance}
-      onDeposit={handleDeposit}
       quoteTokenDecimals={quoteTokenDecimals}
+      contractAddress={contractAddress}
     />,
   );
   const [onPresentWithdraw] = useModal(
@@ -81,7 +61,8 @@ const MobileAction: FC<MobileActionProps> = ({
       lpSymbol={lpSymbol}
       displayEarningsBalance={displayEarningsBalance}
       quoteTokenDecimals={quoteTokenDecimals}
-      onWithdraw={handleWithdraw}
+      contractAddress={contractAddress}
+      lpToCLpRate={lpToCLpRate}
     />,
   );
 
@@ -95,7 +76,7 @@ const MobileAction: FC<MobileActionProps> = ({
           </ButtonStyled>
         </>
       ) : (
-        <LongButton disabled={requestedApproval} onClick={handleApprove} variant="secondary">
+        <LongButton disabled={requestedApproval || !userDataReady} onClick={handleApprove} variant="secondary">
           {account ? 'Approve' : 'Connect Wallet'}
         </LongButton>
       )}

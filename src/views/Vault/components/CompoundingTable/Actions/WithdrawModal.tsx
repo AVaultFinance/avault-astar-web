@@ -1,20 +1,26 @@
 import BigNumber from 'bignumber.js';
 import React, { useCallback, useMemo, useState } from 'react';
 import { Button, Modal, Text, useMatchBreakpoints } from '@avault/ui';
-import { useTranslation } from 'contexts/Localization';
 import { getFullDisplayBalance } from 'utils/formatBalance';
-import useToast from 'hooks/useToast';
 import CInput from './C_Input';
 
 import styled from 'styled-components';
+import Loading from 'components/TransactionConfirmationModal/Loading';
+import { useWeb3React } from '@web3-react/core';
+import { useCompounding } from 'state/vault/hooks';
+import useToast from 'hooks/useToast';
+import { useAppDispatch } from 'state';
+import useCompoundingWithdraw from 'views/Vault/hooks/useCompoundingWithdraw';
+import { fetchCompoundingFarmUserDataAsync } from 'state/vault';
 
 interface WithdrawModalProps {
   displayEarningsBalance: string;
   max: BigNumber;
   lpSymbol: string;
   quoteTokenDecimals: number;
-  onWithdraw: (amount: string) => void;
   onDismiss?: () => void;
+  contractAddress: string;
+  lpToCLpRate: string;
 }
 const ModalInputStyled = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.cardBorder};
@@ -23,17 +29,15 @@ const ModalInputStyled = styled.div`
   margin-top: 8px;
 `;
 const WithdrawModal: React.FC<WithdrawModalProps> = ({
-  onWithdraw,
   onDismiss,
   max,
   displayEarningsBalance,
   lpSymbol,
   quoteTokenDecimals,
+  contractAddress,
+  lpToCLpRate,
 }) => {
   const [val, setVal] = useState('');
-  const { toastSuccess, toastError } = useToast();
-  const [pendingTx, setPendingTx] = useState(false);
-  const { t } = useTranslation();
   const fullBalance = useMemo(() => {
     return getFullDisplayBalance(max, quoteTokenDecimals, 6);
   }, [max, quoteTokenDecimals]);
@@ -47,9 +51,51 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
     [setVal],
   );
 
+  const [pendingTx, setPendingTx] = useState(false);
+  const [pendingTxSuccess, setPendingTxSuccess] = useState(true);
+
+  const { account } = useWeb3React();
+  const { data: compoundings } = useCompounding();
+  const { toastSuccess, toastError } = useToast();
+  const dispatch = useAppDispatch();
+  const { onWithdraw } = useCompoundingWithdraw(account, contractAddress, quoteTokenDecimals);
+
   const handleSelectMax = useCallback(() => {
     setVal(fullBalance);
   }, [fullBalance, setVal]);
+  const handleWithdraw = useCallback(async () => {
+    setPendingTx(true);
+    let result = null;
+    try {
+      const _amount = new BigNumber(val)
+        .times(1 / Number(lpToCLpRate))
+        .times(0.99)
+        .toString();
+      result = await onWithdraw(_amount);
+      dispatch(fetchCompoundingFarmUserDataAsync({ account, compoundings }));
+      if (result) {
+        toastSuccess(`Withdraw!`, `'Your ${lpSymbol} earnings have been sent to your wallet!'`);
+        setTimeout(() => {
+          setPendingTxSuccess(true);
+        }, 10000);
+      } else {
+        toastError('Error', `Your ${lpSymbol} withdraw failed!`);
+        setPendingTxSuccess(false);
+        setTimeout(() => {
+          setPendingTxSuccess(true);
+        }, 1500);
+      }
+    } catch (e) {
+      toastError('Error', `Your ${lpSymbol} withdraw failed! `);
+      setPendingTxSuccess(false);
+      setTimeout(() => {
+        setPendingTxSuccess(true);
+      }, 1500);
+    } finally {
+      setVal('');
+      setPendingTx(false);
+    }
+  }, [val, lpToCLpRate, account, compoundings, dispatch, lpSymbol, onWithdraw, toastError, toastSuccess]);
 
   const { isMd, isXl, isLg } = useMatchBreakpoints();
   const isMobile = !(isMd || isXl || isLg);
@@ -68,25 +114,12 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
           marginTop="8px"
           disabled={pendingTx || !valNumber.isFinite() || valNumber.eq(0) || valNumber.gt(fullBalanceNumber)}
           height={isMobile ? '38px' : '48px'}
-          onClick={async () => {
-            setPendingTx(true);
-            try {
-              await onWithdraw(val);
-              toastSuccess(t('Withdraw!'), t('Your earnings have also been withdrawed to your wallet'));
-              onDismiss();
-            } catch (e) {
-              toastError(
-                t('Error'),
-                t('Please try again. Confirm the transaction and make sure you are paying enough gas!'),
-              );
-              console.error(e);
-            } finally {
-              setPendingTx(false);
-            }
-          }}
+          isLoading={pendingTx}
+          onClick={handleWithdraw}
           width="100%"
         >
-          {pendingTx ? t('Withdrawing') : t('Withdraw')}
+          Withdraw
+          <Loading isLoading={pendingTx} success={pendingTxSuccess} />
         </Button>
       </ModalInputStyled>
     </Modal>

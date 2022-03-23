@@ -4,7 +4,6 @@ import BigNumber from 'bignumber.js';
 import { useWeb3React } from '@web3-react/core';
 import { BIG_ZERO } from 'utils/bigNumber';
 import { useAppDispatch } from 'state';
-import { fetchFarmUserDataAsync } from 'state/farms';
 import useToast from 'hooks/useToast';
 import { ActionContainer, LongButton } from './styles';
 import styled from 'styled-components';
@@ -111,8 +110,7 @@ const WithdrawAction: React.FunctionComponent<WithdrawActionProps> = ({
       setVal('');
       setPendingTx(false);
     }
-    dispatch(fetchFarmUserDataAsync({ account, pids: [pid] }));
-  }, [val, lpToCLpRate, account, compoundings, dispatch, lpSymbol, onWithdraw, pid, toastError, toastSuccess]);
+  }, [val, lpToCLpRate, account, compoundings, dispatch, lpSymbol, onWithdraw, toastError, toastSuccess]);
 
   const disabled =
     requestedApproval ||
@@ -132,12 +130,7 @@ const WithdrawAction: React.FunctionComponent<WithdrawActionProps> = ({
       <ActionContainer smallBorder={disabled ? false : true}>
         <FlexStyled>
           <CInput value={val} onSelectMax={handleSelectMax} onChange={handleChange} />
-          <LongButton
-            variant="primary"
-            className={pendingTx ? 'loading' : ''}
-            disabled={disabled}
-            onClick={handleWithdraw}
-          >
+          <LongButton variant="primary" isLoading={pendingTx} disabled={disabled} onClick={handleWithdraw}>
             Withdraw
             {/* {pendingTx ? 'Withdrawing' : ''} */}
             <Loading isLoading={pendingTx} success={pendingTxSuccess} />

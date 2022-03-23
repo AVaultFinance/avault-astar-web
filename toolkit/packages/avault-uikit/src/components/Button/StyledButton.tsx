@@ -8,14 +8,18 @@ interface ThemedButtonProps extends BaseButtonProps {
 }
 
 interface TransientButtonProps extends ThemedButtonProps {
-  $isLoading?: boolean;
+  isLoading?: boolean;
 }
 
-const getDisabledStyles = ({ $isLoading, theme, variant: v }: TransientButtonProps) => {
-  if ($isLoading === true) {
+const getDisabledStyles = ({ isLoading, theme, variant: v }: TransientButtonProps) => {
+  if (isLoading === true) {
     return `
       &:disabled,
       &.pancake-button--disabled {
+        color: ${theme.colors.primary};
+        background-color: #201F43;
+        border-color: #201F43;
+        box-shadow: none;
         cursor: not-allowed;
       }
     `;
@@ -40,8 +44,8 @@ const getDisabledStyles = ({ $isLoading, theme, variant: v }: TransientButtonPro
  * @see https://github.com/styled-components/styled-components/issues/135
  */
 
-const getOpacity = ({ $isLoading = false }: TransientButtonProps) => {
-  return $isLoading ? ".5" : "1";
+const getOpacity = ({ isLoading = false }: TransientButtonProps) => {
+  return isLoading ? ".5" : "1";
 };
 
 const StyledButton = styled.button<BaseButtonProps>`
@@ -80,6 +84,17 @@ const StyledButton = styled.button<BaseButtonProps>`
   })}
   ${layout}
   ${space}
+
+
+  &.loading {
+    color: ${({ theme }) => theme.colors.primary};
+    opacity: 1;
+    svg {
+      path {
+        fill: ${({ theme }) => theme.colors.primary};
+      }
+    }
+  }
 `;
 
 export default StyledButton;

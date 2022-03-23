@@ -236,9 +236,9 @@ var styleVariants$2 = (_b$3 = {},
     _b$3);
 
 var getDisabledStyles = function (_a) {
-    var $isLoading = _a.$isLoading; _a.theme; _a.variant;
-    if ($isLoading === true) {
-        return "\n      &:disabled,\n      &.pancake-button--disabled {\n        cursor: not-allowed;\n      }\n    ";
+    var isLoading = _a.isLoading, theme = _a.theme; _a.variant;
+    if (isLoading === true) {
+        return "\n      &:disabled,\n      &.pancake-button--disabled {\n        color: " + theme.colors.primary + ";\n        background-color: #201F43;\n        border-color: #201F43;\n        box-shadow: none;\n        cursor: not-allowed;\n      }\n    ";
     }
     return "\n    &:disabled,\n    &.pancake-button--disabled {\n      background-color: #201F43;\n      border-color: #201F43;\n      color: #37365E;\n      box-shadow: none;\n      cursor: not-allowed;\n    }\n  ";
 };
@@ -250,17 +250,23 @@ var getDisabledStyles = function (_a) {
  * @see https://github.com/styled-components/styled-components/issues/135
  */
 var getOpacity = function (_a) {
-    var _b = _a.$isLoading, $isLoading = _b === void 0 ? false : _b;
-    return $isLoading ? ".5" : "1";
+    var _b = _a.isLoading, isLoading = _b === void 0 ? false : _b;
+    return isLoading ? ".5" : "1";
 };
-var StyledButton = styled__default['default'].button(templateObject_1$15 || (templateObject_1$15 = __makeTemplateObject(["\n  align-items: center;\n  border: 0;\n  border-radius: 8px;\n  cursor: pointer;\n  display: inline-flex;\n  font-family: inherit;\n  font-size: 14px;\n  font-weight: bold;\n  justify-content: center;\n  letter-spacing: 0.03em;\n  line-height: 1;\n  opacity: ", ";\n  outline: 0;\n  transition: background-color 0.2s, opacity 0.2s;\n\n  &:hover:not(:disabled):not(.pancake-button--disabled):not(.pancake-button--disabled):not(:active) {\n    opacity: 0.65;\n  }\n\n  &:active:not(:disabled):not(.pancake-button--disabled):not(.pancake-button--disabled) {\n    opacity: 0.85;\n    transform: translateY(1px);\n    box-shadow: none;\n  }\n\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n"], ["\n  align-items: center;\n  border: 0;\n  border-radius: 8px;\n  cursor: pointer;\n  display: inline-flex;\n  font-family: inherit;\n  font-size: 14px;\n  font-weight: bold;\n  justify-content: center;\n  letter-spacing: 0.03em;\n  line-height: 1;\n  opacity: ", ";\n  outline: 0;\n  transition: background-color 0.2s, opacity 0.2s;\n\n  &:hover:not(:disabled):not(.pancake-button--disabled):not(.pancake-button--disabled):not(:active) {\n    opacity: 0.65;\n  }\n\n  &:active:not(:disabled):not(.pancake-button--disabled):not(.pancake-button--disabled) {\n    opacity: 0.85;\n    transform: translateY(1px);\n    box-shadow: none;\n  }\n\n  ", "\n  ",
+var StyledButton = styled__default['default'].button(templateObject_1$15 || (templateObject_1$15 = __makeTemplateObject(["\n  align-items: center;\n  border: 0;\n  border-radius: 8px;\n  cursor: pointer;\n  display: inline-flex;\n  font-family: inherit;\n  font-size: 14px;\n  font-weight: bold;\n  justify-content: center;\n  letter-spacing: 0.03em;\n  line-height: 1;\n  opacity: ", ";\n  outline: 0;\n  transition: background-color 0.2s, opacity 0.2s;\n\n  &:hover:not(:disabled):not(.pancake-button--disabled):not(.pancake-button--disabled):not(:active) {\n    opacity: 0.65;\n  }\n\n  &:active:not(:disabled):not(.pancake-button--disabled):not(.pancake-button--disabled) {\n    opacity: 0.85;\n    transform: translateY(1px);\n    box-shadow: none;\n  }\n\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n\n\n  &.loading {\n    color: ", ";\n    opacity: 1;\n    svg {\n      path {\n        fill: ", ";\n      }\n    }\n  }\n"], ["\n  align-items: center;\n  border: 0;\n  border-radius: 8px;\n  cursor: pointer;\n  display: inline-flex;\n  font-family: inherit;\n  font-size: 14px;\n  font-weight: bold;\n  justify-content: center;\n  letter-spacing: 0.03em;\n  line-height: 1;\n  opacity: ", ";\n  outline: 0;\n  transition: background-color 0.2s, opacity 0.2s;\n\n  &:hover:not(:disabled):not(.pancake-button--disabled):not(.pancake-button--disabled):not(:active) {\n    opacity: 0.65;\n  }\n\n  &:active:not(:disabled):not(.pancake-button--disabled):not(.pancake-button--disabled) {\n    opacity: 0.85;\n    transform: translateY(1px);\n    box-shadow: none;\n  }\n\n  ", "\n  ",
     "\n  ",
-    "\n  ", "\n  ", "\n"])), getOpacity, getDisabledStyles, styledSystem.variant({
+    "\n  ", "\n  ", "\n\n\n  &.loading {\n    color: ", ";\n    opacity: 1;\n    svg {\n      path {\n        fill: ", ";\n      }\n    }\n  }\n"])), getOpacity, getDisabledStyles, styledSystem.variant({
     prop: "scale",
     variants: scaleVariants$1,
 }), styledSystem.variant({
     variants: styleVariants$2,
-}), styledSystem.layout, styledSystem.space);
+}), styledSystem.layout, styledSystem.space, function (_a) {
+    var theme = _a.theme;
+    return theme.colors.primary;
+}, function (_a) {
+    var theme = _a.theme;
+    return theme.colors.primary;
+});
 var templateObject_1$15;
 
 var Button = function (props) {
@@ -274,7 +280,7 @@ var Button = function (props) {
     if (isDisabled && !isLoading) {
         classNames.push("pancake-button--disabled");
     }
-    return (React__default['default'].createElement(StyledButton, __assign({ "$isLoading": isLoading, className: classNames.join(" "), disabled: isDisabled }, internalProps, rest),
+    return (React__default['default'].createElement(StyledButton, __assign({ isLoading: isLoading, className: classNames.join(" "), disabled: isDisabled }, internalProps, rest),
         React__default['default'].createElement(React__default['default'].Fragment, null,
             React.isValidElement(startIcon) &&
                 React.cloneElement(startIcon, {

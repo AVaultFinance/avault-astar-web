@@ -13,7 +13,7 @@ interface CInputProps {
 const StyledInput = styled(Input)`
   box-shadow: none;
   border-width: 0px;
-  background: ${({ theme }) => theme.colors.cardBackground};
+  background: transparent;
   width: 40%;
   text-align: left;
   border-radius: 0;

@@ -4,7 +4,6 @@ import BigNumber from 'bignumber.js';
 import { useWeb3React } from '@web3-react/core';
 import { BIG_ZERO } from 'utils/bigNumber';
 import { useAppDispatch } from 'state';
-import { fetchFarmUserDataAsync } from 'state/farms';
 import useToast from 'hooks/useToast';
 import { ActionContainer, LongButton } from './styles';
 import styled from 'styled-components';
@@ -112,8 +111,7 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
       setVal('');
       setPendingTx(false);
     }
-    dispatch(fetchFarmUserDataAsync({ account, pids: [pid] }));
-  }, [val, account, compoundings, dispatch, lpSymbol, onDeposit, pid, toastError, toastSuccess]);
+  }, [val, account, compoundings, dispatch, lpSymbol, onDeposit, toastError, toastSuccess]);
   const disabled =
     requestedApproval ||
     stakingTokenBalance.eq(BIG_ZERO) ||
@@ -134,7 +132,7 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
           {!isApproved ? (
             <LongButton
               disabled={requestedApproval || !userDataReady}
-              className={requestedApproval ? 'loading' : ''}
+              isLoading={pendingTx}
               onClick={handleApprove}
               variant="secondary"
             >
