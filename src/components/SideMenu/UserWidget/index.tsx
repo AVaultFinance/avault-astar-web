@@ -31,7 +31,7 @@ const UserWidget = () => {
 };
 const User = styled(Flex)`
   flex-direction: column;
-  align-items: center;
+  align-items: end;
 `;
 
 export default UserWidget;

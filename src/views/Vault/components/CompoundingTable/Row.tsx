@@ -30,7 +30,7 @@ export interface RowProps {
 
 interface RowPropsWithLoading extends RowProps {
   userDataReady: boolean;
-  dataLoaded: boolean;
+  userDataLoaded: boolean;
   isLast: boolean;
 }
 
@@ -134,7 +134,7 @@ const QuestionWrapper = styled.div`
 `;
 
 const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
-  const { details, userDataReady } = props;
+  const { details, userDataReady, userDataLoaded } = props;
   const hasStakedAmount = false;
   const [actionPanelExpanded, setActionPanelExpanded] = useState(false);
   const shouldRenderChild = useDelayedUnmount(actionPanelExpanded, 300);
@@ -261,7 +261,7 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
               case 'details':
                 return (
                   <td key={key}>
-                    <Details actionPanelToggled={actionPanelExpanded} />
+                    <Details isLoading={!userDataLoaded} actionPanelToggled={actionPanelExpanded} />
                   </td>
                 );
               case 'multiplier':
@@ -280,7 +280,6 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
         </StyledTr>
       );
     }
-
     return (
       <StyledTr onClick={toggleActionPanel} isLast={props.isLast}>
         <td>
@@ -288,7 +287,7 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
             <Compounding {...props.compounding} />
           </CellLayout>
           <TextStyled>
-            1:{`${details.compounding.lpToCLpRate.toString() === 'NaN' ? '1' : details.compounding.lpToCLpRate}`}
+            1:{`${details.compounding.lpToCLpRate}`}
             {/* 1 {details.compounding.symbol}={details.compounding.lpToCLpRate} {details.lpSymbol} */}
           </TextStyled>
         </td>

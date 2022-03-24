@@ -14,7 +14,6 @@ const initialState: CompoundingState = {
   data: [],
   allLiquidity: '',
   userDataLoaded: false,
-  dataLoaded: false,
 };
 export const fetchCompoundingsPublicDataAsync = createAsyncThunk<
   [ICompounding[], string],
@@ -70,9 +69,13 @@ export const compoundingSlice = createSlice({
         const { pid } = userDataEl;
         const index = state.data.findIndex((compounding: ICompounding) => compounding.farm.pid === pid);
 
-        const lpToCLpRate = (
-          Number(userDataEl.compoundingWantLockedTotal) / Number(userDataEl.userCompoundingSupply)
-        ).toFixed(4);
+        const lpToCLpRate =
+          userDataEl.compoundingWantLockedTotal &&
+          userDataEl.userCompoundingSupply &&
+          Number(userDataEl.compoundingWantLockedTotal) > 0 &&
+          Number(userDataEl.userCompoundingSupply) > 0
+            ? (Number(userDataEl.compoundingWantLockedTotal) / Number(userDataEl.userCompoundingSupply)).toFixed(4)
+            : '1';
 
         state.data[index] = {
           ...state.data[index],

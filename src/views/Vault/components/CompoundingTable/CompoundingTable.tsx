@@ -11,7 +11,7 @@ export interface ITableProps {
   data: RowProps[];
   columns: ColumnType<RowProps>[];
   userDataReady: boolean;
-  dataLoaded: boolean;
+  userDataLoaded: boolean;
   sortDir: ISortDir;
   sortKey: string;
   sortColumn?: string;
@@ -97,7 +97,7 @@ const TableContainer = styled.div`
 
 const CompoundingTable: React.FC<ITableProps> = (props) => {
   const tableWrapperEl = useRef<HTMLDivElement>(null);
-  const { data, columns, userDataReady, dataLoaded, onOptionChange, sortDir, sortKey } = props;
+  const { data, columns, userDataReady, userDataLoaded, onOptionChange, sortDir, sortKey } = props;
 
   const { rows } = useTable(columns, data, { sortable: true, sortColumn: 'compounding' });
   if (!rows.length) {
@@ -118,7 +118,7 @@ const CompoundingTable: React.FC<ITableProps> = (props) => {
                     {...row.original}
                     isLast={index === rows.length - 1}
                     userDataReady={userDataReady}
-                    dataLoaded={dataLoaded}
+                    userDataLoaded={userDataLoaded}
                     key={`table-row-${row.id}`}
                   />
                 );

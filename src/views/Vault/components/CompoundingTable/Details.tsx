@@ -1,9 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import { ChevronDownIcon } from '@avault/ui';
+import Loading from 'components/TransactionConfirmationModal/Loading';
 
 interface DetailsProps {
   actionPanelToggled: boolean;
+  isLoading: boolean;
 }
 
 const Container = styled.div`
@@ -23,10 +25,14 @@ export const ArrowIcon = styled(ChevronDownIcon)<{ toggled: boolean }>`
   width: 24px;
 `;
 
-const Details: React.FC<DetailsProps> = ({ actionPanelToggled }) => {
+const Details: React.FC<DetailsProps> = ({ actionPanelToggled, isLoading }) => {
   return (
     <Container>
-      <ArrowIcon color="primary" toggled={actionPanelToggled} />
+      {isLoading ? (
+        <Loading isLoading={isLoading} success={true} />
+      ) : (
+        <ArrowIcon color="primary" toggled={actionPanelToggled} />
+      )}
     </Container>
   );
 };

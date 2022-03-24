@@ -24,7 +24,9 @@ const fetchCompoundings = async (
         .div(BIG_TEN.pow(new BigNumber(v.compounding.decimals)))
         .times(Number(v.farm.lpTokenPrice))
         .toNumber()
-        .toLocaleString('en-US', { maximumFractionDigits: 8 });
+        .toLocaleString('en-US', {
+          maximumFractionDigits: 2,
+        });
       _total = _total.plus(Number(_liquidity));
       _data.push({
         ...v,

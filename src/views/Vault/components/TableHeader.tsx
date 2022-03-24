@@ -54,9 +54,9 @@ const TableHeader: FC<Iprops> = ({ sortKey, sortDir, onOptionChange }) => {
     return (
       <TableHeaderStyled>
         <tr>
-          <TrStyled>
+          <td>
             <FirstTh>Token</FirstTh>
-          </TrStyled>
+          </td>
           <TrStyled>
             <TextStyled>Net Value</TextStyled>
           </TrStyled>

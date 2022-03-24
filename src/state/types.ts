@@ -82,7 +82,6 @@ export interface CompoundingState {
   data: ICompounding[];
   allLiquidity: string;
   userDataLoaded: boolean;
-  dataLoaded: boolean;
 }
 
 export interface VaultFees {

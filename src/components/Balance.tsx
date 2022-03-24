@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import CountUp from 'react-countup';
 import { Text, TextProps } from '@avault/ui';
+import BigNumber from 'bignumber.js';
 
 interface BalanceProps extends TextProps {
   value: number;
@@ -29,6 +30,12 @@ const Balance: React.FC<BalanceProps> = ({
   return (
     <Text color={isDisabled ? 'textDisabled' : color} onClick={onClick} {...props}>
       <CountUp
+        useEasing={true}
+        formattingFn={(d: number) =>
+          `${new BigNumber(`${d}`).toNumber().toLocaleString('en-US', {
+            maximumFractionDigits: decimals,
+          })}`
+        }
         start={previousValue.current}
         end={value === null ? 0 : value}
         prefix={prefix}

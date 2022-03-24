@@ -58,6 +58,7 @@ const fetch = async (
     wantLockedTotal && compoundingTotalSupply && wantLockedTotal > 0 && compoundingTotalSupply > 0
       ? (Number(wantLockedTotal) / Number(compoundingTotalSupply)).toFixed(4)
       : '1';
+
   return {
     ...compounding,
     compounding: {

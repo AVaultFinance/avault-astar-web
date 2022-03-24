@@ -224,20 +224,20 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
       dispatch(fetchCompoundingFarmUserDataAsync({ account, compoundings }));
       if (result) {
         toastSuccess('Approve!', 'Your are Approved');
-        setRequestedApproval(false);
         setTimeout(() => {
           setRequestedApprovalSuccess(true);
-        }, 30000);
+        }, 10000);
       } else {
-        setRequestedApproval(false);
+        toastError('Approve!', 'Your approved failed');
         setRequestedApprovalSuccess(false);
         setTimeout(() => {
           setRequestedApprovalSuccess(true);
         }, 1500);
-        toastError('Approve!', 'Your approved failed');
       }
     } catch (e) {
       console.error(e);
+    } finally {
+      setRequestedApproval(false);
     }
   }, [onApprove, dispatch, login, account, compoundings, toastError, toastSuccess]);
 

@@ -3,7 +3,7 @@ import lottie, { AnimationItem } from 'lottie-web';
 import { useEffect } from 'react';
 import styled from 'styled-components';
 
-const Loading = ({ isLoading, success }: { isLoading: boolean; success: boolean }) => {
+const Loading = ({ isLoading, success }: { isLoading: boolean; success?: boolean }) => {
   const ref01 = useRef<HTMLDivElement>(null);
   const ref02 = useRef<HTMLDivElement>(null);
   const [showRef02, setShowRef02] = useState(false);
