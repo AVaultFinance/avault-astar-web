@@ -21,6 +21,7 @@ import Unbind from 'views/Stake/Unbind';
 // Route-based code splitting
 // Only pool is included in the main bundle because of it's the most visited page
 const Vault = lazy(() => import('./views/Vault/index'));
+const Zap = lazy(() => import('./views/Zap/index'));
 
 const Home = lazy(() => import('./views/Home'));
 const Farms = lazy(() => import('./views/Farms'));
@@ -53,6 +54,9 @@ const App: React.FC = () => {
             </Route>
             <Route path="/vault">
               <Vault />
+            </Route>
+            <Route path="/zap">
+              <Zap />
             </Route>
             <Route path="/stake">
               <Stake />

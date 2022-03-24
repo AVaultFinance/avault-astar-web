@@ -9,7 +9,7 @@ const Wrapper = styled(Flex)`
   justify-content: center;
   align-items: center;
   > div {
-    height: 160px;
+    height: 120px;
   }
 `;
 

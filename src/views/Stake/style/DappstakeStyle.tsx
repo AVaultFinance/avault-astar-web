@@ -1,37 +1,5 @@
-import styled, { createGlobalStyle } from 'styled-components';
-import { Input, InputProps, Button, Flex } from '@avault/ui';
-export const StakeGlobalStyle = createGlobalStyle`
-body {
-  background-image: url('./images/stake/stake_bg.svg');
-  background-size: 100%;
-  background-position: center bottom;
-  background-repeat: no-repeat;
-  margin-bottom: -40px;
-  &:before{
-    // &:before,&:after{
-    content:"";
-    width: 420px;
-    height: 150px;
-    background-image: url('./images/stake/bg_element.svg');
-    background-size: 100%;
-    position: absolute;
-    // opacity: 0.1;
-  background-repeat: no-repeat;
-}
-  &:before{
-    top: 160px;
-    right: 50%;
-  }
-  // &:after{
-  //   top: 560px;
-  //   left: 50%;
-  // }
-}
-#root{
-  position: relative;
-  z-index: 3;
-}
-`;
+import styled from 'styled-components';
+import { Input, InputProps, Flex } from '@avault/ui';
 
 export const InnerWrapper = styled.div`
   width: 90%;
@@ -78,15 +46,7 @@ export const StyledInput = styled(Input)`
   text-align: right;
 `;
 // fontSize="12px" style={{ cursor: 'pointer' }} color="#1BD3D5" ml="8px"
-export const MaxButton = styled(Button)`
-  text-align: right;
-  padding: 0 0 0 12px;
-  margin: 0;
-  align-items: center;
-  justify-content: right;
-  line-height: 40px;
-  height: 40px;
-`;
+
 export const InputWrap = styled.div`
   background: ${({ theme }) => theme.colors.background02};
   border-radius: 12px;
@@ -100,15 +60,6 @@ export const PageContainer = styled(Flex)`
   aligncontent: center;
   padding-top: 20px;
 
-  ${({ theme }) => theme.mediaQueries.md} {
-    padding-top: 80px;
-  }
-`;
-export const PageContainerWrap = styled(Flex)`
-  justify-content: center;
-  aligncontent: center;
-  flex-wrap: wrap;
-  padding-top: 20px;
   ${({ theme }) => theme.mediaQueries.md} {
     padding-top: 80px;
   }

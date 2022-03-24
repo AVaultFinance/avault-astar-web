@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { Button } from '@avault/ui';
 import BigNumber from 'bignumber.js';
 import useToast from 'hooks/useToast';
-import { InputWrap, StyledTokenInputTop, StyledInput, PageContainerWrap } from './style/DappstakeStyle';
+import { InputWrap, StyledTokenInputTop, StyledInput } from './style/DappstakeStyle';
 import Balance from './components/StakeTableBalance';
 import DappstakePage from './components/DappstakePage';
 import PageLayout from 'components/Layout/Page';
@@ -16,6 +16,8 @@ import { GetUserList } from './hooks/getUserList';
 import { IWithdrawRecordItem } from 'utils/types';
 import TokenIconItem from './components/TokenIconItem';
 import ArrowDown from './components/svg/arrow_down';
+import { BgGlobalStyle } from 'style/Global';
+import { PageContainerWrap } from 'style/SmallBorderPageLayout';
 const Unbind = () => {
   const contract = useDAppStackingContract();
   const pool: IDappPoolDataInterface = GetPoolUpdate(contract);
@@ -52,6 +54,7 @@ const Unbind = () => {
 
   return (
     <PageLayout>
+      <BgGlobalStyle />
       <PageContainerWrap>
         <DappstakePage contract={contract} pool={pool}>
           <Balance

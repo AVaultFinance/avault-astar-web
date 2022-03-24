@@ -241,6 +241,7 @@ const Compoundings: React.FC = () => {
   return (
     <Page>
       {renderContent()}
+      {/* <PageLoader /> */}
       {!rowData.length ? <PageLoader /> : null}
     </Page>
   );

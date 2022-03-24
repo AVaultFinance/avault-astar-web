@@ -5,7 +5,38 @@ declare module 'styled-components' {
   /* eslint-disable @typescript-eslint/no-empty-interface */
   export interface DefaultTheme extends PancakeTheme {}
 }
-
+export const BgGlobalStyle = createGlobalStyle`
+body {
+  background-image: url('./images/stake/stake_bg.svg');
+  background-size: 100%;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  margin-bottom: -40px;
+  &:before{
+    // &:before,&:after{
+    content:"";
+    width: 420px;
+    height: 150px;
+    background-image: url('./images/stake/bg_element.svg');
+    background-size: 100%;
+    position: absolute;
+    // opacity: 0.1;
+  background-repeat: no-repeat;
+}
+  &:before{
+    top: 160px;
+    right: 50%;
+  }
+  // &:after{
+  //   top: 560px;
+  //   left: 50%;
+  // }
+}
+#root{
+  position: relative;
+  z-index: 3;
+}
+`;
 const GlobalStyle = createGlobalStyle`
 @font-face {
   font-family: 'Poppins';

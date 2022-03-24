@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { Button } from '@avault/ui';
 import BigNumber from 'bignumber.js';
-import { InputWrap, StyledTokenInputTop, StyledInput, PageContainerWrap } from './style/DappstakeStyle';
+import { InputWrap, StyledTokenInputTop, StyledInput } from './style/DappstakeStyle';
 import Balance from './components/StakeTableBalance';
 import DappstakePage from './components/DappstakePage';
 import { useDAppStackingContract } from 'hooks/useContract';
@@ -11,6 +11,8 @@ import PageLayout from 'components/Layout/Page';
 import TokenIconItem from './components/TokenIconItem';
 import ArrowDown from './components/svg/arrow_down';
 import StakeFr from './components/StakeFr';
+import { BgGlobalStyle } from 'style/Global';
+import { PageContainerWrap } from 'style/SmallBorderPageLayout';
 const Unstake = () => {
   const contract = useDAppStackingContract();
   const pool = GetPoolUpdate(contract);
@@ -42,6 +44,7 @@ const Unstake = () => {
 
   return (
     <PageLayout>
+      <BgGlobalStyle />
       <PageContainerWrap>
         <DappstakePage contract={contract} pool={pool}>
           <Balance

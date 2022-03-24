@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import DappstakeSubNav from './SubNav';
 import { IDappStakingInterface } from 'utils/types';
 import { IDappPoolDataInterface } from '../hooks/getPoolUpdate';
+import { W480BorderPageLayout } from 'style/SmallBorderPageLayout';
 
 const StyledPageStyle = styled.div`
   display: flex;
@@ -25,18 +26,7 @@ const StyledPageStyle = styled.div`
 const StyledPage = ({ children, ...props }) => {
   return <StyledPageStyle {...props}>{children}</StyledPageStyle>;
 };
-const StakePageLayout = styled.div`
-  min-height: 0px;
-  width: 480px;
-  // background-image: linear-gradient(270deg, #fc00ff 0%, #7d49ff 100%);
-  // box-shadow: 2px 4px 7px 1px rgba(9, 2, 18, 0.3);
-  border-radius: 23px;
-  padding: 0;
-  border: 1px solid #2e2d5b;
-  overflow: hidden;
-  // margin: 100px auto;
-  background: ${({ theme }) => theme.colors.cardBackground};
-`;
+
 const TableContent = styled.div`
   border-radius: 20px;
   padding: 30px 16px 30px;
@@ -52,12 +42,12 @@ interface Iprops {
 }
 const DappstakePage: FC<Iprops> = ({ children, contract, pool, ...props }) => {
   return (
-    <StakePageLayout>
+    <W480BorderPageLayout>
       <TableContent>
         <DappstakeSubNav />
         <StyledPage>{children}</StyledPage>
       </TableContent>
-    </StakePageLayout>
+    </W480BorderPageLayout>
   );
 };
 export default DappstakePage;
