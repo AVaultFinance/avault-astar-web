@@ -7,7 +7,8 @@ body {
   background-position: center bottom;
   background-repeat: no-repeat;
   margin-bottom: -40px;
-  &:before,&:after{
+  &:before{
+    // &:before,&:after{
     content:"";
     width: 420px;
     height: 150px;
@@ -15,15 +16,16 @@ body {
     background-size: 100%;
     position: absolute;
     // opacity: 0.1;
-  }
+  background-repeat: no-repeat;
+}
   &:before{
     top: 160px;
     right: 50%;
   }
-  &:after{
-    top: 560px;
-    left: 50%;
-  }
+  // &:after{
+  //   top: 560px;
+  //   left: 50%;
+  // }
 }
 #root{
   position: relative;

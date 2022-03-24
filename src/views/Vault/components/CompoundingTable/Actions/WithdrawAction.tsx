@@ -11,7 +11,7 @@ import CInput from './C_Input';
 import { getFullDisplayBalance } from 'utils/formatBalance';
 import { useCompounding } from 'state/vault/hooks';
 import useCompoundingWithdraw from 'views/Vault/hooks/useCompoundingWithdraw';
-import { fetchCompoundingFarmUserDataAsync } from 'state/vault';
+import { changeLoading, fetchCompoundingFarmUserDataAsync } from 'state/vault';
 import Loading from 'components/TransactionConfirmationModal/Loading';
 
 interface WithdrawActionProps {
@@ -87,6 +87,7 @@ const WithdrawAction: React.FunctionComponent<WithdrawActionProps> = ({
         .times(0.99)
         .toString();
       result = await onWithdraw(_amount);
+      dispatch(changeLoading());
       dispatch(fetchCompoundingFarmUserDataAsync({ account, compoundings }));
       if (result) {
         toastSuccess(`Withdraw!`, `'Your ${lpSymbol} earnings have been sent to your wallet!'`);

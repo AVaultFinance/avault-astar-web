@@ -11,7 +11,7 @@ import { useCompounding } from 'state/vault/hooks';
 import useToast from 'hooks/useToast';
 import { useAppDispatch } from 'state';
 import useCompoundingWithdraw from 'views/Vault/hooks/useCompoundingWithdraw';
-import { fetchCompoundingFarmUserDataAsync } from 'state/vault';
+import { changeLoading, fetchCompoundingFarmUserDataAsync } from 'state/vault';
 
 interface WithdrawModalProps {
   displayEarningsBalance: string;
@@ -72,6 +72,7 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
         .times(0.99)
         .toString();
       result = await onWithdraw(_amount);
+      dispatch(changeLoading());
       dispatch(fetchCompoundingFarmUserDataAsync({ account, compoundings }));
       if (result) {
         toastSuccess(`Withdraw!`, `'Your ${lpSymbol} earnings have been sent to your wallet!'`);

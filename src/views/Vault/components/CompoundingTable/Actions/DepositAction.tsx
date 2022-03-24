@@ -11,7 +11,7 @@ import CInput from './C_Input';
 import { getFullDisplayBalance } from 'utils/formatBalance';
 import { useCompounding, useCompoundingFarmUser } from 'state/vault/hooks';
 import useCompoundingDeposit from 'views/Vault/hooks/useCompoundingDeposit';
-import { fetchCompoundingFarmUserDataAsync } from 'state/vault';
+import { changeLoading, fetchCompoundingFarmUserDataAsync } from 'state/vault';
 import Loading from 'components/TransactionConfirmationModal/Loading';
 
 interface HarvestActionProps {
@@ -86,7 +86,8 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
     let result = null;
     try {
       result = await onDeposit(val);
-      console.log({ result });
+
+      dispatch(changeLoading());
       dispatch(fetchCompoundingFarmUserDataAsync({ account, compoundings }));
       if (result) {
         toastSuccess(`Deposit!`, `Your ${lpSymbol} deposit!`);
@@ -132,7 +133,7 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
           {!isApproved ? (
             <LongButton
               disabled={requestedApproval || !userDataReady}
-              isLoading={pendingTx}
+              isLoading={requestedApproval}
               onClick={handleApprove}
               variant="secondary"
             >

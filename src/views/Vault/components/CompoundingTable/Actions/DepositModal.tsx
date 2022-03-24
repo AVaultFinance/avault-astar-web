@@ -5,7 +5,7 @@ import { getFullDisplayBalance } from 'utils/formatBalance';
 import CInput from './C_Input';
 import styled from 'styled-components';
 import Loading from 'components/TransactionConfirmationModal/Loading';
-import { fetchCompoundingFarmUserDataAsync } from 'state/vault';
+import { changeLoading, fetchCompoundingFarmUserDataAsync } from 'state/vault';
 import { useAppDispatch } from 'state';
 import { useWeb3React } from '@web3-react/core';
 import { useCompounding } from 'state/vault/hooks';
@@ -75,6 +75,7 @@ const DepositModal: React.FC<DepositModalProps> = ({
     let result = null;
     try {
       result = await onDeposit(val);
+      dispatch(changeLoading());
       dispatch(fetchCompoundingFarmUserDataAsync({ account, compoundings }));
       if (result) {
         toastSuccess(`Deposit!`, `Your ${lpSymbol} deposit!`);

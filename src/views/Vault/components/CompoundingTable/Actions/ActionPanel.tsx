@@ -18,7 +18,7 @@ import { ICompounding } from 'state/vault/types';
 import { useCompounding, useCompoundingFarmUser } from 'state/vault/hooks';
 import useAuth from 'hooks/useAuth';
 import { chainId } from 'config/constants/tokens';
-import { fetchCompoundingFarmUserDataAsync } from 'state/vault';
+import { changeLoading, fetchCompoundingFarmUserDataAsync } from 'state/vault';
 import { BASE_BSC_SCAN_URL } from 'config';
 import { useSpecialApproveFarm } from 'views/Vault/hooks/useApproveFarm';
 import { getDisplayApy } from 'views/Farms/Farms';
@@ -176,6 +176,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
   const lpAddress = getAddress(compounding.farm.lpAddresses);
   const { account } = useWeb3React();
   const { avaultAddressBalance, allowance } = useCompoundingFarmUser(compounding?.farm?.pid ?? 0);
+  console.log('allowance: ', allowance.toNumber());
   const isApproved = account && allowance && allowance.isGreaterThan(0);
   // const stakingBigNumber = new BigNumber(compounding.farm.userData.stakingTokenBalance);
   let earnings = BIG_ZERO;
@@ -221,6 +222,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
     try {
       setRequestedApproval(true);
       const result = await onApprove();
+      dispatch(changeLoading());
       dispatch(fetchCompoundingFarmUserDataAsync({ account, compoundings }));
       if (result) {
         toastSuccess('Approve!', 'Your are Approved');
