@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import styled, { keyframes, css } from 'styled-components';
 import { useTranslation } from 'contexts/Localization';
-import { connectorLocalStorageKey, ConnectorNames, Flex, LinkExternal, useMatchBreakpoints } from '@avault/ui';
+import { Flex, LinkExternal, useMatchBreakpoints, useWalletModal } from '@avault/ui';
 import { getAddress } from 'utils/addressHelpers';
 import DepositAction from './DepositAction';
 import WithdrawAction from './WithdrawAction';
@@ -206,13 +206,13 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
   // const { onApprove } = useSpecialApproveFarm(lpContract, compounding.compounding.masterChef);
   const { onApprove } = useSpecialApproveFarm(lpContract, compounding.contractAddress[chainId]);
   const dispatch = useAppDispatch();
-  const { login } = useAuth();
   const { data: compoundings } = useCompounding();
   const { toastSuccess, toastError } = useToast();
+  const { login, logout } = useAuth();
+  const { onPresentConnectModal } = useWalletModal(login, logout);
   const handleApprove = useCallback(async () => {
     if (!account) {
-      const connectorId = (window.localStorage.getItem(connectorLocalStorageKey) ?? 'injected') as ConnectorNames;
-      login(connectorId);
+      onPresentConnectModal();
       return;
     }
     // setRequestedApproval(true);
@@ -241,7 +241,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
     } finally {
       setRequestedApproval(false);
     }
-  }, [onApprove, dispatch, login, account, compoundings, toastError, toastSuccess]);
+  }, [onApprove, dispatch, onPresentConnectModal, account, compoundings, toastError, toastSuccess]);
 
   return (
     <Container expanded={expanded}>

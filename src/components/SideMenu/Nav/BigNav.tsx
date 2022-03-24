@@ -91,7 +91,18 @@ const BigNav: FC<{ menuItems: IMenu[] }> = ({ menuItems }) => {
         {/* <IconMoreStyle ref={MoreTargetRef}>
           <IconMore />
         </IconMoreStyle> */}
-        {/* <NavLinkP ref={BorrowTargetRef}>Borrow</NavLinkP> */}
+        <NavLinkA href="#" title="">
+          Bridge
+          <img src="./images/icon_link.svg" alt="" />
+        </NavLinkA>
+        <NavLinkA href="#" title="">
+          Faucet
+          <img src="./images/icon_link.svg" alt="" />
+        </NavLinkA>
+        <NavLinkA href="#" title="">
+          Doc
+          <img src="./images/icon_link.svg" alt="" />
+        </NavLinkA>
       </NavWrap>
     </>
   );
@@ -121,6 +132,20 @@ const NavLink = styled(Link)<{ active: 't' | 'f' }>`
     width: 20px;
     fill: ${({ theme, active }) => (active === 't' ? theme.colors.text : theme.colors.textSubtle)};
     transform: ${({ active }) => (active === 't' ? '' : 'scaleY(-1)')};
+  }
+`;
+
+const NavLinkA = styled.a`
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  color: ${({ theme }) => theme.colors.textSubtle};
+  height: 40px;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  margin-right: 34px;
+  img {
+    width: 20px;
   }
 `;
 

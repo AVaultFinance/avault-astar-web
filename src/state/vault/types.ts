@@ -470,7 +470,7 @@ export const farmData = [
     hidden: false,
     original: {
       farm: {
-        label: 'aAUU',
+        label: 'aKKS',
         pid: 1,
         token: {
           symbol: 'AVAT',
@@ -495,13 +495,13 @@ export const farmData = [
         },
       },
       liquidity: {
-        liquidity: new BigNumber('15.32'),
+        liquidity: new BigNumber('0.001'),
       },
       apr: {
         apy: '188.6',
-        apr: '3.12',
+        apr: '0.00',
         multiplier: '20X',
-        lpLabel: 'aAUU',
+        lpLabel: 'aKKS',
         tokenAddress: {
           '82': '0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c',
           '336': '0xb12c13e66ade1f72f71834f2fc5082db8c091358',
@@ -517,7 +517,7 @@ export const farmData = [
       multiplier: { multiplier: '20X' },
       details: {
         pid: 1,
-        lpSymbol: 'aAUU',
+        lpSymbol: 'aKKS',
         lpAddresses: {
           '82': '0x0bA819e30016Cf682C7795b44859148C65e62292',
           '336': '0x456C0082DE0048EE883881fF61341177FA1FEF40',
@@ -567,7 +567,7 @@ export const farmData = [
         hidden: false,
         field: 'farm',
         value: {
-          label: 'aAUU',
+          label: 'aKKS',
           pid: 1,
           token: {
             symbol: 'AVAT',
@@ -606,7 +606,7 @@ export const farmData = [
           apy: '188.6',
           apr: '63.5',
           multiplier: '20X',
-          lpLabel: 'aAUU',
+          lpLabel: 'aKKS',
           tokenAddress: {
             '82': '0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c',
             '336': '0xb12c13e66ade1f72f71834f2fc5082db8c091358',
@@ -626,7 +626,7 @@ export const farmData = [
         field: 'details',
         value: {
           pid: 1,
-          lpSymbol: 'aAUU',
+          lpSymbol: 'aKKS',
           lpAddresses: {
             '82': '0x0bA819e30016Cf682C7795b44859148C65e62292',
             '336': '0x456C0082DE0048EE883881fF61341177FA1FEF40',
@@ -679,13 +679,223 @@ export const farmData = [
     hidden: false,
     original: {
       farm: {
-        label: 'aAVAT',
+        label: 'aKSU',
         pid: 1,
         token: {
           symbol: 'AVAT',
           address: {
-            '82': '0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c',
-            '336': '0xb12c13e66ade1f72f71834f2fc5082db8c091358',
+            '82': '0x0f933dc137d21ca519ae4c7e93f87a4c8ef365ef',
+            '336': '0x0f933dc137d21ca519ae4c7e93f87a4c8ef365ef',
+          },
+          decimals: 18,
+          projectLink: 'https://kaco.finance/',
+          busdPrice: '0.0296',
+        },
+        quoteToken: {
+          symbol: 'WSDN',
+          name: 'Wrapped SDN',
+          decimals: 18,
+          address: {
+            '82': '0xfa9343c3897324496a05fc75abed6bac29f8a40f',
+            '336': '0xfa9343c3897324496a05fc75abed6bac29f8a40f',
+          },
+          projectLink: 'https://blockscout.com/shiden/',
+          busdPrice: '0.6781',
+        },
+      },
+      liquidity: {
+        liquidity: new BigNumber('0.001'),
+      },
+      apr: {
+        apy: '188.6',
+        apr: '0.00',
+        multiplier: '20X',
+        lpLabel: 'aKSU',
+        tokenAddress: {
+          '82': '0x0f933dc137d21ca519ae4c7e93f87a4c8ef365ef',
+          '336': '0x0f933dc137d21ca519ae4c7e93f87a4c8ef365ef',
+        },
+        quoteTokenAddress: {
+          '82': '0xfa9343c3897324496a05fc75abed6bac29f8a40f',
+          '336': '0xfa9343c3897324496a05fc75abed6bac29f8a40f',
+        },
+        cakePrice: new BigNumber('0.0296'),
+        originalValue: 188.60219078151138,
+      },
+      earned: { earnings: 0, pid: 1 },
+      multiplier: { multiplier: '20X' },
+      details: {
+        pid: 1,
+        lpSymbol: 'aKSU',
+        lpAddresses: {
+          '82': '0x0bA819e30016Cf682C7795b44859148C65e62292',
+          '336': '0x456C0082DE0048EE883881fF61341177FA1FEF40',
+        },
+        token: {
+          symbol: 'AVAT',
+          address: {
+            '82': '0x0f933dc137d21ca519ae4c7e93f87a4c8ef365ef',
+            '336': '0x0f933dc137d21ca519ae4c7e93f87a4c8ef365ef',
+          },
+          decimals: 18,
+          projectLink: 'https://kaco.finance/',
+          busdPrice: '0.0296',
+        },
+        quoteToken: {
+          symbol: 'WSDN',
+          name: 'Wrapped SDN',
+          decimals: 18,
+          address: {
+            '82': '0xfa9343c3897324496a05fc75abed6bac29f8a40f',
+            '336': '0xfa9343c3897324496a05fc75abed6bac29f8a40f',
+          },
+          projectLink: 'https://blockscout.com/shiden/',
+          busdPrice: '0.6781',
+        },
+        userData: { allowance: '0', tokenBalance: '0', stakedBalance: '0', earnings: '0' },
+        tokenAmountMc:
+          '471559.8392807465922754335585012287478156162052075807015060024359882761365621443949805082594920415051519',
+        quoteTokenAmountMc:
+          '20657.37068037261666224906946605307327697003681220776317494838004563472061327824254405542855963695741614',
+        tokenAmountTotal: '472733.801506738136252855',
+        quoteTokenAmountTotal: '20708.797818239259072963',
+        lpTotalSupply: '98176461450833208727334',
+        lpTotalInQuoteToken:
+          '41314.74136074523332449813893210614655394007362441552634989676009126944122655648508811085711927391483228',
+        tokenPriceVsQuote: '0.04380646730196652783146946639140426953535937682783101164957744370366617922314668',
+        poolWeight: '0.60606060606060606060606060606060606060606060606060606060606060606060606060606061',
+        multiplier: '20X',
+        apr: 63.50215608181524,
+        lpRewardsApr: 0,
+        liquidity: new BigNumber('28015.52611672134'),
+        apy: 188.60219078151138,
+      },
+    },
+    cells: [
+      {
+        hidden: false,
+        field: 'farm',
+        value: {
+          label: 'aKSU',
+          pid: 1,
+          token: {
+            symbol: 'AVAT',
+            address: {
+              '82': '0x0f933dc137d21ca519ae4c7e93f87a4c8ef365ef',
+              '336': '0x0f933dc137d21ca519ae4c7e93f87a4c8ef365ef',
+            },
+            decimals: 18,
+            projectLink: 'https://kaco.finance/',
+            busdPrice: '0.0296',
+          },
+          quoteToken: {
+            symbol: 'WSDN',
+            name: 'Wrapped SDN',
+            decimals: 18,
+            address: {
+              '82': '0xfa9343c3897324496a05fc75abed6bac29f8a40f',
+              '336': '0xfa9343c3897324496a05fc75abed6bac29f8a40f',
+            },
+            projectLink: 'https://blockscout.com/shiden/',
+            busdPrice: '0.6781',
+          },
+        },
+      },
+      {
+        hidden: false,
+        field: 'liquidity',
+        value: {
+          liquidity: new BigNumber('28015.52611672134'),
+        },
+      },
+      {
+        hidden: false,
+        field: 'apr',
+        value: {
+          apy: '188.6',
+          apr: '63.5',
+          multiplier: '20X',
+          lpLabel: 'aKSU',
+          tokenAddress: {
+            '82': '0x0f933dc137d21ca519ae4c7e93f87a4c8ef365ef',
+            '336': '0x0f933dc137d21ca519ae4c7e93f87a4c8ef365ef',
+          },
+          quoteTokenAddress: {
+            '82': '0xfa9343c3897324496a05fc75abed6bac29f8a40f',
+            '336': '0xfa9343c3897324496a05fc75abed6bac29f8a40f',
+          },
+          cakePrice: '0.0296',
+          originalValue: 188.60219078151138,
+        },
+      },
+      { hidden: false, field: 'earned', value: { earnings: 0, pid: 1 } },
+      { hidden: false, field: 'multiplier', value: { multiplier: '20X' } },
+      {
+        hidden: false,
+        field: 'details',
+        value: {
+          pid: 1,
+          lpSymbol: 'aKSU',
+          lpAddresses: {
+            '82': '0x0bA819e30016Cf682C7795b44859148C65e62292',
+            '336': '0x456C0082DE0048EE883881fF61341177FA1FEF40',
+          },
+          token: {
+            symbol: 'AVAT',
+            address: {
+              '82': '0x0f933dc137d21ca519ae4c7e93f87a4c8ef365ef',
+              '336': '0x0f933dc137d21ca519ae4c7e93f87a4c8ef365ef',
+            },
+            decimals: 18,
+            projectLink: 'https://kaco.finance/',
+            busdPrice: '0.0296',
+          },
+          quoteToken: {
+            symbol: 'WSDN',
+            name: 'Wrapped SDN',
+            decimals: 18,
+            address: {
+              '82': '0xfa9343c3897324496a05fc75abed6bac29f8a40f',
+              '336': '0xfa9343c3897324496a05fc75abed6bac29f8a40f',
+            },
+            projectLink: 'https://blockscout.com/shiden/',
+            busdPrice: '0.6781',
+          },
+          userData: { allowance: '0', tokenBalance: '0', stakedBalance: '0', earnings: '0' },
+          tokenAmountMc:
+            '471559.8392807465922754335585012287478156162052075807015060024359882761365621443949805082594920415051519',
+          quoteTokenAmountMc:
+            '20657.37068037261666224906946605307327697003681220776317494838004563472061327824254405542855963695741614',
+          tokenAmountTotal: '472733.801506738136252855',
+          quoteTokenAmountTotal: '20708.797818239259072963',
+          lpTotalSupply: '98176461450833208727334',
+          lpTotalInQuoteToken:
+            '41314.74136074523332449813893210614655394007362441552634989676009126944122655648508811085711927391483228',
+          tokenPriceVsQuote: '0.04380646730196652783146946639140426953535937682783101164957744370366617922314668',
+          poolWeight: '0.60606060606060606060606060606060606060606060606060606060606060606060606060606061',
+          multiplier: '20X',
+          apr: 63.50215608181524,
+          lpRewardsApr: 0,
+          liquidity: new BigNumber('28015.52611672134'),
+          apy: 188.60219078151138,
+        },
+      },
+    ],
+  },
+
+  {
+    id: 3,
+    selected: false,
+    hidden: false,
+    original: {
+      farm: {
+        label: 'aKES',
+        pid: 1,
+        token: {
+          symbol: 'AVAT',
+          address: {
+            '82': '0x765277eebeca2e31912c9946eae1021199b39c61',
+            '336': '0x765277eebeca2e31912c9946eae1021199b39c61',
           },
           decimals: 18,
           projectLink: 'https://kaco.finance/',
@@ -704,16 +914,16 @@ export const farmData = [
         },
       },
       liquidity: {
-        liquidity: new BigNumber('115.52'),
+        liquidity: new BigNumber('0.001'),
       },
       apr: {
         apy: '188.6',
-        apr: '12.31',
+        apr: '0.00',
         multiplier: '20X',
-        lpLabel: 'AVAT',
+        lpLabel: 'aKES',
         tokenAddress: {
-          '82': '0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c',
-          '336': '0xb12c13e66ade1f72f71834f2fc5082db8c091358',
+          '82': '0x765277eebeca2e31912c9946eae1021199b39c61',
+          '336': '0x765277eebeca2e31912c9946eae1021199b39c61',
         },
         quoteTokenAddress: {
           '82': '0x0f933Dc137D21cA519ae4C7E93f87a4C8EF365Ef',
@@ -726,7 +936,7 @@ export const farmData = [
       multiplier: { multiplier: '20X' },
       details: {
         pid: 1,
-        lpSymbol: 'AVAT',
+        lpSymbol: 'aKES',
         lpAddresses: {
           '82': '0x0bA819e30016Cf682C7795b44859148C65e62292',
           '336': '0x456C0082DE0048EE883881fF61341177FA1FEF40',
@@ -734,8 +944,8 @@ export const farmData = [
         token: {
           symbol: 'AVAT',
           address: {
-            '82': '0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c',
-            '336': '0xb12c13e66ade1f72f71834f2fc5082db8c091358',
+            '82': '0x765277eebeca2e31912c9946eae1021199b39c61',
+            '336': '0x765277eebeca2e31912c9946eae1021199b39c61',
           },
           decimals: 18,
           projectLink: 'https://kaco.finance/',
@@ -776,13 +986,13 @@ export const farmData = [
         hidden: false,
         field: 'farm',
         value: {
-          label: 'AVAT',
+          label: 'aKES',
           pid: 1,
           token: {
             symbol: 'AVAT',
             address: {
-              '82': '0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c',
-              '336': '0xb12c13e66ade1f72f71834f2fc5082db8c091358',
+              '82': '0x765277eebeca2e31912c9946eae1021199b39c61',
+              '336': '0x765277eebeca2e31912c9946eae1021199b39c61',
             },
             decimals: 18,
             projectLink: 'https://kaco.finance/',
@@ -815,10 +1025,10 @@ export const farmData = [
           apy: '188.6',
           apr: '63.5',
           multiplier: '20X',
-          lpLabel: 'AVAT',
+          lpLabel: 'aKES',
           tokenAddress: {
-            '82': '0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c',
-            '336': '0xb12c13e66ade1f72f71834f2fc5082db8c091358',
+            '82': '0x765277eebeca2e31912c9946eae1021199b39c61',
+            '336': '0x765277eebeca2e31912c9946eae1021199b39c61',
           },
           quoteTokenAddress: {
             '82': '0x0f933Dc137D21cA519ae4C7E93f87a4C8EF365Ef',
@@ -835,7 +1045,7 @@ export const farmData = [
         field: 'details',
         value: {
           pid: 1,
-          lpSymbol: 'AVAT',
+          lpSymbol: 'aKES',
           lpAddresses: {
             '82': '0x0bA819e30016Cf682C7795b44859148C65e62292',
             '336': '0x456C0082DE0048EE883881fF61341177FA1FEF40',
@@ -843,8 +1053,8 @@ export const farmData = [
           token: {
             symbol: 'AVAT',
             address: {
-              '82': '0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c',
-              '336': '0xb12c13e66ade1f72f71834f2fc5082db8c091358',
+              '82': '0x765277eebeca2e31912c9946eae1021199b39c61',
+              '336': '0x765277eebeca2e31912c9946eae1021199b39c61',
             },
             decimals: 18,
             projectLink: 'https://kaco.finance/',
@@ -882,4 +1092,1050 @@ export const farmData = [
       },
     ],
   },
+  {
+    id: 4,
+    selected: false,
+    hidden: false,
+    original: {
+      farm: {
+        label: 'aKEU',
+        pid: 1,
+        token: {
+          symbol: 'AVAT',
+          address: {
+            '82': '0x765277eebeca2e31912c9946eae1021199b39c61',
+            '336': '0x765277eebeca2e31912c9946eae1021199b39c61',
+          },
+          decimals: 18,
+          projectLink: 'https://kaco.finance/',
+          busdPrice: '0.0296',
+        },
+        quoteToken: {
+          symbol: 'WSDN',
+          name: 'Wrapped SDN',
+          decimals: 18,
+          address: {
+            '82': '0xfa9343c3897324496a05fc75abed6bac29f8a40f',
+            '336': '0xfa9343c3897324496a05fc75abed6bac29f8a40f',
+          },
+          projectLink: 'https://blockscout.com/shiden/',
+          busdPrice: '0.6781',
+        },
+      },
+      liquidity: {
+        liquidity: new BigNumber('0.001'),
+      },
+      apr: {
+        apy: '188.6',
+        apr: '0.00',
+        multiplier: '20X',
+        lpLabel: 'aKEU',
+        tokenAddress: {
+          '82': '0x765277eebeca2e31912c9946eae1021199b39c61',
+          '336': '0x765277eebeca2e31912c9946eae1021199b39c61',
+        },
+        quoteTokenAddress: {
+          '82': '0xfa9343c3897324496a05fc75abed6bac29f8a40f',
+          '336': '0xfa9343c3897324496a05fc75abed6bac29f8a40f',
+        },
+        cakePrice: new BigNumber('0.0296'),
+        originalValue: 188.60219078151138,
+      },
+      earned: { earnings: 0, pid: 1 },
+      multiplier: { multiplier: '20X' },
+      details: {
+        pid: 1,
+        lpSymbol: 'aKEU',
+        lpAddresses: {
+          '82': '0x0bA819e30016Cf682C7795b44859148C65e62292',
+          '336': '0x456C0082DE0048EE883881fF61341177FA1FEF40',
+        },
+        token: {
+          symbol: 'AVAT',
+          address: {
+            '82': '0x765277eebeca2e31912c9946eae1021199b39c61',
+            '336': '0x765277eebeca2e31912c9946eae1021199b39c61',
+          },
+          decimals: 18,
+          projectLink: 'https://kaco.finance/',
+          busdPrice: '0.0296',
+        },
+        quoteToken: {
+          symbol: 'WSDN',
+          name: 'Wrapped SDN',
+          decimals: 18,
+          address: {
+            '82': '0xfa9343c3897324496a05fc75abed6bac29f8a40f',
+            '336': '0xfa9343c3897324496a05fc75abed6bac29f8a40f',
+          },
+          projectLink: 'https://blockscout.com/shiden/',
+          busdPrice: '0.6781',
+        },
+        userData: { allowance: '0', tokenBalance: '0', stakedBalance: '0', earnings: '0' },
+        tokenAmountMc:
+          '471559.8392807465922754335585012287478156162052075807015060024359882761365621443949805082594920415051519',
+        quoteTokenAmountMc:
+          '20657.37068037261666224906946605307327697003681220776317494838004563472061327824254405542855963695741614',
+        tokenAmountTotal: '472733.801506738136252855',
+        quoteTokenAmountTotal: '20708.797818239259072963',
+        lpTotalSupply: '98176461450833208727334',
+        lpTotalInQuoteToken:
+          '41314.74136074523332449813893210614655394007362441552634989676009126944122655648508811085711927391483228',
+        tokenPriceVsQuote: '0.04380646730196652783146946639140426953535937682783101164957744370366617922314668',
+        poolWeight: '0.60606060606060606060606060606060606060606060606060606060606060606060606060606061',
+        multiplier: '20X',
+        apr: 63.50215608181524,
+        lpRewardsApr: 0,
+        liquidity: new BigNumber('28015.52611672134'),
+        apy: 188.60219078151138,
+      },
+    },
+    cells: [
+      {
+        hidden: false,
+        field: 'farm',
+        value: {
+          label: 'aKEU',
+          pid: 1,
+          token: {
+            symbol: 'AVAT',
+            address: {
+              '82': '0x765277eebeca2e31912c9946eae1021199b39c61',
+              '336': '0x765277eebeca2e31912c9946eae1021199b39c61',
+            },
+            decimals: 18,
+            projectLink: 'https://kaco.finance/',
+            busdPrice: '0.0296',
+          },
+          quoteToken: {
+            symbol: 'WSDN',
+            name: 'Wrapped SDN',
+            decimals: 18,
+            address: {
+              '82': '0xfa9343c3897324496a05fc75abed6bac29f8a40f',
+              '336': '0xfa9343c3897324496a05fc75abed6bac29f8a40f',
+            },
+            projectLink: 'https://blockscout.com/shiden/',
+            busdPrice: '0.6781',
+          },
+        },
+      },
+      {
+        hidden: false,
+        field: 'liquidity',
+        value: {
+          liquidity: new BigNumber('28015.52611672134'),
+        },
+      },
+      {
+        hidden: false,
+        field: 'apr',
+        value: {
+          apy: '188.6',
+          apr: '63.5',
+          multiplier: '20X',
+          lpLabel: 'aKEU',
+          tokenAddress: {
+            '82': '0x765277eebeca2e31912c9946eae1021199b39c61',
+            '336': '0x765277eebeca2e31912c9946eae1021199b39c61',
+          },
+          quoteTokenAddress: {
+            '82': '0xfa9343c3897324496a05fc75abed6bac29f8a40f',
+            '336': '0xfa9343c3897324496a05fc75abed6bac29f8a40f',
+          },
+          cakePrice: '0.0296',
+          originalValue: 188.60219078151138,
+        },
+      },
+      { hidden: false, field: 'earned', value: { earnings: 0, pid: 1 } },
+      { hidden: false, field: 'multiplier', value: { multiplier: '20X' } },
+      {
+        hidden: false,
+        field: 'details',
+        value: {
+          pid: 1,
+          lpSymbol: 'aKEU',
+          lpAddresses: {
+            '82': '0x0bA819e30016Cf682C7795b44859148C65e62292',
+            '336': '0x456C0082DE0048EE883881fF61341177FA1FEF40',
+          },
+          token: {
+            symbol: 'AVAT',
+            address: {
+              '82': '0x765277eebeca2e31912c9946eae1021199b39c61',
+              '336': '0x765277eebeca2e31912c9946eae1021199b39c61',
+            },
+            decimals: 18,
+            projectLink: 'https://kaco.finance/',
+            busdPrice: '0.0296',
+          },
+          quoteToken: {
+            symbol: 'WSDN',
+            name: 'Wrapped SDN',
+            decimals: 18,
+            address: {
+              '82': '0xfa9343c3897324496a05fc75abed6bac29f8a40f',
+              '336': '0xfa9343c3897324496a05fc75abed6bac29f8a40f',
+            },
+            projectLink: 'https://blockscout.com/shiden/',
+            busdPrice: '0.6781',
+          },
+          userData: { allowance: '0', tokenBalance: '0', stakedBalance: '0', earnings: '0' },
+          tokenAmountMc:
+            '471559.8392807465922754335585012287478156162052075807015060024359882761365621443949805082594920415051519',
+          quoteTokenAmountMc:
+            '20657.37068037261666224906946605307327697003681220776317494838004563472061327824254405542855963695741614',
+          tokenAmountTotal: '472733.801506738136252855',
+          quoteTokenAmountTotal: '20708.797818239259072963',
+          lpTotalSupply: '98176461450833208727334',
+          lpTotalInQuoteToken:
+            '41314.74136074523332449813893210614655394007362441552634989676009126944122655648508811085711927391483228',
+          tokenPriceVsQuote: '0.04380646730196652783146946639140426953535937682783101164957744370366617922314668',
+          poolWeight: '0.60606060606060606060606060606060606060606060606060606060606060606060606060606061',
+          multiplier: '20X',
+          apr: 63.50215608181524,
+          lpRewardsApr: 0,
+          liquidity: new BigNumber('28015.52611672134'),
+          apy: 188.60219078151138,
+        },
+      },
+    ],
+  },
+
+  {
+    id: 5,
+    selected: false,
+    hidden: false,
+    original: {
+      farm: {
+        label: 'aKBU',
+        pid: 1,
+        token: {
+          symbol: 'AVAT',
+          address: {
+            '82': '0x65e66a61d0a8f1e686c2d6083ad611a10d84d97a',
+            '336': '0x65e66a61d0a8f1e686c2d6083ad611a10d84d97a',
+          },
+          decimals: 18,
+          projectLink: 'https://kaco.finance/',
+          busdPrice: '0.0296',
+        },
+        quoteToken: {
+          symbol: 'WSDN',
+          name: 'Wrapped SDN',
+          decimals: 18,
+          address: {
+            '82': '0xfa9343c3897324496a05fc75abed6bac29f8a40f',
+            '336': '0xfa9343c3897324496a05fc75abed6bac29f8a40f',
+          },
+          projectLink: 'https://blockscout.com/shiden/',
+          busdPrice: '0.6781',
+        },
+      },
+      liquidity: {
+        liquidity: new BigNumber('0.001'),
+      },
+      apr: {
+        apy: '188.6',
+        apr: '0.00',
+        multiplier: '20X',
+        lpLabel: 'aKBU',
+        tokenAddress: {
+          '82': '0x65e66a61d0a8f1e686c2d6083ad611a10d84d97a',
+          '336': '0x65e66a61d0a8f1e686c2d6083ad611a10d84d97a',
+        },
+        quoteTokenAddress: {
+          '82': '0xfa9343c3897324496a05fc75abed6bac29f8a40f',
+          '336': '0xfa9343c3897324496a05fc75abed6bac29f8a40f',
+        },
+        cakePrice: new BigNumber('0.0296'),
+        originalValue: 188.60219078151138,
+      },
+      earned: { earnings: 0, pid: 1 },
+      multiplier: { multiplier: '20X' },
+      details: {
+        pid: 1,
+        lpSymbol: 'aKBU',
+        lpAddresses: {
+          '82': '0x0bA819e30016Cf682C7795b44859148C65e62292',
+          '336': '0x456C0082DE0048EE883881fF61341177FA1FEF40',
+        },
+        token: {
+          symbol: 'AVAT',
+          address: {
+            '82': '0x65e66a61d0a8f1e686c2d6083ad611a10d84d97a',
+            '336': '0x65e66a61d0a8f1e686c2d6083ad611a10d84d97a',
+          },
+          decimals: 18,
+          projectLink: 'https://kaco.finance/',
+          busdPrice: '0.0296',
+        },
+        quoteToken: {
+          symbol: 'WSDN',
+          name: 'Wrapped SDN',
+          decimals: 18,
+          address: {
+            '82': '0xfa9343c3897324496a05fc75abed6bac29f8a40f',
+            '336': '0xfa9343c3897324496a05fc75abed6bac29f8a40f',
+          },
+          projectLink: 'https://blockscout.com/shiden/',
+          busdPrice: '0.6781',
+        },
+        userData: { allowance: '0', tokenBalance: '0', stakedBalance: '0', earnings: '0' },
+        tokenAmountMc:
+          '471559.8392807465922754335585012287478156162052075807015060024359882761365621443949805082594920415051519',
+        quoteTokenAmountMc:
+          '20657.37068037261666224906946605307327697003681220776317494838004563472061327824254405542855963695741614',
+        tokenAmountTotal: '472733.801506738136252855',
+        quoteTokenAmountTotal: '20708.797818239259072963',
+        lpTotalSupply: '98176461450833208727334',
+        lpTotalInQuoteToken:
+          '41314.74136074523332449813893210614655394007362441552634989676009126944122655648508811085711927391483228',
+        tokenPriceVsQuote: '0.04380646730196652783146946639140426953535937682783101164957744370366617922314668',
+        poolWeight: '0.60606060606060606060606060606060606060606060606060606060606060606060606060606061',
+        multiplier: '20X',
+        apr: 63.50215608181524,
+        lpRewardsApr: 0,
+        liquidity: new BigNumber('28015.52611672134'),
+        apy: 188.60219078151138,
+      },
+    },
+    cells: [
+      {
+        hidden: false,
+        field: 'farm',
+        value: {
+          label: 'aKBU',
+          pid: 1,
+          token: {
+            symbol: 'AVAT',
+            address: {
+              '82': '0x65e66a61d0a8f1e686c2d6083ad611a10d84d97a',
+              '336': '0x65e66a61d0a8f1e686c2d6083ad611a10d84d97a',
+            },
+            decimals: 18,
+            projectLink: 'https://kaco.finance/',
+            busdPrice: '0.0296',
+          },
+          quoteToken: {
+            symbol: 'WSDN',
+            name: 'Wrapped SDN',
+            decimals: 18,
+            address: {
+              '82': '0xfa9343c3897324496a05fc75abed6bac29f8a40f',
+              '336': '0xfa9343c3897324496a05fc75abed6bac29f8a40f',
+            },
+            projectLink: 'https://blockscout.com/shiden/',
+            busdPrice: '0.6781',
+          },
+        },
+      },
+      {
+        hidden: false,
+        field: 'liquidity',
+        value: {
+          liquidity: new BigNumber('28015.52611672134'),
+        },
+      },
+      {
+        hidden: false,
+        field: 'apr',
+        value: {
+          apy: '188.6',
+          apr: '63.5',
+          multiplier: '20X',
+          lpLabel: 'aKBU',
+          tokenAddress: {
+            '82': '0x65e66a61d0a8f1e686c2d6083ad611a10d84d97a',
+            '336': '0x65e66a61d0a8f1e686c2d6083ad611a10d84d97a',
+          },
+          quoteTokenAddress: {
+            '82': '0xfa9343c3897324496a05fc75abed6bac29f8a40f',
+            '336': '0xfa9343c3897324496a05fc75abed6bac29f8a40f',
+          },
+          cakePrice: '0.0296',
+          originalValue: 188.60219078151138,
+        },
+      },
+      { hidden: false, field: 'earned', value: { earnings: 0, pid: 1 } },
+      { hidden: false, field: 'multiplier', value: { multiplier: '20X' } },
+      {
+        hidden: false,
+        field: 'details',
+        value: {
+          pid: 1,
+          lpSymbol: 'aKBU',
+          lpAddresses: {
+            '82': '0x0bA819e30016Cf682C7795b44859148C65e62292',
+            '336': '0x456C0082DE0048EE883881fF61341177FA1FEF40',
+          },
+          token: {
+            symbol: 'AVAT',
+            address: {
+              '82': '0x65e66a61d0a8f1e686c2d6083ad611a10d84d97a',
+              '336': '0x65e66a61d0a8f1e686c2d6083ad611a10d84d97a',
+            },
+            decimals: 18,
+            projectLink: 'https://kaco.finance/',
+            busdPrice: '0.0296',
+          },
+          quoteToken: {
+            symbol: 'WSDN',
+            name: 'Wrapped SDN',
+            decimals: 18,
+            address: {
+              '82': '0xfa9343c3897324496a05fc75abed6bac29f8a40f',
+              '336': '0xfa9343c3897324496a05fc75abed6bac29f8a40f',
+            },
+            projectLink: 'https://blockscout.com/shiden/',
+            busdPrice: '0.6781',
+          },
+          userData: { allowance: '0', tokenBalance: '0', stakedBalance: '0', earnings: '0' },
+          tokenAmountMc:
+            '471559.8392807465922754335585012287478156162052075807015060024359882761365621443949805082594920415051519',
+          quoteTokenAmountMc:
+            '20657.37068037261666224906946605307327697003681220776317494838004563472061327824254405542855963695741614',
+          tokenAmountTotal: '472733.801506738136252855',
+          quoteTokenAmountTotal: '20708.797818239259072963',
+          lpTotalSupply: '98176461450833208727334',
+          lpTotalInQuoteToken:
+            '41314.74136074523332449813893210614655394007362441552634989676009126944122655648508811085711927391483228',
+          tokenPriceVsQuote: '0.04380646730196652783146946639140426953535937682783101164957744370366617922314668',
+          poolWeight: '0.60606060606060606060606060606060606060606060606060606060606060606060606060606061',
+          multiplier: '20X',
+          apr: 63.50215608181524,
+          lpRewardsApr: 0,
+          liquidity: new BigNumber('28015.52611672134'),
+          apy: 188.60219078151138,
+        },
+      },
+    ],
+  },
+  {
+    id: 6,
+    selected: false,
+    hidden: false,
+    original: {
+      farm: {
+        label: 'aKSJ',
+        pid: 1,
+        token: {
+          symbol: 'AVAT',
+          address: {
+            '82': '0x0f933dc137d21ca519ae4c7e93f87a4c8ef365ef',
+            '336': '0x0f933dc137d21ca519ae4c7e93f87a4c8ef365ef',
+          },
+          decimals: 18,
+          projectLink: 'https://kaco.finance/',
+          busdPrice: '0.0296',
+        },
+        quoteToken: {
+          symbol: 'WSDN',
+          name: 'Wrapped SDN',
+          decimals: 18,
+          address: {
+            '82': '0x735abe48e8782948a37c7765ecb76b98cde97b0f',
+            '336': '0x735abe48e8782948a37c7765ecb76b98cde97b0f',
+          },
+          projectLink: 'https://blockscout.com/shiden/',
+          busdPrice: '0.6781',
+        },
+      },
+      liquidity: {
+        liquidity: new BigNumber('0.001'),
+      },
+      apr: {
+        apy: '188.6',
+        apr: '0.00',
+        multiplier: '20X',
+        lpLabel: 'aKSJ',
+        tokenAddress: {
+          '82': '0x0f933dc137d21ca519ae4c7e93f87a4c8ef365ef',
+          '336': '0x0f933dc137d21ca519ae4c7e93f87a4c8ef365ef',
+        },
+        quoteTokenAddress: {
+          '82': '0x735abe48e8782948a37c7765ecb76b98cde97b0f',
+          '336': '0x735abe48e8782948a37c7765ecb76b98cde97b0f',
+        },
+        cakePrice: new BigNumber('0.0296'),
+        originalValue: 188.60219078151138,
+      },
+      earned: { earnings: 0, pid: 1 },
+      multiplier: { multiplier: '20X' },
+      details: {
+        pid: 1,
+        lpSymbol: 'aKSJ',
+        lpAddresses: {
+          '82': '0x0bA819e30016Cf682C7795b44859148C65e62292',
+          '336': '0x456C0082DE0048EE883881fF61341177FA1FEF40',
+        },
+        token: {
+          symbol: 'AVAT',
+          address: {
+            '82': '0x0f933dc137d21ca519ae4c7e93f87a4c8ef365ef',
+            '336': '0x0f933dc137d21ca519ae4c7e93f87a4c8ef365ef',
+          },
+          decimals: 18,
+          projectLink: 'https://kaco.finance/',
+          busdPrice: '0.0296',
+        },
+        quoteToken: {
+          symbol: 'WSDN',
+          name: 'Wrapped SDN',
+          decimals: 18,
+          address: {
+            '82': '0x735abe48e8782948a37c7765ecb76b98cde97b0f',
+            '336': '0x735abe48e8782948a37c7765ecb76b98cde97b0f',
+          },
+          projectLink: 'https://blockscout.com/shiden/',
+          busdPrice: '0.6781',
+        },
+        userData: { allowance: '0', tokenBalance: '0', stakedBalance: '0', earnings: '0' },
+        tokenAmountMc:
+          '471559.8392807465922754335585012287478156162052075807015060024359882761365621443949805082594920415051519',
+        quoteTokenAmountMc:
+          '20657.37068037261666224906946605307327697003681220776317494838004563472061327824254405542855963695741614',
+        tokenAmountTotal: '472733.801506738136252855',
+        quoteTokenAmountTotal: '20708.797818239259072963',
+        lpTotalSupply: '98176461450833208727334',
+        lpTotalInQuoteToken:
+          '41314.74136074523332449813893210614655394007362441552634989676009126944122655648508811085711927391483228',
+        tokenPriceVsQuote: '0.04380646730196652783146946639140426953535937682783101164957744370366617922314668',
+        poolWeight: '0.60606060606060606060606060606060606060606060606060606060606060606060606060606061',
+        multiplier: '20X',
+        apr: 63.50215608181524,
+        lpRewardsApr: 0,
+        liquidity: new BigNumber('28015.52611672134'),
+        apy: 188.60219078151138,
+      },
+    },
+    cells: [
+      {
+        hidden: false,
+        field: 'farm',
+        value: {
+          label: 'aKSJ',
+          pid: 1,
+          token: {
+            symbol: 'AVAT',
+            address: {
+              '82': '0x0f933dc137d21ca519ae4c7e93f87a4c8ef365ef',
+              '336': '0x0f933dc137d21ca519ae4c7e93f87a4c8ef365ef',
+            },
+            decimals: 18,
+            projectLink: 'https://kaco.finance/',
+            busdPrice: '0.0296',
+          },
+          quoteToken: {
+            symbol: 'WSDN',
+            name: 'Wrapped SDN',
+            decimals: 18,
+            address: {
+              '82': '0x735abe48e8782948a37c7765ecb76b98cde97b0f',
+              '336': '0x735abe48e8782948a37c7765ecb76b98cde97b0f',
+            },
+            projectLink: 'https://blockscout.com/shiden/',
+            busdPrice: '0.6781',
+          },
+        },
+      },
+      {
+        hidden: false,
+        field: 'liquidity',
+        value: {
+          liquidity: new BigNumber('28015.52611672134'),
+        },
+      },
+      {
+        hidden: false,
+        field: 'apr',
+        value: {
+          apy: '188.6',
+          apr: '63.5',
+          multiplier: '20X',
+          lpLabel: 'aKSJ',
+          tokenAddress: {
+            '82': '0x0f933dc137d21ca519ae4c7e93f87a4c8ef365ef',
+            '336': '0x0f933dc137d21ca519ae4c7e93f87a4c8ef365ef',
+          },
+          quoteTokenAddress: {
+            '82': '0x735abe48e8782948a37c7765ecb76b98cde97b0f',
+            '336': '0x735abe48e8782948a37c7765ecb76b98cde97b0f',
+          },
+          cakePrice: '0.0296',
+          originalValue: 188.60219078151138,
+        },
+      },
+      { hidden: false, field: 'earned', value: { earnings: 0, pid: 1 } },
+      { hidden: false, field: 'multiplier', value: { multiplier: '20X' } },
+      {
+        hidden: false,
+        field: 'details',
+        value: {
+          pid: 1,
+          lpSymbol: 'aKSJ',
+          lpAddresses: {
+            '82': '0x0bA819e30016Cf682C7795b44859148C65e62292',
+            '336': '0x456C0082DE0048EE883881fF61341177FA1FEF40',
+          },
+          token: {
+            symbol: 'AVAT',
+            address: {
+              '82': '0x0f933dc137d21ca519ae4c7e93f87a4c8ef365ef',
+              '336': '0x0f933dc137d21ca519ae4c7e93f87a4c8ef365ef',
+            },
+            decimals: 18,
+            projectLink: 'https://kaco.finance/',
+            busdPrice: '0.0296',
+          },
+          quoteToken: {
+            symbol: 'WSDN',
+            name: 'Wrapped SDN',
+            decimals: 18,
+            address: {
+              '82': '0x0f933Dc137D21cA519ae4C7E93f87a4C8EF365Ef',
+              '336': '0x0f933Dc137D21cA519ae4C7E93f87a4C8EF365Ef',
+            },
+            projectLink: 'https://blockscout.com/shiden/',
+            busdPrice: '0.6781',
+          },
+          userData: { allowance: '0', tokenBalance: '0', stakedBalance: '0', earnings: '0' },
+          tokenAmountMc:
+            '471559.8392807465922754335585012287478156162052075807015060024359882761365621443949805082594920415051519',
+          quoteTokenAmountMc:
+            '20657.37068037261666224906946605307327697003681220776317494838004563472061327824254405542855963695741614',
+          tokenAmountTotal: '472733.801506738136252855',
+          quoteTokenAmountTotal: '20708.797818239259072963',
+          lpTotalSupply: '98176461450833208727334',
+          lpTotalInQuoteToken:
+            '41314.74136074523332449813893210614655394007362441552634989676009126944122655648508811085711927391483228',
+          tokenPriceVsQuote: '0.04380646730196652783146946639140426953535937682783101164957744370366617922314668',
+          poolWeight: '0.60606060606060606060606060606060606060606060606060606060606060606060606060606061',
+          multiplier: '20X',
+          apr: 63.50215608181524,
+          lpRewardsApr: 0,
+          liquidity: new BigNumber('28015.52611672134'),
+          apy: 188.60219078151138,
+        },
+      },
+    ],
+  },
+  {
+    id: 7,
+    selected: false,
+    hidden: false,
+    original: {
+      farm: {
+        label: 'aKJU',
+        pid: 1,
+        token: {
+          symbol: 'AVAT',
+          address: {
+            '82': '0x735abe48e8782948a37c7765ecb76b98cde97b0f',
+            '336': '0x735abe48e8782948a37c7765ecb76b98cde97b0f',
+          },
+          decimals: 18,
+          projectLink: 'https://kaco.finance/',
+          busdPrice: '0.0296',
+        },
+        quoteToken: {
+          symbol: 'WSDN',
+          name: 'Wrapped SDN',
+          decimals: 18,
+          address: {
+            '82': '0xfa9343c3897324496a05fc75abed6bac29f8a40f',
+            '336': '0xfa9343c3897324496a05fc75abed6bac29f8a40f',
+          },
+          projectLink: 'https://blockscout.com/shiden/',
+          busdPrice: '0.6781',
+        },
+      },
+      liquidity: {
+        liquidity: new BigNumber('0.001'),
+      },
+      apr: {
+        apy: '188.6',
+        apr: '0.00',
+        multiplier: '20X',
+        lpLabel: 'aKJU',
+        tokenAddress: {
+          '82': '0x735abe48e8782948a37c7765ecb76b98cde97b0f',
+          '336': '0x735abe48e8782948a37c7765ecb76b98cde97b0f',
+        },
+        quoteTokenAddress: {
+          '82': '0xfa9343c3897324496a05fc75abed6bac29f8a40f',
+          '336': '0xfa9343c3897324496a05fc75abed6bac29f8a40f',
+        },
+        cakePrice: new BigNumber('0.0296'),
+        originalValue: 188.60219078151138,
+      },
+      earned: { earnings: 0, pid: 1 },
+      multiplier: { multiplier: '20X' },
+      details: {
+        pid: 1,
+        lpSymbol: 'aKJU',
+        lpAddresses: {
+          '82': '0x0bA819e30016Cf682C7795b44859148C65e62292',
+          '336': '0x456C0082DE0048EE883881fF61341177FA1FEF40',
+        },
+        token: {
+          symbol: 'AVAT',
+          address: {
+            '82': '0x735abe48e8782948a37c7765ecb76b98cde97b0f',
+            '336': '0x735abe48e8782948a37c7765ecb76b98cde97b0f',
+          },
+          decimals: 18,
+          projectLink: 'https://kaco.finance/',
+          busdPrice: '0.0296',
+        },
+        quoteToken: {
+          symbol: 'WSDN',
+          name: 'Wrapped SDN',
+          decimals: 18,
+          address: {
+            '82': '0xfa9343c3897324496a05fc75abed6bac29f8a40f',
+            '336': '0xfa9343c3897324496a05fc75abed6bac29f8a40f',
+          },
+          projectLink: 'https://blockscout.com/shiden/',
+          busdPrice: '0.6781',
+        },
+        userData: { allowance: '0', tokenBalance: '0', stakedBalance: '0', earnings: '0' },
+        tokenAmountMc:
+          '471559.8392807465922754335585012287478156162052075807015060024359882761365621443949805082594920415051519',
+        quoteTokenAmountMc:
+          '20657.37068037261666224906946605307327697003681220776317494838004563472061327824254405542855963695741614',
+        tokenAmountTotal: '472733.801506738136252855',
+        quoteTokenAmountTotal: '20708.797818239259072963',
+        lpTotalSupply: '98176461450833208727334',
+        lpTotalInQuoteToken:
+          '41314.74136074523332449813893210614655394007362441552634989676009126944122655648508811085711927391483228',
+        tokenPriceVsQuote: '0.04380646730196652783146946639140426953535937682783101164957744370366617922314668',
+        poolWeight: '0.60606060606060606060606060606060606060606060606060606060606060606060606060606061',
+        multiplier: '20X',
+        apr: 63.50215608181524,
+        lpRewardsApr: 0,
+        liquidity: new BigNumber('28015.52611672134'),
+        apy: 188.60219078151138,
+      },
+    },
+    cells: [
+      {
+        hidden: false,
+        field: 'farm',
+        value: {
+          label: 'aKJU',
+          pid: 1,
+          token: {
+            symbol: 'AVAT',
+            address: {
+              '82': '0x735abe48e8782948a37c7765ecb76b98cde97b0f',
+              '336': '0x735abe48e8782948a37c7765ecb76b98cde97b0f',
+            },
+            decimals: 18,
+            projectLink: 'https://kaco.finance/',
+            busdPrice: '0.0296',
+          },
+          quoteToken: {
+            symbol: 'WSDN',
+            name: 'Wrapped SDN',
+            decimals: 18,
+            address: {
+              '82': '0xfa9343c3897324496a05fc75abed6bac29f8a40f',
+              '336': '0xfa9343c3897324496a05fc75abed6bac29f8a40f',
+            },
+            projectLink: 'https://blockscout.com/shiden/',
+            busdPrice: '0.6781',
+          },
+        },
+      },
+      {
+        hidden: false,
+        field: 'liquidity',
+        value: {
+          liquidity: new BigNumber('28015.52611672134'),
+        },
+      },
+      {
+        hidden: false,
+        field: 'apr',
+        value: {
+          apy: '188.6',
+          apr: '63.5',
+          multiplier: '20X',
+          lpLabel: 'aKJU',
+          tokenAddress: {
+            '82': '0x735abe48e8782948a37c7765ecb76b98cde97b0f',
+            '336': '0x735abe48e8782948a37c7765ecb76b98cde97b0f',
+          },
+          quoteTokenAddress: {
+            '82': '0xfa9343c3897324496a05fc75abed6bac29f8a40f',
+            '336': '0xfa9343c3897324496a05fc75abed6bac29f8a40f',
+          },
+          cakePrice: '0.0296',
+          originalValue: 188.60219078151138,
+        },
+      },
+      { hidden: false, field: 'earned', value: { earnings: 0, pid: 1 } },
+      { hidden: false, field: 'multiplier', value: { multiplier: '20X' } },
+      {
+        hidden: false,
+        field: 'details',
+        value: {
+          pid: 1,
+          lpSymbol: 'aKJU',
+          lpAddresses: {
+            '82': '0x0bA819e30016Cf682C7795b44859148C65e62292',
+            '336': '0x456C0082DE0048EE883881fF61341177FA1FEF40',
+          },
+          token: {
+            symbol: 'AVAT',
+            address: {
+              '82': '0x735abe48e8782948a37c7765ecb76b98cde97b0f',
+              '336': '0x735abe48e8782948a37c7765ecb76b98cde97b0f',
+            },
+            decimals: 18,
+            projectLink: 'https://kaco.finance/',
+            busdPrice: '0.0296',
+          },
+          quoteToken: {
+            symbol: 'WSDN',
+            name: 'Wrapped SDN',
+            decimals: 18,
+            address: {
+              '82': '0xfa9343c3897324496a05fc75abed6bac29f8a40f',
+              '336': '0xfa9343c3897324496a05fc75abed6bac29f8a40f',
+            },
+            projectLink: 'https://blockscout.com/shiden/',
+            busdPrice: '0.6781',
+          },
+          userData: { allowance: '0', tokenBalance: '0', stakedBalance: '0', earnings: '0' },
+          tokenAmountMc:
+            '471559.8392807465922754335585012287478156162052075807015060024359882761365621443949805082594920415051519',
+          quoteTokenAmountMc:
+            '20657.37068037261666224906946605307327697003681220776317494838004563472061327824254405542855963695741614',
+          tokenAmountTotal: '472733.801506738136252855',
+          quoteTokenAmountTotal: '20708.797818239259072963',
+          lpTotalSupply: '98176461450833208727334',
+          lpTotalInQuoteToken:
+            '41314.74136074523332449813893210614655394007362441552634989676009126944122655648508811085711927391483228',
+          tokenPriceVsQuote: '0.04380646730196652783146946639140426953535937682783101164957744370366617922314668',
+          poolWeight: '0.60606060606060606060606060606060606060606060606060606060606060606060606060606061',
+          multiplier: '20X',
+          apr: 63.50215608181524,
+          lpRewardsApr: 0,
+          liquidity: new BigNumber('28015.52611672134'),
+          apy: 188.60219078151138,
+        },
+      },
+    ],
+  },
+  // {
+  //   id: 2,
+  //   selected: false,
+  //   hidden: false,
+  //   original: {
+  //     farm: {
+  //       label: 'aAVAT',
+  //       pid: 1,
+  //       token: {
+  //         symbol: 'AVAT',
+  //         address: {
+  //           '82': '0x735abe48e8782948a37c7765ecb76b98cde97b0f',
+  //           '336': '0x735abe48e8782948a37c7765ecb76b98cde97b0f',
+  //         },
+  //         decimals: 18,
+  //         projectLink: 'https://kaco.finance/',
+  //         busdPrice: '0.0296',
+  //       },
+  //       quoteToken: {
+  //         symbol: 'WSDN',
+  //         name: 'Wrapped SDN',
+  //         decimals: 18,
+  //         address: {
+  //           '82': '0x0f933Dc137D21cA519ae4C7E93f87a4C8EF365Ef',
+  //           '336': '0x0f933Dc137D21cA519ae4C7E93f87a4C8EF365Ef',
+  //         },
+  //         projectLink: 'https://blockscout.com/shiden/',
+  //         busdPrice: '0.6781',
+  //       },
+  //     },
+  //     liquidity: {
+  //       liquidity: new BigNumber('115.52'),
+  //     },
+  //     apr: {
+  //       apy: '188.6',
+  //       apr: '12.31',
+  //       multiplier: '20X',
+  //       lpLabel: 'AVAT',
+  //       tokenAddress: {
+  //         '82': '0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c',
+  //         '336': '0xb12c13e66ade1f72f71834f2fc5082db8c091358',
+  //       },
+  //       quoteTokenAddress: {
+  //         '82': '0x0f933Dc137D21cA519ae4C7E93f87a4C8EF365Ef',
+  //         '336': '0x0f933Dc137D21cA519ae4C7E93f87a4C8EF365Ef',
+  //       },
+  //       cakePrice: new BigNumber('0.0296'),
+  //       originalValue: 188.60219078151138,
+  //     },
+  //     earned: { earnings: 0, pid: 1 },
+  //     multiplier: { multiplier: '20X' },
+  //     details: {
+  //       pid: 1,
+  //       lpSymbol: 'AVAT',
+  //       lpAddresses: {
+  //         '82': '0x0bA819e30016Cf682C7795b44859148C65e62292',
+  //         '336': '0x456C0082DE0048EE883881fF61341177FA1FEF40',
+  //       },
+  //       token: {
+  //         symbol: 'AVAT',
+  //         address: {
+  //           '82': '0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c',
+  //           '336': '0xb12c13e66ade1f72f71834f2fc5082db8c091358',
+  //         },
+  //         decimals: 18,
+  //         projectLink: 'https://kaco.finance/',
+  //         busdPrice: '0.0296',
+  //       },
+  //       quoteToken: {
+  //         symbol: 'WSDN',
+  //         name: 'Wrapped SDN',
+  //         decimals: 18,
+  //         address: {
+  //           '82': '0x0f933Dc137D21cA519ae4C7E93f87a4C8EF365Ef',
+  //           '336': '0x0f933Dc137D21cA519ae4C7E93f87a4C8EF365Ef',
+  //         },
+  //         projectLink: 'https://blockscout.com/shiden/',
+  //         busdPrice: '0.6781',
+  //       },
+  //       userData: { allowance: '0', tokenBalance: '0', stakedBalance: '0', earnings: '0' },
+  //       tokenAmountMc:
+  //         '471559.8392807465922754335585012287478156162052075807015060024359882761365621443949805082594920415051519',
+  //       quoteTokenAmountMc:
+  //         '20657.37068037261666224906946605307327697003681220776317494838004563472061327824254405542855963695741614',
+  //       tokenAmountTotal: '472733.801506738136252855',
+  //       quoteTokenAmountTotal: '20708.797818239259072963',
+  //       lpTotalSupply: '98176461450833208727334',
+  //       lpTotalInQuoteToken:
+  //         '41314.74136074523332449813893210614655394007362441552634989676009126944122655648508811085711927391483228',
+  //       tokenPriceVsQuote: '0.04380646730196652783146946639140426953535937682783101164957744370366617922314668',
+  //       poolWeight: '0.60606060606060606060606060606060606060606060606060606060606060606060606060606061',
+  //       multiplier: '20X',
+  //       apr: 63.50215608181524,
+  //       lpRewardsApr: 0,
+  //       liquidity: new BigNumber('28015.52611672134'),
+  //       apy: 188.60219078151138,
+  //     },
+  //   },
+  //   cells: [
+  //     {
+  //       hidden: false,
+  //       field: 'farm',
+  //       value: {
+  //         label: 'AVAT',
+  //         pid: 1,
+  //         token: {
+  //           symbol: 'AVAT',
+  //           address: {
+  //             '82': '0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c',
+  //             '336': '0xb12c13e66ade1f72f71834f2fc5082db8c091358',
+  //           },
+  //           decimals: 18,
+  //           projectLink: 'https://kaco.finance/',
+  //           busdPrice: '0.0296',
+  //         },
+  //         quoteToken: {
+  //           symbol: 'WSDN',
+  //           name: 'Wrapped SDN',
+  //           decimals: 18,
+  //           address: {
+  //             '82': '0x0f933Dc137D21cA519ae4C7E93f87a4C8EF365Ef',
+  //             '336': '0x0f933Dc137D21cA519ae4C7E93f87a4C8EF365Ef',
+  //           },
+  //           projectLink: 'https://blockscout.com/shiden/',
+  //           busdPrice: '0.6781',
+  //         },
+  //       },
+  //     },
+  //     {
+  //       hidden: false,
+  //       field: 'liquidity',
+  //       value: {
+  //         liquidity: new BigNumber('28015.52611672134'),
+  //       },
+  //     },
+  //     {
+  //       hidden: false,
+  //       field: 'apr',
+  //       value: {
+  //         apy: '188.6',
+  //         apr: '63.5',
+  //         multiplier: '20X',
+  //         lpLabel: 'AVAT',
+  //         tokenAddress: {
+  //           '82': '0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c',
+  //           '336': '0xb12c13e66ade1f72f71834f2fc5082db8c091358',
+  //         },
+  //         quoteTokenAddress: {
+  //           '82': '0x0f933Dc137D21cA519ae4C7E93f87a4C8EF365Ef',
+  //           '336': '0x0f933Dc137D21cA519ae4C7E93f87a4C8EF365Ef',
+  //         },
+  //         cakePrice: '0.0296',
+  //         originalValue: 188.60219078151138,
+  //       },
+  //     },
+  //     { hidden: false, field: 'earned', value: { earnings: 0, pid: 1 } },
+  //     { hidden: false, field: 'multiplier', value: { multiplier: '20X' } },
+  //     {
+  //       hidden: false,
+  //       field: 'details',
+  //       value: {
+  //         pid: 1,
+  //         lpSymbol: 'AVAT',
+  //         lpAddresses: {
+  //           '82': '0x0bA819e30016Cf682C7795b44859148C65e62292',
+  //           '336': '0x456C0082DE0048EE883881fF61341177FA1FEF40',
+  //         },
+  //         token: {
+  //           symbol: 'AVAT',
+  //           address: {
+  //             '82': '0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c',
+  //             '336': '0xb12c13e66ade1f72f71834f2fc5082db8c091358',
+  //           },
+  //           decimals: 18,
+  //           projectLink: 'https://kaco.finance/',
+  //           busdPrice: '0.0296',
+  //         },
+  //         quoteToken: {
+  //           symbol: 'WSDN',
+  //           name: 'Wrapped SDN',
+  //           decimals: 18,
+  //           address: {
+  //             '82': '0x0f933Dc137D21cA519ae4C7E93f87a4C8EF365Ef',
+  //             '336': '0x0f933Dc137D21cA519ae4C7E93f87a4C8EF365Ef',
+  //           },
+  //           projectLink: 'https://blockscout.com/shiden/',
+  //           busdPrice: '0.6781',
+  //         },
+  //         userData: { allowance: '0', tokenBalance: '0', stakedBalance: '0', earnings: '0' },
+  //         tokenAmountMc:
+  //           '471559.8392807465922754335585012287478156162052075807015060024359882761365621443949805082594920415051519',
+  //         quoteTokenAmountMc:
+  //           '20657.37068037261666224906946605307327697003681220776317494838004563472061327824254405542855963695741614',
+  //         tokenAmountTotal: '472733.801506738136252855',
+  //         quoteTokenAmountTotal: '20708.797818239259072963',
+  //         lpTotalSupply: '98176461450833208727334',
+  //         lpTotalInQuoteToken:
+  //           '41314.74136074523332449813893210614655394007362441552634989676009126944122655648508811085711927391483228',
+  //         tokenPriceVsQuote: '0.04380646730196652783146946639140426953535937682783101164957744370366617922314668',
+  //         poolWeight: '0.60606060606060606060606060606060606060606060606060606060606060606060606060606061',
+  //         multiplier: '20X',
+  //         apr: 63.50215608181524,
+  //         lpRewardsApr: 0,
+  //         liquidity: new BigNumber('28015.52611672134'),
+  //         apy: 188.60219078151138,
+  //       },
+  //     },
+  //   ],
+  // },
 ];

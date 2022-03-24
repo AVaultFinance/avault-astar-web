@@ -5,6 +5,7 @@ const _Link = [
   { name: 'Twitter', link: 'https://twitter.com/Avault_Astar ' },
   { name: 'Medium', link: 'https://medium.com/@avault ' },
   { name: 'Github', link: 'https://github.com/AVaultFinance ' },
+  { name: 'doc', link: 'https://github.com/AVaultFinance ' },
 ];
 const Home = () => {
   return (
@@ -81,6 +82,11 @@ const UlStyled = styled.ul`
   li {
     margin: 0 10px;
     display: inline-block;
+    &:last-child {
+      img {
+        width: 34px;
+      }
+    }
     a {
       display: block;
       cursor: pointer;

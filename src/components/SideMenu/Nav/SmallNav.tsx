@@ -18,7 +18,7 @@ const SmallNavTooltip: FC<{
     <NavWrap>
       <NavWrapInner>
         <HeaderFlex>
-          <img src="/images/logo.svg" alt="" className="logo" />
+          <img src="/images/logo_beta.svg" alt="" className="logo" />
           <CloseIconStyled
             onClick={() => {
               setTooltipVisible(false);

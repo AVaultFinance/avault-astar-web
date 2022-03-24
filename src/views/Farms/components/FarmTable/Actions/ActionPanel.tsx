@@ -7,8 +7,8 @@ import { getAddress } from 'utils/addressHelpers';
 import { getBscScanLink } from 'utils';
 // import { CommunityTag, CoreTag, DualTag } from 'components/Tags';
 
-import HarvestAction from './HarvestAction';
-import StakedAction from './StakedAction';
+import HarvestAction from './HarvestAction_v2';
+import StakedAction from './StakedAction_v2';
 import { AprProps } from '../Apr';
 import { MultiplierProps } from '../Multiplier';
 import { LiquidityProps } from '../Liquidity';
