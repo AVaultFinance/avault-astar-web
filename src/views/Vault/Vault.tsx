@@ -50,13 +50,14 @@ export const getDisplayApy = (cakeRewardsApy?: number): string => {
 };
 
 const Compoundings: React.FC = () => {
+  const kacPerBlock = useKacPerBlock();
   const { data: compoundingsLP, userDataLoaded } = useCompounding();
   const cakePrice = usePriceCakeBusd();
   const { account } = useWeb3React();
   const [sortKey, setSortKey] = useState('hot');
   const [sortDir, setSortDir] = useState(ISortDir.default);
   const chosenFarmsLength = useRef(0);
-  const kacPerBlock = useKacPerBlock();
+
   const { priceVsBusdMap } = usePrice();
   const { data: compoundings } = useCompounding();
   const userDataReady = !account || (!!account && userDataLoaded);
@@ -74,6 +75,7 @@ const Compoundings: React.FC = () => {
         const totalLiquidity = new BigNumber(farm.lpTotalInQuoteToken).times(
           priceVsBusdMap[farm.quoteToken.toLocaleLowerCase()],
         );
+
         const { kacRewardsApr, lpRewardsApr, kacRewardApy } = getFarmApr(
           kacPerBlock,
           new BigNumber(farm.poolWeight),
@@ -237,6 +239,7 @@ const Compoundings: React.FC = () => {
       />
     );
   };
+
   // console.log('userDataLoaded: ', userDataLoaded, 'dataLoaded: ', dataLoaded);
   return (
     <Page>

@@ -41,7 +41,7 @@ const fetch = async (
     compoundingDecimals,
   } = await fetchCompoundingABI(AVaultPCS);
 
-  const { lpAddresses, poolWeight, multiplier } = await fetchMasterChefABI(masterChef, pid);
+  const { lpAddresses, poolWeight, multiplier } = await fetchMasterChefABI(masterChef, pid, compoundingData);
 
   const {
     tokenAmountMc,
@@ -197,7 +197,7 @@ const fetchCompoundingABI = async (AVaultPCSAddress: string) => {
     compoundingDecimals: _compoundingDecimals ? _compoundingDecimals[0].toString() : null,
   };
 };
-const fetchMasterChefABI = async (masterChefAddress: string, pid: number) => {
+const fetchMasterChefABI = async (masterChefAddress: string, pid: number, compoundingData: ICompounding) => {
   const _masterchefABI = chainKey === CHAINKEY.SDN ? masterchefSdnABI : masterchefABI;
   // info: [
   //   lpToken (address) : 0x456c0082de0048ee883881ff61341177fa1fef40
@@ -221,7 +221,11 @@ const fetchMasterChefABI = async (masterChefAddress: string, pid: number) => {
       : [null, null];
   const allocPoint = info ? new BigNumber(info.allocPoint?._hex) : BIG_ZERO;
   const lpAddresses = info ? info.lpToken : '';
-  const poolWeight = totalAllocPoint ? allocPoint.div(new BigNumber(totalAllocPoint)) : BIG_ZERO;
+  const poolWeight = totalAllocPoint
+    ? allocPoint.div(new BigNumber(totalAllocPoint))
+    : compoundingData?.farm?.poolWeight
+    ? new BigNumber(compoundingData.farm.poolWeight)
+    : BIG_ZERO;
   return {
     lpAddresses,
     poolWeight,

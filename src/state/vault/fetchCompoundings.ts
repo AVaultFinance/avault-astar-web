@@ -20,27 +20,31 @@ const fetchCompoundings = async (
   for (let i = 0; i < data.length; i++) {
     const v = data[i];
     if (v.farm.lpTokenPrice) {
-      // 210000000200000
+      console.log(v.compounding.wantLockedTotal, v.compounding.decimals, v.farm.lpTokenPrice);
       const _liquidity = new BigNumber(v.compounding.wantLockedTotal)
         .div(BIG_TEN.pow(new BigNumber(v.compounding.decimals)))
         .times(Number(v.farm.lpTokenPrice))
-        .toNumber()
-        .toLocaleString('en-US', {
-          maximumFractionDigits: 2,
-        });
-      _total = _total.plus(Number(_liquidity));
+        .toNumber();
+      console.log({ _liquidity });
+      _total = _total.plus(_liquidity);
       _data.push({
         ...v,
         compounding: {
           ...v.compounding,
-          liquidity: _liquidity,
+          liquidity: _liquidity.toLocaleString('en-US', {
+            maximumFractionDigits: 2,
+          }),
         },
       });
     } else {
       _data.push(v);
     }
   }
-  const total = isNaNString(_total.toString());
+  const total = isNaNString(
+    _total.toNumber().toLocaleString('en-US', {
+      maximumFractionDigits: 2,
+    }),
+  );
   return [_data, total];
 };
 export default fetchCompoundings;

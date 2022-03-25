@@ -9,7 +9,7 @@ import { AprProps } from '../Apr';
 import { MultiplierProps } from '../Multiplier';
 import BigNumber from 'bignumber.js';
 import { BIG_ZERO } from 'utils/bigNumber';
-import { getFullDisplayBalance } from 'utils/formatBalance';
+import { getFullLocalDisplayBalance } from 'utils/formatBalance';
 import { useWeb3React } from '@web3-react/core';
 import MobileAction from './MobileAction';
 import { useERC20 } from 'hooks/useContract';
@@ -180,7 +180,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
       // earnings = getBalanceAmount(_value, compounding.farm.lpAddressDecimals);
       // wantLockedTotal / totalSupply()*CLpAmount
       // earningsBusd = earnings.multipliedBy(cakePrice).toNumber();
-      displayEarningsBalance = getFullDisplayBalance(
+      displayEarningsBalance = getFullLocalDisplayBalance(
         earnings,
         compounding.farm.lpAddressDecimals,
         showDecimals(compounding.lpSymbol),
@@ -263,7 +263,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
               {compounding.compounding.balance} {compounding?.compounding.symbol}
             </i>
             <i>
-              {getFullDisplayBalance(
+              {getFullLocalDisplayBalance(
                 new BigNumber(compounding.farm.userData.stakingTokenBalance),
                 compounding.farm.lpAddressDecimals,
                 showDecimals(compounding.lpSymbol),
@@ -285,7 +285,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
           requestedApproval={requestedApproval}
           isApproved={isApproved}
           pid={compounding.farm.pid}
-          displayBalance={getFullDisplayBalance(
+          displayBalance={getFullLocalDisplayBalance(
             new BigNumber(compounding.farm.userData.stakingTokenBalance),
             compounding.farm.lpAddressDecimals,
             3,
@@ -309,7 +309,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
             requestedApproval={requestedApproval}
             requestedApprovalSuccess={requestedApprovalSuccess}
             isApproved={isApproved}
-            displayBalance={getFullDisplayBalance(
+            displayBalance={getFullLocalDisplayBalance(
               new BigNumber(compounding?.farm?.userData?.stakingTokenBalance ?? '0'),
               compounding.farm.lpAddressDecimals,
               showDecimals(compounding.lpSymbol),
@@ -330,7 +330,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
             lpAddressDecimals={compounding.farm.lpAddressDecimals}
             requestedApproval={requestedApproval}
             isApproved={isApproved}
-            displayBalance={getFullDisplayBalance(
+            displayBalance={getFullLocalDisplayBalance(
               new BigNumber(compounding?.farm?.userData?.stakingTokenBalance ?? '0'),
               compounding.farm.lpAddressDecimals,
               showDecimals(compounding.lpSymbol),

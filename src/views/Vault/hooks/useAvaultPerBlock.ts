@@ -16,7 +16,7 @@ const base = BIG_TEN.pow(new RealBigNumber(18));
 
 const useKacPerBlock = (): RealBigNumber => {
   const { chainId } = useActiveWeb3React();
-  const [kacPerBlock, setKacPerBlock] = useState<RealBigNumber>(new RealBigNumber(0));
+  const [kacPerBlock, setKacPerBlock] = useState<RealBigNumber>(new RealBigNumber(0.377358490566));
 
   useEffect(() => {
     const _masterchefABI = chainKey === CHAINKEY.SDN ? masterchefSdnABI : masterchefABI;

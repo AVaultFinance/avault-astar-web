@@ -225,7 +225,8 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
                         fontSize="14px"
                         color="text"
                         fontWeight="600"
-                        decimals={5}
+                        decimals={showDecimals(details.lpSymbol)}
+                        // decimals={5}
                         value={getBalanceNumber(new BigNumber(details?.farm?.userData?.avaultAddressBalance ?? '0'))}
                       />
                       <Text color="text" bold fontSize="14px" paddingLeft="4px">
