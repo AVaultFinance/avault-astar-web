@@ -88,13 +88,13 @@ const WithdrawAction: React.FunctionComponent<WithdrawActionProps> = ({
     try {
       const _amount = new BigNumber(val)
         .times(1 / Number(lpToCLpRate))
-        .times(0.97)
+        .times(0.9)
         .toString();
       result = await onWithdraw(_amount);
-      dispatch(changeLoading());
-      dispatch(changeVaultItemLoading({ index }));
-      dispatch(fetchCompoundingFarmUserDataAsync({ account, compoundings, index }));
       if (result) {
+        dispatch(changeLoading());
+        dispatch(changeVaultItemLoading({ index }));
+        dispatch(fetchCompoundingFarmUserDataAsync({ account, compoundings, index }));
         toastSuccess(`Withdraw!`, `'Your ${lpSymbol} earnings have been sent to your wallet!'`);
         setTimeout(() => {
           setPendingTxSuccess(true);
