@@ -162,7 +162,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
   const isApproved = account && allowance && allowance.isGreaterThan(0);
   // const stakingBigNumber = new BigNumber(compounding.farm.userData.stakingTokenBalance);
   let earnings = BIG_ZERO;
-  let displayEarningsBalance: string = '0.000';
+  let displayEarningsBalance: string = '0';
 
   // If user didn't connect wallet default balance will be 0
   if (isApproved) {
@@ -171,10 +171,10 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
     // _totalSupply： 282962782793973
     // avaultAddressBalance： 89962782593973
     // _wantLockedTotal： 284598115334499
-    console.log('earnings: ', _wantLockedTotal.toString(), _totalSupply.toString(), avaultAddressBalance.toString());
+    // console.log('earnings: ', _wantLockedTotal.toString(), _totalSupply.toString(), avaultAddressBalance.toString());
     if (avaultAddressBalance.toNumber() > 0 && _totalSupply.toNumber() > 0) {
       earnings = _wantLockedTotal.dividedBy(_totalSupply).times(avaultAddressBalance);
-      console.log('earnings: ', earnings);
+      // console.log('earnings: ', earnings);
       // earnings = getBalanceAmount(_value, compounding.farm.lpAddressDecimals);
       // wantLockedTotal / totalSupply()*CLpAmount
       // earningsBusd = earnings.multipliedBy(cakePrice).toNumber();
