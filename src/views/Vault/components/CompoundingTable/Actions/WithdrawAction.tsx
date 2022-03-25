@@ -15,6 +15,7 @@ import { changeLoading, changeVaultItemLoading, fetchCompoundingFarmUserDataAsyn
 import Loading from 'components/TransactionConfirmationModal/Loading';
 import { ActionContainerBg, ActionContainerSize } from 'style/TableStyled';
 import { showDecimals } from 'views/Vault/utils';
+const _rate = 1;
 
 interface WithdrawActionProps {
   userDataReady: boolean;
@@ -81,14 +82,13 @@ const WithdrawAction: React.FunctionComponent<WithdrawActionProps> = ({
 
   const valNumber = new BigNumber(val);
   const fullBalanceNumber = new BigNumber(fullBalance);
-
   const handleWithdraw = useCallback(async () => {
     setPendingTx(true);
     let result = null;
     try {
       const _amount = new BigNumber(val)
         .times(1 / Number(lpToCLpRate))
-        .times(0.99)
+        .times(_rate)
         .toString();
       result = await onWithdraw(_amount);
       if (result) {

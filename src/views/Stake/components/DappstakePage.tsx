@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import DappstakeSubNav from './SubNav';
 import { IDappStakingInterface } from 'utils/types';
 import { IDappPoolDataInterface } from '../hooks/getPoolUpdate';
-import { W480BorderPageLayout } from 'style/SmallBorderPageLayout';
+import { TableContent, W480BorderPageLayout } from 'style/SmallBorderPageLayout';
 
 const StyledPageStyle = styled.div`
   display: flex;
@@ -27,13 +27,6 @@ const StyledPage = ({ children, ...props }) => {
   return <StyledPageStyle {...props}>{children}</StyledPageStyle>;
 };
 
-const TableContent = styled.div`
-  border-radius: 20px;
-  padding: 30px 16px 30px;
-  ${({ theme }) => theme.mediaQueries.md} {
-    padding: 30px 30px 30px;
-  }
-`;
 // slippageAdjustedAmounts
 interface Iprops {
   children: React.HTMLAttributes<HTMLDivElement>;

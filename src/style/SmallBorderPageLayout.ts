@@ -25,6 +25,14 @@ export const W480BorderPageLayout = styled.div`
   // margin: 100px auto;
   background: ${({ theme }) => theme.colors.cardBackground};
 `;
+
+export const TableContent = styled.div`
+  border-radius: 20px;
+  padding: 30px 16px 30px;
+  ${({ theme }) => theme.mediaQueries.md} {
+    padding: 30px 30px 30px;
+  }
+`;
 export const MaxButton = styled(Button)`
   text-align: right;
   padding: 0 0 0 12px;

@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 import { Flex, useMatchBreakpoints } from '@avault/ui';
 import WalletAccountInfo from './WalletAccount';
