@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ChevronDownIcon } from '@avault/ui';
 import Loading from 'components/TransactionConfirmationModal/Loading';
 import { ArrowIcon } from 'style/SmallBorderPageLayout';
 
@@ -15,7 +14,7 @@ const Container = styled.div`
   justify-content: flex-end;
   padding-right: 8px;
   color: ${({ theme }) => theme.colors.primary};
-
+  width: 48px;
   ${({ theme }) => theme.mediaQueries.sm} {
     padding-right: 0px;
   }

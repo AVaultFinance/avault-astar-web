@@ -72,6 +72,11 @@ export const compoundingSlice = createSlice({
         console.log(e);
       }
     },
+    changeVaultLoading: (state) => {
+      for (let i = 0; i < state.data.length; i++) {
+        state.data[i].isLoading = true;
+      }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchCompoundingsPublicDataAsync.fulfilled, (state, action) => {
@@ -115,6 +120,6 @@ export const compoundingSlice = createSlice({
   },
 });
 // Actions
-export const { changeLoading, changeVaultItemLoading } = compoundingSlice.actions;
+export const { changeLoading, changeVaultItemLoading, changeVaultLoading } = compoundingSlice.actions;
 
 export default compoundingSlice.reducer;

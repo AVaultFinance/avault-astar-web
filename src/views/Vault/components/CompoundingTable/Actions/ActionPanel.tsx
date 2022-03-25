@@ -180,7 +180,11 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
       // earnings = getBalanceAmount(_value, compounding.farm.lpAddressDecimals);
       // wantLockedTotal / totalSupply()*CLpAmount
       // earningsBusd = earnings.multipliedBy(cakePrice).toNumber();
-      displayEarningsBalance = getFullDisplayBalance(earnings, compounding.farm.lpAddressDecimals, 3);
+      displayEarningsBalance = getFullDisplayBalance(
+        earnings,
+        compounding.farm.lpAddressDecimals,
+        showDecimals(compounding.lpSymbol),
+      );
     }
   }
 

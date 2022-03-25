@@ -6,7 +6,12 @@ import { useAppDispatch } from 'state';
 import { usePrice } from 'state/price/hooks';
 import { CompoundingState, State } from 'state/types';
 import { BIG_ZERO } from 'utils/bigNumber';
-import { fetchCompoundingsPublicDataAsync, fetchCompoundingFarmUserDataAsync, changeLoading } from './index';
+import {
+  fetchCompoundingsPublicDataAsync,
+  fetchCompoundingFarmUserDataAsync,
+  changeLoading,
+  changeVaultLoading,
+} from './index';
 import { ICompounding } from './types';
 export const usePollCompoundingData = () => {
   const dispatch = useAppDispatch();
@@ -22,6 +27,7 @@ export const useCompoundingUserData = (compoundings: ICompounding[]) => {
   useEffect(() => {
     if (account) {
       dispatch(changeLoading());
+      dispatch(changeVaultLoading());
       dispatch(fetchCompoundingFarmUserDataAsync({ account, compoundings }));
     }
     // eslint-disable-next-line
