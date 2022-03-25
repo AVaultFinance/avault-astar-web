@@ -14,6 +14,10 @@ export const getCustomMeta = (path: string, t: ContextApi['t']): PageMeta => {
       return {
         title: `Compounding | Avault`,
       };
+    case '/vault':
+      return {
+        title: `Vault | Avault`,
+      };
     case '/farms':
       return {
         title: `Farms | Avault`,
