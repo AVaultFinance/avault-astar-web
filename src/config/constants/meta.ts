@@ -26,6 +26,10 @@ export const getCustomMeta = (path: string, t: ContextApi['t']): PageMeta => {
       return {
         title: `Stake | Avault`,
       };
+    case '/zap':
+      return {
+        title: `Zap | Avault`,
+      };
     default:
       return null;
   }

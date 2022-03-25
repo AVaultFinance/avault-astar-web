@@ -10,6 +10,7 @@ import {
   ArrowIcon,
   TableContent,
 } from 'style/SmallBorderPageLayout';
+import ZapBg from './components/ZapBg';
 const InnerStyled = styled.div`
   background: ${({ theme }) => theme.colors.background};
 `;
@@ -29,8 +30,8 @@ const Zap = () => {
       <PageContainerWrap>
         <W480BorderPageLayout>
           <TableContent>
-            <Heading>Zap</Heading>
-            <Text>Convert single tokens to LP tokens directly</Text>
+            <HeadingStyled>Zap</HeadingStyled>
+            <TextStyled>Convert single tokens to LP tokens directly</TextStyled>
             <InnerStyled>
               <TextCol>
                 <Text>From</Text>
@@ -95,8 +96,17 @@ const Zap = () => {
             </Button>
           </TableContent>
         </W480BorderPageLayout>
+        <ZapBg />
       </PageContainerWrap>
     </PageLayout>
   );
 };
+const HeadingStyled = styled(Heading)`
+  font-size: 20px;
+  padding-bottom: 12px;
+`;
+const TextStyled = styled(Text)`
+  font-size: 14px;
+  padding-bottom: 30px;
+`;
 export default Zap;
