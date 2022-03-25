@@ -21,6 +21,7 @@ interface MobileActionProps {
   contractAddress: string;
   lpAddressDecimals: number;
   lpToCLpRate: string;
+  index: number;
 }
 const Container = styled(Flex)`
   justify-content: space-between;
@@ -45,6 +46,7 @@ const MobileAction: FC<MobileActionProps> = ({
   contractAddress,
   lpAddressDecimals,
   lpToCLpRate,
+  index,
 }) => {
   const [onPresentDeposit] = useModal(
     <DepositModal
@@ -53,6 +55,7 @@ const MobileAction: FC<MobileActionProps> = ({
       displayBalance={displayBalance}
       lpAddressDecimals={lpAddressDecimals}
       contractAddress={contractAddress}
+      index={index}
     />,
   );
   const [onPresentWithdraw] = useModal(
@@ -63,6 +66,7 @@ const MobileAction: FC<MobileActionProps> = ({
       lpAddressDecimals={lpAddressDecimals}
       contractAddress={contractAddress}
       lpToCLpRate={lpToCLpRate}
+      index={index}
     />,
   );
 

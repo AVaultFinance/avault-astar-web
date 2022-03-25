@@ -5,7 +5,7 @@ import { getFullDisplayBalance } from 'utils/formatBalance';
 import CInput from './C_Input';
 import styled from 'styled-components';
 import Loading from 'components/TransactionConfirmationModal/Loading';
-import { changeLoading, fetchCompoundingFarmUserDataAsync } from 'state/vault';
+import { changeLoading, changeVaultItemLoading, fetchCompoundingFarmUserDataAsync } from 'state/vault';
 import { useAppDispatch } from 'state';
 import { useWeb3React } from '@web3-react/core';
 import { useCompounding } from 'state/vault/hooks';
@@ -20,6 +20,7 @@ interface DepositModalProps {
   lpAddressDecimals: number;
   onDismiss?: () => void;
   contractAddress: string;
+  index: number;
 }
 const ModalInputStyled = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.cardBorder};
@@ -40,6 +41,7 @@ const DepositModal: React.FC<DepositModalProps> = ({
   displayBalance,
   lpSymbol,
   contractAddress,
+  index,
 }) => {
   const [val, setVal] = useState('');
   const fullBalance = useMemo(() => {
@@ -76,9 +78,10 @@ const DepositModal: React.FC<DepositModalProps> = ({
     let result = null;
     try {
       result = await onDeposit(val);
-      dispatch(changeLoading());
-      dispatch(fetchCompoundingFarmUserDataAsync({ account, compoundings }));
       if (result) {
+        dispatch(changeLoading());
+        dispatch(changeVaultItemLoading({ index }));
+        dispatch(fetchCompoundingFarmUserDataAsync({ account, compoundings, index }));
         toastSuccess(`Deposit!`, `Your ${lpSymbol} deposit!`);
         setTimeout(() => {
           setPendingTxSuccess(true);
@@ -101,7 +104,7 @@ const DepositModal: React.FC<DepositModalProps> = ({
       setVal('');
       setPendingTx(false);
     }
-  }, [val, account, compoundings, dispatch, lpSymbol, onDeposit, toastError, toastSuccess]);
+  }, [val, account, compoundings, index, dispatch, lpSymbol, onDeposit, toastError, toastSuccess]);
 
   return (
     <Modal title={'Deposit'} minWidth={isMobile ? '280px' : '520px'} bodyPadding="0 24px 34px" onDismiss={onDismiss}>

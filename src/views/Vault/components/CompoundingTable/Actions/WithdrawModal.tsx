@@ -11,7 +11,7 @@ import { useCompounding } from 'state/vault/hooks';
 import useToast from 'hooks/useToast';
 import { useAppDispatch } from 'state';
 import useCompoundingWithdraw from 'views/Vault/hooks/useCompoundingWithdraw';
-import { changeLoading, fetchCompoundingFarmUserDataAsync } from 'state/vault';
+import { changeLoading, changeVaultItemLoading, fetchCompoundingFarmUserDataAsync } from 'state/vault';
 import { showDecimals } from 'views/Vault/utils';
 
 interface WithdrawModalProps {
@@ -22,6 +22,7 @@ interface WithdrawModalProps {
   onDismiss?: () => void;
   contractAddress: string;
   lpToCLpRate: string;
+  index: number;
 }
 const ModalInputStyled = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.cardBorder};
@@ -37,6 +38,7 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
   lpAddressDecimals,
   contractAddress,
   lpToCLpRate,
+  index,
 }) => {
   const [val, setVal] = useState('');
   const fullBalance = useMemo(() => {
@@ -73,9 +75,10 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
         .times(0.99)
         .toString();
       result = await onWithdraw(_amount);
-      dispatch(changeLoading());
-      dispatch(fetchCompoundingFarmUserDataAsync({ account, compoundings }));
       if (result) {
+        dispatch(changeLoading());
+        dispatch(changeVaultItemLoading({ index }));
+        dispatch(fetchCompoundingFarmUserDataAsync({ account, compoundings, index }));
         toastSuccess(`Withdraw!`, `'Your ${lpSymbol} earnings have been sent to your wallet!'`);
         setTimeout(() => {
           setPendingTxSuccess(true);
@@ -97,7 +100,7 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
       setVal('');
       setPendingTx(false);
     }
-  }, [val, lpToCLpRate, account, compoundings, dispatch, lpSymbol, onWithdraw, toastError, toastSuccess]);
+  }, [val, lpToCLpRate, account, index, compoundings, dispatch, lpSymbol, onWithdraw, toastError, toastSuccess]);
 
   const { isMd, isXl, isLg } = useMatchBreakpoints();
   const isMobile = !(isMd || isXl || isLg);

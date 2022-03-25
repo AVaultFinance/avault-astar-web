@@ -11,7 +11,7 @@ import CInput from './C_Input';
 import { getFullDisplayBalance } from 'utils/formatBalance';
 import { useCompounding } from 'state/vault/hooks';
 import useCompoundingWithdraw from 'views/Vault/hooks/useCompoundingWithdraw';
-import { changeLoading, fetchCompoundingFarmUserDataAsync } from 'state/vault';
+import { changeLoading, changeVaultItemLoading, fetchCompoundingFarmUserDataAsync } from 'state/vault';
 import Loading from 'components/TransactionConfirmationModal/Loading';
 import { ActionContainerBg, ActionContainerSize } from 'style/TableStyled';
 import { showDecimals } from 'views/Vault/utils';
@@ -30,6 +30,7 @@ interface WithdrawActionProps {
   contractAddress: string;
   lpAddressDecimals: number;
   lpToCLpRate: string;
+  index: number;
 }
 const FlexStyled = styled(Flex)`
   margin-top: 0;
@@ -50,6 +51,7 @@ const WithdrawAction: React.FunctionComponent<WithdrawActionProps> = ({
   contractAddress,
   lpAddressDecimals,
   lpToCLpRate,
+  index,
 }) => {
   const { data: compoundings } = useCompounding();
   const { toastSuccess, toastError } = useToast();
@@ -90,7 +92,8 @@ const WithdrawAction: React.FunctionComponent<WithdrawActionProps> = ({
         .toString();
       result = await onWithdraw(_amount);
       dispatch(changeLoading());
-      dispatch(fetchCompoundingFarmUserDataAsync({ account, compoundings }));
+      dispatch(changeVaultItemLoading({ index }));
+      dispatch(fetchCompoundingFarmUserDataAsync({ account, compoundings, index }));
       if (result) {
         toastSuccess(`Withdraw!`, `'Your ${lpSymbol} earnings have been sent to your wallet!'`);
         setTimeout(() => {
@@ -113,7 +116,7 @@ const WithdrawAction: React.FunctionComponent<WithdrawActionProps> = ({
       setVal('');
       setPendingTx(false);
     }
-  }, [val, lpToCLpRate, account, compoundings, dispatch, lpSymbol, onWithdraw, toastError, toastSuccess]);
+  }, [val, lpToCLpRate, account, index, compoundings, dispatch, lpSymbol, onWithdraw, toastError, toastSuccess]);
 
   const disabled =
     requestedApproval ||

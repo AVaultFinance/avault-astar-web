@@ -10,6 +10,7 @@ import {
   fetchCompoundingsFarmUserTokenBalances,
   fetchCompoundingsUsers,
 } from './fetchCompoundingUser';
+import { haveNumber } from 'utils';
 const initialState: CompoundingState = {
   data: [],
   allLiquidity: '',
@@ -27,26 +28,30 @@ export const fetchCompoundingFarmUserDataAsync = createAsyncThunk<
   {
     account: string;
     compoundings: ICompounding[];
+    index?: number;
   }
->('compounding/fetchCompoundingFarmUserDataAsync', async ({ account, compoundings }) => {
-  const userCompoundingsFarmAllowances = await fetchCompoundingsFarmUserAllowances(account, compoundings);
-  const userCompoundingsFarmTokenBalances = await fetchCompoundingsFarmUserTokenBalances(account, compoundings);
-  const userCompoundingsStakedBalances = await fetchCompoundingsFarmStakedBalances(account, compoundings);
-  const userCompoundingEarnings = await fetchCompoundingsFarmEarnings(account, compoundings);
+>('compounding/fetchCompoundingFarmUserDataAsync', async ({ account, compoundings, index }) => {
+  const userCompoundingsFarmAllowances = await fetchCompoundingsFarmUserAllowances(account, compoundings, index);
+  const userCompoundingsFarmTokenBalances = await fetchCompoundingsFarmUserTokenBalances(account, compoundings, index);
+  const userCompoundingsStakedBalances = await fetchCompoundingsFarmStakedBalances(account, compoundings, index);
+  const userCompoundingEarnings = await fetchCompoundingsFarmEarnings(account, compoundings, index);
   const [userCompoundingUsers, userCompoundingSupply, compoundingWantLockedTotal] = await fetchCompoundingsUsers(
     account,
     compoundings,
+    index,
   );
-  return userCompoundingsFarmAllowances.map((farmAllowance, index) => {
+  console.log({ userCompoundingsFarmAllowances });
+  return userCompoundingsFarmAllowances.map((farmAllowance, _index) => {
     return {
-      pid: compoundings[index].farm.pid,
+      index: index,
+      pid: compoundings[_index].farm.pid,
       allowance: farmAllowance,
-      stakingTokenBalance: userCompoundingsFarmTokenBalances[index],
-      stakedBalance: userCompoundingsStakedBalances[index],
-      pendingReward: userCompoundingEarnings[index],
-      avaultAddressBalance: userCompoundingUsers[index],
-      userCompoundingSupply: userCompoundingSupply[index],
-      compoundingWantLockedTotal: compoundingWantLockedTotal[index],
+      stakingTokenBalance: userCompoundingsFarmTokenBalances[_index],
+      stakedBalance: userCompoundingsStakedBalances[_index],
+      pendingReward: userCompoundingEarnings[_index],
+      avaultAddressBalance: userCompoundingUsers[_index],
+      userCompoundingSupply: userCompoundingSupply[_index],
+      compoundingWantLockedTotal: compoundingWantLockedTotal[_index],
     };
   });
 });
@@ -57,6 +62,16 @@ export const compoundingSlice = createSlice({
     changeLoading: (state) => {
       state.userDataLoaded = false;
     },
+    changeVaultItemLoading: (state, action) => {
+      // state.userDataLoaded = false;
+      console.log(action.payload.index);
+      try {
+        const index = action.payload.index;
+        state.data[index].isLoading = true;
+      } catch (e) {
+        console.log(e);
+      }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchCompoundingsPublicDataAsync.fulfilled, (state, action) => {
@@ -66,8 +81,11 @@ export const compoundingSlice = createSlice({
     });
     builder.addCase(fetchCompoundingFarmUserDataAsync.fulfilled, (state, action) => {
       action.payload.forEach((userDataEl) => {
-        const { pid } = userDataEl;
-        const index = state.data.findIndex((compounding: ICompounding) => compounding.farm.pid === pid);
+        const { pid, index: _index } = userDataEl;
+        console.log(_index);
+        const index = haveNumber(_index)
+          ? _index
+          : state.data.findIndex((compounding: ICompounding) => compounding.farm.pid === pid);
 
         const lpToCLpRate =
           userDataEl.compoundingWantLockedTotal &&
@@ -89,6 +107,7 @@ export const compoundingSlice = createSlice({
             ...state.data[index].farm,
             userData: userDataEl,
           },
+          isLoading: false,
         };
       });
       state.userDataLoaded = true;
@@ -96,6 +115,6 @@ export const compoundingSlice = createSlice({
   },
 });
 // Actions
-export const { changeLoading } = compoundingSlice.actions;
+export const { changeLoading, changeVaultItemLoading } = compoundingSlice.actions;
 
 export default compoundingSlice.reducer;

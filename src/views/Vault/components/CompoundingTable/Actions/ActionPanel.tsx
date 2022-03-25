@@ -18,7 +18,7 @@ import { ICompounding } from 'state/vault/types';
 import { useCompounding, useCompoundingFarmUser } from 'state/vault/hooks';
 import useAuth from 'hooks/useAuth';
 import { chainId } from 'config/constants/tokens';
-import { changeLoading, fetchCompoundingFarmUserDataAsync } from 'state/vault';
+import { changeLoading, changeVaultItemLoading, fetchCompoundingFarmUserDataAsync } from 'state/vault';
 import { BASE_BSC_SCAN_URL } from 'config';
 import { useSpecialApproveFarm } from 'views/Vault/hooks/useApproveFarm';
 import { getDisplayApy } from 'views/Farms/Farms';
@@ -31,6 +31,7 @@ export interface ActionPanelProps {
   details: ICompounding;
   userDataReady: boolean;
   expanded: boolean;
+  index: number;
 }
 
 const expandAnimation = keyframes`
@@ -150,6 +151,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
   multiplier,
   userDataReady,
   expanded,
+  index,
 }) => {
   const compounding = details;
   const { isXl, isLg } = useMatchBreakpoints();
@@ -204,9 +206,10 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
     try {
       setRequestedApproval(true);
       const result = await onApprove();
-      dispatch(changeLoading());
-      dispatch(fetchCompoundingFarmUserDataAsync({ account, compoundings }));
       if (result) {
+        dispatch(changeLoading());
+        dispatch(changeVaultItemLoading({ index }));
+        dispatch(fetchCompoundingFarmUserDataAsync({ account, compoundings, index }));
         toastSuccess('Approve!', 'Your are Approved');
         setTimeout(() => {
           setRequestedApprovalSuccess(true);
@@ -223,7 +226,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
     } finally {
       setRequestedApproval(false);
     }
-  }, [onApprove, dispatch, onPresentConnectModal, account, compoundings, toastError, toastSuccess]);
+  }, [onApprove, dispatch, onPresentConnectModal, index, account, compoundings, toastError, toastSuccess]);
 
   return (
     <Container expanded={expanded}>
@@ -292,6 +295,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
           contractAddress={compounding.contractAddress[chainId]}
           stakingTokenBalance={new BigNumber(compounding?.farm?.userData?.stakingTokenBalance ?? '0')}
           lpAddressDecimals={compounding.farm.lpAddressDecimals}
+          index={index}
         />
       ) : (
         <ActionContainer style={{ justifyContent: 'end' }}>
@@ -313,6 +317,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
             pid={compounding.farm.pid}
             name={compounding.compounding.name}
             lpSymbol={compounding.lpSymbol}
+            index={index}
           />
           <div className="w20"></div>
           <WithdrawAction
@@ -333,6 +338,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
             pid={compounding.farm.pid}
             name={compounding.compounding.name}
             lpSymbol={compounding.lpSymbol}
+            index={index}
           />
         </ActionContainer>
       )}

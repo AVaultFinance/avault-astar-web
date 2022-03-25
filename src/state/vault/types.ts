@@ -56,6 +56,7 @@ export interface ICompoundingFarm {
   userData?: ICompoundingUserData;
 }
 export interface ICompoundingUserData {
+  index?: number;
   pid?: number;
   allowance: string;
   stakingTokenBalance: string;
@@ -92,6 +93,7 @@ export interface ICompounding {
   lpSymbol: string;
   compounding: ICompoundingComp;
   farm: ICompoundingFarm;
+  isLoading: boolean;
 }
 // BTC   ETH  USDC  ASTR
 export const compoundingData = [

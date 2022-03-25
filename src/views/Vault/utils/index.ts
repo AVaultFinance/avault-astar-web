@@ -53,6 +53,6 @@ export const showDecimals = (lpSymbol: string): number => {
   if (isUSDCLp(lpSymbol)) {
     return 10;
   } else {
-    return 5;
+    return 6;
   }
 };

@@ -120,3 +120,7 @@ export function isTokenOnList(defaultTokens: TokenAddressMap, currency?: Currenc
   if (currency === ETHER[myChainId]) return true;
   return Boolean(currency instanceof Token && defaultTokens[currency.chainId]?.[currency.address]);
 }
+
+export const haveNumber = (num: number) => {
+  return num || num === 0;
+};

@@ -119,6 +119,7 @@ const CompoundingTable: React.FC<ITableProps> = (props) => {
                     isLast={index === rows.length - 1}
                     userDataReady={userDataReady}
                     userDataLoaded={userDataLoaded}
+                    index={row.id}
                     key={`table-row-${row.id}`}
                   />
                 );

@@ -11,7 +11,7 @@ import CInput from './C_Input';
 import { getFullDisplayBalance } from 'utils/formatBalance';
 import { useCompounding, useCompoundingFarmUser } from 'state/vault/hooks';
 import useCompoundingDeposit from 'views/Vault/hooks/useCompoundingDeposit';
-import { changeLoading, fetchCompoundingFarmUserDataAsync } from 'state/vault';
+import { changeLoading, changeVaultItemLoading, fetchCompoundingFarmUserDataAsync } from 'state/vault';
 import Loading from 'components/TransactionConfirmationModal/Loading';
 import { ActionContainerBg, ActionContainerSize } from 'style/TableStyled';
 import { showDecimals } from 'views/Vault/utils';
@@ -30,6 +30,7 @@ interface HarvestActionProps {
   lpSymbol: string;
   contractAddress: string;
   lpAddressDecimals: number;
+  index: number;
 }
 const FlexStyled = styled(Flex)`
   margin-top: 0;
@@ -52,6 +53,7 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
   contractAddress,
   lpAddressDecimals,
   requestedApprovalSuccess,
+  index,
 }) => {
   const { toastSuccess, toastError } = useToast();
   const { data: compoundings } = useCompounding();
@@ -88,10 +90,10 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
     let result = null;
     try {
       result = await onDeposit(val);
-
-      dispatch(changeLoading());
-      dispatch(fetchCompoundingFarmUserDataAsync({ account, compoundings }));
       if (result) {
+        dispatch(changeLoading());
+        dispatch(changeVaultItemLoading({ index }));
+        dispatch(fetchCompoundingFarmUserDataAsync({ account, compoundings, index }));
         toastSuccess(`Deposit!`, `Your ${lpSymbol} deposit!`);
         setTimeout(() => {
           setPendingTxSuccess(true);
@@ -114,7 +116,7 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
       setVal('');
       setPendingTx(false);
     }
-  }, [val, account, compoundings, dispatch, lpSymbol, onDeposit, toastError, toastSuccess]);
+  }, [val, account, compoundings, index, dispatch, lpSymbol, onDeposit, toastError, toastSuccess]);
   const disabled =
     requestedApproval ||
     stakingTokenBalance.eq(BIG_ZERO) ||

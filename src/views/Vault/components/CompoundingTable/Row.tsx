@@ -33,6 +33,7 @@ interface RowPropsWithLoading extends RowProps {
   userDataReady: boolean;
   userDataLoaded: boolean;
   isLast: boolean;
+  index: number;
 }
 
 const cells = {
@@ -136,7 +137,7 @@ const QuestionWrapper = styled.div`
 `;
 
 const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
-  const { details, userDataReady, userDataLoaded } = props;
+  const { details, userDataReady, index } = props;
   const hasStakedAmount = false;
   const [actionPanelExpanded, setActionPanelExpanded] = useState(false);
   const shouldRenderChild = useDelayedUnmount(actionPanelExpanded, 300);
@@ -263,7 +264,7 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
               case 'details':
                 return (
                   <td key={key}>
-                    <Details isLoading={!userDataLoaded} actionPanelToggled={actionPanelExpanded} />
+                    <Details isLoading={details.isLoading} actionPanelToggled={actionPanelExpanded} />
                   </td>
                 );
               case 'multiplier':
@@ -306,7 +307,7 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
       {shouldRenderChild || isMobile ? (
         <StyledDetailTr>
           <td colSpan={6}>
-            <ActionPanel {...props} expanded={actionPanelExpanded || isMobile} />
+            <ActionPanel {...props} expanded={actionPanelExpanded || isMobile} index={index} />
           </td>
         </StyledDetailTr>
       ) : null}

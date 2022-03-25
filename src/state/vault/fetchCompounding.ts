@@ -61,6 +61,7 @@ const fetch = async (
       : '1';
 
   return {
+    isLoading: false,
     ...compounding,
     compounding: {
       symbol: symbol,

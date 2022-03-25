@@ -23,9 +23,15 @@ export const getBalanceNumber = (balance: BigNumber, decimals = 18) => {
 };
 
 export const getFullDisplayBalance = (balance: BigNumber, decimals = 18, displayDecimals?: number) => {
-  return Number(getBalanceAmount(balance, decimals).toFixed(decimals, BigNumber.ROUND_DOWN)).toLocaleString('en-US', {
-    maximumFractionDigits: displayDecimals,
-  });
+  //  ).toLocaleString('en-US', {
+  //   maximumFractionDigits: displayDecimals,
+  // })
+  return Number(getBalanceAmount(balance, decimals).toFixed(displayDecimals, BigNumber.ROUND_DOWN)).toLocaleString(
+    'en-US',
+    {
+      maximumFractionDigits: displayDecimals,
+    },
+  );
 };
 
 export const formatNumber = (number: number, minPrecision = 2, maxPrecision = 2) => {
