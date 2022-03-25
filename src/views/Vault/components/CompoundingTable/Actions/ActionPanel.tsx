@@ -18,7 +18,7 @@ import { ICompounding } from 'state/vault/types';
 import { useCompounding, useCompoundingFarmUser } from 'state/vault/hooks';
 import useAuth from 'hooks/useAuth';
 import { chainId } from 'config/constants/tokens';
-import { changeLoading, changeVaultItemLoading, fetchCompoundingFarmUserDataAsync } from 'state/vault';
+import { changeLoading, fetchCompoundingFarmUserDataAsync } from 'state/vault';
 import { BASE_BSC_SCAN_URL } from 'config';
 import { useSpecialApproveFarm } from 'views/Vault/hooks/useApproveFarm';
 import { getDisplayApy } from 'views/Farms/Farms';
@@ -212,7 +212,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
       const result = await onApprove();
       if (result) {
         dispatch(changeLoading());
-        dispatch(changeVaultItemLoading({ index }));
+        // dispatch(changeVaultItemLoading({ index }));
         dispatch(fetchCompoundingFarmUserDataAsync({ account, compoundings, index }));
         toastSuccess('Approve!', 'Your are Approved');
         setTimeout(() => {

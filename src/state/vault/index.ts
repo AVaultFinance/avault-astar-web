@@ -44,7 +44,6 @@ export const fetchCompoundingFarmUserDataAsync = createAsyncThunk<
     compoundings,
     index,
   );
-  console.log({ userCompoundingsFarmAllowances });
   return userCompoundingsFarmAllowances.map((farmAllowance, _index) => {
     return {
       index: index,
@@ -97,13 +96,18 @@ export const compoundingSlice = createSlice({
         const index = haveNumber(_index)
           ? _index
           : state.data.findIndex((compounding: ICompounding) => compounding.farm.pid === pid);
-
+        const compoundingWantLockedTotal = userDataEl.compoundingWantLockedTotal
+          ? userDataEl.compoundingWantLockedTotal
+          : state.data[index]?.compounding?.wantLockedTotal;
+        const userCompoundingSupply = userDataEl.userCompoundingSupply
+          ? userDataEl.userCompoundingSupply
+          : state.data[index]?.compounding?.totalSupply;
         const lpToCLpRate =
-          userDataEl.compoundingWantLockedTotal &&
-          userDataEl.userCompoundingSupply &&
-          Number(userDataEl.compoundingWantLockedTotal) > 0 &&
-          Number(userDataEl.userCompoundingSupply) > 0
-            ? (Number(userDataEl.compoundingWantLockedTotal) / Number(userDataEl.userCompoundingSupply)).toFixed(4)
+          compoundingWantLockedTotal &&
+          userCompoundingSupply &&
+          Number(compoundingWantLockedTotal) > 0 &&
+          Number(userCompoundingSupply) > 0
+            ? (Number(compoundingWantLockedTotal) / Number(userCompoundingSupply)).toFixed(4)
             : '1';
 
         state.data[index] = {

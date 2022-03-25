@@ -7,8 +7,8 @@ const compounding: ICompoundingConfigItem[] =
         {
           lpSymbol: 'KAC-wSDN LP',
           contractAddress: {
-            [ChainId.SDN_TESTNET]: '0x03065E84748a9e4a1AEbef15AC89da1Cdf18B202',
-            [ChainId.SDN_MAINNET]: '0x03065E84748a9e4a1AEbef15AC89da1Cdf18B202',
+            [ChainId.SDN_TESTNET]: '0x9A6080753a35dCd8e77102aE83A93170A831393e',
+            [ChainId.SDN_MAINNET]: '0x9A6080753a35dCd8e77102aE83A93170A831393e',
           },
           fromSource: IFarmProject.kaco, // from which swap
           abiType: IABIType.AVaultPCS, // use which abi
@@ -18,8 +18,8 @@ const compounding: ICompoundingConfigItem[] =
         {
           lpSymbol: 'wSDN-USDC LP',
           contractAddress: {
-            [ChainId.SDN_TESTNET]: '0xBb6F40E8739cC5b89A247AA54C612D7E3cc9AD2a',
-            [ChainId.SDN_MAINNET]: '0xBb6F40E8739cC5b89A247AA54C612D7E3cc9AD2a',
+            [ChainId.SDN_TESTNET]: '0xc5b8D0eC15984653A7554878eE9b4212EA059Fd2',
+            [ChainId.SDN_MAINNET]: '0xc5b8D0eC15984653A7554878eE9b4212EA059Fd2',
           },
           fromSource: IFarmProject.kaco, // from which swap
           abiType: IABIType.AVaultPCS, // use which abi
@@ -29,8 +29,8 @@ const compounding: ICompoundingConfigItem[] =
         {
           lpSymbol: 'ETH-wSDN LP',
           contractAddress: {
-            [ChainId.SDN_TESTNET]: '0x3937C6f8120c206646bf616FF62eB2631D0D9d6A',
-            [ChainId.SDN_MAINNET]: '0x3937C6f8120c206646bf616FF62eB2631D0D9d6A',
+            [ChainId.SDN_TESTNET]: '0x0Aaf347F50b766cA85dB70f9e2B0E178E9a16F4D',
+            [ChainId.SDN_MAINNET]: '0x0Aaf347F50b766cA85dB70f9e2B0E178E9a16F4D',
           },
           fromSource: IFarmProject.kaco, // from which swap
           abiType: IABIType.AVaultPCS, // use which abi
@@ -40,8 +40,8 @@ const compounding: ICompoundingConfigItem[] =
         {
           lpSymbol: 'ETH-USDC LP',
           contractAddress: {
-            [ChainId.SDN_TESTNET]: '0x38325f901a698aF88D855f061d0FEA70825856c5',
-            [ChainId.SDN_MAINNET]: '0x38325f901a698aF88D855f061d0FEA70825856c5',
+            [ChainId.SDN_TESTNET]: '0xCA9b609b7a0Bc46CcF744B2e0261B9Afd14f81C0',
+            [ChainId.SDN_MAINNET]: '0xCA9b609b7a0Bc46CcF744B2e0261B9Afd14f81C0',
           },
           fromSource: IFarmProject.kaco, // from which swap
           abiType: IABIType.AVaultPCS, // use which abi
@@ -52,8 +52,8 @@ const compounding: ICompoundingConfigItem[] =
         {
           lpSymbol: 'BUSD-USDC LP',
           contractAddress: {
-            [ChainId.SDN_TESTNET]: '0x85599937c68fD72D2eac2170009Bda288A79758a',
-            [ChainId.SDN_MAINNET]: '0x85599937c68fD72D2eac2170009Bda288A79758a',
+            [ChainId.SDN_TESTNET]: '0x8fcbe72710185dd34a8bBBA1Cc05eB2628945FEC',
+            [ChainId.SDN_MAINNET]: '0x8fcbe72710185dd34a8bBBA1Cc05eB2628945FEC',
           },
           fromSource: IFarmProject.kaco, // from which swap
           abiType: IABIType.AVaultPCS, // use which abi
@@ -64,8 +64,8 @@ const compounding: ICompoundingConfigItem[] =
         {
           lpSymbol: 'wSDN-JPYC LP',
           contractAddress: {
-            [ChainId.SDN_TESTNET]: '0x477033fD6A020c3D09AFE0B6341F813247AF70fa',
-            [ChainId.SDN_MAINNET]: '0x477033fD6A020c3D09AFE0B6341F813247AF70fa',
+            [ChainId.SDN_TESTNET]: '0x5167E12139Ee4b2F6590F3C95E56B29d408a9048',
+            [ChainId.SDN_MAINNET]: '0x5167E12139Ee4b2F6590F3C95E56B29d408a9048',
           },
           fromSource: IFarmProject.kaco, // from which swap
           abiType: IABIType.AVaultPCS, // use which abi
@@ -75,8 +75,8 @@ const compounding: ICompoundingConfigItem[] =
         {
           lpSymbol: 'JPYC-USDC LP',
           contractAddress: {
-            [ChainId.SDN_TESTNET]: '0x7745d489DC858D07313Bc18Ba48930066C019590',
-            [ChainId.SDN_MAINNET]: '0x7745d489DC858D07313Bc18Ba48930066C019590',
+            [ChainId.SDN_TESTNET]: '0x9d03BfE2e0BEDA103f1961A8595bF5d8b1F6FD18',
+            [ChainId.SDN_MAINNET]: '0x9d03BfE2e0BEDA103f1961A8595bF5d8b1F6FD18',
           },
           fromSource: IFarmProject.kaco, // from which swap
           abiType: IABIType.AVaultPCS, // use which abi
@@ -85,13 +85,12 @@ const compounding: ICompoundingConfigItem[] =
         },
       ]
     : [];
-
-// aKKS deployed to: 0x03065E84748a9e4a1AEbef15AC89da1Cdf18B202
-// aKSU deployed to: 0xBb6F40E8739cC5b89A247AA54C612D7E3cc9AD2a
-// aKES deployed to: 0x3937C6f8120c206646bf616FF62eB2631D0D9d6A
-// aKEU deployed to: 0x38325f901a698aF88D855f061d0FEA70825856c5
-// aKBU deployed to: 0x85599937c68fD72D2eac2170009Bda288A79758a
-// aKSJ deployed to: 0x477033fD6A020c3D09AFE0B6341F813247AF70fa
-// aKJU deployed to: 0x7745d489DC858D07313Bc18Ba48930066C019590
+// aKKS deployed to: 0x9A6080753a35dCd8e77102aE83A93170A831393e
+// aKSU deployed to: 0xc5b8D0eC15984653A7554878eE9b4212EA059Fd2
+// aKES deployed to: 0x0Aaf347F50b766cA85dB70f9e2B0E178E9a16F4D
+// aKEU deployed to: 0xCA9b609b7a0Bc46CcF744B2e0261B9Afd14f81C0
+// aKBU deployed to: 0x8fcbe72710185dd34a8bBBA1Cc05eB2628945FEC
+// aKSJ deployed to: 0x5167E12139Ee4b2F6590F3C95E56B29d408a9048
+// aKJU deployed to: 0x9d03BfE2e0BEDA103f1961A8595bF5d8b1F6FD18
 
 export default compounding;
