@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Flex, Text, useMatchBreakpoints } from '@avault/ui';
+import { Flex, useMatchBreakpoints } from '@avault/ui';
 import WalletAccountInfo from './WalletAccount';
 import { useCompoundingAllTotal } from 'state/vault/hooks';
 import Balance from 'components/Balance';

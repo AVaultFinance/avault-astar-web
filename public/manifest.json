@@ -1,6 +1,6 @@
 {
-  "short_name": "AvaultSwap",
-  "name": "AvaultSwap",
+  "short_name": "Avault",
+  "name": "Avault",
   "description": "Farm avault with Avault LP Tokens",
   "homepage_url": "https://www.avault.finance",
   "start_url": ".",
