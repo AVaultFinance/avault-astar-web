@@ -15,13 +15,15 @@ import { getBalanceAmount } from 'utils/formatBalance';
 const fetchCompounding = async (
   compounding: ICompoundingConfigItem,
   priceVsBusdMap: Record<string, string>,
+  compoundingData: ICompounding,
 ): Promise<ICompounding> => {
-  const compoundingPublicData = await fetch(compounding, priceVsBusdMap);
+  const compoundingPublicData = await fetch(compounding, priceVsBusdMap, compoundingData);
   return { ...compounding, ...compoundingPublicData };
 };
 const fetch = async (
   compounding: ICompoundingConfigItem,
   priceVsBusdMap: Record<string, string>,
+  compoundingData: ICompounding,
 ): Promise<ICompounding> => {
   const AVaultPCS = getAddress(compounding.contractAddress[chainId]);
   const {
@@ -98,12 +100,12 @@ const fetch = async (
       lpTokenPrice: lpTokenPrice,
       lpAddressDecimals: lpAddressDecimals,
       userData: {
-        allowance: '0',
-        stakingTokenBalance: '0',
-        stakedBalance: '0',
-        pendingReward: '0',
-        avaultAddressBalance: '0',
-        userCompoundingSupply: '0',
+        allowance: compoundingData?.farm?.userData?.allowance ?? '0',
+        stakingTokenBalance: compoundingData?.farm?.userData?.stakingTokenBalance ?? '0',
+        stakedBalance: compoundingData?.farm?.userData?.stakedBalance ?? '0',
+        pendingReward: compoundingData?.farm?.userData?.pendingReward ?? '0',
+        avaultAddressBalance: compoundingData?.farm?.userData?.avaultAddressBalance ?? '0',
+        userCompoundingSupply: compoundingData?.farm?.userData?.userCompoundingSupply ?? '0',
       },
     },
   };

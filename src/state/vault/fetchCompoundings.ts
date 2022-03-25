@@ -7,10 +7,11 @@ import { isNaNString } from 'views/Vault/utils';
 const fetchCompoundings = async (
   compoundings: ICompoundingConfigItem[],
   priceVsBusdMap: Record<string, string>,
+  compoundingsData: ICompounding[],
 ): Promise<[ICompounding[], string]> => {
   const data = await Promise.all(
-    compoundings.map(async (compoundingConfig) => {
-      const compounding = await fetchCompounding(compoundingConfig, priceVsBusdMap);
+    compoundings.map(async (compoundingConfig, index) => {
+      const compounding = await fetchCompounding(compoundingConfig, priceVsBusdMap, compoundingsData[index]);
       return compounding;
     }),
   );

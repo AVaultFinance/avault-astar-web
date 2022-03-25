@@ -19,9 +19,12 @@ const initialState: CompoundingState = {
 };
 export const fetchCompoundingsPublicDataAsync = createAsyncThunk<
   [ICompounding[], string],
-  { priceVsBusdMap: Record<string, string> }
->('compounding/fetchCompoundingsPublicDataAsync', async ({ priceVsBusdMap }) => {
-  const compoundings = await fetchCompoundings(compoundingsConfig, priceVsBusdMap);
+  {
+    priceVsBusdMap: Record<string, string>;
+    compoundingsData: ICompounding[];
+  }
+>('compounding/fetchCompoundingsPublicDataAsync', async ({ priceVsBusdMap, compoundingsData }) => {
+  const compoundings = await fetchCompoundings(compoundingsConfig, priceVsBusdMap, compoundingsData);
   return compoundings;
 });
 export const fetchCompoundingFarmUserDataAsync = createAsyncThunk<
@@ -41,6 +44,7 @@ export const fetchCompoundingFarmUserDataAsync = createAsyncThunk<
     compoundings,
     index,
   );
+  console.log({ userCompoundingsFarmAllowances });
   return userCompoundingsFarmAllowances.map((farmAllowance, _index) => {
     return {
       index: index,

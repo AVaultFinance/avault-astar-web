@@ -16,8 +16,10 @@ import { ICompounding } from './types';
 export const usePollCompoundingData = () => {
   const dispatch = useAppDispatch();
   const { priceVsBusdMap } = usePrice();
+  const { data: compoundings } = useCompounding();
   useEffect(() => {
-    dispatch(fetchCompoundingsPublicDataAsync({ priceVsBusdMap }));
+    dispatch(fetchCompoundingsPublicDataAsync({ priceVsBusdMap, compoundingsData: compoundings }));
+    // eslint-disable-next-line
   }, [dispatch, priceVsBusdMap]);
 };
 export const useCompoundingUserData = (compoundings: ICompounding[]) => {
