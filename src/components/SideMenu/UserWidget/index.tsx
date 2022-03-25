@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import { Flex, Text, useMatchBreakpoints } from '@avault/ui';
 import WalletAccountInfo from './WalletAccount';
 import { useCompoundingAllTotal } from 'state/vault/hooks';
-const TextLinerStyle = styled(Text)`
+import Balance from 'components/Balance';
+const TextLinerStyle = styled(Flex)`
   font-size: 18px;
   background: linear-gradient(270deg, #00f4b9 0%, #ff4afb 100%);
   -webkit-background-clip: text;
@@ -11,6 +12,8 @@ const TextLinerStyle = styled(Text)`
   font-weight: 600;
   margin-bottom: 0;
   margin-top: 0;
+  align-items: center;
+  justify-content: start;
   ${({ theme }) => theme.mediaQueries.md} {
     margin-bottom: 10px;
     margin-top: 30px;
@@ -24,7 +27,12 @@ const UserWidget = () => {
   return (
     <User>
       {/* <SwitchChain /> */}
-      <TextLinerStyle>{`TVL: $${allTotal}`}</TextLinerStyle>
+      {/* <Flex alignItems="center" justifyContent="start"> */}
+      <TextLinerStyle>
+        <p>TVL: $ &nbsp;</p>
+        <Balance color="none" fontSize="18px" fontWeight="800" decimals={2} value={Number(allTotal)} />
+      </TextLinerStyle>
+      {/* </Flex> */}
       {isMobile ? null : <WalletAccountInfo />}
     </User>
   );

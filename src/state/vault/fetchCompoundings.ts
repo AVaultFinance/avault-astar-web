@@ -40,11 +40,7 @@ const fetchCompoundings = async (
       _data.push(v);
     }
   }
-  const total = isNaNString(
-    _total.toNumber().toLocaleString('en-US', {
-      maximumFractionDigits: 2,
-    }),
-  );
+  const total = isNaNString(_total.toString());
   return [_data, total];
 };
 export default fetchCompoundings;
