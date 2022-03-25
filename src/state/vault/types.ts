@@ -155,7 +155,7 @@ export const compoundingData = [
         farm: {
           pid: 1,
           lpSymbol: 'USDT-USDC LP',
-          lpAddresses: '0x456C0082DE0048EE883881fF61341177FA1FEF40',
+          lpAddresses: '0x03065E84748a9e4a1AEbef15AC89da1Cdf18B202',
           token: '0x55d398326f99059ff775485246999027b3197955',
           quoteToken: '0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d',
           tokenAmountMc:
@@ -246,7 +246,7 @@ export const compoundingData = [
           farm: {
             pid: 1,
             lpSymbol: 'USDT-USDC LP',
-            lpAddresses: '0x456C0082DE0048EE883881fF61341177FA1FEF40',
+            lpAddresses: '0xBb6F40E8739cC5b89A247AA54C612D7E3cc9AD2a',
             token: '0x55d398326f99059ff775485246999027b3197955',
             quoteToken: '0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d',
             tokenAmountMc:
@@ -338,7 +338,7 @@ export const compoundingData = [
         farm: {
           pid: 1,
           lpSymbol: 'USDC',
-          lpAddresses: '0x456C0082DE0048EE883881fF61341177FA1FEF40',
+          lpAddresses: '0x3937C6f8120c206646bf616FF62eB2631D0D9d6A',
           token: '0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d',
           quoteToken: '0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d',
           tokenAmountMc:
@@ -520,8 +520,8 @@ export const farmData = [
         pid: 1,
         lpSymbol: 'aKKS',
         lpAddresses: {
-          '82': '0x0bA819e30016Cf682C7795b44859148C65e62292',
-          '336': '0x456C0082DE0048EE883881fF61341177FA1FEF40',
+          '82': '0x03065E84748a9e4a1AEbef15AC89da1Cdf18B202',
+          '336': '0x03065E84748a9e4a1AEbef15AC89da1Cdf18B202',
         },
         token: {
           symbol: 'AVAT',
@@ -729,8 +729,8 @@ export const farmData = [
         pid: 1,
         lpSymbol: 'aKSU',
         lpAddresses: {
-          '82': '0x0bA819e30016Cf682C7795b44859148C65e62292',
-          '336': '0x456C0082DE0048EE883881fF61341177FA1FEF40',
+          '82': '0xBb6F40E8739cC5b89A247AA54C612D7E3cc9AD2a',
+          '336': '0xBb6F40E8739cC5b89A247AA54C612D7E3cc9AD2a',
         },
         token: {
           symbol: 'AVAT',
@@ -939,8 +939,8 @@ export const farmData = [
         pid: 1,
         lpSymbol: 'aKES',
         lpAddresses: {
-          '82': '0x0bA819e30016Cf682C7795b44859148C65e62292',
-          '336': '0x456C0082DE0048EE883881fF61341177FA1FEF40',
+          '82': '0x3937C6f8120c206646bf616FF62eB2631D0D9d6A',
+          '336': '0x3937C6f8120c206646bf616FF62eB2631D0D9d6A',
         },
         token: {
           symbol: 'AVAT',
@@ -1148,8 +1148,8 @@ export const farmData = [
         pid: 1,
         lpSymbol: 'aKEU',
         lpAddresses: {
-          '82': '0x0bA819e30016Cf682C7795b44859148C65e62292',
-          '336': '0x456C0082DE0048EE883881fF61341177FA1FEF40',
+          '82': '0x38325f901a698aF88D855f061d0FEA70825856c5',
+          '336': '0x38325f901a698aF88D855f061d0FEA70825856c5',
         },
         token: {
           symbol: 'AVAT',
@@ -1358,8 +1358,8 @@ export const farmData = [
         pid: 1,
         lpSymbol: 'aKBU',
         lpAddresses: {
-          '82': '0x0bA819e30016Cf682C7795b44859148C65e62292',
-          '336': '0x456C0082DE0048EE883881fF61341177FA1FEF40',
+          '82': '0x85599937c68fD72D2eac2170009Bda288A79758a',
+          '336': '0x85599937c68fD72D2eac2170009Bda288A79758a',
         },
         token: {
           symbol: 'AVAT',
@@ -1567,8 +1567,8 @@ export const farmData = [
         pid: 1,
         lpSymbol: 'aKSJ',
         lpAddresses: {
-          '82': '0x0bA819e30016Cf682C7795b44859148C65e62292',
-          '336': '0x456C0082DE0048EE883881fF61341177FA1FEF40',
+          '82': '0x477033fD6A020c3D09AFE0B6341F813247AF70fa',
+          '336': '0x477033fD6A020c3D09AFE0B6341F813247AF70fa',
         },
         token: {
           symbol: 'AVAT',
@@ -1776,8 +1776,8 @@ export const farmData = [
         pid: 1,
         lpSymbol: 'aKJU',
         lpAddresses: {
-          '82': '0x0bA819e30016Cf682C7795b44859148C65e62292',
-          '336': '0x456C0082DE0048EE883881fF61341177FA1FEF40',
+          '82': '0x7745d489DC858D07313Bc18Ba48930066C019590',
+          '336': '0x7745d489DC858D07313Bc18Ba48930066C019590',
         },
         token: {
           symbol: 'AVAT',

@@ -92,10 +92,10 @@ const BigNav: FC<{ menuItems: IMenu[] }> = ({ menuItems }) => {
         {/* <IconMoreStyle ref={MoreTargetRef}>
           <IconMore />
         </IconMoreStyle> */}
-        <NavLinkA href="https://cbridge.celer.network/#/transfer" target="_blank" rel="noreferrer" title="">
+        {/* <NavLinkA href="https://cbridge.celer.network/#/transfer" target="_blank" rel="noreferrer" title="">
           Bridge
           <IconLink />
-        </NavLinkA>
+        </NavLinkA> */}
         <NavLinkA href="https://portal.astar.network/#/balance/wallet" target="_blank" rel="noreferrer" title="">
           Faucet
           <IconLink />
