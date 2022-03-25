@@ -12,12 +12,13 @@ import useToast from 'hooks/useToast';
 import { useAppDispatch } from 'state';
 import useCompoundingWithdraw from 'views/Vault/hooks/useCompoundingWithdraw';
 import { changeLoading, fetchCompoundingFarmUserDataAsync } from 'state/vault';
+import { showDecimals } from 'views/Vault/utils';
 
 interface WithdrawModalProps {
   displayEarningsBalance: string;
   max: BigNumber;
   lpSymbol: string;
-  quoteTokenDecimals: number;
+  lpAddressDecimals: number;
   onDismiss?: () => void;
   contractAddress: string;
   lpToCLpRate: string;
@@ -33,14 +34,14 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
   max,
   displayEarningsBalance,
   lpSymbol,
-  quoteTokenDecimals,
+  lpAddressDecimals,
   contractAddress,
   lpToCLpRate,
 }) => {
   const [val, setVal] = useState('');
   const fullBalance = useMemo(() => {
-    return getFullDisplayBalance(max, quoteTokenDecimals, 6);
-  }, [max, quoteTokenDecimals]);
+    return getFullDisplayBalance(max, lpAddressDecimals, showDecimals(lpSymbol));
+  }, [max, lpAddressDecimals, lpSymbol]);
 
   const handleChange = useCallback(
     (e: React.FormEvent<HTMLInputElement>) => {
@@ -58,7 +59,7 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
   const { data: compoundings } = useCompounding();
   const { toastSuccess, toastError } = useToast();
   const dispatch = useAppDispatch();
-  const { onWithdraw } = useCompoundingWithdraw(account, contractAddress, quoteTokenDecimals);
+  const { onWithdraw } = useCompoundingWithdraw(account, contractAddress, lpAddressDecimals);
 
   const handleSelectMax = useCallback(() => {
     setVal(fullBalance);

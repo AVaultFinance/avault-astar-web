@@ -3,8 +3,9 @@ import styled from 'styled-components';
 import { useModal, Text } from '@avault/ui';
 import { useLocation } from 'react-router-dom';
 import { FarmWithStakedValue } from 'views/Farms/components/FarmCard/FarmCard';
-import { ActionContainer, LongButton } from './styles';
+import { LongButton } from './styles';
 import ComingSoon from 'components/ComingSoon';
+import { ActionContainer } from 'style/TableStyled';
 
 const TextTop = styled.div`
   display: none;

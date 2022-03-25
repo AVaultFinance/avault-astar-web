@@ -27,6 +27,7 @@ import HarvestAction from './HarvestAction';
 import StakedAction from './StakedAction';
 import { registerToken } from 'utils/wallet';
 import Apr from '../Apr';
+import { InfoContainer } from 'style/TableStyled';
 
 const expandAnimation = keyframes`
   from {
@@ -86,12 +87,12 @@ const StyledLinkExternal = styled(LinkExternal)`
   font-weight: 400;
 `;
 
-const InfoContainer = styled.div`
-  min-width: 240px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-`;
+// const InfoContainer = styled.div`
+//   min-width: 240px;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: space-around;
+// `;
 const ValueWrapper = styled.div`
   display: flex;
   align-items: center;

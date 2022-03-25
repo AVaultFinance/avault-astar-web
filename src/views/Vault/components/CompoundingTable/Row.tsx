@@ -15,6 +15,7 @@ import { ICompounding } from 'state/vault/types';
 import BigNumber from 'bignumber.js';
 import { getBalanceNumber } from 'utils/formatBalance';
 import Balance from 'components/Balance';
+import { showDecimals } from 'views/Vault/utils';
 
 export interface RowProps {
   apr: AprProps;
@@ -242,14 +243,14 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
                         fontSize="14px"
                         color="text"
                         fontWeight="600"
-                        decimals={5}
+                        decimals={showDecimals(details.lpSymbol)}
                         value={getBalanceNumber(
                           new BigNumber(
                             details?.farm?.userData?.stakingTokenBalance
                               ? details.farm.userData.stakingTokenBalance
                               : '0',
                           ),
-                          details.farm.quoteTokenDecimals,
+                          details.farm.lpAddressDecimals,
                         )}
                       />
                       <Text color="text" bold fontSize="14px" paddingLeft="4px">

@@ -52,6 +52,7 @@ export interface ICompoundingFarm {
   lpRewardsApr?: string;
   liquidity?: string;
   lpTokenPrice?: string;
+  lpAddressDecimals: number;
   userData?: ICompoundingUserData;
 }
 export interface ICompoundingUserData {

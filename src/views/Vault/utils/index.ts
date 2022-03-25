@@ -45,3 +45,14 @@ export const harvestFarm = async (masterChefContract, pid) => {
   const receipt = await tx.wait();
   return receipt.status;
 };
+
+const isUSDCLp = (lpSymbol: string): boolean => {
+  return `${lpSymbol}`.indexOf('USDC') > -1;
+};
+export const showDecimals = (lpSymbol: string): number => {
+  if (isUSDCLp(lpSymbol)) {
+    return 10;
+  } else {
+    return 5;
+  }
+};

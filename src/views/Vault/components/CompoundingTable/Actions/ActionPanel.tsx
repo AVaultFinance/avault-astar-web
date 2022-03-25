@@ -23,7 +23,8 @@ import { BASE_BSC_SCAN_URL } from 'config';
 import { useSpecialApproveFarm } from 'views/Vault/hooks/useApproveFarm';
 import { getDisplayApy } from 'views/Farms/Farms';
 import useToast from 'hooks/useToast';
-
+import { InfoContainer } from 'style/TableStyled';
+import { showDecimals } from 'views/Vault/utils';
 export interface ActionPanelProps {
   apr: AprProps;
   multiplier: MultiplierProps;
@@ -105,24 +106,6 @@ const InfoContainerSmall = styled(Flex)`
   align-items: center;
   border-top: 1px solid ${({ theme }) => theme.colors.cardBorder};
 `;
-const InfoContainer = styled.div`
-  display: 100%;
-  flex-direction: column;
-  justify-content: center;
-  align-items: end;
-  display: none;
-  ${({ theme }) => theme.mediaQueries.md} {
-    display: flex;
-    align-items: start;
-    max-width: 300px;
-    min-width: 120px;
-    margin-right: 10%;
-  }
-  ${({ theme }) => theme.mediaQueries.sm} {
-    max-width: 200px;
-    min-width: 80px;
-  }
-`;
 
 const DetailContainer = styled.div`
   background-color: ${({ theme }) => theme.colors.background};
@@ -176,7 +159,6 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
   const lpAddress = getAddress(compounding.farm.lpAddresses);
   const { account } = useWeb3React();
   const { avaultAddressBalance, allowance } = useCompoundingFarmUser(compounding?.farm?.pid ?? 0);
-  console.log('allowance: ', allowance.toNumber());
   const isApproved = account && allowance && allowance.isGreaterThan(0);
   // const stakingBigNumber = new BigNumber(compounding.farm.userData.stakingTokenBalance);
   let earnings = BIG_ZERO;
@@ -193,10 +175,10 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
     if (avaultAddressBalance.toNumber() > 0 && _totalSupply.toNumber() > 0) {
       earnings = _wantLockedTotal.dividedBy(_totalSupply).times(avaultAddressBalance);
       console.log('earnings: ', earnings);
-      // earnings = getBalanceAmount(_value, compounding.farm.quoteTokenDecimals);
+      // earnings = getBalanceAmount(_value, compounding.farm.lpAddressDecimals);
       // wantLockedTotal / totalSupply()*CLpAmount
       // earningsBusd = earnings.multipliedBy(cakePrice).toNumber();
-      displayEarningsBalance = getFullDisplayBalance(earnings, compounding.farm.quoteTokenDecimals, 3);
+      displayEarningsBalance = getFullDisplayBalance(earnings, compounding.farm.lpAddressDecimals, 3);
     }
   }
 
@@ -276,8 +258,8 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
             <i>
               {getFullDisplayBalance(
                 new BigNumber(compounding.farm.userData.stakingTokenBalance),
-                compounding.farm.quoteTokenDecimals,
-                3,
+                compounding.farm.lpAddressDecimals,
+                showDecimals(compounding.lpSymbol),
               )}{' '}
               {compounding.lpSymbol}
             </i>
@@ -298,7 +280,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
           pid={compounding.farm.pid}
           displayBalance={getFullDisplayBalance(
             new BigNumber(compounding.farm.userData.stakingTokenBalance),
-            compounding.farm.quoteTokenDecimals,
+            compounding.farm.lpAddressDecimals,
             3,
           )}
           displayEarningsBalance={displayEarningsBalance}
@@ -309,20 +291,20 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
           lpSymbol={compounding.lpSymbol}
           contractAddress={compounding.contractAddress[chainId]}
           stakingTokenBalance={new BigNumber(compounding?.farm?.userData?.stakingTokenBalance ?? '0')}
-          quoteTokenDecimals={compounding.farm.quoteTokenDecimals}
+          lpAddressDecimals={compounding.farm.lpAddressDecimals}
         />
       ) : (
         <ActionContainer style={{ justifyContent: 'end' }}>
           <DepositAction
             contractAddress={compounding.contractAddress[chainId]}
-            quoteTokenDecimals={compounding.farm.quoteTokenDecimals}
+            lpAddressDecimals={compounding.farm.lpAddressDecimals}
             requestedApproval={requestedApproval}
             requestedApprovalSuccess={requestedApprovalSuccess}
             isApproved={isApproved}
             displayBalance={getFullDisplayBalance(
               new BigNumber(compounding?.farm?.userData?.stakingTokenBalance ?? '0'),
-              compounding.farm.quoteTokenDecimals,
-              3,
+              compounding.farm.lpAddressDecimals,
+              showDecimals(compounding.lpSymbol),
             )}
             displayEarningsBalance={displayEarningsBalance}
             earnings={earnings}
@@ -336,13 +318,13 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
           <WithdrawAction
             lpToCLpRate={compounding.compounding.lpToCLpRate}
             contractAddress={compounding.contractAddress[chainId]}
-            quoteTokenDecimals={compounding.farm.quoteTokenDecimals}
+            lpAddressDecimals={compounding.farm.lpAddressDecimals}
             requestedApproval={requestedApproval}
             isApproved={isApproved}
             displayBalance={getFullDisplayBalance(
               new BigNumber(compounding?.farm?.userData?.stakingTokenBalance ?? '0'),
-              compounding.farm.quoteTokenDecimals,
-              3,
+              compounding.farm.lpAddressDecimals,
+              showDecimals(compounding.lpSymbol),
             )}
             displayEarningsBalance={displayEarningsBalance}
             earnings={earnings}

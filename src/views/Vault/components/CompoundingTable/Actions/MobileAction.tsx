@@ -19,7 +19,7 @@ interface MobileActionProps {
   stakingTokenBalance?: BigNumber;
   displayEarningsBalance?: string;
   contractAddress: string;
-  quoteTokenDecimals: number;
+  lpAddressDecimals: number;
   lpToCLpRate: string;
 }
 const Container = styled(Flex)`
@@ -43,7 +43,7 @@ const MobileAction: FC<MobileActionProps> = ({
   stakingTokenBalance,
   displayEarningsBalance,
   contractAddress,
-  quoteTokenDecimals,
+  lpAddressDecimals,
   lpToCLpRate,
 }) => {
   const [onPresentDeposit] = useModal(
@@ -51,7 +51,7 @@ const MobileAction: FC<MobileActionProps> = ({
       max={stakingTokenBalance}
       lpSymbol={lpSymbol}
       displayBalance={displayBalance}
-      quoteTokenDecimals={quoteTokenDecimals}
+      lpAddressDecimals={lpAddressDecimals}
       contractAddress={contractAddress}
     />,
   );
@@ -60,7 +60,7 @@ const MobileAction: FC<MobileActionProps> = ({
       max={earnings}
       lpSymbol={lpSymbol}
       displayEarningsBalance={displayEarningsBalance}
-      quoteTokenDecimals={quoteTokenDecimals}
+      lpAddressDecimals={lpAddressDecimals}
       contractAddress={contractAddress}
       lpToCLpRate={lpToCLpRate}
     />,

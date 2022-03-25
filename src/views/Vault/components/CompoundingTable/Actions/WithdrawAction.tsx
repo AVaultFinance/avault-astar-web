@@ -5,7 +5,7 @@ import { useWeb3React } from '@web3-react/core';
 import { BIG_ZERO } from 'utils/bigNumber';
 import { useAppDispatch } from 'state';
 import useToast from 'hooks/useToast';
-import { ActionContainer, LongButton } from './styles';
+import { LongButton } from './styles';
 import styled from 'styled-components';
 import CInput from './C_Input';
 import { getFullDisplayBalance } from 'utils/formatBalance';
@@ -13,6 +13,8 @@ import { useCompounding } from 'state/vault/hooks';
 import useCompoundingWithdraw from 'views/Vault/hooks/useCompoundingWithdraw';
 import { changeLoading, fetchCompoundingFarmUserDataAsync } from 'state/vault';
 import Loading from 'components/TransactionConfirmationModal/Loading';
+import { ActionContainerBg, ActionContainerSize } from 'style/TableStyled';
+import { showDecimals } from 'views/Vault/utils';
 
 interface WithdrawActionProps {
   userDataReady: boolean;
@@ -26,7 +28,7 @@ interface WithdrawActionProps {
   displayEarningsBalance?: string;
   lpSymbol: string;
   contractAddress: string;
-  quoteTokenDecimals: number;
+  lpAddressDecimals: number;
   lpToCLpRate: string;
 }
 const FlexStyled = styled(Flex)`
@@ -46,7 +48,7 @@ const WithdrawAction: React.FunctionComponent<WithdrawActionProps> = ({
   displayEarningsBalance,
   lpSymbol,
   contractAddress,
-  quoteTokenDecimals,
+  lpAddressDecimals,
   lpToCLpRate,
 }) => {
   const { data: compoundings } = useCompounding();
@@ -57,11 +59,11 @@ const WithdrawAction: React.FunctionComponent<WithdrawActionProps> = ({
 
   const dispatch = useAppDispatch();
   const { account } = useWeb3React();
-  const { onWithdraw } = useCompoundingWithdraw(account, contractAddress, quoteTokenDecimals);
+  const { onWithdraw } = useCompoundingWithdraw(account, contractAddress, lpAddressDecimals);
   const [val, setVal] = useState('');
   const fullBalance = useMemo(() => {
-    return getFullDisplayBalance(earnings, quoteTokenDecimals, 6);
-  }, [earnings, quoteTokenDecimals]);
+    return getFullDisplayBalance(earnings, lpAddressDecimals, showDecimals(lpSymbol));
+  }, [earnings, lpAddressDecimals, lpSymbol]);
   const handleChange = useCallback(
     (e: React.FormEvent<HTMLInputElement>) => {
       if (e.currentTarget.validity.valid) {
@@ -123,12 +125,12 @@ const WithdrawAction: React.FunctionComponent<WithdrawActionProps> = ({
     valNumber.gt(fullBalanceNumber);
 
   return (
-    <div>
+    <ActionContainerSize smallBorder={disabled ? false : true}>
       <Text textAlign="right" fontSize="12px" marginBottom="8px" fontWeight="500">
         LP Withdrawable: {displayEarningsBalance}
         {/* {lpSymbol ? ` ${lpSymbol}` : ''} */}
       </Text>
-      <ActionContainer smallBorder={disabled ? false : true}>
+      <ActionContainerBg smallBorder={disabled ? false : true}>
         <FlexStyled>
           <CInput value={val} onSelectMax={handleSelectMax} onChange={handleChange} />
           <LongButton variant="primary" isLoading={pendingTx} disabled={disabled} onClick={handleWithdraw}>
@@ -137,8 +139,8 @@ const WithdrawAction: React.FunctionComponent<WithdrawActionProps> = ({
             <Loading isLoading={pendingTx} success={pendingTxSuccess} />
           </LongButton>
         </FlexStyled>
-      </ActionContainer>
-    </div>
+      </ActionContainerBg>
+    </ActionContainerSize>
   );
 };
 

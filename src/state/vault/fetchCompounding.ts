@@ -53,6 +53,7 @@ const fetch = async (
     quoteTokenDecimals,
     liquidity,
     lpTokenPrice,
+    lpAddressDecimals,
   } = await fetchFarmDataABI(masterChef, lpAddresses, token0Address, token1Address, priceVsBusdMap);
   const lpToCLpRate =
     wantLockedTotal && compoundingTotalSupply && wantLockedTotal > 0 && compoundingTotalSupply > 0
@@ -94,6 +95,7 @@ const fetch = async (
       quoteTokenDecimals: quoteTokenDecimals,
       liquidity: liquidity,
       lpTokenPrice: lpTokenPrice,
+      lpAddressDecimals: lpAddressDecimals,
       userData: {
         allowance: '0',
         stakingTokenBalance: '0',
@@ -251,6 +253,10 @@ const fetchFarmDataABI = async (
       name: 'totalSupply',
     },
     {
+      address: lpAddress,
+      name: 'decimals',
+    },
+    {
       address: token,
       name: 'decimals',
     },
@@ -268,6 +274,7 @@ const fetchFarmDataABI = async (
     quoteTokenBalanceLp,
     lpTokenBalanceMC,
     lpTotalSupply,
+    lpAddressDecimals,
     tokenDecimals,
     quoteTokenDecimals,
     lpSymbol,
@@ -327,6 +334,7 @@ const fetchFarmDataABI = async (
     tokenPriceVsQuote: quoteTokenAmountTotal.div(tokenAmountTotal).toString(),
     lpSymbol: lpSymbol ? lpSymbol[0] : '',
     quoteTokenDecimals: quoteTokenDecimals ? quoteTokenDecimals[0] : 18,
+    lpAddressDecimals: lpAddressDecimals ? lpAddressDecimals[0] : 18,
     lpTokenPrice: lpTokenPrice.toString(),
   };
 };

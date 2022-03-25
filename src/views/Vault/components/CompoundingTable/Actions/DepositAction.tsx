@@ -5,7 +5,7 @@ import { useWeb3React } from '@web3-react/core';
 import { BIG_ZERO } from 'utils/bigNumber';
 import { useAppDispatch } from 'state';
 import useToast from 'hooks/useToast';
-import { ActionContainer, LongButton } from './styles';
+import { LongButton } from './styles';
 import styled from 'styled-components';
 import CInput from './C_Input';
 import { getFullDisplayBalance } from 'utils/formatBalance';
@@ -13,6 +13,8 @@ import { useCompounding, useCompoundingFarmUser } from 'state/vault/hooks';
 import useCompoundingDeposit from 'views/Vault/hooks/useCompoundingDeposit';
 import { changeLoading, fetchCompoundingFarmUserDataAsync } from 'state/vault';
 import Loading from 'components/TransactionConfirmationModal/Loading';
+import { ActionContainerBg, ActionContainerSize } from 'style/TableStyled';
+import { showDecimals } from 'views/Vault/utils';
 
 interface HarvestActionProps {
   userDataReady: boolean;
@@ -27,7 +29,7 @@ interface HarvestActionProps {
   displayEarningsBalance?: string;
   lpSymbol: string;
   contractAddress: string;
-  quoteTokenDecimals: number;
+  lpAddressDecimals: number;
 }
 const FlexStyled = styled(Flex)`
   margin-top: 0;
@@ -48,7 +50,7 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
   lpSymbol,
   displayBalance,
   contractAddress,
-  quoteTokenDecimals,
+  lpAddressDecimals,
   requestedApprovalSuccess,
 }) => {
   const { toastSuccess, toastError } = useToast();
@@ -58,14 +60,14 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
   const [pendingTxSuccess, setPendingTxSuccess] = useState(true);
 
   const { account } = useWeb3React();
-  const { onDeposit } = useCompoundingDeposit(account, contractAddress, quoteTokenDecimals);
+  const { onDeposit } = useCompoundingDeposit(account, contractAddress, lpAddressDecimals);
   const dispatch = useAppDispatch();
   const [val, setVal] = useState('');
   const { stakingTokenBalance } = useCompoundingFarmUser(pid ?? 0);
 
   const fullBalance = useMemo(() => {
-    return getFullDisplayBalance(stakingTokenBalance, quoteTokenDecimals, 6);
-  }, [stakingTokenBalance, quoteTokenDecimals]);
+    return getFullDisplayBalance(stakingTokenBalance, lpAddressDecimals, showDecimals(lpSymbol));
+  }, [stakingTokenBalance, lpAddressDecimals, lpSymbol]);
   const fullBalanceNumber = new BigNumber(fullBalance);
   const handleChange = useCallback(
     (e: React.FormEvent<HTMLInputElement>) => {
@@ -122,12 +124,12 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
     valNumber.eq(0) ||
     valNumber.gt(fullBalanceNumber);
   return (
-    <div>
+    <ActionContainerSize smallBorder={disabled ? false : true}>
       <Text textAlign="right" fontSize="12px" marginBottom="8px" fontWeight="500">
         {/* {lpSymbol ?? ''} */}
         LP Balance: {displayBalance}
       </Text>
-      <ActionContainer smallBorder={disabled ? false : true}>
+      <ActionContainerBg smallBorder={disabled ? false : true}>
         <FlexStyled>
           <CInput value={val} onSelectMax={handleSelectMax} onChange={handleChange} />
           {!isApproved ? (
@@ -152,8 +154,8 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
             </LongButton>
           )}
         </FlexStyled>
-      </ActionContainer>
-    </div>
+      </ActionContainerBg>
+    </ActionContainerSize>
   );
 };
 

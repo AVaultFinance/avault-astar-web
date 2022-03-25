@@ -16,6 +16,7 @@ import BigNumber from 'bignumber.js';
 import { BIG_ZERO } from 'utils/bigNumber';
 import { getBalanceAmount } from 'utils/formatBalance';
 import { getDisplayApr } from 'views/Farms/Farms';
+import { InfoContainer } from 'style/TableStyled';
 
 export interface ActionPanelProps {
   apr: AprProps;
@@ -91,20 +92,6 @@ const ActionContainer = styled.div`
     align-items: center;
     flex-grow: 1;
     flex-basis: 0;
-  }
-`;
-
-const InfoContainer = styled.div`
-  display: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: end;
-  ${({ theme }) => theme.mediaQueries.md} {
-    align-items: start;
-    max-width: 300px;
-    min-width: 120px;
-    margin-right: 10%;
   }
 `;
 

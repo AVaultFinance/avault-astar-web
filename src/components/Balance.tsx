@@ -32,7 +32,9 @@ const Balance: React.FC<BalanceProps> = ({
       <CountUp
         useEasing={true}
         formattingFn={(d: number) =>
-          `${new BigNumber(`${d}`).toNumber().toLocaleString('en-US', {
+          `${Number(
+            `${new BigNumber(`${previousValue.current}`).toFixed(decimals, BigNumber.ROUND_DOWN)}`,
+          ).toLocaleString('en-US', {
             maximumFractionDigits: decimals,
           })}`
         }

@@ -6,6 +6,7 @@ import { Flex, useTooltip } from '@avault/ui';
 import CollapseSvg from '../imgs/collapse';
 import NftContent from './NftContent';
 import MoreContent from './MoreContent';
+import IconLink from 'components/svg/IconLink';
 const BigNav: FC<{ menuItems: IMenu[] }> = ({ menuItems }) => {
   const { pathname } = useLocation();
   const {
@@ -93,15 +94,15 @@ const BigNav: FC<{ menuItems: IMenu[] }> = ({ menuItems }) => {
         </IconMoreStyle> */}
         <NavLinkA href="#" title="">
           Bridge
-          <img src="./images/icon_link.svg" alt="" />
+          <IconLink />
         </NavLinkA>
         <NavLinkA href="#" title="">
           Faucet
-          <img src="./images/icon_link.svg" alt="" />
+          <IconLink />
         </NavLinkA>
         <NavLinkA href="#" title="">
           Doc
-          <img src="./images/icon_link.svg" alt="" />
+          <IconLink />
         </NavLinkA>
       </NavWrap>
     </>
@@ -113,10 +114,10 @@ const NavWrap = styled(Flex)`
   justify-content: flex-start;
   a:hover {
     color: ${({ theme }) => theme.colors.text};
-    svg {
-      fill: ${({ theme }) => theme.colors.text};
-      transform: scaleY(-1);
-    }
+    // svg {
+    //   fill: ${({ theme }) => theme.colors.text};
+    //   transform: scaleY(-1);
+    // }
   }
 `;
 const NavLink = styled(Link)<{ active: 't' | 'f' }>`
@@ -146,6 +147,17 @@ const NavLinkA = styled.a`
   margin-right: 34px;
   img {
     width: 20px;
+  }
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.text};
+    svg {
+      fill: ${({ theme }) => theme.colors.text};
+      transform: scaleY(1);
+      path {
+        stroke: #fff;
+      }
+    }
   }
 `;
 

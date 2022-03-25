@@ -18,8 +18,9 @@ import DepositModal from '../../DepositModal';
 import WithdrawModal from '../../WithdrawModal';
 import useStakeFarms from '../../../hooks/useStakeFarms';
 import useApproveFarm from '../../../hooks/useApproveFarm';
-import { ActionContainer, LongButton } from './styles';
+import { LongButton } from './styles';
 import useAuth from 'hooks/useAuth';
+import { ActionContainer } from 'style/TableStyled';
 
 const IconButtonWrapper = styled.div`
   display: flex;

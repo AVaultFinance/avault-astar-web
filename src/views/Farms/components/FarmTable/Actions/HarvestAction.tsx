@@ -10,8 +10,9 @@ import { fetchFarmUserDataAsync } from 'state/farms';
 import useToast from 'hooks/useToast';
 import { useTranslation } from 'contexts/Localization';
 import useHarvestFarm from '../../../hooks/useHarvestFarm';
-import { ActionContainer, ActionContent, ActionTitlesTitle, ActionTitlesBalance, LongButton } from './styles';
+import { ActionTitlesTitle, ActionTitlesBalance, LongButton, ActionContent } from './styles';
 import styled from 'styled-components';
+import { ActionContainer } from 'style/TableStyled';
 
 interface HarvestActionProps extends FarmWithStakedValue {
   userDataReady: boolean;

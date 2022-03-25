@@ -5,9 +5,10 @@ import { FarmWithStakedValue } from 'views/Farms/components/FarmCard/FarmCard';
 import { BIG_ZERO } from 'utils/bigNumber';
 // import { usePriceCakeBusd } from 'state/farms/hooks';
 import { useTranslation } from 'contexts/Localization';
-import { ActionContainer, ActionContent, ActionTitlesTitle, ActionTitlesBalance, LongButton } from './styles';
+import { ActionContent, ActionTitlesTitle, ActionTitlesBalance, LongButton } from './styles';
 import styled from 'styled-components';
 import ComingSoon from 'components/ComingSoon';
+import { ActionContainer } from 'style/TableStyled';
 
 interface HarvestActionProps extends FarmWithStakedValue {
   userDataReady: boolean;

@@ -11,12 +11,13 @@ import { useWeb3React } from '@web3-react/core';
 import { useCompounding } from 'state/vault/hooks';
 import useToast from 'hooks/useToast';
 import useCompoundingDeposit from 'views/Vault/hooks/useCompoundingDeposit';
+import { showDecimals } from 'views/Vault/utils';
 
 interface DepositModalProps {
   lpSymbol?: string;
   max: BigNumber;
   displayBalance: string;
-  quoteTokenDecimals: number;
+  lpAddressDecimals: number;
   onDismiss?: () => void;
   contractAddress: string;
 }
@@ -33,7 +34,7 @@ const ButtonStyled = styled(Button)<{ isLoading: boolean; isMobile: boolean }>`
   height: ${({ isMobile }) => (isMobile ? '38px' : '48px')};
 `;
 const DepositModal: React.FC<DepositModalProps> = ({
-  quoteTokenDecimals,
+  lpAddressDecimals,
   max,
   onDismiss,
   displayBalance,
@@ -42,8 +43,8 @@ const DepositModal: React.FC<DepositModalProps> = ({
 }) => {
   const [val, setVal] = useState('');
   const fullBalance = useMemo(() => {
-    return getFullDisplayBalance(max, quoteTokenDecimals, 6);
-  }, [max, quoteTokenDecimals]);
+    return getFullDisplayBalance(max, lpAddressDecimals, showDecimals(lpSymbol));
+  }, [max, lpAddressDecimals, lpSymbol]);
 
   const valNumber = new BigNumber(val);
   const fullBalanceNumber = new BigNumber(fullBalance);
@@ -69,7 +70,7 @@ const DepositModal: React.FC<DepositModalProps> = ({
   const { data: compoundings } = useCompounding();
   const { toastSuccess, toastError } = useToast();
   const dispatch = useAppDispatch();
-  const { onDeposit } = useCompoundingDeposit(account, contractAddress, quoteTokenDecimals);
+  const { onDeposit } = useCompoundingDeposit(account, contractAddress, lpAddressDecimals);
   const handleDeposit = useCallback(async () => {
     setPendingTx(true);
     let result = null;
