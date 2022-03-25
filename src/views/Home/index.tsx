@@ -5,7 +5,7 @@ const _Link = [
   { name: 'Twitter', link: 'https://twitter.com/Avault_Astar ' },
   { name: 'Medium', link: 'https://medium.com/@avault ' },
   { name: 'Github', link: 'https://github.com/AVaultFinance ' },
-  { name: 'doc', link: 'https://github.com/AVaultFinance ' },
+  { name: 'doc', link: 'https://co-go.gitbook.io/avault/ ' },
 ];
 const Home = () => {
   return (

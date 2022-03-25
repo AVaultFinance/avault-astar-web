@@ -92,15 +92,15 @@ const BigNav: FC<{ menuItems: IMenu[] }> = ({ menuItems }) => {
         {/* <IconMoreStyle ref={MoreTargetRef}>
           <IconMore />
         </IconMoreStyle> */}
-        <NavLinkA href="#" title="">
+        <NavLinkA href="https://cbridge.celer.network/#/transfer" title="">
           Bridge
           <IconLink />
         </NavLinkA>
-        <NavLinkA href="#" title="">
+        <NavLinkA href="https://portal.astar.network/#/balance/wallet" title="">
           Faucet
           <IconLink />
         </NavLinkA>
-        <NavLinkA href="#" title="">
+        <NavLinkA href="https://co-go.gitbook.io/avault/" title="">
           Doc
           <IconLink />
         </NavLinkA>

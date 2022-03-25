@@ -1,5 +1,5 @@
-import { CloseIcon, Modal } from '@avault/ui';
-import IconClose from 'components/SideMenu/imgs/iconClose';
+import { Modal } from '@avault/ui';
+
 import styled from 'styled-components';
 
 const ComingSoon = ({ onDismiss = () => null }) => {
