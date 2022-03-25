@@ -115,11 +115,12 @@ const StyledTr = styled.tr<{ isLast: boolean }>`
   }
   td {
     padding-top: 20px;
-    padding-bottom: 20px;
+    padding-bottom: 10px;
     white-space: wrap;
     padding-left: 18px;
 
     ${({ theme }) => theme.mediaQueries.md} {
+      padding-bottom: 20px;
       white-space: nowrap;
     }
   }

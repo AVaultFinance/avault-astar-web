@@ -38,8 +38,8 @@ const Container = styled.div`
 const TokenWrapper = styled.div`
   margin-right: 8px;
 
-  width: 56px;
-  height: 56px;
+  width: 40px;
+  height: 40px;
   text-align: center;
 
   background-image: url('./images/farm_img_bg.svg');
@@ -47,6 +47,12 @@ const TokenWrapper = styled.div`
   background-position: center;
   background-repeat: no-repeat;
   padding: 4px;
+  margin-bottom: 20px;
+  ${({ theme }) => theme.mediaQueries.md} {
+    width: 56px;
+    height: 56px;
+    margin-bottom: 0;
+  }
   ${({ theme }) => theme.mediaQueries.sm} {
     margin-right: 20px;
     // width: 70px;
@@ -87,12 +93,17 @@ const Farm: React.FunctionComponent<FarmProps> = ({ token, quoteToken, label, pi
           height={48}
         />
       </TokenWrapper>
-      <div>
+      <DivStyled>
         <div className="label">{label}</div>
         {/* <div className="ratio"><span>kacoSwap</span></div> */}
-      </div>
+      </DivStyled>
     </Container>
   );
 };
-
+const DivStyled = styled.div`
+  margin-bottom: 20px;
+  ${({ theme }) => theme.mediaQueries.md} {
+    margin-bottom: 0;
+  }
+`;
 export default Farm;

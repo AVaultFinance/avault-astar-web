@@ -28,19 +28,7 @@ const SmallNavTooltip: FC<{
         {menuItems.map((item, index) => (
           <div key={index}>
             <NavLink
-              active={
-                (
-                  item.link === '/'
-                    ? pathname === item.link
-                    : ['/add', '/remove', '/liquidity'].find((p) => pathname.startsWith(p))
-                    ? item.link === '/swap'
-                    : ['/nft/pools', '/nft/wallet/mint', '/nft/wallet/burn'].find((p) => pathname.startsWith(p))
-                    ? item.link === '/nft/pools/'
-                    : pathname.startsWith(item.link)
-                )
-                  ? 't'
-                  : 'f'
-              }
+              active={pathname.startsWith(item.link) ? 't' : 'f'}
               to={item.link}
               key={item.link}
               onClick={() => {
@@ -183,7 +171,7 @@ const NavWrapInner = styled.div`
   padding: 20px 30px 40px;
   border-radius: 24px 24px 0 0;
   bottom: 0;
-  background: ${({ theme }) => theme.colors.background};
+  background: ${({ theme }) => theme.colors.backgroundAlt};
   animation: ${() =>
     css`
       ${expandAnimation} 300ms linear forwards
@@ -211,7 +199,7 @@ const NavLink = styled(Link)<{ active: 't' | 'f' }>`
   width: 100%;
   display: block;
   padding-left: 20px;
-  background-color: ${({ theme, active }) => (active === 't' ? '#030222' : '#181733')};
+  background-color: ${({ theme, active }) => (active === 't' ? theme.colors.background : 'transparent')};
   border-radius: 8px;
   margin-bottom: 4px;
   svg {
