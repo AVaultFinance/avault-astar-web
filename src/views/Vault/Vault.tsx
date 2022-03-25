@@ -59,11 +59,11 @@ const Compoundings: React.FC = () => {
   const kacPerBlock = useKacPerBlock();
   const { priceVsBusdMap } = usePrice();
   const { data: compoundings } = useCompounding();
+  const userDataReady = !account || (!!account && userDataLoaded);
   usePollCompoundingData();
   useCompoundingUserData(compoundings);
   // Users with no wallet connected should see 0 as Earned amount
   // Connected users should see loading indicator until first userData has loaded
-  const userDataReady = !account || (!!account && userDataLoaded);
   const compoundingsList = useCallback(
     (compoundingsToDisplay: ICompounding[]): ICompounding[] => {
       const compoundingsToDisplayWithAPR: ICompounding[] = compoundingsToDisplay.map((compounding) => {

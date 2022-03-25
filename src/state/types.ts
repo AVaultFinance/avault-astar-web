@@ -81,6 +81,7 @@ export interface FarmsState {
 export interface CompoundingState {
   data: ICompounding[];
   allLiquidity: string;
+  isUserLoaded: boolean;
   userDataLoaded: boolean;
 }
 

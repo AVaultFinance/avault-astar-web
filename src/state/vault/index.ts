@@ -14,6 +14,7 @@ import { haveNumber } from 'utils';
 const initialState: CompoundingState = {
   data: [],
   allLiquidity: '',
+  isUserLoaded: false,
   userDataLoaded: false,
 };
 export const fetchCompoundingsPublicDataAsync = createAsyncThunk<
@@ -40,7 +41,6 @@ export const fetchCompoundingFarmUserDataAsync = createAsyncThunk<
     compoundings,
     index,
   );
-  console.log({ userCompoundingsFarmAllowances });
   return userCompoundingsFarmAllowances.map((farmAllowance, _index) => {
     return {
       index: index,
@@ -73,6 +73,9 @@ export const compoundingSlice = createSlice({
       }
     },
     changeVaultLoading: (state) => {
+      if (state.isUserLoaded) {
+        return;
+      }
       for (let i = 0; i < state.data.length; i++) {
         state.data[i].isLoading = true;
       }
@@ -87,7 +90,6 @@ export const compoundingSlice = createSlice({
     builder.addCase(fetchCompoundingFarmUserDataAsync.fulfilled, (state, action) => {
       action.payload.forEach((userDataEl) => {
         const { pid, index: _index } = userDataEl;
-        console.log(_index);
         const index = haveNumber(_index)
           ? _index
           : state.data.findIndex((compounding: ICompounding) => compounding.farm.pid === pid);
@@ -116,6 +118,7 @@ export const compoundingSlice = createSlice({
         };
       });
       state.userDataLoaded = true;
+      state.isUserLoaded = true;
     });
   },
 });
