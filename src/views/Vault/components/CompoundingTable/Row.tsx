@@ -197,7 +197,7 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
                 return (
                   <td key={key}>
                     <Text color="text" bold fontSize="15px">
-                      {details.compounding.liquidity}
+                      $ {details.compounding.liquidity}
                     </Text>
                   </td>
                 );

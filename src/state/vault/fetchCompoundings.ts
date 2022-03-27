@@ -20,12 +20,10 @@ const fetchCompoundings = async (
   for (let i = 0; i < data.length; i++) {
     const v = data[i];
     if (v.farm.lpTokenPrice) {
-      console.log(v.compounding.wantLockedTotal, v.compounding.decimals, v.farm.lpTokenPrice);
       const _liquidity = new BigNumber(v.compounding.wantLockedTotal)
         .div(BIG_TEN.pow(new BigNumber(v.compounding.decimals)))
         .times(Number(v.farm.lpTokenPrice))
         .toNumber();
-      console.log({ _liquidity });
       _total = _total.plus(_liquidity);
       _data.push({
         ...v,
