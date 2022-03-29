@@ -72,7 +72,14 @@ const StyledAlert = styled(Flex)<ThemedIconLabel>`
   border-radius: 12px 0 0 12px;
   box-shadow: 0px 20px 36px -8px rgba(14, 14, 44, 0.1), 0px 1px 1px rgba(0, 0, 0, 0.05);
 `;
-
+const ToastAlert = styled(IconButton)`
+  svg {
+    fill: ${({ theme }) => theme.colors.text};
+    path {
+      fill: ${({ theme }) => theme.colors.text};
+    }
+  }
+`;
 const Alert: React.FC<AlertProps> = ({ title, children, variant, onClick }) => {
   const Icon = getIcon(variant);
 
@@ -93,9 +100,9 @@ const Alert: React.FC<AlertProps> = ({ title, children, variant, onClick }) => {
       </Details>
       {onClick && (
         <CloseHandler>
-          <IconButton scale="sm" variant="text" onClick={onClick}>
+          <ToastAlert scale="sm" variant="text" onClick={onClick}>
             <CloseIcon width="24px" color="currentColor" />
-          </IconButton>
+          </ToastAlert>
         </CloseHandler>
       )}
     </StyledAlert>

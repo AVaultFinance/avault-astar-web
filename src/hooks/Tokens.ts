@@ -99,7 +99,7 @@ export function useIsTokenActive(token: Token | undefined | null): boolean {
 }
 
 // used to detect extra search results
-export function useFoundOnInactiveList(searchQuery: string): Token[] | undefined {
+export function useFoundOnInactiveList(searchQuery: string): any[] | undefined {
   const { chainId } = useActiveWeb3React();
   const inactiveTokens = useAllInactiveTokens();
 

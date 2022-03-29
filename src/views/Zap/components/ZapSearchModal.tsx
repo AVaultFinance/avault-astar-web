@@ -1,4 +1,4 @@
-import { ETHER } from '@avault/sdk';
+import { Currency, ETHER } from '@avault/sdk';
 import {
   Heading,
   InjectedModalProps,
@@ -8,15 +8,18 @@ import {
   ModalContainer,
   ModalHeader,
   ModalTitle,
+  Text,
 } from '@avault/ui';
+import { chainKey } from 'config';
 import { chainId } from 'config/constants/tokens';
 import useDebounce from 'hooks/useDebounce';
-import { useCallback, KeyboardEvent, RefObject, useEffect, useRef, useState } from 'react';
+import { useCallback, KeyboardEvent, RefObject, useEffect, useRef, useState, useMemo } from 'react';
 import { FixedSizeList } from 'react-window';
 import styled from 'styled-components';
 import { isAddress } from 'utils';
-import { lpTokenAll, tokenAll } from '../utils/constants';
-import { IToken } from '../utils/types';
+import { lpTokenAll, tokenAll } from '../constants/data';
+import { IToken, ITokenType } from '../utils/types';
+import { deweight, useZapSortedTokensByQuery } from '../utils/utils';
 import ZapCurrencyList from './ZapCurrencyList';
 const ModalContainerStyled = styled(ModalContainer)`
   min-width: 468px;
@@ -53,6 +56,17 @@ const ZapSearchModal = ({
 
   const debouncedQuery = useDebounce(searchQuery, 200);
 
+  const currencies = isTo ? lpTokenAll : tokenAll;
+  const _itemData: (IToken | undefined)[] = useMemo(() => {
+    const MAIN = {
+      ...Currency.ETHER[chainId],
+      type: ITokenType.MAIN,
+      decimals: 18,
+    };
+    const formatted: (IToken | undefined)[] = deweight([selectedCurrency, MAIN, ...currencies]);
+    return formatted;
+  }, [selectedCurrency, currencies]);
+  const itemData = useZapSortedTokensByQuery(_itemData, debouncedQuery);
   useEffect(() => {
     inputRef.current.focus();
   }, []);
@@ -63,20 +77,30 @@ const ZapSearchModal = ({
     fixedList.current?.scrollTo(0);
   }, []);
 
-  const handleCurrencySelect = (currency) => {};
+  const handleCurrencySelect = useCallback(
+    (currency: IToken) => {
+      onCurrencySelect(currency);
+      onDismiss();
+    },
+    [onCurrencySelect, onDismiss],
+  );
   const handleEnter = useCallback(
     (e: KeyboardEvent<HTMLInputElement>) => {
       if (e.key === 'Enter') {
-        const s = debouncedQuery.toLowerCase().trim();
-        if (s === 'bnb') {
+        const s = debouncedQuery.toUpperCase().trim();
+        if (s === chainKey) {
           handleCurrencySelect(ETHER[chainId]);
+        } else if (itemData.length > 0) {
+          if (itemData[0].symbol?.toLowerCase() === debouncedQuery.trim().toLowerCase() || itemData.length === 1) {
+            handleCurrencySelect(itemData[0]);
+          }
         }
+        onDismiss();
       }
     },
-    [debouncedQuery],
+    [debouncedQuery, handleCurrencySelect, onDismiss, itemData],
   );
 
-  const currencies = isTo ? lpTokenAll : tokenAll;
   return (
     <ModalContainerStyled>
       <ModalHeader>
@@ -98,13 +122,21 @@ const ZapSearchModal = ({
             onKeyDown={handleEnter}
           />
         </InputWrapStyled>
+        {itemData.length === 0 ? (
+          <div style={{ padding: '20px', height: '100%' }}>
+            <Text color="textSubtle" textAlign="center" mb="20px">
+              No results found.
+            </Text>
+          </div>
+        ) : null}
         <ZapCurrencyList
-          height={380}
-          currencies={currencies}
+          height={itemData.length > 6 ? 380 : 250}
+          currencies={itemData}
           fixedListRef={fixedList}
           selectedCurrency={selectedCurrency}
           otherCurrency={otherSelectedCurrency}
           onCurrencySelect={handleCurrencySelect}
+          debouncedQuery={debouncedQuery}
         />
       </ModalBody>
     </ModalContainerStyled>
@@ -112,5 +144,10 @@ const ZapSearchModal = ({
 };
 const InputWrapStyled = styled.div`
   margin: 0 30px 24px;
+  input {
+    &:focus {
+      border: 1px solid ${({ theme }) => theme.colors.text};
+    }
+  }
 `;
 export default ZapSearchModal;

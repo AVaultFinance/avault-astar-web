@@ -1,13 +1,15 @@
-import { Currency } from '@avault/sdk';
+import { ETHER, Token } from '@avault/sdk';
 import { Flex, Heading } from '@avault/ui';
-import Balance from 'components/Balance';
+import BigNumber from 'bignumber.js';
+import CircleLoader from 'components/Loader/CircleLoader';
 import { chainId } from 'config/constants/tokens';
 import useActiveWeb3React from 'hooks/useActiveWeb3React';
-import { CSSProperties, MutableRefObject, useCallback, useMemo } from 'react';
+import { CSSProperties, MutableRefObject, useCallback } from 'react';
 import { FixedSizeList } from 'react-window';
 import { useCurrencyBalance } from 'state/wallet/hooks';
 import styled from 'styled-components';
-import { IToken, ITokenType } from '../utils/types';
+import { showDecimals } from 'views/Vault/utils';
+import { IToken } from '../utils/types';
 import { currencyKey, isCurrencyEquals } from '../utils/utils';
 import ZapCurrencyLogo from './ZapCurrencyLogo';
 
@@ -29,20 +31,9 @@ const ZapCurrencyList = ({
   otherCurrency?: IToken | null;
   onCurrencySelect: (currency: IToken) => void;
   breakIndex?: number | undefined;
+  debouncedQuery: string;
 }) => {
-  const itemData: (IToken | undefined)[] = useMemo(() => {
-    const MAIN = {
-      ...Currency.ETHER[chainId],
-      type: ITokenType.MAIN,
-      decimals: 18,
-    };
-    let formatted: (IToken | undefined)[] = [MAIN, ...currencies];
-    if (breakIndex !== undefined) {
-      formatted = [...formatted.slice(0, breakIndex), undefined, ...formatted.slice(breakIndex, formatted.length)];
-    }
-    return formatted;
-  }, [breakIndex, currencies]);
-  const itemKey = useCallback((index: number, data: any) => currencyKey(data[index]), []);
+  const itemKey = useCallback((index: number, data: any) => currencyKey(data[index], index), []);
   const Row = useCallback(
     ({ data, index, style }) => {
       const currency: IToken = data[index];
@@ -69,8 +60,8 @@ const ZapCurrencyList = ({
       height={height}
       ref={fixedListRef as any}
       width="100%"
-      itemData={itemData}
-      itemCount={itemData.length}
+      itemData={currencies}
+      itemCount={currencies.length}
       itemSize={60}
       itemKey={itemKey}
     >
@@ -92,9 +83,12 @@ function CurrencyRow({
   style: CSSProperties;
 }) {
   const { account } = useActiveWeb3React();
-  const balance = useCurrencyBalance(account ?? undefined, currency);
-  console.log({ balance });
-
+  const _currency =
+    currency.address && currency.address[chainId]
+      ? new Token(chainId, currency.address[chainId], 18, currency.symbol, currency.name)
+      : ETHER[chainId];
+  const balance = useCurrencyBalance(account ?? undefined, _currency);
+  const decimals = showDecimals(currency.symbol);
   return (
     <MenuItem
       style={style}
@@ -106,7 +100,17 @@ function CurrencyRow({
         <ZapCurrencyLogo currency={currency} />
         <HeadingStyled>{currency.symbol}</HeadingStyled>
       </FlexCol>
-      <HeadingStyled>{balance ? <Balance value={Number(balance.toFixed(2))} /> : null}</HeadingStyled>
+      <HeadingStyled>
+        {balance ? (
+          Number(new BigNumber(balance.toFixed(18)).toFixed(decimals, BigNumber.ROUND_DOWN)).toLocaleString('en-US', {
+            maximumFractionDigits: decimals,
+          })
+        ) : account ? (
+          <CircleLoader />
+        ) : (
+          ''
+        )}
+      </HeadingStyled>
     </MenuItem>
   );
 }
@@ -123,7 +127,9 @@ const MenuItem = styled(Flex)<{ disabled: boolean; selected: boolean }>`
   align-items: center;
   justify-content: space-between;
   background-image: ${({ disabled }) => (disabled ? ' linear-gradient(90deg, #8c1ab5 0%, #17b38d 100%)' : 'none')};
-  // background-color: ${({ theme, disabled }) => (disabled ? theme.colors.primary : '#000')};
+  pointer-events: ${({ disabled }) => disabled && 'none'};
+  cursor: ${({ disabled, selected }) => (disabled || selected ? '' : 'pointer')};
+  opacity: ${({ selected }) => (selected ? 0.5 : 1)};
   :hover {
     background-color: ${({ theme, disabled }) => !disabled && theme.colors.secondary};
   }

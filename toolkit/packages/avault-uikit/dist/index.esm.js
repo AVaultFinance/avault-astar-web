@@ -1315,6 +1315,19 @@ var Details = styled.div(templateObject_2$t || (templateObject_2$t = __makeTempl
 });
 var CloseHandler = styled.div(templateObject_3$d || (templateObject_3$d = __makeTemplateObject(["\n  border-radius: 0 12px 12px 0;\n  right: 8px;\n  position: absolute;\n  top: 8px;\n"], ["\n  border-radius: 0 12px 12px 0;\n  right: 8px;\n  position: absolute;\n  top: 8px;\n"])));
 var StyledAlert = styled(Flex)(templateObject_4$8 || (templateObject_4$8 = __makeTemplateObject(["\n  position: relative;\n  background-color: ", ";\n  border-radius: 12px 0 0 12px;\n  box-shadow: 0px 20px 36px -8px rgba(14, 14, 44, 0.1), 0px 1px 1px rgba(0, 0, 0, 0.05);\n"], ["\n  position: relative;\n  background-color: ", ";\n  border-radius: 12px 0 0 12px;\n  box-shadow: 0px 20px 36px -8px rgba(14, 14, 44, 0.1), 0px 1px 1px rgba(0, 0, 0, 0.05);\n"])), getThemeColor);
+var ToastAlert = styled(IconButton)(templateObject_5$5 || (templateObject_5$5 = __makeTemplateObject(["\n  svg {\n    fill: ", ";\n    path {\n      fill: ", ";\n    }\n  }\n  &:hover {\n    opacity: 1 !important;\n    svg {\n      fill: ", ";\n      path {\n        fill: ", ";\n      }\n    }\n  }\n"], ["\n  svg {\n    fill: ", ";\n    path {\n      fill: ", ";\n    }\n  }\n  &:hover {\n    opacity: 1 !important;\n    svg {\n      fill: ", ";\n      path {\n        fill: ", ";\n      }\n    }\n  }\n"])), function (_a) {
+    var theme = _a.theme;
+    return theme.colors.text;
+}, function (_a) {
+    var theme = _a.theme;
+    return theme.colors.text;
+}, function (_a) {
+    var theme = _a.theme;
+    return theme.colors.textSubtle;
+}, function (_a) {
+    var theme = _a.theme;
+    return theme.colors.textSubtle;
+});
 var Alert = function (_a) {
     var title = _a.title, children = _a.children, variant = _a.variant, onClick = _a.onClick;
     var Icon = getIcon(variant);
@@ -1325,10 +1338,10 @@ var Alert = function (_a) {
             React.createElement(Text, { fontWeight: "700" }, title),
             typeof children === "string" ? (React.createElement(Text, { as: "p", fontSize: "12px", lineHeight: "16px", fontWeight: "500" }, children)) : (children)),
         onClick && (React.createElement(CloseHandler, null,
-            React.createElement(IconButton, { scale: "sm", variant: "text", onClick: onClick },
+            React.createElement(ToastAlert, { scale: "sm", variant: "text", onClick: onClick },
                 React.createElement(Icon$1r, { width: "24px", color: "currentColor" }))))));
 };
-var templateObject_1$11, templateObject_2$t, templateObject_3$d, templateObject_4$8;
+var templateObject_1$11, templateObject_2$t, templateObject_3$d, templateObject_4$8, templateObject_5$5;
 
 var Grid = styled(Box)(templateObject_1$10 || (templateObject_1$10 = __makeTemplateObject(["\n  display: grid;\n  ", "\n  ", "\n"], ["\n  display: grid;\n  ", "\n  ", "\n"])), flexbox, grid);
 var templateObject_1$10;
@@ -1351,7 +1364,7 @@ var getHeight = function (_a) {
             return "40px";
     }
 };
-var Input$1 = styled.input(templateObject_1$$ || (templateObject_1$$ = __makeTemplateObject(["\n  background-color: ", ";\n  border: 0;\n  border-radius: 12px;\n  color: ", ";\n  display: block;\n  font-size: 14px;\n  font-weight: 600;\n  height: ", ";\n  outline: 0;\n  padding: 0 20px;\n  width: 100%;\n  border: 1px solid ", ";\n\n  &::placeholder {\n    color: ", ";\n  }\n\n  &:disabled {\n    background-color: ", ";\n    box-shadow: none;\n    color: ", ";\n    cursor: not-allowed;\n  }\n  &:focus {\n    border: 1px solid ", ";\n  }\n  &:focus:not(:disabled) {\n    /* box-shadow: ", "; */\n  }\n"], ["\n  background-color: ", ";\n  border: 0;\n  border-radius: 12px;\n  color: ", ";\n  display: block;\n  font-size: 14px;\n  font-weight: 600;\n  height: ", ";\n  outline: 0;\n  padding: 0 20px;\n  width: 100%;\n  border: 1px solid ", ";\n\n  &::placeholder {\n    color: ", ";\n  }\n\n  &:disabled {\n    background-color: ", ";\n    box-shadow: none;\n    color: ", ";\n    cursor: not-allowed;\n  }\n  &:focus {\n    border: 1px solid ", ";\n  }\n  &:focus:not(:disabled) {\n    /* box-shadow: ", "; */\n  }\n"])), function (_a) {
+var Input$1 = styled.input(templateObject_1$$ || (templateObject_1$$ = __makeTemplateObject(["\n  background-color: ", ";\n  border: 0;\n  border-radius: 12px;\n  color: ", ";\n  display: block;\n  font-size: 14px;\n  font-weight: 600;\n  height: ", ";\n  outline: 0;\n  padding: 0 20px;\n  width: 100%;\n  border: 1px solid ", ";\n\n  &::placeholder {\n    color: ", ";\n  }\n\n  &:disabled {\n    background-color: ", ";\n    box-shadow: none;\n    color: ", ";\n    cursor: not-allowed;\n  }\n  &:focus:not(:disabled) {\n    /* box-shadow: ", "; */\n  }\n"], ["\n  background-color: ", ";\n  border: 0;\n  border-radius: 12px;\n  color: ", ";\n  display: block;\n  font-size: 14px;\n  font-weight: 600;\n  height: ", ";\n  outline: 0;\n  padding: 0 20px;\n  width: 100%;\n  border: 1px solid ", ";\n\n  &::placeholder {\n    color: ", ";\n  }\n\n  &:disabled {\n    background-color: ", ";\n    box-shadow: none;\n    color: ", ";\n    cursor: not-allowed;\n  }\n  &:focus:not(:disabled) {\n    /* box-shadow: ", "; */\n  }\n"])), function (_a) {
     var theme = _a.theme;
     return theme.colors.input;
 }, function (_a) {
@@ -1369,9 +1382,6 @@ var Input$1 = styled.input(templateObject_1$$ || (templateObject_1$$ = __makeTem
 }, function (_a) {
     var theme = _a.theme;
     return theme.colors.textDisabled;
-}, function (_a) {
-    var theme = _a.theme;
-    return theme.colors.text;
 }, function (_a) {
     var theme = _a.theme;
     return theme.shadows.focus;
@@ -4658,7 +4668,7 @@ var Toast = function (_a) {
             clearTimeout(timer.current);
         };
     }, [timer, ttl, handleRemove]);
-    return (React.createElement(CSSTransition, __assign({ nodeRef: ref, timeout: 250, style: style }, props),
+    return (React.createElement(CSSTransition, __assign({ nodeRef: ref, timeout: 200, style: style }, props),
         React.createElement(StyledToast, { ref: ref, onMouseEnter: handleMouseEnter, onMouseLeave: handleMouseLeave },
             React.createElement(Alert, { title: title, variant: alertTypeMap[type], onClick: handleRemove }, description))));
 };

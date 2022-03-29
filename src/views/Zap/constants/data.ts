@@ -1,7 +1,7 @@
 import compounding from 'config/constants/compounding';
 import tokens, { chainId } from 'config/constants/tokens';
 import { ICompoundingConfigItem } from 'state/vault/types';
-import { IToken, ITokenType } from './types';
+import { IToken, ITokenType } from '../utils/types';
 import { chainKey } from 'config';
 import { CHAINKEY, Currency } from '@avault/sdk';
 
@@ -23,17 +23,15 @@ const _Token = _TokenALL.map((v: any[]) => v[0]);
 const tokenSingle = [...new Set(_Token.flat())];
 export const tokenAll: IToken[] =
   chainKey === CHAINKEY.SDN
-    ? tokenSingle
-        .map((v: string) => {
-          // console.log(v, tokens[chainKey][v]);
-          return {
-            ...tokens[chainKey][v],
-            type: ITokenType.TOKEN,
-          };
-        })
-        .slice(0, 0)
+    ? tokenSingle.map((v: string) => {
+        // console.log(v, tokens[chainKey][v]);
+        return {
+          ...tokens[chainKey][v],
+          type: ITokenType.TOKEN,
+        };
+      })
     : [];
-export const lpTokenAll = [..._TokenALL.map((v: any[]) => v[1])].concat(tokenAll).slice(0, 1);
+export const lpTokenAll = [..._TokenALL.map((v: any[]) => v[1])].concat(tokenAll);
 
 export const fromCurrency: IToken = {
   ...Currency.ETHER[chainId],
