@@ -4,7 +4,7 @@ import { BgGlobalStyle } from 'style/Global';
 import styled from 'styled-components';
 import { W480BorderPageLayout, PageContainerWrap, MaxButton, TableContent } from 'style/SmallBorderPageLayout';
 import ZapBg from './components/ZapBg';
-import { fromCurrency as _fromCurrency, toCurrency as _toCurrency } from './constants/data';
+import { fromCurrency as _fromCurrency, toCurrency as _toCurrency, zapAddress } from './constants/data';
 import { useCallback, useState } from 'react';
 import ZapCurrencyInputPanel from './components/ZapCurrencyInputPanel';
 import { IToken } from './utils/types';
@@ -13,13 +13,17 @@ import { BIG_ZERO } from 'utils/bigNumber';
 import BigNumber from 'bignumber.js';
 import useToast from 'hooks/useToast';
 import { useEstimatedPrice } from './utils/utils';
+import useZapContract from './constants/contract';
+import Loading from 'components/TransactionConfirmationModal/Loading';
 
 const Zap = () => {
   const [fromCurrency, setFromCurrency] = useState(_fromCurrency);
   const [toCurrency, setToCurrency] = useState(_toCurrency);
   const [fullBalance, setMax] = useState(BIG_ZERO);
   const [val, setVal] = useState('');
+  const { handleZapClick } = useZapContract(zapAddress, fromCurrency, toCurrency);
   const [pendingTx, setPendingTx] = useState(false);
+  const [pendingTxSuccess, setPendingTxSuccess] = useState(true);
   const valNumber = new BigNumber(val);
   const { toastSuccess, toastError } = useToast();
   const handleChange = useCallback(
@@ -37,15 +41,30 @@ const Zap = () => {
   const zapComfirm = useCallback(async () => {
     setPendingTx(true);
     try {
-      // await onConfirm(val);
-      toastSuccess('Staked!', 'Your funds have been staked in the farm');
+      const res = await handleZapClick(val);
+      if (res) {
+        toastSuccess('Staked!', 'Your funds have been staked in the farm');
+        setTimeout(() => {
+          setPendingTxSuccess(true);
+        }, 10000);
+      } else {
+        toastError('Error', `Your ${fromCurrency.symbol} to ${toCurrency.symbol} Zap failed!`);
+        setPendingTxSuccess(false);
+        setTimeout(() => {
+          setPendingTxSuccess(true);
+        }, 1500);
+      }
     } catch (e) {
-      toastError('Error', 'Please try again. Confirm the transaction and make sure you are paying enough gas!');
-      console.error(e);
+      toastError('Error', `Your ${fromCurrency.symbol} to ${toCurrency.symbol} Zap failed!`);
+      setPendingTxSuccess(false);
+      setTimeout(() => {
+        setPendingTxSuccess(true);
+      }, 1500);
     } finally {
+      setVal('');
       setPendingTx(false);
     }
-  }, [toastSuccess, toastError]);
+  }, [fromCurrency, toCurrency, val, handleZapClick, toastSuccess, toastError]);
   return (
     <PageLayout>
       <BgGlobalStyle />
@@ -104,12 +123,14 @@ const Zap = () => {
               </PaddingStyled>
             </InnerStyled>
             <Button
-              // disabled={pendingTx || !valNumber.isFinite() || valNumber.eq(0) || valNumber.gt(fullBalance)}
+              isLoading={pendingTx}
+              disabled={pendingTx || !valNumber.isFinite() || valNumber.eq(0) || valNumber.gt(fullBalance)}
               width="100%"
               padding="0"
               onClick={zapComfirm}
             >
               Confirm
+              <Loading isLoading={pendingTx} success={pendingTxSuccess} />
             </Button>
           </TableContent>
           <ZapBgStyled />

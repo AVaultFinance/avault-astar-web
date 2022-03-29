@@ -11,7 +11,7 @@ import history from './routerHistory';
 import { PriceProvider } from './contexts/PriceProvider';
 import SideMenu from './components/SideMenu';
 import { usePollCoreFarmData } from 'state/farms/hooks';
-import { usePollCompoundingData } from 'state/vault/hooks';
+// import { usePollCompoundingData } from 'state/vault/hooks';
 import { usePollBlockNumber } from 'state/block/hooks';
 import PageLoader from 'components/Loader/PageLoader';
 import Unbind from 'views/Stake/Unbind';
@@ -43,7 +43,7 @@ const App: React.FC = () => {
   // useFetchProfile();
   usePollCoreFarmData();
   // pool
-  usePollCompoundingData();
+  // usePollCompoundingData();
   return (
     <Router history={history}>
       <ResetCSS />
