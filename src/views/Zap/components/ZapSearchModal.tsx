@@ -9,6 +9,7 @@ import {
   ModalHeader,
   ModalTitle,
   Text,
+  useMatchBreakpoints,
 } from '@avault/ui';
 import { chainKey } from 'config';
 import { chainId } from 'config/constants/tokens';
@@ -22,8 +23,8 @@ import { IToken, ITokenType } from '../utils/types';
 import { deweight, useZapSortedTokensByQuery } from '../utils/utils';
 import ZapCurrencyList from './ZapCurrencyList';
 const ModalContainerStyled = styled(ModalContainer)`
-  min-width: 468px;
-  max-width: 500px;
+  min-width: 380;
+  max-width: 400px;
   padding-bottom: 43px;
   position: relative;
   &:after {
@@ -34,6 +35,10 @@ const ModalContainerStyled = styled(ModalContainer)`
     position: absolute;
     bottom: -6px;
     background: ${({ theme }) => theme.colors.backgroundAlt};
+  }
+  ${({ theme }) => theme.mediaQueries.md} {
+    min-width: 468px;
+    max-width: 500px;
   }
 `;
 interface IZapSearchModalProps extends InjectedModalProps {
@@ -100,7 +105,9 @@ const ZapSearchModal = ({
     },
     [debouncedQuery, handleCurrencySelect, onDismiss, itemData],
   );
+  const { isXl, isLg } = useMatchBreakpoints();
 
+  const isMobile = !(isXl || isLg);
   return (
     <ModalContainerStyled>
       <ModalHeader>
@@ -130,7 +137,7 @@ const ZapSearchModal = ({
           </div>
         ) : null}
         <ZapCurrencyList
-          height={itemData.length > 6 ? 380 : 250}
+          height={isMobile ? 220 : itemData.length > 6 ? 380 : 250}
           currencies={itemData}
           fixedListRef={fixedList}
           selectedCurrency={selectedCurrency}

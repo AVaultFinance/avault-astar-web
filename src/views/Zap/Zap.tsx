@@ -108,7 +108,7 @@ const Zap = () => {
               <PaddingStyled>
                 <TextCol>
                   <BoldStyled>TO LP</BoldStyled>
-                  <ZapBalance currency={toCurrency} />
+                  {/* <ZapBalance currency={toCurrency} /> */}
                 </TextCol>
 
                 <TextCol>
@@ -187,5 +187,10 @@ const TitleStyled = styled(Heading)`
 const TextStyled = styled(Text)`
   font-size: 14px;
   padding-bottom: 30px;
+  font-weight: 600;
+  width: 60%;
+  ${({ theme }) => theme.mediaQueries.md} {
+    width: 100%;
+  }
 `;
 export default Zap;

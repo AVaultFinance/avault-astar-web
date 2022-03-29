@@ -4,7 +4,7 @@ export const PageContainerWrap = styled(Flex)`
   justify-content: center;
   aligncontent: center;
   flex-wrap: wrap;
-  padding-top: 20px;
+  padding-top: 60px;
   ${({ theme }) => theme.mediaQueries.md} {
     padding-top: 80px;
   }

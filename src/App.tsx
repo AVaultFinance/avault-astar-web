@@ -16,6 +16,7 @@ import { usePollBlockNumber } from 'state/block/hooks';
 import PageLoader from 'components/Loader/PageLoader';
 import Unbind from 'views/Stake/Unbind';
 import useEagerConnect from 'hooks/useEagerConnect';
+import { usePollCompoundingData } from 'state/vault/hooks';
 // import { useFetchProfile } from 'state/profile/hooks';
 // import { usePollCoreFarmData } from './state/farms/hooks';
 
@@ -42,8 +43,7 @@ const App: React.FC = () => {
   useEagerConnect();
   // useFetchProfile();
   usePollCoreFarmData();
-  // pool
-  // usePollCompoundingData();
+  usePollCompoundingData();
   return (
     <Router history={history}>
       <ResetCSS />

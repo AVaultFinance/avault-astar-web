@@ -15,7 +15,6 @@ const BodyContainer = styled.div<{ collapsed: boolean }>`
   transition: 0.15s padding;
   > .content {
     position: relative;
-    // padding-top: 72px;
     flex: 1;
   }
 `;

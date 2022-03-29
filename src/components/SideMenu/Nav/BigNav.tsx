@@ -79,6 +79,8 @@ const BigNav: FC<{ menuItems: IMenu[] }> = ({ menuItems }) => {
                   ? item.link === '/swap'
                   : ['/nft/pools', '/nft/wallet/mint', '/nft/wallet/burn'].find((p) => pathname.startsWith(p))
                   ? item.link === '/nft/pools/'
+                  : ['/stake', '/unstake'].find((p) => pathname.startsWith(p))
+                  ? item.link === '/stake'
                   : pathname.startsWith(item.link)
               )
                 ? 't'
