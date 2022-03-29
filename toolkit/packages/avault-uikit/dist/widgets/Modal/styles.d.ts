@@ -12,5 +12,6 @@ export declare const ModalBackButton: React.FC<{
     onBack: ModalProps["onBack"];
 }>;
 export declare const ModalContainer: import("styled-components").StyledComponent<"div", import("styled-components").DefaultTheme, import("../../components/Box").BoxProps & {
-    minWidth: string;
+    minWidth?: string | undefined;
+    maxWidth?: string | undefined;
 }, never>;

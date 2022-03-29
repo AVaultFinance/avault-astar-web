@@ -1,21 +1,5 @@
 import { JSBI, Percent, Token, ChainId } from '@avault/sdk';
-import {
-  BUSD,
-  DAI,
-  USDT,
-  BTCB,
-  Kaco,
-  Base_Token,
-  USDC,
-  JPYC,
-  DOT,
-  KSM,
-  ETH,
-  ALPACA,
-  CAKE,
-  chainId,
-  UST,
-} from './tokens';
+import { BUSD, DAI, USDT, BTCB, Kaco, Base_Token, USDC, JPYC, DOT, KSM, ETH, ALPACA, CAKE, chainId } from './tokens';
 
 export const ROUTER_ADDRESS = {
   [ChainId.ASTR_MAINNET]: '0xa5e48a6E56e164907263e901B98D9b11CCB46C47',

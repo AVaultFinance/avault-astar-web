@@ -166,7 +166,7 @@ const Compoundings: React.FC = () => {
         apr: getDisplayApr(Number(compounding.farm.apr), Number(compounding.farm.lpRewardsApr)),
         multiplier: compounding.farm.multiplier,
         compoundingSymbol: compounding.compounding.symbol,
-        lpLabel: compounding.lpSymbol,
+        lpLabel: compounding.lpDetail.symbol,
         token0Address,
         token1Address,
         cakePrice,
@@ -174,7 +174,7 @@ const Compoundings: React.FC = () => {
         fromSource: compounding.fromSource,
       },
       compounding: {
-        label: compounding.lpSymbol,
+        label: compounding.lpDetail.symbol,
         token0Address: token0Address,
         token1Address: token1Address,
       },

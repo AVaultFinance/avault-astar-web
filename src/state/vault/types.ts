@@ -27,7 +27,11 @@ export interface ICompoundingConfigItem {
   fromSource: IFarmProject;
   abiType: IABIType;
   swapLink: string;
-  lpSymbol: string;
+  lpDetail: {
+    symbol: string;
+    address: IAddress;
+    decimals: number;
+  };
 }
 export interface ICompoundingFarm {
   // abi
@@ -85,12 +89,7 @@ export interface ICompoundingComp {
   // calculate
   lpToCLpRate?: string;
 }
-export interface ICompounding {
-  contractAddress: IAddress;
-  fromSource: IFarmProject;
-  abiType: IABIType;
-  swapLink: string;
-  lpSymbol: string;
+export interface ICompounding extends ICompoundingConfigItem {
   compounding: ICompoundingComp;
   farm: ICompoundingFarm;
   isLoading: boolean;

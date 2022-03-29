@@ -13,7 +13,7 @@ export const ModalHeader = styled.div<{ background?: string }>`
   display: flex;
   padding: 12px 24px 0;
   ${({ theme }) => theme.mediaQueries.sm} {
-    padding: 12px 24px;
+    padding: 14px 30px;
   }
 `;
 
@@ -44,7 +44,7 @@ export const ModalBackButton: React.FC<{ onBack: ModalProps["onBack"] }> = ({ on
   );
 };
 
-export const ModalContainer = styled(Box)<{ minWidth: string }>`
+export const ModalContainer = styled(Box)<{ minWidth?: string; maxWidth?: string }>`
   overflow: hidden;
   width: 100%;
   max-height: 100vh;
@@ -54,7 +54,7 @@ export const ModalContainer = styled(Box)<{ minWidth: string }>`
   margin: 0 20px;
   ${({ theme }) => theme.mediaQueries.xs} {
     width: auto;
-    min-width: ${({ minWidth }) => minWidth};
-    max-width: 100%;
+    min-width: ${({ minWidth }) => minWidth ?? "320px"};
+    max-width: ${({ maxWidth }) => maxWidth ?? "100%"};
   }
 `;

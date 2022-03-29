@@ -42,7 +42,6 @@ const fetch = async (
   } = await fetchCompoundingABI(AVaultPCS);
 
   const { lpAddresses, poolWeight, multiplier } = await fetchMasterChefABI(masterChef, pid, compoundingData);
-
   const {
     tokenAmountMc,
     tokenAmountTotal,
@@ -57,6 +56,7 @@ const fetch = async (
     lpTokenPrice,
     lpAddressDecimals,
   } = await fetchFarmDataABI(masterChef, lpAddresses, token0Address, token1Address, priceVsBusdMap);
+  // console.log(compounding.lpDetail.symbol, lpAddresses, lpAddressDecimals);
   const lpToCLpRate =
     wantLockedTotal && compoundingTotalSupply && wantLockedTotal > 0 && compoundingTotalSupply > 0
       ? (Number(wantLockedTotal) / Number(compoundingTotalSupply)).toFixed(4)
@@ -221,6 +221,7 @@ const fetchMasterChefABI = async (masterChefAddress: string, pid: number, compou
       : [null, null];
   const allocPoint = info ? new BigNumber(info.allocPoint?._hex) : BIG_ZERO;
   const lpAddresses = info ? info.lpToken : '';
+
   const poolWeight = totalAllocPoint
     ? allocPoint.div(new BigNumber(totalAllocPoint))
     : compoundingData?.farm?.poolWeight

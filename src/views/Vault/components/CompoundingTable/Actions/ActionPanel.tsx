@@ -183,7 +183,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
       displayEarningsBalance = getFullLocalDisplayBalance(
         earnings,
         compounding.farm.lpAddressDecimals,
-        showDecimals(compounding.lpSymbol),
+        showDecimals(compounding.lpDetail.symbol),
       );
     }
   }
@@ -251,7 +251,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
             <i className="green">{compounding?.farm?.apy ? getDisplayApy(Number(compounding.farm.apy)) + '%' : ''}</i>
             <i className="grey">CTO APY: 0.00%</i>
             <i className="grey">
-              {compounding.lpSymbol} APY:
+              {compounding.lpDetail.symbol} APY:
               {compounding?.farm?.apy ? getDisplayApy(Number(compounding.farm.apy)) + '%' : ''}
             </i>
           </em>
@@ -266,9 +266,9 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
               {getFullLocalDisplayBalance(
                 new BigNumber(compounding.farm.userData.stakingTokenBalance),
                 compounding.farm.lpAddressDecimals,
-                showDecimals(compounding.lpSymbol),
+                showDecimals(compounding.lpDetail.symbol),
               )}{' '}
-              {compounding.lpSymbol}
+              {compounding.lpDetail.symbol}
             </i>
           </em>
         </p>
@@ -295,7 +295,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
           userDataReady={userDataReady}
           handleApprove={handleApprove}
           account={account}
-          lpSymbol={compounding.lpSymbol}
+          lpSymbol={compounding.lpDetail.symbol}
           contractAddress={compounding.contractAddress[chainId]}
           stakingTokenBalance={new BigNumber(compounding?.farm?.userData?.stakingTokenBalance ?? '0')}
           lpAddressDecimals={compounding.farm.lpAddressDecimals}
@@ -312,7 +312,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
             displayBalance={getFullLocalDisplayBalance(
               new BigNumber(compounding?.farm?.userData?.stakingTokenBalance ?? '0'),
               compounding.farm.lpAddressDecimals,
-              showDecimals(compounding.lpSymbol),
+              showDecimals(compounding.lpDetail.symbol),
             )}
             displayEarningsBalance={displayEarningsBalance}
             earnings={earnings}
@@ -320,7 +320,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
             userDataReady={userDataReady}
             pid={compounding.farm.pid}
             name={compounding.compounding.name}
-            lpSymbol={compounding.lpSymbol}
+            lpSymbol={compounding.lpDetail.symbol}
             index={index}
           />
           <div className="w20"></div>
@@ -333,7 +333,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
             displayBalance={getFullLocalDisplayBalance(
               new BigNumber(compounding?.farm?.userData?.stakingTokenBalance ?? '0'),
               compounding.farm.lpAddressDecimals,
-              showDecimals(compounding.lpSymbol),
+              showDecimals(compounding.lpDetail.symbol),
             )}
             displayEarningsBalance={displayEarningsBalance}
             earnings={earnings}
@@ -341,7 +341,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
             handleApprove={handleApprove}
             pid={compounding.farm.pid}
             name={compounding.compounding.name}
-            lpSymbol={compounding.lpSymbol}
+            lpSymbol={compounding.lpDetail.symbol}
             index={index}
           />
         </ActionContainer>

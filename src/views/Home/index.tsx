@@ -19,22 +19,22 @@ const Home = () => {
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" className="small">
               <defs>
                 <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="89188piuaa">
-                  <stop stop-color="#8C1AB5" offset="0%" />
-                  <stop stop-color="#17B38D" offset="100%" />
+                  <stop stopColor="#8C1AB5" offset="0%" />
+                  <stop stopColor="#17B38D" offset="100%" />
                 </linearGradient>
               </defs>
-              <path fill="url(#89188piuaa)" transform="rotate(180 6 6)" d="M6 0L12 12 0 12z" fill-rule="evenodd" />
+              <path fill="url(#89188piuaa)" transform="rotate(180 6 6)" d="M6 0L12 12 0 12z" fillRule="evenodd" />
             </svg>
           </div>
           <div className="svg">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" className="big">
               <defs>
                 <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="89188piuaa">
-                  <stop stop-color="#8C1AB5" offset="0%" />
-                  <stop stop-color="#17B38D" offset="100%" />
+                  <stop stopColor="#8C1AB5" offset="0%" />
+                  <stop stopColor="#17B38D" offset="100%" />
                 </linearGradient>
               </defs>
-              <path fill="url(#89188piuaa)" transform="rotate(180 6 6)" d="M6 0L12 12 0 12z" fill-rule="evenodd" />
+              <path fill="url(#89188piuaa)" transform="rotate(180 6 6)" d="M6 0L12 12 0 12z" fillRule="evenodd" />
             </svg>
           </div>
         </div>

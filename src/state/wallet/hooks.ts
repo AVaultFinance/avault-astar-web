@@ -57,7 +57,7 @@ export function useTokenBalancesWithLoadingIndicator(
   );
 
   const validatedTokenAddresses = useMemo(() => validatedTokens.map((vt) => vt.address), [validatedTokens]);
-
+  console.log({ address, tokens });
   const balances = useMultipleContractSingleData(validatedTokenAddresses, ERC20_INTERFACE, 'balanceOf', [address]);
 
   const anyLoading: boolean = useMemo(() => balances.some((callState) => callState.loading), [balances]);
@@ -99,16 +99,20 @@ export function useCurrencyBalances(
   account?: string,
   currencies?: (Currency | undefined)[],
 ): (CurrencyAmount | undefined)[] {
+  console.log(111);
+  console.log(999, currencies[0] instanceof Token);
   const tokens = useMemo(
     () => currencies?.filter((currency): currency is Token => currency instanceof Token) ?? [],
     [currencies],
   );
+  console.log(333, tokens);
 
   const tokenBalances = useTokenBalances(account, tokens);
   const containsBNB: boolean = useMemo(
     () => currencies?.some((currency) => currency === ETHER[chainId]) ?? false,
     [currencies],
   );
+  console.log(444, tokenBalances);
   const ethBalance = useBNBBalances(containsBNB ? [account] : []);
 
   return useMemo(

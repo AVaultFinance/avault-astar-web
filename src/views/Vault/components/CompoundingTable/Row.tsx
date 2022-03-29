@@ -143,7 +143,7 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
   const shouldRenderChild = useDelayedUnmount(actionPanelExpanded, 300);
 
   const { targetRef, tooltip, tooltipVisible } = useTooltip(
-    `1 ${details.compounding.symbol} = ${details.compounding.lpToCLpRate} ${details.lpSymbol}`,
+    `1 ${details.compounding.symbol} = ${details.compounding.lpToCLpRate} ${details.lpDetail.symbol}`,
     {
       trigger: 'hover',
       tootipStyle: { padding: '10px', whiteSpace: 'break-spaces', textAlign: 'center', fontSize: '14px' },
@@ -208,7 +208,7 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
                     <Flex alignItems="center" justifyContent="start" ref={targetRef}>
                       <Text color="text" bold fontSize="15px">
                         1 : {details.compounding.lpToCLpRate}
-                        {/* 1 {details.compounding.symbol}={details.compounding.lpToCLpRate} {details.lpSymbol} */}
+                        {/* 1 {details.compounding.symbol}={details.compounding.lpToCLpRate} {details.lpDetail.symbol} */}
                       </Text>
                       <QuestionWrapper>
                         <HelpIcon color="textSubtle" width="18px" height="18px" />
@@ -225,7 +225,7 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
                         fontSize="14px"
                         color="text"
                         fontWeight="600"
-                        decimals={showDecimals(details.lpSymbol)}
+                        decimals={showDecimals(details.lpDetail.symbol)}
                         // decimals={5}
                         value={getBalanceNumber(new BigNumber(details?.farm?.userData?.avaultAddressBalance ?? '0'))}
                       />
@@ -246,7 +246,7 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
                         fontSize="14px"
                         color="text"
                         fontWeight="600"
-                        decimals={showDecimals(details.lpSymbol)}
+                        decimals={showDecimals(details.lpDetail.symbol)}
                         value={getBalanceNumber(
                           new BigNumber(
                             details?.farm?.userData?.stakingTokenBalance
@@ -257,7 +257,7 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
                         )}
                       />
                       <Text color="text" bold fontSize="14px" paddingLeft="4px">
-                        {details.lpSymbol}
+                        {details.lpDetail.symbol}
                       </Text>
                     </Flex>
                   </td>
@@ -292,7 +292,7 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
           </CellLayout>
           <TextStyled>
             1:{`${details.compounding.lpToCLpRate}`}
-            {/* 1 {details.compounding.symbol}={details.compounding.lpToCLpRate} {details.lpSymbol} */}
+            {/* 1 {details.compounding.symbol}={details.compounding.lpToCLpRate} {details.lpDetail.symbol} */}
           </TextStyled>
         </td>
         <td></td>

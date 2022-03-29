@@ -14,11 +14,12 @@ const Modal: React.FC<ModalProps> = ({
   bodyPadding = "24px",
   headerBackground = "transparent",
   minWidth = "320px",
+  maxWidth = "100%",
   ...props
 }) => {
   const theme = useTheme();
   return (
-    <ModalContainer minWidth={minWidth} {...props}>
+    <ModalContainer minWidth={minWidth} maxWidth={maxWidth} {...props}>
       <ModalHeader background={getThemeValue(`colors.${headerBackground}`, headerBackground)(theme)}>
         <ModalTitle>
           {onBack && <ModalBackButton onBack={onBack} />}

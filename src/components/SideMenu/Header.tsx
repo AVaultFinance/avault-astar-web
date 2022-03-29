@@ -33,7 +33,7 @@ export default styled(Header)`
   // width: 100%;
 
   // z-index: ${({ theme }) => theme.zIndices.header};
-  background-color: ${({ theme }) => theme.colors.background};
+  // background-color: ${({ theme }) => theme.colors.background};
   .inner {
     max-width: 1200px;
     margin: 0 auto;
