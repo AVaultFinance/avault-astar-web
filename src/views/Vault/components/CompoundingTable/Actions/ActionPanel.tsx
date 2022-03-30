@@ -9,7 +9,7 @@ import { AprProps } from '../Apr';
 import { MultiplierProps } from '../Multiplier';
 import BigNumber from 'bignumber.js';
 import { BIG_ZERO } from 'utils/bigNumber';
-import { getFullLocalDisplayBalance } from 'utils/formatBalance';
+import { getBalanceNumber, getFullLocalDisplayBalance } from 'utils/formatBalance';
 import { useWeb3React } from '@web3-react/core';
 import MobileAction from './MobileAction';
 import { useERC20 } from 'hooks/useContract';
@@ -249,9 +249,9 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
           APY
           <em>
             <i className="green">{compounding?.farm?.apy ? getDisplayApy(Number(compounding.farm.apy)) + '%' : ''}</i>
-            <i className="grey">CTO APY: 0.00%</i>
+            <i className="grey">Avault APR: 0.00%</i>
             <i className="grey">
-              {compounding.lpDetail.symbol} APY:
+              {compounding.lpDetail.symbol} APY: &nbsp;
               {compounding?.farm?.apy ? getDisplayApy(Number(compounding.farm.apy)) + '%' : ''}
             </i>
           </em>
@@ -260,7 +260,13 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
           wallet balance
           <em>
             <i>
-              {compounding.compounding.balance} {compounding?.compounding.symbol}
+              {getBalanceNumber(new BigNumber(compounding?.farm?.userData?.avaultAddressBalance ?? '0')).toLocaleString(
+                'en-US',
+                {
+                  maximumFractionDigits: showDecimals(compounding.lpDetail.symbol),
+                },
+              )}{' '}
+              {compounding?.compounding.symbol}
             </i>
             <i>
               {getFullLocalDisplayBalance(
