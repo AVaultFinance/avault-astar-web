@@ -43,7 +43,7 @@ const Balance: React.FC<BalanceProps> = ({
         prefix={prefix}
         suffix={unit}
         decimals={decimals}
-        duration={1}
+        duration={2}
         separator=","
       />
     </Text>

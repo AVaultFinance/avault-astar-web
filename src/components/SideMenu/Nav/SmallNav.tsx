@@ -15,8 +15,16 @@ const SmallNavTooltip: FC<{
   const [menuItems, setMenuItems] = useState(_menuItems);
 
   return (
-    <NavWrap>
-      <NavWrapInner>
+    <NavWrap
+      onClick={() => {
+        setTooltipVisible(false);
+      }}
+    >
+      <NavWrapInner
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
+      >
         <HeaderFlex>
           <img src="/images/logo_beta.svg" alt="" className="logo" />
           <CloseIconStyled
@@ -168,7 +176,7 @@ const expandAnimation = keyframes`
 const NavWrapInner = styled.div`
   position: absolute;
   width: 100vw;
-  padding: 20px 30px 40px;
+  padding: 40px 30px 40px;
   border-radius: 24px 24px 0 0;
   bottom: 0;
   background: ${({ theme }) => theme.colors.backgroundAlt};
@@ -187,6 +195,11 @@ const HeaderFlex = styled(Flex)`
 `;
 const CloseIconStyled = styled(CloseIcon)`
   width: 30px;
+  fill: ${({ theme }) => theme.colors.textSubtle};
+  transition: all 0.3s ease;
+  &:hover {
+    fill: ${({ theme }) => theme.colors.text};
+  }
 `;
 const NavLink = styled(Link)<{ active: 't' | 'f' }>`
   font-size: 16px;

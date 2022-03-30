@@ -59,7 +59,7 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
         </RewardsTitleStyled>
         <ActionContentStyled disabled={disabled}>
           <LongButton
-            variant="secondary"
+            // variant="secondary"
             onClick={() => {
               onPresentComingSoon();
             }}

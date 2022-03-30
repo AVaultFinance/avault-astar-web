@@ -168,7 +168,7 @@ const useTooltip = (content: React.ReactNode, options: TooltipOptions): TooltipR
   // preventOverflow mitigates this behaviour, default 16px paddings on left and right solve the problem for all screen sizes
   // that we support.
   // Note that in the farm page where there are tooltips very close to the edge of the screen this padding works perfectly
-  // even on the iPhone 5 screen (320px wide), BUT in the storybook with the contrived example ScreenEdges example
+  // even on the iPhone 5 screen (343px wide), BUT in the storybook with the contrived example ScreenEdges example
   // iPhone 5 behaves differently overflowing beyound the edge. All paddings are identical so I have no idea why it is,
   // and fixing that seems like a very bad use of time.
   const { styles, attributes } = usePopper(targetElement, tooltipElement, {

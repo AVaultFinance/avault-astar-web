@@ -66,11 +66,15 @@ export function useZapSortedTokensByQuery(tokens: IToken[] | undefined, searchQu
   }, [tokens, searchQuery]);
 }
 
-export const useEstimatedPrice = (fromCurrency: IToken, toCurrency: IToken, val: BigNumber) => {
+export const useEstimatedPrice = (value: string, fromCurrency: IToken, toCurrency: IToken, val: BigNumber) => {
   const { priceVsBusdMap } = usePrice();
-  const [amount, setAmount] = useState('');
+  const [amount, setAmount] = useState('0');
   const [valPre, setAmountPre] = useState(BIG_ZERO);
   useEffect(() => {
+    if (value === '' && amount !== '0') {
+      setAmount('0');
+      return;
+    }
     (async () => {
       if (val && val.gt(0) && valPre.toNumber() !== val.toNumber()) {
         setAmountPre(val);
@@ -105,7 +109,7 @@ export const useEstimatedPrice = (fromCurrency: IToken, toCurrency: IToken, val:
         // );
         setAmount(
           toAmount.toString(2) === 'NaN' || !toAmount.gt(0)
-            ? ''
+            ? '0'
             : Number(toAmount.toFixed(6, BigNumber.ROUND_DOWN)).toLocaleString('en-US', {
                 maximumFractionDigits: 6,
               }),
@@ -113,7 +117,7 @@ export const useEstimatedPrice = (fromCurrency: IToken, toCurrency: IToken, val:
       }
     })();
     // eslint-disable-next-line
-  }, [val]);
+  }, [value, val]);
   return amount;
 };
 

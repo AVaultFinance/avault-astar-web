@@ -31,8 +31,8 @@ export default styled(Header)`
   // position: fixed;
   // top: 0px;
   // width: 100%;
-
-  // z-index: ${({ theme }) => theme.zIndices.header};
+  position: relative;
+  z-index: 999;
   // background-color: ${({ theme }) => theme.colors.background};
   .inner {
     max-width: 1200px;

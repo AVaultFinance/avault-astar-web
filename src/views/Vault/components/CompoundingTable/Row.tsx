@@ -66,6 +66,7 @@ const TextStyled = styled(Text)`
   height: 24px;
   line-height: 24px;
   border-radius: 8px;
+  font-weight: 600;
   background: ${({ theme }) => theme.colors.background02};
 `;
 const StyledTr = styled.tr<{ isLast: boolean }>`
@@ -197,7 +198,7 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
                 return (
                   <td key={key}>
                     <Text color="text" bold fontSize="15px">
-                      $ {details.compounding.liquidity}
+                      ${details.compounding.liquidity}
                     </Text>
                   </td>
                 );
@@ -205,12 +206,12 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
                 return (
                   <td key={key}>
                     {tooltipVisible && tooltip}
-                    <Flex alignItems="center" justifyContent="start" ref={targetRef}>
+                    <Flex alignItems="center" justifyContent="start">
                       <Text color="text" bold fontSize="15px">
                         1 : {details.compounding.lpToCLpRate}
                         {/* 1 {details.compounding.symbol}={details.compounding.lpToCLpRate} {details.lpDetail.symbol} */}
                       </Text>
-                      <QuestionWrapper>
+                      <QuestionWrapper ref={targetRef}>
                         <HelpIcon color="textSubtle" width="18px" height="18px" />
                       </QuestionWrapper>
                     </Flex>
@@ -220,7 +221,7 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
                 return (
                   <td key={key}>
                     {balanceTooltipVisible && balanceTooltip}
-                    <Flex alignItems="center" justifyContent="start" ref={balanceTargetRef}>
+                    <Flex alignItems="center" justifyContent="start">
                       <Balance
                         fontSize="14px"
                         color="text"
@@ -237,7 +238,7 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
                         )} */}
                         {details.compounding.symbol}
                       </Text>
-                      <QuestionWrapper>
+                      <QuestionWrapper ref={balanceTargetRef}>
                         <HelpIcon color="textSubtle" width="18px" height="18px" />
                       </QuestionWrapper>
                     </Flex>

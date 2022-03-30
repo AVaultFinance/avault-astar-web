@@ -23,6 +23,7 @@ import useActiveWeb3React from 'hooks/useActiveWeb3React';
 import { DEFAULT_GAS_LIMIT } from 'config';
 import useDebounce from 'hooks/useDebounce';
 import useAuth from 'hooks/useAuth';
+import ArrowDown from 'views/Stake/components/svg/arrow_down';
 const Zap = () => {
   const { account } = useActiveWeb3React();
   const [fromCurrency, setFromCurrency] = useState(_fromCurrency);
@@ -32,7 +33,7 @@ const Zap = () => {
   const { handleZapClick } = useZapContract(zapAddress, fromCurrency, toCurrency);
   const [pendingTx, setPendingTx] = useState(false);
   const [pendingTxSuccess, setPendingTxSuccess] = useState(true);
-  const valNumber = useDebounce(new BigNumber(val), 200);
+  const valNumber = useDebounce(new BigNumber(val ?? '0'), 200);
   const { toastSuccess, toastError, toastWarning } = useToast();
   const handleChange = useCallback(
     (e: React.FormEvent<HTMLInputElement>) => {
@@ -67,7 +68,7 @@ const Zap = () => {
       setVal(fullBalance);
     }
   }, [fullBalance, toastWarning, setVal, fromCurrency]);
-  const EstimatedPrice = useEstimatedPrice(fromCurrency, toCurrency, valNumber);
+  const EstimatedPrice = useEstimatedPrice(val, fromCurrency, toCurrency, valNumber);
   const zapComfirm = useCallback(async () => {
     setPendingTx(true);
     try {
@@ -157,6 +158,7 @@ const Zap = () => {
                     otherCurrency={toCurrency}
                     setCurrency={(currency: IToken) => {
                       localStorage.setItem(zapLocalFromCurrency, JSON.stringify(currency));
+                      setVal('');
                       setFromCurrency(currency);
                     }}
                     isTo={false}
@@ -184,13 +186,17 @@ const Zap = () => {
                     otherCurrency={fromCurrency}
                     setCurrency={(currency: IToken) => {
                       localStorage.setItem(zapLocalToCurrency, JSON.stringify(currency));
+                      setVal('');
                       setToCurrency(currency);
                     }}
                     isTo={true}
                   />
-                  <Heading>{val ? EstimatedPrice : ''}</Heading>
+                  <HeadingStyled isSmall={EstimatedPrice === '0'} isLong={EstimatedPrice.length > 16}>
+                    {EstimatedPrice}
+                  </HeadingStyled>
                 </TextCol>
               </PaddingStyled>
+              <ArrowDown />
             </InnerStyled>
             <Button
               isLoading={pendingTx}
@@ -222,6 +228,10 @@ const Zap = () => {
     </PageLayout>
   );
 };
+const HeadingStyled = styled(Heading)<{ isSmall: boolean; isLong: boolean }>`
+  font-size: ${({ isLong }) => (isLong ? '14px' : '18px')};
+  color: ${({ theme, isSmall }) => (isSmall ? theme.colors.textSubtle : theme.colors.text)};
+`;
 const ZapBgStyled = styled(ZapBg)`
   position: absolute;
   width: 210px;
@@ -242,6 +252,7 @@ const InnerStyled = styled.div`
   background: ${({ theme }) => theme.colors.background};
   border-radius: 12px;
   margin-bottom: 30px;
+  position: relative;
 `;
 const StyledInput = styled(Input)`
   box-shadow: none;
@@ -250,6 +261,7 @@ const StyledInput = styled(Input)`
   background-color: rgba(0, 0, 0, 0);
   width: 80%;
   text-align: right;
+  font-size: 18px;
 `;
 const TextCol = styled(Flex)`
   align-items: center;

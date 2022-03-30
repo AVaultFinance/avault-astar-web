@@ -11,7 +11,7 @@ export const ModalHeader = styled.div<{ background?: string }>`
   background: ${({ background }) => background || "transparent"};
   /* border-bottom: 1px solid ${({ theme }) => theme.colors.cardBorder}; */
   display: flex;
-  padding: 12px 24px 0;
+  padding: 12px 16px 0;
   ${({ theme }) => theme.mediaQueries.sm} {
     padding: 14px 30px;
   }
@@ -54,7 +54,7 @@ export const ModalContainer = styled(Box)<{ minWidth?: string; maxWidth?: string
   margin: 0 20px;
   ${({ theme }) => theme.mediaQueries.xs} {
     width: auto;
-    min-width: ${({ minWidth }) => minWidth ?? "320px"};
+    min-width: ${({ minWidth }) => minWidth ?? "343px"};
     max-width: ${({ maxWidth }) => maxWidth ?? "100%"};
   }
 `;

@@ -36,7 +36,7 @@ const LabelStyled = styled.div`
 
 const TokenWrapper = styled.div`
   padding-right: 8px;
-  width: 44px;
+  width: 55px;
   .img {
     display: block;
     width: 62%;

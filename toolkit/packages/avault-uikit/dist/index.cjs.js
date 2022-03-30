@@ -3623,7 +3623,7 @@ var useTooltip = function (content, options) {
     // preventOverflow mitigates this behaviour, default 16px paddings on left and right solve the problem for all screen sizes
     // that we support.
     // Note that in the farm page where there are tooltips very close to the edge of the screen this padding works perfectly
-    // even on the iPhone 5 screen (320px wide), BUT in the storybook with the contrived example ScreenEdges example
+    // even on the iPhone 5 screen (343px wide), BUT in the storybook with the contrived example ScreenEdges example
     // iPhone 5 behaves differently overflowing beyound the edge. All paddings are identical so I have no idea why it is,
     // and fixing that seems like a very bad use of time.
     var _k = reactPopper.usePopper(targetElement, tooltipElement, {
@@ -3649,7 +3649,7 @@ var useTooltip = function (content, options) {
     };
 };
 
-var ModalHeader = styled__default['default'].div(templateObject_1$j || (templateObject_1$j = __makeTemplateObject(["\n  align-items: center;\n  background: ", ";\n  /* border-bottom: 1px solid ", "; */\n  display: flex;\n  padding: 12px 24px 0;\n  ", " {\n    padding: 14px 30px;\n  }\n"], ["\n  align-items: center;\n  background: ", ";\n  /* border-bottom: 1px solid ", "; */\n  display: flex;\n  padding: 12px 24px 0;\n  ", " {\n    padding: 14px 30px;\n  }\n"])), function (_a) {
+var ModalHeader = styled__default['default'].div(templateObject_1$j || (templateObject_1$j = __makeTemplateObject(["\n  align-items: center;\n  background: ", ";\n  /* border-bottom: 1px solid ", "; */\n  display: flex;\n  padding: 12px 16px 0;\n  ", " {\n    padding: 14px 30px;\n  }\n"], ["\n  align-items: center;\n  background: ", ";\n  /* border-bottom: 1px solid ", "; */\n  display: flex;\n  padding: 12px 16px 0;\n  ", " {\n    padding: 14px 30px;\n  }\n"])), function (_a) {
     var background = _a.background;
     return background || "transparent";
 }, function (_a) {
@@ -3682,7 +3682,7 @@ var ModalContainer = styled__default['default'](Box)(templateObject_4$2 || (temp
     return theme.mediaQueries.xs;
 }, function (_a) {
     var minWidth = _a.minWidth;
-    return minWidth !== null && minWidth !== void 0 ? minWidth : "320px";
+    return minWidth !== null && minWidth !== void 0 ? minWidth : "343px";
 }, function (_a) {
     var maxWidth = _a.maxWidth;
     return maxWidth !== null && maxWidth !== void 0 ? maxWidth : "100%";
@@ -3690,7 +3690,7 @@ var ModalContainer = styled__default['default'](Box)(templateObject_4$2 || (temp
 var templateObject_1$j, templateObject_2$9, templateObject_3$4, templateObject_4$2;
 
 var Modal = function (_a) {
-    var title = _a.title, onDismiss = _a.onDismiss, onBack = _a.onBack, children = _a.children, _b = _a.hideCloseButton, hideCloseButton = _b === void 0 ? false : _b, _c = _a.bodyPadding, bodyPadding = _c === void 0 ? "24px" : _c, _d = _a.headerBackground, headerBackground = _d === void 0 ? "transparent" : _d, _e = _a.minWidth, minWidth = _e === void 0 ? "320px" : _e, _f = _a.maxWidth, maxWidth = _f === void 0 ? "100%" : _f, props = __rest(_a, ["title", "onDismiss", "onBack", "children", "hideCloseButton", "bodyPadding", "headerBackground", "minWidth", "maxWidth"]);
+    var title = _a.title, onDismiss = _a.onDismiss, onBack = _a.onBack, children = _a.children, _b = _a.hideCloseButton, hideCloseButton = _b === void 0 ? false : _b, _c = _a.bodyPadding, bodyPadding = _c === void 0 ? "24px" : _c, _d = _a.headerBackground, headerBackground = _d === void 0 ? "transparent" : _d, _e = _a.minWidth, minWidth = _e === void 0 ? "343px" : _e, _f = _a.maxWidth, maxWidth = _f === void 0 ? "100%" : _f, props = __rest(_a, ["title", "onDismiss", "onBack", "children", "hideCloseButton", "bodyPadding", "headerBackground", "minWidth", "maxWidth"]);
     var theme = styled.useTheme();
     return (React__default['default'].createElement(ModalContainer, __assign({ minWidth: minWidth, maxWidth: maxWidth }, props),
         React__default['default'].createElement(ModalHeader, { background: getThemeValue("colors." + headerBackground, headerBackground)(theme) },
@@ -4643,7 +4643,7 @@ var alertTypeMap = (_a = {},
     _a[types.DANGER] = variants$5.DANGER,
     _a[types.WARNING] = variants$5.WARNING,
     _a);
-var StyledToast = styled__default['default'].div(templateObject_1$5 || (templateObject_1$5 = __makeTemplateObject(["\n  right: 0;\n  position: fixed;\n  max-width: calc(100% - 32px);\n  transition: all 250ms ease-in;\n  width: 100%;\n\n  ", " {\n    max-width: 280px;\n  }\n"], ["\n  right: 0;\n  position: fixed;\n  max-width: calc(100% - 32px);\n  transition: all 250ms ease-in;\n  width: 100%;\n\n  ", " {\n    max-width: 280px;\n  }\n"])), function (_a) {
+var StyledToast = styled__default['default'].div(templateObject_1$5 || (templateObject_1$5 = __makeTemplateObject(["\n  right: 0;\n  position: fixed;\n  max-width: calc(80% - 32px);\n  transition: all 250ms ease-in;\n  width: 80%;\n\n  ", " {\n    max-width: 280px;\n  }\n"], ["\n  right: 0;\n  position: fixed;\n  max-width: calc(80% - 32px);\n  transition: all 250ms ease-in;\n  width: 80%;\n\n  ", " {\n    max-width: 280px;\n  }\n"])), function (_a) {
     var theme = _a.theme;
     return theme.mediaQueries.sm;
 });

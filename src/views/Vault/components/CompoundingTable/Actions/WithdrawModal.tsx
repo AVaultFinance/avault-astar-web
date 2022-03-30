@@ -108,7 +108,7 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
   const fullBalanceNumber = new BigNumber(fullBalance);
 
   return (
-    <Modal title="Withdraw" minWidth={isMobile ? '280px' : '520px'} bodyPadding="0 24px 34px" onDismiss={onDismiss}>
+    <Modal title="Withdraw" minWidth={isMobile ? '343px' : '520px'} bodyPadding="0 16px 20px" onDismiss={onDismiss}>
       <Text fontSize="12px" fontWeight="500" textAlign="right">
         LP Withdrawable: {displayEarningsBalance}
         {lpSymbol ? ` ${lpSymbol}` : ''}
@@ -116,7 +116,7 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
       <ModalInputStyled>
         <CInput autoFocus={true} onSelectMax={handleSelectMax} onChange={handleChange} value={val} />
         <Button
-          marginTop="8px"
+          variant="tertiary"
           disabled={pendingTx || !valNumber.isFinite() || valNumber.eq(0) || valNumber.gt(fullBalanceNumber)}
           height={isMobile ? '38px' : '48px'}
           isLoading={pendingTx}

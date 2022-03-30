@@ -38,8 +38,8 @@ const Container = styled.div`
 const TokenWrapper = styled.div`
   margin-right: 8px;
 
-  width: 40px;
-  height: 40px;
+  width: 47px;
+  height: 47px;
   text-align: center;
 
   background-image: url('./images/farm_img_bg.svg');
@@ -55,6 +55,7 @@ const TokenWrapper = styled.div`
   }
   ${({ theme }) => theme.mediaQueries.sm} {
     margin-right: 20px;
+    margin-bottom: 0;
     // width: 70px;
   }
   img {
@@ -103,6 +104,9 @@ const Farm: React.FunctionComponent<FarmProps> = ({ token, quoteToken, label, pi
 const DivStyled = styled.div`
   margin-bottom: 20px;
   ${({ theme }) => theme.mediaQueries.md} {
+    margin-bottom: 0;
+  }
+  ${({ theme }) => theme.mediaQueries.sm} {
     margin-bottom: 0;
   }
 `;

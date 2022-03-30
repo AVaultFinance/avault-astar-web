@@ -1,5 +1,6 @@
 import { Button, Flex, useModal } from '@avault/ui';
 import BigNumber from 'bignumber.js';
+import Loading from 'components/TransactionConfirmationModal/Loading';
 import { FC } from 'react';
 import styled from 'styled-components';
 import DepositModal from './DepositModal';
@@ -13,6 +14,7 @@ interface MobileActionProps {
   isApproved: boolean;
   handleApprove: any;
   requestedApproval: boolean;
+  requestedApprovalSuccess: boolean;
   account: string;
   pid: number;
   lpSymbol?: string;
@@ -26,10 +28,10 @@ interface MobileActionProps {
 const Container = styled(Flex)`
   justify-content: space-between;
   align-items: center;
-  margin-top: 10px;
+  margin-top: 20px;
 `;
 const ButtonStyled = styled(Button)`
-  width: 45%;
+  width: 46%;
   height: 36px;
 `;
 const MobileAction: FC<MobileActionProps> = ({
@@ -38,6 +40,7 @@ const MobileAction: FC<MobileActionProps> = ({
   handleApprove,
   earnings,
   requestedApproval,
+  requestedApprovalSuccess,
   account,
   displayBalance,
   lpSymbol,
@@ -80,8 +83,14 @@ const MobileAction: FC<MobileActionProps> = ({
           </ButtonStyled>
         </>
       ) : (
-        <LongButton disabled={requestedApproval || !userDataReady} onClick={handleApprove} variant="secondary">
+        <LongButton
+          disabled={requestedApproval || !userDataReady}
+          onClick={handleApprove}
+          isLoading={requestedApproval}
+          variant="secondary"
+        >
           {account ? 'Approve' : 'Connect Wallet'}
+          <Loading isLoading={requestedApproval} success={requestedApprovalSuccess} />
         </LongButton>
       )}
     </Container>

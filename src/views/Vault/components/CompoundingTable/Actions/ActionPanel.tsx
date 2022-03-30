@@ -287,6 +287,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
       </DetailContainer>
       {isMobile ? (
         <MobileAction
+          requestedApprovalSuccess={requestedApprovalSuccess}
           lpToCLpRate={compounding.compounding.lpToCLpRate}
           requestedApproval={requestedApproval}
           isApproved={isApproved}
@@ -294,7 +295,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
           displayBalance={getFullLocalDisplayBalance(
             new BigNumber(compounding.farm.userData.stakingTokenBalance),
             compounding.farm.lpAddressDecimals,
-            3,
+            showDecimals(compounding.lpDetail.symbol),
           )}
           displayEarningsBalance={displayEarningsBalance}
           earnings={earnings}

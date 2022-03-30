@@ -38,6 +38,7 @@ const ZapCurrencyInputPanel = ({
 const TokenStyled = styled(Heading)`
   font-size: 15px;
   font-weight: 600;
+  white-space: nowrap;
   margin-right: 8px;
 `;
 const FlexCol = styled(Flex)`

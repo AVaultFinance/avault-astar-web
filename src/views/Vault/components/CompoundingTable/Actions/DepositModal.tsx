@@ -107,7 +107,7 @@ const DepositModal: React.FC<DepositModalProps> = ({
   }, [val, account, compoundings, index, dispatch, lpSymbol, onDeposit, toastError, toastSuccess]);
 
   return (
-    <Modal title={'Deposit'} minWidth={isMobile ? '280px' : '520px'} bodyPadding="0 24px 34px" onDismiss={onDismiss}>
+    <Modal title={'Deposit'} minWidth={isMobile ? '343px' : '520px'} bodyPadding="0 16px 20px" onDismiss={onDismiss}>
       <Text fontSize="12px" fontWeight="500" textAlign="right">
         {/* {lpSymbol ?? ''} */}
         LP Balance: {displayBalance}
@@ -115,6 +115,8 @@ const DepositModal: React.FC<DepositModalProps> = ({
       <ModalInputStyled>
         <CInput value={val} autoFocus={true} onSelectMax={handleSelectMax} onChange={handleChange} />
         <ButtonStyled
+          variant="tertiary"
+          height={isMobile ? '38px' : '48px'}
           isLoading={pendingTx}
           isMobile={isMobile}
           disabled={pendingTx || !valNumber.isFinite() || valNumber.eq(0) || valNumber.gt(fullBalanceNumber)}

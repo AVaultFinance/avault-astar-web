@@ -28,7 +28,7 @@ const UserWidget = () => {
       {/* <SwitchChain /> */}
       {/* <Flex alignItems="center" justifyContent="start"> */}
       <TextLinerStyle>
-        <p>TVL: $ &nbsp;</p>
+        <p>TVL: $</p>
         <Balance color="none" fontSize="18px" fontWeight="600" decimals={2} value={Number(allTotal)} />
       </TextLinerStyle>
       {/* </Flex> */}

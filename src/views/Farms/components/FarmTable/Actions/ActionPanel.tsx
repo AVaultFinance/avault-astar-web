@@ -100,7 +100,7 @@ const DetailContainer = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.cardBorder};
   border-radius: ${({ theme }) => theme.radii.card};
   padding: 8px 16px;
-  margin-top: 14px;
+  margin-top: 12px;
   p {
     display: flex;
     justify-content: space-between;
@@ -114,6 +114,8 @@ const DetailContainer = styled.div`
     font-style: normal;
     color: ${({ theme }) => theme.colors.text};
     &.green {
+      font-size: 14px;
+      font-weight: 600;
       color: ${({ theme }) => theme.colors.success};
     }
   }

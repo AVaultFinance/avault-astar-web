@@ -123,11 +123,7 @@ const Compoundings: React.FC = () => {
       const side = sortDir === ISortDir.default || sortDir === ISortDir.down ? 'desc' : 'asc';
       switch (sortKey) {
         case 'apy':
-          return orderBy(
-            compoundings,
-            (compounding: ICompounding) => compounding.farm.apr + compounding.farm.lpRewardsApr,
-            side,
-          );
+          return orderBy(compoundings, (compounding: ICompounding) => compounding.farm.apy, side);
         case 'multiplier':
           return orderBy(
             compoundings,
@@ -143,7 +139,8 @@ const Compoundings: React.FC = () => {
             side,
           );
         case 'liquidity':
-          return orderBy(compoundings, (compounding: ICompounding) => Number(compounding.farm.liquidity), side);
+          console.log(compoundings.map((v) => v.farm.apy));
+          return orderBy(compoundings, (compounding: ICompounding) => Number(compounding.compounding.liquidity), side);
         default:
           return compoundings;
       }

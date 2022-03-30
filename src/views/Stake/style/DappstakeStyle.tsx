@@ -44,6 +44,7 @@ export const StyledInput = styled(Input)`
   background-color: rgba(0, 0, 0, 0);
   width: 80%;
   text-align: right;
+  font-size: 18px;
 `;
 // fontSize="12px" style={{ cursor: 'pointer' }} color="#1BD3D5" ml="8px"
 

@@ -25,7 +25,7 @@ it("renders correctly", () => {
     }
 
     .c0 {
-      min-width: 320px;
+      min-width: 343px;
     }
 
     .c10 {
@@ -162,7 +162,7 @@ it("renders correctly", () => {
     @media screen and (min-width:370px) {
       .c1 {
         width: auto;
-        min-width: 320px;
+        min-width: 343px;
         max-width: 100%;
       }
     }

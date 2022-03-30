@@ -12,11 +12,17 @@ body {
   background-position: center top;
   background-repeat: no-repeat;
   margin-bottom: -40px;
-  div.inner{
-    border-bottom: none!important;
-  }
-  .inner > .right{
-    background-color: transparent!important;
+  @media screen and (max-width: 852px){
+    div.inner{
+      border-bottom: none!important;
+    }
+    .inner > .right{
+      background-color: transparent!important;
+    }
+    .content{
+      margin-bottom: 62px;
+      min-height: 83vh;
+    }
   }
   ${({ theme }) => theme.mediaQueries.md} {
     background-image: url('./images/stake/stake_bg.svg');

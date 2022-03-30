@@ -8,11 +8,11 @@ it("renders ConnectModal correctly", () => {
   expect(asFragment()).toMatchInlineSnapshot(`
     <DocumentFragment>
       .c0 {
-      min-width: 320px;
+      min-width: 343px;
     }
 
     .c10 {
-      width: 320px;
+      width: 343px;
     }
 
     .c12 {
@@ -363,7 +363,7 @@ it("renders ConnectModal correctly", () => {
     @media screen and (min-width:370px) {
       .c1 {
         width: auto;
-        min-width: 320px;
+        min-width: 343px;
         max-width: 100%;
       }
     }
@@ -404,7 +404,7 @@ it("renders ConnectModal correctly", () => {
         </div>
         <div
           class="c10 c3 c11"
-          width="320px,,340px"
+          width="343px,,340px"
         >
           <div
             class="c12 c13"
