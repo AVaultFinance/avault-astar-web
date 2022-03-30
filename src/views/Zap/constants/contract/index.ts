@@ -3,62 +3,49 @@ import { chainId } from 'config/constants/tokens';
 import { Contract } from 'ethers';
 import { useContract } from 'hooks/useContract';
 import { useCallback } from 'react';
-import { calculateGasMargin } from 'utils';
 import { BIG_TEN } from 'utils/bigNumber';
+import { callWithEstimateGas } from 'utils/calls';
 import { IToken, ITokenType } from 'views/Zap/utils/types';
 import zapAbi from './zapAbi.json';
-function useZapContractFn(zapAddress: string, withSignerIfPossible?: boolean): Contract | null {
-  return useContract(zapAddress, zapAbi, withSignerIfPossible);
+
+export const zapAddress = '0x5Af88505CF2cE57bb5e36816d7853A221F6Fc981';
+
+function useZapContractFn(zapAddress: string): Contract | null {
+  return useContract(zapAddress, zapAbi, true);
 }
 
 const useZapContract = (zapAddress: string, fromCurrency: IToken, toCurrency: IToken) => {
   const contract = useZapContractFn(zapAddress);
-  // const gasPrice = useGasPrice()
   const handleZapClick = useCallback(
-    async (val: string) => {
+    async (val: string, account: string) => {
       try {
         const value = parseInt(new BigNumber(val).times(BIG_TEN.pow(fromCurrency.decimals)).toString());
-        let tx = null;
-
-        if (fromCurrency.type === ITokenType.TOKEN && toCurrency.type === ITokenType.LP) {
+        if (
+          fromCurrency.type === ITokenType.TOKEN &&
+          (toCurrency.type === ITokenType.LP || toCurrency.type === ITokenType.TOKEN)
+        ) {
           // ERC20 -> LP
-          const params = {
-            address: fromCurrency.address[chainId],
-            value: value,
-            toCurrency: toCurrency.address[chainId],
-          };
-          const estimatedGas = await contract.estimateGas.zapInToken(...Object.values(params)).catch(() => {
-            return contract.estimateGas.zapInToken(...Object.values(params));
-          });
-          tx = await contract.zapInToken(fromCurrency.address[chainId], value, toCurrency.address[chainId], {
-            gasLimit: calculateGasMargin(estimatedGas),
-          });
-        } else if (fromCurrency.type === ITokenType.MAIN && toCurrency.type === ITokenType.TOKEN) {
-          const params = {
-            address: toCurrency.address[chainId],
-          };
-          const estimatedGas = await contract.estimateGas.zapInToken(...Object.values(params)).catch(() => {
-            return contract.estimateGas.zapInToken(...Object.values(params));
-          });
-          //ETH -> LP | ERC20
-          tx = await contract.zapInToken(params, {
-            gasLimit: calculateGasMargin(estimatedGas),
-            value: value,
-          });
-        } else if (fromCurrency.type === ITokenType.TOKEN && toCurrency.type === ITokenType.MAIN) {
-          const params = {
-            address: toCurrency.address[chainId],
-          };
-          const estimatedGas = await contract.estimateGas.zapOut(...Object.values(params)).catch(() => {
-            return contract.estimateGas.zapOut(...Object.values(params));
-          });
-          //ETH -> LP | ERC20
-          tx = await contract.zapOut(params, {
-            gasLimit: calculateGasMargin(estimatedGas),
-            value: value,
-          });
+          // ERC20 -> ERC20
+          return await callWithEstimateGas(contract, 'zapInToken', [
+            fromCurrency.address[chainId],
+            value,
+            toCurrency.address[chainId],
+          ]);
+        } else if (
+          fromCurrency.type === ITokenType.MAIN &&
+          (toCurrency.type === ITokenType.LP || toCurrency.type === ITokenType.TOKEN)
+        ) {
+          // ETH -> LP
+          // ETH -> ERC20
+          return await callWithEstimateGas(contract, 'zapIn', [toCurrency.address[chainId]], { value, from: account });
+        } else if (
+          (fromCurrency.type === ITokenType.LP || fromCurrency.type === ITokenType.TOKEN) &&
+          (toCurrency.type === ITokenType.TOKEN || toCurrency.type === ITokenType.MAIN)
+        ) {
+          // LP -> ERC20
+          // ERC20 -> ETH
+          return await callWithEstimateGas(contract, 'zapOut', [fromCurrency.address[chainId], value]);
         }
-        return tx;
       } catch (e) {
         return false;
       }

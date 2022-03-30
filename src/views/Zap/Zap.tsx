@@ -4,7 +4,7 @@ import { BgGlobalStyle } from 'style/Global';
 import styled from 'styled-components';
 import { W480BorderPageLayout, PageContainerWrap, MaxButton, TableContent } from 'style/SmallBorderPageLayout';
 import ZapBg from './components/ZapBg';
-import { fromCurrency as _fromCurrency, toCurrency as _toCurrency, zapAddress } from './constants/data';
+import { fromCurrency as _fromCurrency, toCurrency as _toCurrency } from './constants/data';
 import { useCallback, useState } from 'react';
 import ZapCurrencyInputPanel from './components/ZapCurrencyInputPanel';
 import { IToken } from './utils/types';
@@ -13,10 +13,14 @@ import { BIG_ZERO } from 'utils/bigNumber';
 import BigNumber from 'bignumber.js';
 import useToast from 'hooks/useToast';
 import { useEstimatedPrice } from './utils/utils';
-import useZapContract from './constants/contract';
+import useZapContract, { zapAddress } from './constants/contract';
 import Loading from 'components/TransactionConfirmationModal/Loading';
+import useActiveWeb3React from 'hooks/useActiveWeb3React';
+import { DEFAULT_GAS_LIMIT } from 'config';
+import useDebounce from 'hooks/useDebounce';
 
 const Zap = () => {
+  const { account } = useActiveWeb3React();
   const [fromCurrency, setFromCurrency] = useState(_fromCurrency);
   const [toCurrency, setToCurrency] = useState(_toCurrency);
   const [fullBalance, setMax] = useState(BIG_ZERO);
@@ -24,7 +28,7 @@ const Zap = () => {
   const { handleZapClick } = useZapContract(zapAddress, fromCurrency, toCurrency);
   const [pendingTx, setPendingTx] = useState(false);
   const [pendingTxSuccess, setPendingTxSuccess] = useState(true);
-  const valNumber = new BigNumber(val);
+  const valNumber = useDebounce(new BigNumber(val), 200);
   const { toastSuccess, toastError } = useToast();
   const handleChange = useCallback(
     (e: React.FormEvent<HTMLInputElement>) => {
@@ -35,13 +39,19 @@ const Zap = () => {
     [setVal],
   );
   const handleSelectMax = useCallback(() => {
-    setVal(fullBalance.toString());
+    // setVal(fullBalance.toString());
+    setVal(
+      parseInt(`${fullBalance.toNumber() - DEFAULT_GAS_LIMIT * 1000000000}`)
+        .toFixed(3)
+        .toString(),
+    );
   }, [fullBalance, setVal]);
   const EstimatedPrice = useEstimatedPrice(fromCurrency, toCurrency, valNumber);
   const zapComfirm = useCallback(async () => {
     setPendingTx(true);
     try {
-      const res = await handleZapClick(val);
+      const res = await handleZapClick(val, account);
+      console.log(res);
       if (res) {
         toastSuccess('Staked!', 'Your funds have been staked in the farm');
         setTimeout(() => {
@@ -64,7 +74,7 @@ const Zap = () => {
       setVal('');
       setPendingTx(false);
     }
-  }, [fromCurrency, toCurrency, val, handleZapClick, toastSuccess, toastError]);
+  }, [account, fromCurrency, toCurrency, val, handleZapClick, toastSuccess, toastError]);
   return (
     <PageLayout>
       <BgGlobalStyle />
@@ -78,7 +88,7 @@ const Zap = () => {
                 <TextCol>
                   <BoldStyled>From</BoldStyled>
                   <TextCol>
-                    <ZapBalance currency={fromCurrency} setMax={setMax} />
+                    <ZapBalance account={account} currency={fromCurrency} setMax={setMax} />
                     <MaxButtonStyled variant="text" onClick={handleSelectMax}>
                       Max
                     </MaxButtonStyled>

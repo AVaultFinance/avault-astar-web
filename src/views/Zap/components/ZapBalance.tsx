@@ -2,14 +2,12 @@ import { ETHER, Token } from '@avault/sdk';
 import { Flex, Skeleton } from '@avault/ui';
 import BigNumber from 'bignumber.js';
 import { chainId } from 'config/constants/tokens';
-import useActiveWeb3React from 'hooks/useActiveWeb3React';
 import { useEffect } from 'react';
 import { useCurrencyBalance } from 'state/wallet/hooks';
 import styled from 'styled-components';
 import { showDecimals } from 'views/Vault/utils';
 import { IToken } from '../utils/types';
-const ZapBalance = ({ currency, setMax }: { currency: IToken; setMax?: any }) => {
-  const { account } = useActiveWeb3React();
+const ZapBalance = ({ currency, setMax, account }: { currency: IToken; setMax?: any; account: string }) => {
   const _currency =
     currency.address && currency.address[chainId]
       ? new Token(chainId, currency.address[chainId], 18, currency.symbol, currency.name)

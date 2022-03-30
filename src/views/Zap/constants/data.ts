@@ -4,7 +4,6 @@ import { ICompoundingConfigItem } from 'state/vault/types';
 import { IToken, ITokenType } from '../utils/types';
 import { chainKey } from 'config';
 import { CHAINKEY, Currency } from '@avault/sdk';
-export const zapAddress = '';
 const _TokenALL = compounding.map((v: ICompoundingConfigItem) => {
   const [symbol0, symbol1] = v.lpDetail.symbol.replace(' LP', '').split('-');
   const _v0 = symbol0.toLowerCase() === 'kac' ? 'kaco' : symbol0.toLowerCase();

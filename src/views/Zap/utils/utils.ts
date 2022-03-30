@@ -1,9 +1,9 @@
 import BigNumber from 'bignumber.js';
 import { chainKey } from 'config';
 import { chainId, main_tokens } from 'config/constants/tokens';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { usePrice } from 'state/price/hooks';
-import { BIG_ONE, BIG_TEN, BIG_ZERO } from 'utils/bigNumber';
+import { BIG_TEN, BIG_ZERO } from 'utils/bigNumber';
 import { IToken } from './types';
 import erc20 from 'config/abi/erc20.json';
 import multicall from 'utils/multicall';
@@ -11,10 +11,8 @@ import { getBalanceAmount } from 'utils/formatBalance';
 
 export const isCurrencyEquals = (selectedCurrency: IToken, currency: IToken) => {
   if (!selectedCurrency.address && !currency.address) {
-    // console.log(111);
     return true;
   }
-  // console.log(selectedCurrency.address, currency.address);
   if (selectedCurrency.address && currency.address) {
     if (selectedCurrency.address[chainId].toLowerCase() === currency.address[chainId].toLowerCase()) {
       return true;
@@ -71,47 +69,51 @@ export function useZapSortedTokensByQuery(tokens: IToken[] | undefined, searchQu
 export const useEstimatedPrice = (fromCurrency: IToken, toCurrency: IToken, val: BigNumber) => {
   const { priceVsBusdMap } = usePrice();
   const [amount, setAmount] = useState('');
-  useMemo(async () => {
-    const fromCurrencyAddress = fromCurrency.address
-      ? fromCurrency.address[chainId].toLowerCase()
-      : main_tokens[chainKey.toLocaleLowerCase()].address[chainId].toLowerCase();
-    const toCurrencyAddress = toCurrency.address
-      ? toCurrency.address[chainId].toLowerCase()
-      : main_tokens[chainKey.toLocaleLowerCase()].address[chainId].toLowerCase();
+  const [valPre, setAmountPre] = useState(BIG_ZERO);
+  useEffect(() => {
+    (async () => {
+      if (val && val.gt(0) && valPre.toNumber() !== val.toNumber()) {
+        setAmountPre(val);
+        const fromCurrencyAddress = fromCurrency.address
+          ? fromCurrency.address[chainId].toLowerCase()
+          : main_tokens[chainKey.toLocaleLowerCase()].address[chainId].toLowerCase();
+        const toCurrencyAddress = toCurrency.address
+          ? toCurrency.address[chainId].toLowerCase()
+          : main_tokens[chainKey.toLocaleLowerCase()].address[chainId].toLowerCase();
 
-    // 1u => fromCurrency Amount
-    const fromCurrencyVsBusd = priceVsBusdMap[fromCurrencyAddress];
-    const fromCurrencyAmount = BIG_ONE.dividedBy(new BigNumber(fromCurrencyVsBusd));
-
-    // 1u => toCurrency Amount
-    let toCurrencyVsBusd = priceVsBusdMap[toCurrencyAddress];
-    if (toCurrency.symbol.indexOf(' LP') > 0) {
-      const token = toCurrency.token.address[chainId].toLowerCase();
-      const tokenDecimals = toCurrency.token.decimals;
-      toCurrencyVsBusd = await getLpAddreeTotalSupply(token, tokenDecimals, priceVsBusdMap, toCurrencyAddress);
-    }
-    const toCurrencyAmount = BIG_ONE.dividedBy(new BigNumber(toCurrencyVsBusd));
-
-    // 1 from -> to
-    const fromValue = fromCurrencyAmount.times(val); // fromAmount U
-    const toAmount = fromValue.div(toCurrencyAmount); // fromAmount U
-    console.log(
-      priceVsBusdMap,
-      fromCurrencyVsBusd,
-      fromCurrencyAmount.toNumber(),
-      'toCurrencyVsBusd:',
-      toCurrencyVsBusd,
-      toCurrencyAmount.toNumber(),
-      fromValue.toNumber(),
-    );
-    setAmount(
-      toAmount.toString(2) === 'NaN' || !toAmount.gt(0)
-        ? ''
-        : Number(toAmount.toFixed(10, BigNumber.ROUND_DOWN)).toLocaleString('en-US', {
-            maximumFractionDigits: 10,
-          }),
-    );
-  }, [fromCurrency, toCurrency, priceVsBusdMap, val]);
+        // 1u => fromCurrency Amount
+        const fromCurrencyVsBusd = priceVsBusdMap[fromCurrencyAddress];
+        // 1u => toCurrency Amount
+        let toCurrencyVsBusd = priceVsBusdMap[toCurrencyAddress];
+        if (toCurrency.symbol.indexOf(' LP') > 0) {
+          const token = toCurrency.token.address[chainId].toLowerCase();
+          const tokenDecimals = toCurrency.token.decimals;
+          toCurrencyVsBusd = await getLpAddreeTotalSupply(token, tokenDecimals, priceVsBusdMap, toCurrencyAddress);
+        }
+        // 1 from -> to
+        const vs = new BigNumber(fromCurrencyVsBusd).div(toCurrencyVsBusd);
+        // console.log(vs.toNumber());
+        const toAmount = vs.times(val).times(0.93);
+        console.log(
+          priceVsBusdMap,
+          'fromCurrencyVsBusd: ',
+          fromCurrencyVsBusd,
+          'toCurrencyVsBusd:',
+          toCurrencyVsBusd,
+          'toAmount:',
+          toAmount.toNumber(),
+        );
+        setAmount(
+          toAmount.toString(2) === 'NaN' || !toAmount.gt(0)
+            ? ''
+            : Number(toAmount.toFixed(6, BigNumber.ROUND_DOWN)).toLocaleString('en-US', {
+                maximumFractionDigits: 6,
+              }),
+        );
+      }
+    })();
+    // eslint-disable-next-line
+  }, [val]);
   return amount;
 };
 
