@@ -1,6 +1,6 @@
 import { useWeb3React } from '@web3-react/core';
 import BigNumber from 'bignumber.js';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from 'state';
 import { usePrice } from 'state/price/hooks';
@@ -25,12 +25,14 @@ export const usePollCompoundingData = () => {
 export const useCompoundingUserData = (compoundings: ICompounding[]) => {
   // const { data: compoundings } = useCompounding();
   const { account } = useWeb3React();
+  const [length, setLength] = useState(0);
   const dispatch = useAppDispatch();
   useEffect(() => {
-    if (account) {
+    if (account && length !== compoundings.length) {
       dispatch(changeLoading());
       dispatch(changeVaultLoading());
       dispatch(fetchCompoundingFarmUserDataAsync({ account, compoundings }));
+      setLength(compoundings.length);
     }
   }, [dispatch, account, compoundings]);
 };

@@ -86,7 +86,7 @@ export const compoundingSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchCompoundingsPublicDataAsync.fulfilled, (state, action) => {
-      state.userDataLoaded = true;
+      // state.userDataLoaded = true;
       state.data = action.payload[0];
       state.allLiquidity = action.payload[1];
     });
