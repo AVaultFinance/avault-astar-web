@@ -18,11 +18,11 @@ export const fetchCompoundingsFarmUserAllowances = async (
   const calls = !haveNumber(index)
     ? compoundings.map((compounding: ICompounding) => {
         const lpAddresses = compounding.farm.lpAddresses;
-        const masterChef = compounding.contractAddress[chainId];
+        const contractAddress = compounding.contractAddress[chainId];
         return {
           address: lpAddresses,
           name: 'allowance',
-          params: [account, masterChef],
+          params: [account, contractAddress],
         };
       })
     : [

@@ -17,7 +17,6 @@ const ZapCurrencyInputPanel = ({
   isTo: boolean;
 }) => {
   const onCurrencySelect = (currency: IToken) => {
-    console.log(currency);
     setCurrency(currency);
   };
   const [onPresentCurrencyModal] = useModal(

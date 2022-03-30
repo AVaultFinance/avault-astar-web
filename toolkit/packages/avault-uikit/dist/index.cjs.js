@@ -1329,18 +1329,12 @@ var Details = styled__default['default'].div(templateObject_2$t || (templateObje
 });
 var CloseHandler = styled__default['default'].div(templateObject_3$d || (templateObject_3$d = __makeTemplateObject(["\n  border-radius: 0 12px 12px 0;\n  right: 8px;\n  position: absolute;\n  top: 8px;\n"], ["\n  border-radius: 0 12px 12px 0;\n  right: 8px;\n  position: absolute;\n  top: 8px;\n"])));
 var StyledAlert = styled__default['default'](Flex)(templateObject_4$8 || (templateObject_4$8 = __makeTemplateObject(["\n  position: relative;\n  background-color: ", ";\n  border-radius: 12px 0 0 12px;\n  box-shadow: 0px 20px 36px -8px rgba(14, 14, 44, 0.1), 0px 1px 1px rgba(0, 0, 0, 0.05);\n"], ["\n  position: relative;\n  background-color: ", ";\n  border-radius: 12px 0 0 12px;\n  box-shadow: 0px 20px 36px -8px rgba(14, 14, 44, 0.1), 0px 1px 1px rgba(0, 0, 0, 0.05);\n"])), getThemeColor);
-var ToastAlert = styled__default['default'](IconButton)(templateObject_5$5 || (templateObject_5$5 = __makeTemplateObject(["\n  svg {\n    fill: ", ";\n    path {\n      fill: ", ";\n    }\n  }\n  &:hover {\n    opacity: 1 !important;\n    svg {\n      fill: ", ";\n      path {\n        fill: ", ";\n      }\n    }\n  }\n"], ["\n  svg {\n    fill: ", ";\n    path {\n      fill: ", ";\n    }\n  }\n  &:hover {\n    opacity: 1 !important;\n    svg {\n      fill: ", ";\n      path {\n        fill: ", ";\n      }\n    }\n  }\n"])), function (_a) {
+var ToastAlert = styled__default['default'](IconButton)(templateObject_5$5 || (templateObject_5$5 = __makeTemplateObject(["\n  svg {\n    fill: ", ";\n    path {\n      fill: ", ";\n    }\n  }\n"], ["\n  svg {\n    fill: ", ";\n    path {\n      fill: ", ";\n    }\n  }\n"])), function (_a) {
     var theme = _a.theme;
     return theme.colors.text;
 }, function (_a) {
     var theme = _a.theme;
     return theme.colors.text;
-}, function (_a) {
-    var theme = _a.theme;
-    return theme.colors.textSubtle;
-}, function (_a) {
-    var theme = _a.theme;
-    return theme.colors.textSubtle;
 });
 var Alert = function (_a) {
     var title = _a.title, children = _a.children, variant = _a.variant, onClick = _a.onClick;

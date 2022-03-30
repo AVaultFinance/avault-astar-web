@@ -46,13 +46,18 @@ export const callWithEstimateGas = async (
 ): Promise<ethers.providers.TransactionResponse> => {
   const gasEstimation = await estimateGas(contract, methodName, methodArgs, gasMarginPer10000);
   try {
+    // console.log(111, methodArgs, overrides);
     const tx = await contract[methodName](...methodArgs, {
       gasLimit: gasEstimation,
       ...overrides,
     });
+    // console.log(tx);
     const receipt = await tx.wait();
     if (receipt.status) {
+      // console.log(receipt);
       return receipt;
     }
-  } catch (e) {}
+  } catch (e) {
+    // console.log(e);
+  }
 };

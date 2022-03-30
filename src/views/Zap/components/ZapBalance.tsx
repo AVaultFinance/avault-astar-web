@@ -2,7 +2,7 @@ import { ETHER, Token } from '@avault/sdk';
 import { Flex, Skeleton } from '@avault/ui';
 import BigNumber from 'bignumber.js';
 import { chainId } from 'config/constants/tokens';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useCurrencyBalance } from 'state/wallet/hooks';
 import styled from 'styled-components';
 import { showDecimals } from 'views/Vault/utils';
@@ -14,10 +14,17 @@ const ZapBalance = ({ currency, setMax, account }: { currency: IToken; setMax?: 
       : ETHER[chainId];
   const balance = useCurrencyBalance(account ?? undefined, _currency);
   const decimals = showDecimals(currency.symbol);
+  const [_balance, _setBalance] = useState('0');
   useEffect(() => {
-    if (setMax && balance && Number(balance.toFixed(18)) > 0)
+    // balance, setMax, decimals
+    if (!balance || _balance === balance.toFixed(18)) {
+      return;
+    }
+    if (setMax && balance && Number(balance.toFixed(18)) > 0) {
       setMax(new BigNumber(balance.toFixed(18)).toFixed(decimals, BigNumber.ROUND_DOWN));
-  }, [balance, setMax, decimals]);
+      _setBalance(balance.toFixed(18));
+    }
+  }, [_balance, balance, setMax, decimals]);
   return (
     <BalanceStyled>
       Balance:{' '}

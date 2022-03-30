@@ -1,35 +1,39 @@
-import { Heading, Text, Flex, Input, Button } from '@avault/ui';
+import { Heading, Text, Flex, Input, Button, useWalletModal } from '@avault/ui';
 import PageLayout from 'components/Layout/Page';
 import { BgGlobalStyle } from 'style/Global';
 import styled from 'styled-components';
 import { W480BorderPageLayout, PageContainerWrap, MaxButton, TableContent } from 'style/SmallBorderPageLayout';
 import ZapBg from './components/ZapBg';
-import { fromCurrency as _fromCurrency, toCurrency as _toCurrency } from './constants/data';
+import {
+  fromCurrency as _fromCurrency,
+  toCurrency as _toCurrency,
+  zapLocalFromCurrency,
+  zapLocalToCurrency,
+} from './constants/data';
 import { useCallback, useState } from 'react';
 import ZapCurrencyInputPanel from './components/ZapCurrencyInputPanel';
-import { IToken } from './utils/types';
+import { IToken, ITokenType } from './utils/types';
 import ZapBalance from './components/ZapBalance';
-import { BIG_ZERO } from 'utils/bigNumber';
 import BigNumber from 'bignumber.js';
 import useToast from 'hooks/useToast';
 import { useEstimatedPrice } from './utils/utils';
-import useZapContract, { zapAddress } from './constants/contract';
+import useZapContract, { useApprove, useHandleApproved, zapAddress } from './constants/contract';
 import Loading from 'components/TransactionConfirmationModal/Loading';
 import useActiveWeb3React from 'hooks/useActiveWeb3React';
 import { DEFAULT_GAS_LIMIT } from 'config';
 import useDebounce from 'hooks/useDebounce';
-
+import useAuth from 'hooks/useAuth';
 const Zap = () => {
   const { account } = useActiveWeb3React();
   const [fromCurrency, setFromCurrency] = useState(_fromCurrency);
   const [toCurrency, setToCurrency] = useState(_toCurrency);
-  const [fullBalance, setMax] = useState(BIG_ZERO);
+  const [fullBalance, setMax] = useState('0');
   const [val, setVal] = useState('');
   const { handleZapClick } = useZapContract(zapAddress, fromCurrency, toCurrency);
   const [pendingTx, setPendingTx] = useState(false);
   const [pendingTxSuccess, setPendingTxSuccess] = useState(true);
   const valNumber = useDebounce(new BigNumber(val), 200);
-  const { toastSuccess, toastError } = useToast();
+  const { toastSuccess, toastError, toastWarning } = useToast();
   const handleChange = useCallback(
     (e: React.FormEvent<HTMLInputElement>) => {
       if (e.currentTarget.validity.valid) {
@@ -38,20 +42,37 @@ const Zap = () => {
     },
     [setVal],
   );
+  // console.log({
+  //   aa: getCodec(
+  //     hexToUint8Array(
+  //       '0x00200040000100000000400080000000000000000000000000000000000011000000000000000000000000000000000000100000000002000000000000000000000000000000000000000008000000200000000000880000000000008000000a00000000020000000000000000000800000000000008800000000012000000000000000000000000000004000000000040000001000000090000004000000000000000800100000000000000000000000000000000000008000000000000000000000002000000000000000000020042000000000000001040000000000020000000000000000000000000000000000000000000100000400000000100000000',
+  //     ) as Buffer,
+  //   ),
+  // });
   const handleSelectMax = useCallback(() => {
-    // setVal(fullBalance.toString());
-    setVal(
-      parseInt(`${fullBalance.toNumber() - DEFAULT_GAS_LIMIT * 1000000000}`)
-        .toFixed(3)
-        .toString(),
-    );
-  }, [fullBalance, setVal]);
+    if (fromCurrency.type === ITokenType.MAIN) {
+      // console.log(fullBalance, (DEFAULT_GAS_LIMIT * 1000000000) / Math.pow(10, 18));
+      if (fullBalance && Number(fullBalance) <= (DEFAULT_GAS_LIMIT * 1000000000) / Math.pow(10, 18)) {
+        toastWarning('Warn', `Your ${fromCurrency.symbol} balance is insufficient!`);
+        return;
+      }
+      setVal(
+        new BigNumber(`${Number(fullBalance) - (DEFAULT_GAS_LIMIT * 1000000000) / Math.pow(10, 18)}`).toFixed(
+          5,
+          BigNumber.ROUND_DOWN,
+        ),
+      );
+    } else {
+      // console.log(fullBalance);
+      setVal(fullBalance);
+    }
+  }, [fullBalance, toastWarning, setVal, fromCurrency]);
   const EstimatedPrice = useEstimatedPrice(fromCurrency, toCurrency, valNumber);
   const zapComfirm = useCallback(async () => {
     setPendingTx(true);
     try {
       const res = await handleZapClick(val, account);
-      console.log(res);
+      // console.log(res);
       if (res) {
         toastSuccess('Staked!', 'Your funds have been staked in the farm');
         setTimeout(() => {
@@ -72,9 +93,44 @@ const Zap = () => {
       }, 1500);
     } finally {
       setVal('');
+
       setPendingTx(false);
     }
   }, [account, fromCurrency, toCurrency, val, handleZapClick, toastSuccess, toastError]);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const { login, logout } = useAuth();
+  const { onPresentConnectModal } = useWalletModal(login, logout);
+  const { fetchApprove } = useHandleApproved(fromCurrency, account, zapAddress);
+  const isApprove = useApprove(isLoaded, setPendingTx, fromCurrency, account, zapAddress);
+  const zapApprove = useCallback(async () => {
+    if (!account) {
+      onPresentConnectModal();
+      return;
+    }
+    try {
+      setPendingTx(true);
+      const result = await fetchApprove();
+      if (result) {
+        setIsLoaded(true);
+        toastSuccess('Approve!', 'Your are Approved');
+        setIsLoaded(false);
+        setTimeout(() => {
+          setPendingTxSuccess(true);
+        }, 10000);
+      } else {
+        toastError('Approve!', 'Your approved failed');
+        setPendingTxSuccess(false);
+        setTimeout(() => {
+          setPendingTxSuccess(true);
+        }, 1500);
+      }
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setPendingTx(false);
+    }
+  }, [account, fetchApprove, onPresentConnectModal, toastError, toastSuccess]);
+  // console.log({ isApprove });
   return (
     <PageLayout>
       <BgGlobalStyle />
@@ -100,6 +156,7 @@ const Zap = () => {
                     currency={fromCurrency}
                     otherCurrency={toCurrency}
                     setCurrency={(currency: IToken) => {
+                      localStorage.setItem(zapLocalFromCurrency, JSON.stringify(currency));
                       setFromCurrency(currency);
                     }}
                     isTo={false}
@@ -125,21 +182,37 @@ const Zap = () => {
                   <ZapCurrencyInputPanel
                     currency={toCurrency}
                     otherCurrency={fromCurrency}
-                    setCurrency={setToCurrency}
+                    setCurrency={(currency: IToken) => {
+                      localStorage.setItem(zapLocalToCurrency, JSON.stringify(currency));
+                      setToCurrency(currency);
+                    }}
                     isTo={true}
                   />
-                  <Heading>{EstimatedPrice}</Heading>
+                  <Heading>{val ? EstimatedPrice : ''}</Heading>
                 </TextCol>
               </PaddingStyled>
             </InnerStyled>
             <Button
               isLoading={pendingTx}
-              disabled={pendingTx || !valNumber.isFinite() || valNumber.eq(0) || valNumber.gt(fullBalance)}
+              disabled={
+                isApprove &&
+                (pendingTx ||
+                  !valNumber.isFinite() ||
+                  valNumber.eq(0) ||
+                  valNumber.gt(fullBalance) ||
+                  fromCurrency.symbol === toCurrency.symbol)
+              }
               width="100%"
               padding="0"
-              onClick={zapComfirm}
+              onClick={() => {
+                if (isApprove) {
+                  zapComfirm();
+                } else {
+                  zapApprove();
+                }
+              }}
             >
-              Confirm
+              {isApprove ? 'Confirm' : 'Approve'}
               <Loading isLoading={pendingTx} success={pendingTxSuccess} />
             </Button>
           </TableContent>

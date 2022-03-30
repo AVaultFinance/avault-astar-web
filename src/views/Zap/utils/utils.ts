@@ -94,15 +94,15 @@ export const useEstimatedPrice = (fromCurrency: IToken, toCurrency: IToken, val:
         const vs = new BigNumber(fromCurrencyVsBusd).div(toCurrencyVsBusd);
         // console.log(vs.toNumber());
         const toAmount = vs.times(val).times(0.93);
-        console.log(
-          priceVsBusdMap,
-          'fromCurrencyVsBusd: ',
-          fromCurrencyVsBusd,
-          'toCurrencyVsBusd:',
-          toCurrencyVsBusd,
-          'toAmount:',
-          toAmount.toNumber(),
-        );
+        // console.log(
+        //   priceVsBusdMap,
+        //   'fromCurrencyVsBusd: ',
+        //   fromCurrencyVsBusd,
+        //   'toCurrencyVsBusd:',
+        //   toCurrencyVsBusd,
+        //   'toAmount:',
+        //   toAmount.toNumber(),
+        // );
         setAmount(
           toAmount.toString(2) === 'NaN' || !toAmount.gt(0)
             ? ''

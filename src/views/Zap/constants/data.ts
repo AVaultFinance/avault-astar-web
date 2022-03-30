@@ -4,6 +4,8 @@ import { ICompoundingConfigItem } from 'state/vault/types';
 import { IToken, ITokenType } from '../utils/types';
 import { chainKey } from 'config';
 import { CHAINKEY, Currency } from '@avault/sdk';
+export const zapLocalFromCurrency = 'FromCurrency';
+export const zapLocalToCurrency = 'ToCurrency';
 const _TokenALL = compounding.map((v: ICompoundingConfigItem) => {
   const [symbol0, symbol1] = v.lpDetail.symbol.replace(' LP', '').split('-');
   const _v0 = symbol0.toLowerCase() === 'kac' ? 'kaco' : symbol0.toLowerCase();
@@ -32,9 +34,13 @@ export const tokenAll: IToken[] =
     : [];
 export const lpTokenAll = [..._TokenALL.map((v: any[]) => v[1])].concat(tokenAll);
 
-export const fromCurrency: IToken = {
-  ...Currency.ETHER[chainId],
-  type: ITokenType.MAIN,
-  decimals: 18,
-};
-export const toCurrency: IToken = lpTokenAll[0];
+export const fromCurrency: IToken = localStorage.getItem(zapLocalFromCurrency)
+  ? JSON.parse(localStorage.getItem(zapLocalFromCurrency))
+  : {
+      ...Currency.ETHER[chainId],
+      type: ITokenType.MAIN,
+      decimals: 18,
+    };
+export const toCurrency: IToken = localStorage.getItem(zapLocalToCurrency)
+  ? JSON.parse(localStorage.getItem(zapLocalToCurrency))
+  : lpTokenAll[0];
