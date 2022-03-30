@@ -84,5 +84,8 @@ const Wrap = styled.div<{ show: boolean }>`
   width: 22px;
   margin-left: 4px;
   display: ${({ show }) => (show ? 'block' : 'none')};
+  path {
+    fill: ${({ theme }) => theme.colors.primary};
+  }
 `;
 export default Loading;

@@ -32,8 +32,7 @@ export const useCompoundingUserData = (compoundings: ICompounding[]) => {
       dispatch(changeVaultLoading());
       dispatch(fetchCompoundingFarmUserDataAsync({ account, compoundings }));
     }
-    // eslint-disable-next-line
-  }, [dispatch, account]);
+  }, [dispatch, account, compoundings]);
 };
 export const useCompounding = (): CompoundingState => {
   const compounding = useSelector((state: State) => state.compounding);
