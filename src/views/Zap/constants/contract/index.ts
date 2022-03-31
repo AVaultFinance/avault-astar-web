@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { chainId, main_tokens } from 'config/constants/tokens';
 import { Contract, ethers } from 'ethers';
-import { useContract } from 'hooks/useContract';
+import { useContract, useWETHContract } from 'hooks/useContract';
 import { useCallback, useEffect, useState } from 'react';
 import { BIG_TEN } from 'utils/bigNumber';
 import { callWithEstimateGas } from 'utils/calls';
@@ -19,6 +19,7 @@ function useZapContractFn(zapAddress: string): Contract | null {
 
 const useZapContract = (zapAddress: string, fromCurrency: IToken, toCurrency: IToken) => {
   const contract = useZapContractFn(zapAddress);
+  const wethContract = useWETHContract();
   const handleZapClick = useCallback(
     async (val: string, account: string) => {
       try {
@@ -40,35 +41,40 @@ const useZapContract = (zapAddress: string, fromCurrency: IToken, toCurrency: IT
         ) {
           // ETH -> LP
           // ETH -> ERC20
-          // try {
-          //   const tx = await contract.zapIn(toCurrency.address[chainId], {
-          //     value: value,
-          //     from: account,
-          //     gasLimit: DEFAULT_GAS_LIMIT,
-          //   });
-          //   const receipt = await tx.wait();
-          //   if (receipt.status) {
-          //     return receipt;
-          //   }
-          // } catch (e) {
-          // }
-          return await callWithEstimateGas(contract, 'zapIn', [toCurrency.address[chainId]], {
-            value: `${value}`,
-            from: account,
-          });
+          // SDN -> WSDN
+          if (
+            toCurrency.address[chainId].toLowerCase() ===
+            main_tokens[chainKey.toLowerCase()].address[chainId].toLowerCase()
+          ) {
+            return await callWithEstimateGas(wethContract, 'deposit', [], { value: `${value}` });
+          } else {
+            return await callWithEstimateGas(contract, 'zapIn', [toCurrency.address[chainId]], {
+              value: `${value}`,
+              from: account,
+            });
+          }
         } else if (
           (fromCurrency.type === ITokenType.LP || fromCurrency.type === ITokenType.TOKEN) &&
           (toCurrency.type === ITokenType.TOKEN || toCurrency.type === ITokenType.MAIN)
         ) {
           // LP -> ERC20
           // ERC20 -> ETH
-          return await callWithEstimateGas(contract, 'zapOut', [fromCurrency.address[chainId], `${value}`]);
+          // WSDN -> SDN
+          if (
+            toCurrency.type === ITokenType.MAIN &&
+            fromCurrency.address[chainId].toLowerCase() ===
+              main_tokens[chainKey.toLowerCase()].address[chainId].toLowerCase()
+          ) {
+            return await callWithEstimateGas(wethContract, 'withdraw', [`${value}`]);
+          } else {
+            return await callWithEstimateGas(contract, 'zapOut', [fromCurrency.address[chainId], `${value}`]);
+          }
         }
       } catch (e) {
         return false;
       }
     },
-    [contract, fromCurrency, toCurrency],
+    [contract, fromCurrency, wethContract, toCurrency],
   );
   return {
     handleZapClick,
@@ -94,6 +100,7 @@ export const useApprove = (
   isLoaded: boolean,
   setPendingTx: any,
   fromCurrency: IToken,
+  toCurrency: IToken,
   account: string,
   approvedAddress: string,
 ) => {
@@ -105,6 +112,14 @@ export const useApprove = (
     }
     // setPendingTx(true);
     if (fromCurrency.address && fromCurrency.address[chainId]) {
+      if (
+        toCurrency.type === ITokenType.MAIN &&
+        fromCurrency.address[chainId].toLowerCase() ===
+          main_tokens[chainKey.toLowerCase()].address[chainId].toLowerCase()
+      ) {
+        setIsApprove(true);
+        return;
+      }
       const calls = [
         {
           address: fromCurrency.address[chainId],
@@ -117,7 +132,7 @@ export const useApprove = (
       // setPendingTx(false);
       setIsApprove(fromCurrency.type === ITokenType.MAIN ? true : false);
     }
-  }, [isLoaded, setPendingTx, account, approvedAddress, fromCurrency]);
+  }, [isLoaded, toCurrency, setPendingTx, account, approvedAddress, fromCurrency]);
   return isApprove;
 };
 

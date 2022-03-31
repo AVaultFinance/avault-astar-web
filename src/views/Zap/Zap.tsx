@@ -33,7 +33,7 @@ const Zap = () => {
   const { handleZapClick } = useZapContract(zapAddress, fromCurrency, toCurrency);
   const [pendingTx, setPendingTx] = useState(false);
   const [pendingTxSuccess, setPendingTxSuccess] = useState(true);
-  const valNumber = useDebounce(new BigNumber(val ?? '0'), 200);
+  const valNumber = useDebounce(new BigNumber(val ?? '0'), 100);
   const { toastSuccess, toastError, toastWarning } = useToast();
   const handleChange = useCallback(
     (e: React.FormEvent<HTMLInputElement>) => {
@@ -43,13 +43,6 @@ const Zap = () => {
     },
     [setVal],
   );
-  // console.log({
-  //   aa: getCodec(
-  //     hexToUint8Array(
-  //       '0x00200040000100000000400080000000000000000000000000000000000011000000000000000000000000000000000000100000000002000000000000000000000000000000000000000008000000200000000000880000000000008000000a00000000020000000000000000000800000000000008800000000012000000000000000000000000000004000000000040000001000000090000004000000000000000800100000000000000000000000000000000000008000000000000000000000002000000000000000000020042000000000000001040000000000020000000000000000000000000000000000000000000100000400000000100000000',
-  //     ) as Buffer,
-  //   ),
-  // });
   const handleSelectMax = useCallback(() => {
     if (fromCurrency.type === ITokenType.MAIN) {
       // console.log(fullBalance, (DEFAULT_GAS_LIMIT * 1000000000) / Math.pow(10, 18));
@@ -105,7 +98,7 @@ const Zap = () => {
   const { login, logout } = useAuth();
   const { onPresentConnectModal } = useWalletModal(login, logout);
   const { fetchApprove } = useHandleApproved(fromCurrency, account, zapAddress);
-  const isApprove = useApprove(isLoaded, setPendingTx, fromCurrency, account, zapAddress);
+  const isApprove = useApprove(isLoaded, setPendingTx, fromCurrency, toCurrency, account, zapAddress);
   const zapApprove = useCallback(async () => {
     if (!account) {
       onPresentConnectModal();
@@ -134,7 +127,6 @@ const Zap = () => {
       setPendingTx(false);
     }
   }, [account, fetchApprove, onPresentConnectModal, toastError, toastSuccess]);
-  // console.log({ isApprove });
   return (
     <PageLayout>
       <BgGlobalStyle />
@@ -194,7 +186,7 @@ const Zap = () => {
                     }}
                     isTo={true}
                   />
-                  <HeadingStyled isSmall={EstimatedPrice === '0'} isLong={EstimatedPrice.length > 16}>
+                  <HeadingStyled isSmall={EstimatedPrice === '≈0'} isLong={EstimatedPrice.length > 16}>
                     {EstimatedPrice}
                   </HeadingStyled>
                 </TextCol>
@@ -248,8 +240,6 @@ const MaxButtonStyled = styled(MaxButton)`
 const BoldStyled = styled(Text)`
   font-size: 14px;
   font-weight: 600;
-  line-height: 28px;
-  height: 28px;
   color: ${({ theme }) => theme.colors.textSubtle};
 `;
 
@@ -271,9 +261,10 @@ const StyledInput = styled(Input)`
 const TextCol = styled(Flex)`
   align-items: center;
   justify-content: space-between;
+  height: 40px;
 `;
 const PaddingStyled = styled.div`
-  padding: 10px 20px;
+  padding: 10px 20px 20px;
   border-bottom: 2px solid ${({ theme }) => theme.colors.cardBackground};
   &:last-child {
     border-bottom: none;

@@ -47,7 +47,6 @@ const BalanceStyled = styled(Flex)`
   color: ${({ theme }) => theme.colors.textSubtle};
   align-items: center;
   justify-content: space-between;
-  height: 40px;
 `;
 const SkeletonStyled = styled(Skeleton)`
   height: 20px;

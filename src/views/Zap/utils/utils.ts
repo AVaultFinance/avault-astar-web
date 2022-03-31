@@ -97,7 +97,7 @@ export const useEstimatedPrice = (value: string, fromCurrency: IToken, toCurrenc
         // 1 from -> to
         const vs = new BigNumber(fromCurrencyVsBusd).div(toCurrencyVsBusd);
         // console.log(vs.toNumber());
-        const toAmount = vs.times(val).times(0.93);
+        const toAmount = vs.times(val).times(0.98);
         // console.log(
         //   priceVsBusdMap,
         //   'fromCurrencyVsBusd: ',
@@ -110,15 +110,15 @@ export const useEstimatedPrice = (value: string, fromCurrency: IToken, toCurrenc
         setAmount(
           toAmount.toString(2) === 'NaN' || !toAmount.gt(0)
             ? '0'
-            : Number(toAmount.toFixed(6, BigNumber.ROUND_DOWN)).toLocaleString('en-US', {
-                maximumFractionDigits: 6,
+            : Number(toAmount.toFixed(10, BigNumber.ROUND_DOWN)).toLocaleString('en-US', {
+                maximumFractionDigits: 10,
               }),
         );
       }
     })();
     // eslint-disable-next-line
   }, [value, val]);
-  return amount;
+  return '≈' + amount;
 };
 
 const getLpAddreeTotalSupply = async (
