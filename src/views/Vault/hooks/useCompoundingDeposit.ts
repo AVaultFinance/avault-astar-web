@@ -25,7 +25,7 @@ const useCompoundingDeposit = (account: string, contractAddress: string, decimal
         return res.message;
       }
     },
-    [contractAddressContract, decimal],
+    [contractAddressContract, account, decimal],
   );
 
   return { onDeposit: handleDeposit };

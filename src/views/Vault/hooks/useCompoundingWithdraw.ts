@@ -16,7 +16,8 @@ const useCompoundingWithdraw = (account: string, contractAddress: string, decima
         // const receipt = await tx.wait();
         // return receipt.status;
 
-        const value = new BigNumber(amount).times(BIG_TEN.pow(decimal)).toString();
+        const value = parseInt(new BigNumber(amount).times(BIG_TEN.pow(decimal)).toString());
+        // const tx = await contract.withdraw(account, `${value}`, options);
         const res = await callWithEstimateGas(contractAddressContract, 'withdraw', [account, `${value}`], {
           gasLimit: DEFAULT_GAS_LIMIT,
         });
