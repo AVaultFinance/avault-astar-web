@@ -123,7 +123,7 @@ export const useEstimatedPrice = (value: string, fromCurrency: IToken, toCurrenc
     })();
     // eslint-disable-next-line
   }, [value, toCurrency, val]);
-  return '≈' + amount;
+  return amount;
 };
 
 const getLpAddreeTotalSupply = async (

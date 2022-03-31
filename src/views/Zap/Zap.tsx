@@ -51,7 +51,7 @@ const Zap = () => {
         return;
       }
       setVal(
-        new BigNumber(`${Number(fullBalance) - (DEFAULT_GAS_LIMIT * 1000000000) / Math.pow(10, 18)}`).toFixed(
+        new BigNumber(`${Number(fullBalance) - 2 * ((DEFAULT_GAS_LIMIT * 1000000000) / Math.pow(10, 18))}`).toFixed(
           5,
           BigNumber.ROUND_DOWN,
         ),
@@ -65,9 +65,9 @@ const Zap = () => {
   const zapComfirm = useCallback(async () => {
     setPendingTx(true);
     try {
-      const res = await handleZapClick(val, account);
+      const result = await handleZapClick(val, account);
       // console.log(res);
-      if (res) {
+      if (typeof result === 'boolean' && result) {
         toastSuccess(
           'Successfully claimed!',
           `Your ${fromCurrency.symbol} to ${toCurrency.symbol} Zap Successfully claimed!`,
@@ -76,14 +76,15 @@ const Zap = () => {
           setPendingTxSuccess(true);
         }, 10000);
       } else {
-        toastError('Error', `Your ${fromCurrency.symbol} to ${toCurrency.symbol} Zap failed!`);
+        const message = result ? result : `Your ${fromCurrency.symbol} to ${toCurrency.symbol} Zap failed!`;
+        toastError('Error', message);
         setPendingTxSuccess(false);
         setTimeout(() => {
           setPendingTxSuccess(true);
         }, 1500);
       }
-    } catch (e) {
-      toastError('Error', `Your ${fromCurrency.symbol} to ${toCurrency.symbol} Zap failed!`);
+    } catch (e: any) {
+      toastError('Error', e.message ? e.message : `Your ${fromCurrency.symbol} to ${toCurrency.symbol} Zap failed!`);
       setPendingTxSuccess(false);
       setTimeout(() => {
         setPendingTxSuccess(true);
@@ -107,7 +108,7 @@ const Zap = () => {
     try {
       setPendingTx(true);
       const result = await fetchApprove();
-      if (result) {
+      if (typeof result === 'boolean' && result) {
         setIsLoaded(true);
         toastSuccess('Approve!', 'Your are Approved');
         setIsLoaded(false);
@@ -115,7 +116,8 @@ const Zap = () => {
           setPendingTxSuccess(true);
         }, 10000);
       } else {
-        toastError('Approve!', 'Your approved failed');
+        const message = result ? result : 'Your approved failed';
+        toastError('Approve!', message);
         setPendingTxSuccess(false);
         setTimeout(() => {
           setPendingTxSuccess(true);

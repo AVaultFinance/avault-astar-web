@@ -22,6 +22,7 @@ const useZapContract = (zapAddress: string, fromCurrency: IToken, toCurrency: IT
   const wethContract = useWETHContract();
   const handleZapClick = useCallback(
     async (val: string, account: string) => {
+      let res = null;
       try {
         const value = parseInt(new BigNumber(val).times(BIG_TEN.pow(fromCurrency.decimals)).toString());
         if (
@@ -30,7 +31,7 @@ const useZapContract = (zapAddress: string, fromCurrency: IToken, toCurrency: IT
         ) {
           // ERC20 -> LP
           // ERC20 -> ERC20
-          return await callWithEstimateGas(contract, 'zapInToken', [
+          res = await callWithEstimateGas(contract, 'zapInToken', [
             fromCurrency.address[chainId],
             `${value}`,
             toCurrency.address[chainId],
@@ -46,9 +47,9 @@ const useZapContract = (zapAddress: string, fromCurrency: IToken, toCurrency: IT
             toCurrency.address[chainId].toLowerCase() ===
             main_tokens[chainKey.toLowerCase()].address[chainId].toLowerCase()
           ) {
-            return await callWithEstimateGas(wethContract, 'deposit', [], { value: `${value}` });
+            res = await callWithEstimateGas(wethContract, 'deposit', [], { value: `${value}` });
           } else {
-            return await callWithEstimateGas(contract, 'zapIn', [toCurrency.address[chainId]], {
+            res = await callWithEstimateGas(contract, 'zapIn', [toCurrency.address[chainId]], {
               value: `${value}`,
               from: account,
             });
@@ -65,10 +66,15 @@ const useZapContract = (zapAddress: string, fromCurrency: IToken, toCurrency: IT
             fromCurrency.address[chainId].toLowerCase() ===
               main_tokens[chainKey.toLowerCase()].address[chainId].toLowerCase()
           ) {
-            return await callWithEstimateGas(wethContract, 'withdraw', [`${value}`]);
+            res = await callWithEstimateGas(wethContract, 'withdraw', [`${value}`]);
           } else {
-            return await callWithEstimateGas(contract, 'zapOut', [fromCurrency.address[chainId], `${value}`]);
+            res = await callWithEstimateGas(contract, 'zapOut', [fromCurrency.address[chainId], `${value}`]);
           }
+        }
+        if (res && res.isOk) {
+          return true;
+        } else {
+          return res.message;
         }
       } catch (e) {
         return false;
@@ -91,7 +97,12 @@ export const useHandleApproved = (fromCurrency: IToken, account: string, approve
     if (!account) {
       return;
     }
-    return await callWithEstimateGas(contract, 'approve', [approvedAddress, ethers.constants.MaxUint256]);
+    const res = await callWithEstimateGas(contract, 'approve', [approvedAddress, ethers.constants.MaxUint256]);
+    if (res.isOk) {
+      return true;
+    } else {
+      return res.message;
+    }
   }, [approvedAddress, contract, account]);
   return { fetchApprove };
 };

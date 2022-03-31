@@ -78,7 +78,7 @@ const DepositModal: React.FC<DepositModalProps> = ({
     let result = null;
     try {
       result = await onDeposit(val);
-      if (result) {
+      if (typeof result === 'boolean' && result) {
         dispatch(changeLoading());
         dispatch(changeVaultItemLoading({ index }));
         dispatch(fetchCompoundingFarmUserDataAsync({ account, compoundings, index }));
@@ -87,14 +87,15 @@ const DepositModal: React.FC<DepositModalProps> = ({
           setPendingTxSuccess(true);
         }, 10000);
       } else {
-        toastError('Error', `Your ${lpSymbol} deposit failed!`);
+        const message = result ? result : `Your ${lpSymbol} deposit failed!`;
+        toastError('Error', message);
         setPendingTxSuccess(false);
         setTimeout(() => {
           setPendingTxSuccess(true);
         }, 1500);
       }
-    } catch (e) {
-      toastError('Error', `Your ${lpSymbol} deposit failed!`);
+    } catch (e: any) {
+      toastError('Error', e.message ? e.message : `Your ${lpSymbol} deposit failed!`);
       setPendingTxSuccess(false);
       setTimeout(() => {
         setPendingTxSuccess(true);

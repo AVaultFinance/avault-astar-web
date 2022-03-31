@@ -91,7 +91,7 @@ const WithdrawAction: React.FunctionComponent<WithdrawActionProps> = ({
         .times(_rate)
         .toString();
       result = await onWithdraw(_amount);
-      if (result) {
+      if (typeof result === 'boolean' && result) {
         dispatch(changeLoading());
         dispatch(changeVaultItemLoading({ index }));
         dispatch(fetchCompoundingFarmUserDataAsync({ account, compoundings, index }));
@@ -100,14 +100,15 @@ const WithdrawAction: React.FunctionComponent<WithdrawActionProps> = ({
           setPendingTxSuccess(true);
         }, 10000);
       } else {
-        toastError('Error', `Your ${lpSymbol} withdraw failed!`);
+        const message = result ? result : `Your ${lpSymbol} withdraw failed!`;
+        toastError('Error', message);
         setPendingTxSuccess(false);
         setTimeout(() => {
           setPendingTxSuccess(true);
         }, 1500);
       }
-    } catch (e) {
-      toastError('Error', `Your ${lpSymbol} withdraw failed! `);
+    } catch (e: any) {
+      toastError('Error', e.message ? e.message : `Your ${lpSymbol} withdraw failed! `);
       setPendingTxSuccess(false);
       setTimeout(() => {
         setPendingTxSuccess(true);

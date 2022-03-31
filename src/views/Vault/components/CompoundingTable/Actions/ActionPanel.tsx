@@ -210,7 +210,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
     try {
       setRequestedApproval(true);
       const result = await onApprove();
-      if (result) {
+      if (typeof result === 'boolean' && result) {
         dispatch(changeLoading());
         // dispatch(changeVaultItemLoading({ index }));
         dispatch(fetchCompoundingFarmUserDataAsync({ account, compoundings, index }));
@@ -219,7 +219,8 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
           setRequestedApprovalSuccess(true);
         }, 10000);
       } else {
-        toastError('Approve!', 'Your approved failed');
+        const message = result ? result : 'Your approved failed';
+        toastError('Approve!', message);
         setRequestedApprovalSuccess(false);
         setTimeout(() => {
           setRequestedApprovalSuccess(true);
