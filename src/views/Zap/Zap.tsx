@@ -131,7 +131,7 @@ const Zap = () => {
     <PageLayout>
       <BgGlobalStyle />
       <PageContainerWrap>
-        <W480BorderPageLayout>
+        <W480BorderPageLayout className="single">
           <TableContent>
             <TitleStyled>Zap</TitleStyled>
             <TextStyled>Convert single tokens to LP tokens directly</TextStyled>
