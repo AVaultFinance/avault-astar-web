@@ -229,6 +229,8 @@ const HeadingStyled = styled(Heading)<{ isSmall: boolean; isLong: boolean }>`
   font-size: ${({ isLong }) => (isLong ? '14px' : '18px')};
   color: ${({ theme, isSmall }) => (isSmall ? theme.colors.textSubtle : theme.colors.text)};
   font-weight: 600;
+  word-break: break-all;
+  text-align: end;
 `;
 const ZapBgStyled = styled(ZapBg)`
   position: absolute;
