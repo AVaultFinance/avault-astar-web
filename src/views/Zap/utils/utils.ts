@@ -111,9 +111,13 @@ export const useEstimatedPrice = (value: string, fromCurrency: IToken, toCurrenc
         setAmount(
           toAmount.toString(2) === 'NaN' || !toAmount.gt(0)
             ? '0'
-            : Number(toAmount.toFixed(showDecimals(toCurrency.symbol), BigNumber.ROUND_DOWN)).toLocaleString('en-US', {
-                maximumFractionDigits: showDecimals(toCurrency.symbol),
-              }),
+            : '≈' +
+                Number(toAmount.toFixed(showDecimals(toCurrency.symbol), BigNumber.ROUND_DOWN)).toLocaleString(
+                  'en-US',
+                  {
+                    maximumFractionDigits: showDecimals(toCurrency.symbol),
+                  },
+                ),
         );
       }
     })();

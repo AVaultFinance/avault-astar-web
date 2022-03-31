@@ -186,7 +186,7 @@ const Zap = () => {
                     }}
                     isTo={true}
                   />
-                  <HeadingStyled isSmall={EstimatedPrice === '≈0'} isLong={EstimatedPrice.length > 16}>
+                  <HeadingStyled isSmall={EstimatedPrice === '0'} isLong={EstimatedPrice.length > 16}>
                     {EstimatedPrice}
                   </HeadingStyled>
                 </TextCol>
@@ -226,6 +226,7 @@ const Zap = () => {
 const HeadingStyled = styled(Heading)<{ isSmall: boolean; isLong: boolean }>`
   font-size: ${({ isLong }) => (isLong ? '14px' : '18px')};
   color: ${({ theme, isSmall }) => (isSmall ? theme.colors.textSubtle : theme.colors.text)};
+  font-weight: 600;
 `;
 const ZapBgStyled = styled(ZapBg)`
   position: absolute;
