@@ -16,7 +16,7 @@ const useCompoundingDeposit = (account: string, contractAddress: string, decimal
       //   return false;
       // }
       const value = new BigNumber(amount).times(BIG_TEN.pow(decimal)).toString();
-      const res = await callWithEstimateGas(contractAddressContract, 'deposit', [`${value}`], {
+      const res = await callWithEstimateGas(contractAddressContract, 'deposit', [account, `${value}`], {
         gasLimit: DEFAULT_GAS_LIMIT,
       });
       if (res.isOk) {
