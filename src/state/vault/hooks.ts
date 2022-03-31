@@ -34,7 +34,7 @@ export const useCompoundingUserData = (compoundings: ICompounding[]) => {
       dispatch(fetchCompoundingFarmUserDataAsync({ account, compoundings }));
       setLength(compoundings.length);
     }
-  }, [dispatch, account, compoundings]);
+  }, [length, dispatch, account, compoundings]);
 };
 export const useCompounding = (): CompoundingState => {
   const compounding = useSelector((state: State) => state.compounding);

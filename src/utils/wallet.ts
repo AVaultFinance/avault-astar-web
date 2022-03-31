@@ -39,7 +39,7 @@ const wallet_config = {
       symbol: 'SDN',
       decimals: 18,
     },
-    rpcUrls: ['https://rpc.shiden.astar.network:8545'],
+    rpcUrls: ['https://evm.shiden.astar.network'],
     blockExplorerUrls: [`${BASE_BSC_SCAN_URL}/`],
   },
   [ChainId.SDN_TESTNET]: {
