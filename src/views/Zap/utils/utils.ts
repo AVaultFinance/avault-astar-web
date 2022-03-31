@@ -8,6 +8,7 @@ import { IToken } from './types';
 import erc20 from 'config/abi/erc20.json';
 import multicall from 'utils/multicall';
 import { getBalanceAmount } from 'utils/formatBalance';
+import { showDecimals } from 'views/Vault/utils';
 
 export const isCurrencyEquals = (selectedCurrency: IToken, currency: IToken) => {
   if (!selectedCurrency.address && !currency.address) {
@@ -110,14 +111,14 @@ export const useEstimatedPrice = (value: string, fromCurrency: IToken, toCurrenc
         setAmount(
           toAmount.toString(2) === 'NaN' || !toAmount.gt(0)
             ? '0'
-            : Number(toAmount.toFixed(10, BigNumber.ROUND_DOWN)).toLocaleString('en-US', {
-                maximumFractionDigits: 10,
+            : Number(toAmount.toFixed(showDecimals(toCurrency.symbol), BigNumber.ROUND_DOWN)).toLocaleString('en-US', {
+                maximumFractionDigits: showDecimals(toCurrency.symbol),
               }),
         );
       }
     })();
     // eslint-disable-next-line
-  }, [value, val]);
+  }, [value, toCurrency, val]);
   return '≈' + amount;
 };
 
