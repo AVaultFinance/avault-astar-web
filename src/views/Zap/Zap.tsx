@@ -75,7 +75,10 @@ const Zap = () => {
       const res = await handleZapClick(val, account);
       // console.log(res);
       if (res) {
-        toastSuccess('Staked!', 'Your funds have been staked in the farm');
+        toastSuccess(
+          'Successfully claimed!',
+          `Your ${fromCurrency.symbol} to ${toCurrency.symbol} Zap Successfully claimed!`,
+        );
         setTimeout(() => {
           setPendingTxSuccess(true);
         }, 10000);
@@ -245,6 +248,8 @@ const MaxButtonStyled = styled(MaxButton)`
 const BoldStyled = styled(Text)`
   font-size: 14px;
   font-weight: 600;
+  line-height: 28px;
+  height: 28px;
   color: ${({ theme }) => theme.colors.textSubtle};
 `;
 
