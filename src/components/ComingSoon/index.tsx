@@ -14,7 +14,7 @@ const ComingSoon = ({ onDismiss = () => null }) => {
   );
 };
 const ComingSoonStyled = styled.div`
-  z-index: 999;
+  z-index: 98;
   // background-color: ${({ theme }) => theme.colors.backgroundAlt};
   padding: 0px 10px 20px;
   border-radius: 20px;

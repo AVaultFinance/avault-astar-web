@@ -45,7 +45,7 @@ export const lightColors: Colors = {
   textSubSubtle: "#C2C2C2",
   disabled: "#524B63",
   btnTextColor: "#F7F3F6",
-  btnBgSecondaryColor: "#01100f",
+  btnBgSecondaryColor: "#201F43",
   gradients: {
     bubblegum: "linear-gradient(139.73deg, #313D5C 0%, #3D2A54 100%)",
     inverseBubblegum: "linear-gradient(139.73deg, #3D2A54 0%, #313D5C 100%)",

@@ -3,9 +3,9 @@ import BigNumber from 'bignumber.js';
 import Loading from 'components/TransactionConfirmationModal/Loading';
 import { FC } from 'react';
 import styled from 'styled-components';
-import DepositModal from './DepositModal';
+import DepositModal from '../modal/DepositModal';
+import WithdrawModal from '../modal/WithdrawModal';
 import { LongButton } from './styles';
-import WithdrawModal from './WithdrawModal';
 
 interface MobileActionProps {
   userDataReady: boolean;

@@ -201,8 +201,8 @@ var styleVariants$2 = (_b$3 = {},
         borderColor: "primary",
     },
     _b$3[variants$6.SUBTLE] = {
-        backgroundColor: "textSubtle",
-        color: "backgroundAlt",
+        backgroundColor: "btnBgSecondaryColor",
+        color: "primary",
     },
     _b$3[variants$6.DANGER] = {
         backgroundColor: "failure",
@@ -224,12 +224,12 @@ var styleVariants$2 = (_b$3 = {},
 var getDisabledStyles = function (_a) {
     var isLoading = _a.isLoading, theme = _a.theme; _a.variant;
     if (isLoading === true) {
-        return "\n      &:disabled,\n      &.pancake-button--disabled {\n        color: " + theme.colors.primary + ";\n        background-color: #201F43;\n        border-color: #201F43;\n        box-shadow: none;\n        cursor: not-allowed;\n      }\n    ";
+        return "\n      &:disabled,\n      &.pancake-button--disabled {\n        color: " + theme.colors.primary + ";\n        background-color: " + theme.colors.btnBgSecondaryColor + ";\n        border-color: " + theme.colors.btnBgSecondaryColor + ";\n        box-shadow: none;\n        cursor: not-allowed;\n      }\n    ";
     }
-    return "\n    &:disabled,\n    &.pancake-button--disabled {\n      background-color: #201F43;\n      border-color: #201F43;\n      color: #37365E;\n      box-shadow: none;\n      cursor: not-allowed;\n    }\n  ";
+    return "\n    &:disabled,\n    &.pancake-button--disabled {\n      background-color: " + theme.colors.btnBgSecondaryColor + ";\n      border-color: " + theme.colors.btnBgSecondaryColor + ";\n      color: #37365E;\n      box-shadow: none;\n      cursor: not-allowed;\n    }\n  ";
 };
-// background-color: ${v === "primary" ? "#201F43" : "#030222"};
-// border-color: ${v === "primary" ? "#201F43" : "#030222"};
+// background-color: ${v === "primary" ?  ${theme.colors.btnBgSecondaryColor}" : "#030222"};
+// border-color: ${v === "primary" ?  ${theme.colors.btnBgSecondaryColor}" : "#030222"};
 // color: ${v === "primary" ? "#37365E" : "#484E4E"};
 /*** This is to get around an issue where if you use a Link component
  * React will throw a invalid DOM attribute error
@@ -1971,7 +1971,7 @@ var LinkExternal = function (_a) {
     var children = _a.children, props = __rest(_a, ["children"]);
     return (React.createElement(Link, __assign({ external: true }, props),
         children,
-        React.createElement(Icon$_, { color: props.color ? props.color : "primary", ml: "4px" })));
+        props.hideIcon ? null : React.createElement(Icon$_, { color: props.color ? props.color : "primary", ml: "4px" })));
 };
 
 var variants$3 = {
@@ -3343,7 +3343,7 @@ var additionalColors = {
     silver: "#B2B2B2",
     bronze: "#E7974D",
 };
-var lightColors = __assign(__assign(__assign({}, baseColors), additionalColors), { tooltipColors: tooltipColors, background: "#030222", background02: "#030222", backgroundDisabled: "#37365E", backgroundAlt: "#181733", cardBorder: "#2E2D5B", cardBackground: "#181733", contrast: "#181733", dropdown: "#1E1D20", dropdownDeep: "#100C18", invertedContrast: "#191326", input: "#030222", inputSecondary: "#2E2D5B", tertiary: "#030222", text: "#FFFFFF", textDisabled: "#37365E", textSubtle: "#6A6991", textSubSubtle: "#C2C2C2", disabled: "#524B63", btnTextColor: "#F7F3F6", btnBgSecondaryColor: "#01100f", gradients: {
+var lightColors = __assign(__assign(__assign({}, baseColors), additionalColors), { tooltipColors: tooltipColors, background: "#030222", background02: "#030222", backgroundDisabled: "#37365E", backgroundAlt: "#181733", cardBorder: "#2E2D5B", cardBackground: "#181733", contrast: "#181733", dropdown: "#1E1D20", dropdownDeep: "#100C18", invertedContrast: "#191326", input: "#030222", inputSecondary: "#2E2D5B", tertiary: "#030222", text: "#FFFFFF", textDisabled: "#37365E", textSubtle: "#6A6991", textSubSubtle: "#C2C2C2", disabled: "#524B63", btnTextColor: "#F7F3F6", btnBgSecondaryColor: "#201F43", gradients: {
         bubblegum: "linear-gradient(139.73deg, #313D5C 0%, #3D2A54 100%)",
         inverseBubblegum: "linear-gradient(139.73deg, #3D2A54 0%, #313D5C 100%)",
         cardHeader: "linear-gradient(166.77deg, #3B4155 0%, #3A3045 100%)",
@@ -3635,18 +3635,33 @@ var useTooltip = function (content, options) {
     };
 };
 
-var ModalHeader = styled.div(templateObject_1$j || (templateObject_1$j = __makeTemplateObject(["\n  align-items: center;\n  background: ", ";\n  /* border-bottom: 1px solid ", "; */\n  display: flex;\n  padding: 12px 16px 0;\n  ", " {\n    padding: 14px 30px;\n  }\n"], ["\n  align-items: center;\n  background: ", ";\n  /* border-bottom: 1px solid ", "; */\n  display: flex;\n  padding: 12px 16px 0;\n  ", " {\n    padding: 14px 30px;\n  }\n"])), function (_a) {
+var ModalHeader = styled.div(templateObject_1$j || (templateObject_1$j = __makeTemplateObject(["\n  align-items: center;\n  background: ", ";\n  /* border-bottom: 1px solid ", "; */\n  display: flex;\n  padding: ", ";\n  ", " {\n    padding: ", ";\n  }\n"], ["\n  align-items: center;\n  background: ", ";\n  /* border-bottom: 1px solid ", "; */\n  display: flex;\n  padding: ", ";\n  ", " {\n    padding: ", ";\n  }\n"])), function (_a) {
     var background = _a.background;
     return background || "transparent";
 }, function (_a) {
     var theme = _a.theme;
     return theme.colors.cardBorder;
 }, function (_a) {
+    var headerPadding = _a.headerPadding;
+    return (headerPadding ? headerPadding : "12px 16px 0");
+}, function (_a) {
     var theme = _a.theme;
     return theme.mediaQueries.sm;
+}, function (_a) {
+    var headerPadding = _a.headerPadding;
+    return (headerPadding ? headerPadding : "14px 30px");
 });
 var ModalTitle = styled(Flex)(templateObject_2$9 || (templateObject_2$9 = __makeTemplateObject(["\n  align-items: center;\n  flex: 1;\n"], ["\n  align-items: center;\n  flex: 1;\n"])));
-var ModalBody = styled(Flex)(templateObject_3$4 || (templateObject_3$4 = __makeTemplateObject(["\n  flex-direction: column;\n  max-height: 90vh;\n  overflow-y: auto;\n"], ["\n  flex-direction: column;\n  max-height: 90vh;\n  overflow-y: auto;\n"])));
+var ModalBody = styled(Flex)(templateObject_3$4 || (templateObject_3$4 = __makeTemplateObject(["\n  flex-direction: column;\n  max-height: 90vh;\n  overflow-y: auto;\n  padding: ", ";\n  ", " {\n    padding: ", ";\n  }\n"], ["\n  flex-direction: column;\n  max-height: 90vh;\n  overflow-y: auto;\n  padding: ", ";\n  ", " {\n    padding: ", ";\n  }\n"])), function (_a) {
+    var bodyPadding = _a.bodyPadding;
+    return (bodyPadding ? bodyPadding : "0 16px 16px");
+}, function (_a) {
+    var theme = _a.theme;
+    return theme.mediaQueries.sm;
+}, function (_a) {
+    var bodyPadding = _a.bodyPadding;
+    return (bodyPadding ? bodyPadding : "14px 30px");
+});
 var ModalCloseButton = function (_a) {
     var onDismiss = _a.onDismiss;
     return (React.createElement(IconButton, { variant: "text", onClick: onDismiss, "aria-label": "Close the dialog" },
@@ -3676,15 +3691,15 @@ var ModalContainer = styled(Box)(templateObject_4$2 || (templateObject_4$2 = __m
 var templateObject_1$j, templateObject_2$9, templateObject_3$4, templateObject_4$2;
 
 var Modal = function (_a) {
-    var title = _a.title, onDismiss = _a.onDismiss, onBack = _a.onBack, children = _a.children, _b = _a.hideCloseButton, hideCloseButton = _b === void 0 ? false : _b, _c = _a.bodyPadding, bodyPadding = _c === void 0 ? "24px" : _c, _d = _a.headerBackground, headerBackground = _d === void 0 ? "transparent" : _d, _e = _a.minWidth, minWidth = _e === void 0 ? "343px" : _e, _f = _a.maxWidth, maxWidth = _f === void 0 ? "100%" : _f, props = __rest(_a, ["title", "onDismiss", "onBack", "children", "hideCloseButton", "bodyPadding", "headerBackground", "minWidth", "maxWidth"]);
+    var title = _a.title, onDismiss = _a.onDismiss, onBack = _a.onBack, children = _a.children, _b = _a.hideCloseButton, hideCloseButton = _b === void 0 ? false : _b, headerPadding = _a.headerPadding, bodyPadding = _a.bodyPadding, _c = _a.headerBackground, headerBackground = _c === void 0 ? "transparent" : _c, _d = _a.minWidth, minWidth = _d === void 0 ? "343px" : _d, _e = _a.maxWidth, maxWidth = _e === void 0 ? "100%" : _e, props = __rest(_a, ["title", "onDismiss", "onBack", "children", "hideCloseButton", "headerPadding", "bodyPadding", "headerBackground", "minWidth", "maxWidth"]);
     var theme = useTheme();
     return (React.createElement(ModalContainer, __assign({ minWidth: minWidth, maxWidth: maxWidth }, props),
-        React.createElement(ModalHeader, { background: getThemeValue("colors." + headerBackground, headerBackground)(theme) },
+        React.createElement(ModalHeader, { headerPadding: headerPadding, background: getThemeValue("colors." + headerBackground, headerBackground)(theme) },
             React.createElement(ModalTitle, null,
                 onBack && React.createElement(ModalBackButton, { onBack: onBack }),
                 React.createElement(Heading, null, title)),
             !hideCloseButton && React.createElement(ModalCloseButton, { onDismiss: onDismiss })),
-        React.createElement(ModalBody, { p: bodyPadding }, children)));
+        React.createElement(ModalBody, { bodyPadding: bodyPadding }, children)));
 };
 
 var ModalWrapper = styled.div(templateObject_1$i || (templateObject_1$i = __makeTemplateObject(["\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  position: fixed;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: ", ";\n"], ["\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  position: fixed;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: ", ";\n"])), function (_a) {

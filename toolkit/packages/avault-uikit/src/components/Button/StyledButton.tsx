@@ -17,8 +17,8 @@ const getDisabledStyles = ({ isLoading, theme, variant: v }: TransientButtonProp
       &:disabled,
       &.pancake-button--disabled {
         color: ${theme.colors.primary};
-        background-color: #201F43;
-        border-color: #201F43;
+        background-color: ${theme.colors.btnBgSecondaryColor};
+        border-color: ${theme.colors.btnBgSecondaryColor};
         box-shadow: none;
         cursor: not-allowed;
       }
@@ -28,16 +28,16 @@ const getDisabledStyles = ({ isLoading, theme, variant: v }: TransientButtonProp
   return `
     &:disabled,
     &.pancake-button--disabled {
-      background-color: #201F43;
-      border-color: #201F43;
+      background-color: ${theme.colors.btnBgSecondaryColor};
+      border-color: ${theme.colors.btnBgSecondaryColor};
       color: #37365E;
       box-shadow: none;
       cursor: not-allowed;
     }
   `;
 };
-// background-color: ${v === "primary" ? "#201F43" : "#030222"};
-// border-color: ${v === "primary" ? "#201F43" : "#030222"};
+// background-color: ${v === "primary" ?  ${theme.colors.btnBgSecondaryColor}" : "#030222"};
+// border-color: ${v === "primary" ?  ${theme.colors.btnBgSecondaryColor}" : "#030222"};
 // color: ${v === "primary" ? "#37365E" : "#484E4E"};
 /*** This is to get around an issue where if you use a Link component
  * React will throw a invalid DOM attribute error

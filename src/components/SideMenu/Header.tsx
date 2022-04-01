@@ -32,7 +32,7 @@ export default styled(Header)`
   // top: 0px;
   // width: 100%;
   position: relative;
-  z-index: 999;
+  z-index: 98;
   // background-color: ${({ theme }) => theme.colors.background};
   .inner {
     max-width: 1200px;

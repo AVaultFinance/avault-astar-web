@@ -38,8 +38,8 @@ export const styleVariants = {
     borderColor: "primary",
   },
   [variants.SUBTLE]: {
-    backgroundColor: "textSubtle",
-    color: "backgroundAlt",
+    backgroundColor: "btnBgSecondaryColor",
+    color: "primary",
   },
   [variants.DANGER]: {
     backgroundColor: "failure",

@@ -11,7 +11,8 @@ const Modal: React.FC<ModalProps> = ({
   onBack,
   children,
   hideCloseButton = false,
-  bodyPadding = "24px",
+  headerPadding,
+  bodyPadding,
   headerBackground = "transparent",
   minWidth = "343px",
   maxWidth = "100%",
@@ -20,14 +21,17 @@ const Modal: React.FC<ModalProps> = ({
   const theme = useTheme();
   return (
     <ModalContainer minWidth={minWidth} maxWidth={maxWidth} {...props}>
-      <ModalHeader background={getThemeValue(`colors.${headerBackground}`, headerBackground)(theme)}>
+      <ModalHeader
+        headerPadding={headerPadding}
+        background={getThemeValue(`colors.${headerBackground}`, headerBackground)(theme)}
+      >
         <ModalTitle>
           {onBack && <ModalBackButton onBack={onBack} />}
           <Heading>{title}</Heading>
         </ModalTitle>
         {!hideCloseButton && <ModalCloseButton onDismiss={onDismiss} />}
       </ModalHeader>
-      <ModalBody p={bodyPadding}>{children}</ModalBody>
+      <ModalBody bodyPadding={bodyPadding}>{children}</ModalBody>
     </ModalContainer>
   );
 };

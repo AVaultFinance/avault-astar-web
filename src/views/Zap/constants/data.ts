@@ -6,20 +6,36 @@ import { chainKey } from 'config';
 import { CHAINKEY, Currency } from '@avault/sdk';
 export const zapLocalFromCurrency = 'FromCurrency';
 export const zapLocalToCurrency = 'ToCurrency';
-const _TokenALL = vault.map((v: IVaultConfigItem) => {
-  const [symbol0, symbol1] = v.lpDetail.symbol.replace(' LP', '').split('-');
-  const _v0 = symbol0.toLowerCase() === 'kac' ? 'kaco' : symbol0.toLowerCase();
-  const _v1 = symbol1.toLowerCase() === 'kac' ? 'kaco' : symbol1.toLowerCase();
-  return [
-    [_v0, _v1],
+
+const _TokenALL = vault.map(
+  (
+    v: IVaultConfigItem,
+  ): [
+    string[],
     {
-      type: ITokenType.LP,
-      ...v.lpDetail,
-      token: tokens[chainKey][_v0],
-      quoteToken: tokens[chainKey][_v1],
+      token: any;
+      quoteToken: any;
+      symbol: string;
+      address: any;
+      decimals: number;
+      type: ITokenType;
     },
-  ];
-});
+  ] => {
+    const [symbol0, symbol1] = v.lpDetail.symbol.replace(' LP', '').split('-');
+    const _v0 = symbol0.toLowerCase() === 'kac' ? 'kaco' : symbol0.toLowerCase();
+    const _v1 = symbol1.toLowerCase() === 'kac' ? 'kaco' : symbol1.toLowerCase();
+    return [
+      [_v0, _v1],
+      {
+        type: ITokenType.LP,
+        ...v.lpDetail,
+        token: tokens[chainKey][_v0],
+        quoteToken: tokens[chainKey][_v1],
+      },
+    ];
+  },
+);
+export const tokenIndex = _TokenALL;
 const _Token = _TokenALL.map((v: any[]) => v[0]);
 const tokenSingle = [...new Set(_Token.flat())];
 export const tokenAll: IToken[] =

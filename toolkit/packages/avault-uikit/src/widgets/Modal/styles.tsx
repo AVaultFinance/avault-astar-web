@@ -6,14 +6,14 @@ import { ArrowBackIcon, CloseIcon } from "../../components/Svg";
 import { IconButton } from "../../components/Button";
 import { ModalProps } from "./types";
 
-export const ModalHeader = styled.div<{ background?: string }>`
+export const ModalHeader = styled.div<{ background?: string; headerPadding?: string }>`
   align-items: center;
   background: ${({ background }) => background || "transparent"};
   /* border-bottom: 1px solid ${({ theme }) => theme.colors.cardBorder}; */
   display: flex;
-  padding: 12px 16px 0;
+  padding: ${({ headerPadding }) => (headerPadding ? headerPadding : "12px 16px 0")};
   ${({ theme }) => theme.mediaQueries.sm} {
-    padding: 14px 30px;
+    padding: ${({ headerPadding }) => (headerPadding ? headerPadding : "14px 30px")};
   }
 `;
 
@@ -22,10 +22,14 @@ export const ModalTitle = styled(Flex)`
   flex: 1;
 `;
 
-export const ModalBody = styled(Flex)`
+export const ModalBody = styled(Flex)<{ bodyPadding?: string }>`
   flex-direction: column;
   max-height: 90vh;
   overflow-y: auto;
+  padding: ${({ bodyPadding }) => (bodyPadding ? bodyPadding : "0 16px 16px")};
+  ${({ theme }) => theme.mediaQueries.sm} {
+    padding: ${({ bodyPadding }) => (bodyPadding ? bodyPadding : "14px 30px")};
+  }
 `;
 
 export const ModalCloseButton: React.FC<{ onDismiss: ModalProps["onDismiss"] }> = ({ onDismiss }) => {

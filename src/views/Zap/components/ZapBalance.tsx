@@ -21,7 +21,6 @@ const ZapBalance = ({ currency, setMax, account }: { currency: IToken; setMax?: 
       return;
     }
     if (setMax && balance && Number(balance.toSignificant(18)) > 0) {
-      console.log({ balance });
       setMax(new BigNumber(balance.toSignificant(18)).toFixed(decimals, BigNumber.ROUND_DOWN));
       _setBalance(balance.toSignificant(18));
     }

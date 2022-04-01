@@ -2,54 +2,47 @@ import BigNumber from 'bignumber.js';
 import React, { useCallback, useMemo, useState } from 'react';
 import { Button, Modal, Text, useMatchBreakpoints } from '@avault/ui';
 import { getFullDisplayBalance } from 'utils/formatBalance';
-import CInput from './C_Input';
 import styled from 'styled-components';
 import Loading from 'components/TransactionConfirmationModal/Loading';
-import { changeLoading, changeVaultItemLoading, fetchVaultFarmUserDataAsync } from 'state/vault';
-import { useAppDispatch } from 'state';
 import { useWeb3React } from '@web3-react/core';
 import { useVault } from 'state/vault/hooks';
 import useToast from 'hooks/useToast';
-import useVaultDeposit from 'views/Vault/hooks/useVaultDeposit';
+import { useAppDispatch } from 'state';
+import useVaultWithdraw from 'views/Vault/hooks/useVaultWithdraw';
+import { changeLoading, changeVaultItemLoading, fetchVaultFarmUserDataAsync } from 'state/vault';
 import { showDecimals } from 'views/Vault/utils';
+import CInput from '../Actions/C_Input';
 
-interface DepositModalProps {
-  lpSymbol?: string;
+interface WithdrawModalProps {
+  displayEarningsBalance: string;
   max: BigNumber;
-  displayBalance: string;
+  lpSymbol: string;
   lpAddressDecimals: number;
   onDismiss?: () => void;
   contractAddress: string;
+  lpToCLpRate: string;
   index: number;
 }
 const ModalInputStyled = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.cardBorder};
   border-radius: ${({ theme }) => theme.radii.card};
-  padding: 12px 16px 16px;
+  padding: 10px 16px 16px;
   margin-top: 8px;
 `;
-const ButtonStyled = styled(Button)<{ isLoading: boolean; isMobile: boolean }>`
-  margin-top: 8px;
-  width: 100%;
-  // isLoading={pendingTx}
-  height: ${({ isMobile }) => (isMobile ? '38px' : '48px')};
-`;
-const DepositModal: React.FC<DepositModalProps> = ({
-  lpAddressDecimals,
-  max,
+const WithdrawModal: React.FC<WithdrawModalProps> = ({
   onDismiss,
-  displayBalance,
+  max,
+  displayEarningsBalance,
   lpSymbol,
+  lpAddressDecimals,
   contractAddress,
+  lpToCLpRate,
   index,
 }) => {
   const [val, setVal] = useState('');
   const fullBalance = useMemo(() => {
     return getFullDisplayBalance(max, lpAddressDecimals, showDecimals(lpSymbol));
   }, [max, lpAddressDecimals, lpSymbol]);
-
-  const valNumber = new BigNumber(val);
-  const fullBalanceNumber = new BigNumber(fullBalance);
 
   const handleChange = useCallback(
     (e: React.FormEvent<HTMLInputElement>) => {
@@ -60,11 +53,6 @@ const DepositModal: React.FC<DepositModalProps> = ({
     [setVal],
   );
 
-  const handleSelectMax = useCallback(() => {
-    setVal(fullBalance);
-  }, [fullBalance, setVal]);
-  const { isMd, isXl, isLg } = useMatchBreakpoints();
-  const isMobile = !(isMd || isXl || isLg);
   const [pendingTx, setPendingTx] = useState(false);
   const [pendingTxSuccess, setPendingTxSuccess] = useState(true);
 
@@ -72,22 +60,30 @@ const DepositModal: React.FC<DepositModalProps> = ({
   const { data: vaults } = useVault();
   const { toastSuccess, toastError } = useToast();
   const dispatch = useAppDispatch();
-  const { onDeposit } = useVaultDeposit(account, contractAddress, lpAddressDecimals);
-  const handleDeposit = useCallback(async () => {
+  const { onWithdraw } = useVaultWithdraw(account, contractAddress, lpAddressDecimals);
+
+  const handleSelectMax = useCallback(() => {
+    setVal(fullBalance);
+  }, [fullBalance, setVal]);
+  const handleWithdraw = useCallback(async () => {
     setPendingTx(true);
     let result = null;
     try {
-      result = await onDeposit(val);
+      const _amount = new BigNumber(val)
+        .times(1 / Number(lpToCLpRate))
+        .times(0.99)
+        .toString();
+      result = await onWithdraw(_amount);
       if (typeof result === 'boolean' && result) {
         dispatch(changeLoading());
         dispatch(changeVaultItemLoading({ index }));
         dispatch(fetchVaultFarmUserDataAsync({ account, vaults, index }));
-        toastSuccess(`Deposit!`, `Your ${lpSymbol} deposit!`);
+        toastSuccess(`Withdraw!`, `'Your ${lpSymbol} earnings have been sent to your wallet!'`);
         setTimeout(() => {
           setPendingTxSuccess(true);
         }, 10000);
       } else {
-        const message = result ? result : `Your ${lpSymbol} deposit failed!`;
+        const message = result ? result : `Your ${lpSymbol} withdraw failed!`;
         toastError('Error', message);
         setPendingTxSuccess(false);
         setTimeout(() => {
@@ -95,40 +91,44 @@ const DepositModal: React.FC<DepositModalProps> = ({
         }, 1500);
       }
     } catch (e: any) {
-      toastError('Error', e.message ? e.message : `Your ${lpSymbol} deposit failed!`);
+      toastError('Error', e.message ? e.message : `Your ${lpSymbol} withdraw failed! `);
       setPendingTxSuccess(false);
       setTimeout(() => {
         setPendingTxSuccess(true);
       }, 1500);
-      // toastError('Error', `Your ${lpSymbol} deposit failed!`);
     } finally {
       setVal('');
       setPendingTx(false);
     }
-  }, [val, account, vaults, index, dispatch, lpSymbol, onDeposit, toastError, toastSuccess]);
+  }, [val, lpToCLpRate, account, index, vaults, dispatch, lpSymbol, onWithdraw, toastError, toastSuccess]);
+
+  const { isMd, isXl, isLg } = useMatchBreakpoints();
+  const isMobile = !(isMd || isXl || isLg);
+  const valNumber = new BigNumber(val);
+  const fullBalanceNumber = new BigNumber(fullBalance);
 
   return (
-    <Modal title={'Deposit'} minWidth={isMobile ? '343px' : '520px'} bodyPadding="0 16px 20px" onDismiss={onDismiss}>
+    <Modal title="Withdraw" minWidth={isMobile ? '343px' : '520px'} bodyPadding="0 16px 20px" onDismiss={onDismiss}>
       <Text fontSize="12px" fontWeight="500" textAlign="right">
-        {/* {lpSymbol ?? ''} */}
-        LP Balance: {displayBalance}
+        LP Withdrawable: {displayEarningsBalance}
+        {lpSymbol ? ` ${lpSymbol}` : ''}
       </Text>
       <ModalInputStyled>
-        <CInput value={val} autoFocus={true} onSelectMax={handleSelectMax} onChange={handleChange} />
-        <ButtonStyled
+        <CInput autoFocus={true} onSelectMax={handleSelectMax} onChange={handleChange} value={val} />
+        <Button
           variant="tertiary"
+          disabled={pendingTx || !valNumber.isFinite() || valNumber.eq(0) || valNumber.gt(fullBalanceNumber)}
           height={isMobile ? '38px' : '48px'}
           isLoading={pendingTx}
-          isMobile={isMobile}
-          disabled={pendingTx || !valNumber.isFinite() || valNumber.eq(0) || valNumber.gt(fullBalanceNumber)}
-          onClick={handleDeposit}
+          onClick={handleWithdraw}
+          width="100%"
         >
-          Deposit
+          Withdraw
           <Loading isLoading={pendingTx} success={pendingTxSuccess} />
-        </ButtonStyled>
+        </Button>
       </ModalInputStyled>
     </Modal>
   );
 };
 
-export default DepositModal;
+export default WithdrawModal;

@@ -8,9 +8,9 @@ import useTokenAllowance from './useTokenAllowance';
 import { Field } from '../state/swap/actions';
 import { useTransactionAdder, useHasPendingApproval } from '../state/transactions/hooks';
 import { computeSlippageAdjustedAmounts } from '../utils/prices';
-import { calculateGasMargin } from '../utils';
 import { useTokenContract } from './useContract';
-import { chainId as myChainId } from 'config/constants/tokens';
+import { chainId, chainId as myChainId } from 'config/constants/tokens';
+import { DEFAULT_GAS_LIMIT_40w } from 'config';
 
 export enum ApprovalState {
   UNKNOWN,
@@ -32,7 +32,7 @@ export function useApproveCallback(
   // check the current approval status
   const approvalState: ApprovalState = useMemo(() => {
     if (!amountToApprove || !spender) return ApprovalState.UNKNOWN;
-    if (amountToApprove.currency === ETHER[myChainId]) return ApprovalState.APPROVED;
+    if (amountToApprove.currency === ETHER[chainId]) return ApprovalState.APPROVED;
     // we might not have enough data to know whether or not we need to approve
     if (!currentAllowance) return ApprovalState.UNKNOWN;
 
@@ -72,17 +72,10 @@ export function useApproveCallback(
       return;
     }
 
-    let useExact = false;
-    const estimatedGas = await tokenContract.estimateGas.approve(spender, MaxUint256).catch(() => {
-      // general fallback for tokens who restrict approval amounts
-      useExact = true;
-      return tokenContract.estimateGas.approve(spender, amountToApprove.raw.toString());
-    });
-
     // eslint-disable-next-line consistent-return
     return tokenContract
-      .approve(spender, useExact ? amountToApprove.raw.toString() : MaxUint256, {
-        gasLimit: calculateGasMargin(estimatedGas),
+      .approve(spender, MaxUint256, {
+        gasLimit: DEFAULT_GAS_LIMIT_40w,
       })
       .then((response: TransactionResponse) => {
         addTransaction(response, {

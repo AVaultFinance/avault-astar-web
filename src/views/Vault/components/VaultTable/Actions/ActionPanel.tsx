@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import styled, { keyframes, css } from 'styled-components';
 import { useTranslation } from 'contexts/Localization';
-import { Flex, LinkExternal, useMatchBreakpoints, useWalletModal } from '@avault/ui';
+import { Flex, LinkExternal, useMatchBreakpoints, useModal, useWalletModal } from '@avault/ui';
 import { getAddress } from 'utils/addressHelpers';
 import DepositAction from './DepositAction';
 import WithdrawAction from './WithdrawAction';
@@ -25,6 +25,9 @@ import { getDisplayApy } from 'views/Farms/Farms';
 import useToast from 'hooks/useToast';
 import { InfoContainer } from 'style/TableStyled';
 import { showDecimals } from 'views/Vault/utils';
+import AddLiquidityModal from '../modal/AddLiquidityModal';
+import RemoveLiquidityModal from '../modal/RemoveLiquidityModal';
+// import { registerToken } from 'utils/wallet';
 export interface ActionPanelProps {
   apr: AprProps;
   multiplier: MultiplierProps;
@@ -79,7 +82,7 @@ const StyledLinkExternal = styled(LinkExternal)`
   color: ${({ theme }) => theme.colors.primaryDark};
   font-weight: 600;
   font-size: 12px;
-  padding: 5px 10px 5px 0;
+  padding: 4px 10px 4px 0;
   svg {
     width: 14px;
     path {
@@ -162,6 +165,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
   const { account } = useWeb3React();
   const { avaultAddressBalance, allowance } = useVaultFarmUser(vault?.farm?.pid ?? 0);
   const isApproved = account && allowance && allowance.isGreaterThan(0);
+  // const isMetaMaskInScope = !!window.ethereum?.isMetaMask;
   // const stakingBigNumber = new BigNumber(vault.farm.userData.stakingTokenBalance);
   let earnings = BIG_ZERO;
   let displayEarningsBalance: string = '0';
@@ -187,6 +191,8 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
       );
     }
   }
+  const [onAddLiquidity] = useModal(<AddLiquidityModal account={account} index={index} vault={vault} />);
+  const [onRemoveLiquidity] = useModal(<RemoveLiquidityModal account={account} index={index} vault={vault} />);
 
   const lpContract = useERC20(lpAddress);
   const [requestedApproval, setRequestedApproval] = useState(false);
@@ -236,10 +242,24 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
   return (
     <Container expanded={expanded}>
       <InfoContainer>
-        <StyledLinkExternal href={vault.swapLink}>{t('Add Liquidity')}</StyledLinkExternal>
+        <StyledLinkExternal hideIcon={true} onClick={onAddLiquidity}>
+          Add Liquidity
+        </StyledLinkExternal>
+        <StyledLinkExternal hideIcon={true} onClick={onRemoveLiquidity}>
+          Remove Liquidity
+        </StyledLinkExternal>
         <StyledLinkExternal href={`${BASE_BSC_SCAN_URL}/address/${vault.contractAddress[chainId]}`}>
           {t('View Contract')}
         </StyledLinkExternal>
+        {/* 
+        {account && isMetaMaskInScope && vault.farm.lpAddresses && (
+          <StyledLinkExternal
+            hideIcon={true}
+            onClick={() => registerToken(vault.farm.lpAddresses, vault.farm.lpSymbol, vault.farm.lpAddressDecimals)}
+          >
+            Add LP to Metamask
+          </StyledLinkExternal>
+        )} */}
       </InfoContainer>
       <DetailContainer>
         <p>
@@ -280,9 +300,14 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
           </em>
         </p>
         <InfoContainerSmall>
-          <StyledLinkExternal href={vault.swapLink}>{t('Add Liquidity')}</StyledLinkExternal>
+          <StyledLinkExternal hideIcon={true} onClick={onAddLiquidity}>
+            Add Liquidity
+          </StyledLinkExternal>
+          <StyledLinkExternal hideIcon={true} onClick={onRemoveLiquidity}>
+            Remove Liquidity
+          </StyledLinkExternal>
           <StyledLinkExternal href={`${BASE_BSC_SCAN_URL}/address/${vault.contractAddress[chainId]}`}>
-            {t('View Contract')}
+            View Contract
           </StyledLinkExternal>
         </InfoContainerSmall>
       </DetailContainer>
