@@ -102,9 +102,12 @@ function CurrencyRow({
       </FlexCol>
       <HeadingStyled>
         {balance ? (
-          Number(new BigNumber(balance.toSignificant(18)).toFixed(decimals, BigNumber.ROUND_DOWN)).toLocaleString('en-US', {
-            maximumFractionDigits: decimals,
-          })
+          Number(new BigNumber(balance.toSignificant(18)).toFixed(decimals, BigNumber.ROUND_DOWN)).toLocaleString(
+            'en-US',
+            {
+              maximumFractionDigits: decimals,
+            },
+          )
         ) : account ? (
           <CircleLoader />
         ) : (
