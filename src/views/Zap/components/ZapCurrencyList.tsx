@@ -85,7 +85,7 @@ function CurrencyRow({
   const { account } = useActiveWeb3React();
   const _currency =
     currency.address && currency.address[chainId]
-      ? new Token(chainId, currency.address[chainId], 18, currency.symbol, currency.name)
+      ? new Token(chainId, currency.address[chainId], currency.decimals ?? 18, currency.symbol, currency.name)
       : ETHER[chainId];
   const balance = useCurrencyBalance(account ?? undefined, _currency);
   const decimals = showDecimals(currency.symbol);

@@ -10,28 +10,32 @@ import { IToken } from '../utils/types';
 const ZapBalance = ({ currency, setMax, account }: { currency: IToken; setMax?: any; account: string }) => {
   const _currency =
     currency.address && currency.address[chainId]
-      ? new Token(chainId, currency.address[chainId], 18, currency.symbol, currency.name)
+      ? new Token(chainId, currency.address[chainId], currency.decimals ?? 18, currency.symbol, currency.name)
       : ETHER[chainId];
   const balance = useCurrencyBalance(account ?? undefined, _currency);
   const decimals = showDecimals(currency.symbol);
   const [_balance, _setBalance] = useState('0');
   useEffect(() => {
     // balance, setMax, decimals
-    if (!balance || _balance === balance.toFixed(18)) {
+    if (!balance || _balance === balance.toSignificant(18)) {
       return;
     }
-    if (setMax && balance && Number(balance.toFixed(18)) > 0) {
-      setMax(new BigNumber(balance.toFixed(18)).toFixed(decimals, BigNumber.ROUND_DOWN));
-      _setBalance(balance.toFixed(18));
+    if (setMax && balance && Number(balance.toSignificant(18)) > 0) {
+      console.log({ balance });
+      setMax(new BigNumber(balance.toSignificant(18)).toFixed(decimals, BigNumber.ROUND_DOWN));
+      _setBalance(balance.toSignificant(18));
     }
   }, [_balance, balance, setMax, decimals]);
   return (
     <BalanceStyled>
       Balance:{' '}
       {balance ? (
-        Number(new BigNumber(balance.toFixed(18)).toFixed(decimals, BigNumber.ROUND_DOWN)).toLocaleString('en-US', {
-          maximumFractionDigits: decimals,
-        })
+        Number(new BigNumber(balance.toSignificant(18)).toFixed(decimals, BigNumber.ROUND_DOWN)).toLocaleString(
+          'en-US',
+          {
+            maximumFractionDigits: decimals,
+          },
+        )
       ) : account ? (
         <SkeletonStyled />
       ) : (
