@@ -21,7 +21,6 @@ const WalletButton = styled(Button).attrs({ width: "100%", variant: "text", padd
   margin-left: auto;
   margin-right: auto;
   background-color: #ffa14e;
-  border-radius: 12px;
 `;
 
 export const MoreWalletCard: React.FC<ButtonProps> = (props) => {

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Flex, useMatchBreakpoints } from '@avault/ui';
 import WalletAccountInfo from './WalletAccount';
-import { useCompoundingAllTotal } from 'state/vault/hooks';
+import { useVaultAllTotal } from 'state/vault/hooks';
 import Balance from 'components/Balance';
 const TextLinerStyle = styled(Flex)`
   font-size: 18px;
@@ -21,7 +21,7 @@ const TextLinerStyle = styled(Flex)`
 const UserWidget = () => {
   const { isMd, isSm, isXs } = useMatchBreakpoints();
   const isMobile = isMd || isSm || isXs;
-  const allTotal = useCompoundingAllTotal();
+  const allTotal = useVaultAllTotal();
 
   return (
     <User>

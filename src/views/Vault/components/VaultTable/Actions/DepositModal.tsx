@@ -5,12 +5,12 @@ import { getFullDisplayBalance } from 'utils/formatBalance';
 import CInput from './C_Input';
 import styled from 'styled-components';
 import Loading from 'components/TransactionConfirmationModal/Loading';
-import { changeLoading, changeVaultItemLoading, fetchCompoundingFarmUserDataAsync } from 'state/vault';
+import { changeLoading, changeVaultItemLoading, fetchVaultFarmUserDataAsync } from 'state/vault';
 import { useAppDispatch } from 'state';
 import { useWeb3React } from '@web3-react/core';
-import { useCompounding } from 'state/vault/hooks';
+import { useVault } from 'state/vault/hooks';
 import useToast from 'hooks/useToast';
-import useCompoundingDeposit from 'views/Vault/hooks/useCompoundingDeposit';
+import useVaultDeposit from 'views/Vault/hooks/useVaultDeposit';
 import { showDecimals } from 'views/Vault/utils';
 
 interface DepositModalProps {
@@ -69,10 +69,10 @@ const DepositModal: React.FC<DepositModalProps> = ({
   const [pendingTxSuccess, setPendingTxSuccess] = useState(true);
 
   const { account } = useWeb3React();
-  const { data: compoundings } = useCompounding();
+  const { data: vaults } = useVault();
   const { toastSuccess, toastError } = useToast();
   const dispatch = useAppDispatch();
-  const { onDeposit } = useCompoundingDeposit(account, contractAddress, lpAddressDecimals);
+  const { onDeposit } = useVaultDeposit(account, contractAddress, lpAddressDecimals);
   const handleDeposit = useCallback(async () => {
     setPendingTx(true);
     let result = null;
@@ -81,7 +81,7 @@ const DepositModal: React.FC<DepositModalProps> = ({
       if (typeof result === 'boolean' && result) {
         dispatch(changeLoading());
         dispatch(changeVaultItemLoading({ index }));
-        dispatch(fetchCompoundingFarmUserDataAsync({ account, compoundings, index }));
+        dispatch(fetchVaultFarmUserDataAsync({ account, vaults, index }));
         toastSuccess(`Deposit!`, `Your ${lpSymbol} deposit!`);
         setTimeout(() => {
           setPendingTxSuccess(true);
@@ -105,7 +105,7 @@ const DepositModal: React.FC<DepositModalProps> = ({
       setVal('');
       setPendingTx(false);
     }
-  }, [val, account, compoundings, index, dispatch, lpSymbol, onDeposit, toastError, toastSuccess]);
+  }, [val, account, vaults, index, dispatch, lpSymbol, onDeposit, toastError, toastSuccess]);
 
   return (
     <Modal title={'Deposit'} minWidth={isMobile ? '343px' : '520px'} bodyPadding="0 16px 20px" onDismiss={onDismiss}>

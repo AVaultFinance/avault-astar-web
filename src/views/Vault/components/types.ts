@@ -30,7 +30,7 @@ export type TableDataTypes = {
 export const DesktopColumnSchema: ColumnsDefTypes[] = [
   {
     id: 1,
-    name: 'compounding',
+    name: 'vault',
     sortable: true,
     label: '',
   },

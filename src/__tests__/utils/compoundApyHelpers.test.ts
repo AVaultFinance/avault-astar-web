@@ -1,4 +1,4 @@
-import { tokenEarnedPerThousandDollarsCompounding, getRoi } from 'utils/compoundApyHelpers';
+import { tokenEarnedPerThousandDollarsVault, getRoi } from 'utils/compoundApyHelpers';
 
 it.each([
   [{ numberOfDays: 1, farmApr: 365, tokenPrice: 1, performanceFee: 20 }, 8],
@@ -8,9 +8,7 @@ it.each([
   [{ numberOfDays: 365, farmApr: 100, tokenPrice: 0.2, performanceFee: 0 }, 8572.84],
   [{ numberOfDays: 365, farmApr: 20, tokenPrice: 1, performanceFee: 0 }, 221.34],
 ])('calculate Kac earned with values %o', ({ numberOfDays, farmApr, tokenPrice, performanceFee }, expected) => {
-  expect(tokenEarnedPerThousandDollarsCompounding({ numberOfDays, farmApr, tokenPrice, performanceFee })).toEqual(
-    expected,
-  );
+  expect(tokenEarnedPerThousandDollarsVault({ numberOfDays, farmApr, tokenPrice, performanceFee })).toEqual(expected);
 });
 
 it.each([

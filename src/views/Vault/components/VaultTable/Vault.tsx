@@ -5,8 +5,9 @@ import styled from 'styled-components';
 // import { getBalanceNumber } from 'utils/formatBalance';
 import { TokenPairImage } from 'components/TokenImage';
 import { getImageUrlFromToken } from 'utils';
+import DefaultImg from 'components/DefaultImg';
 
-export interface CompoundingProps {
+export interface VaultProps {
   label?: string;
   token0Address: string;
   token1Address: string;
@@ -48,19 +49,17 @@ const TokenWrapper = styled.div`
   }
 `;
 
-const Compounding: React.FunctionComponent<CompoundingProps> = ({
-  token0Address,
-  token1Address,
-  label,
-  farmProject,
-  isSingle,
-}) => {
+const Vault: React.FunctionComponent<VaultProps> = ({ token0Address, token1Address, label, farmProject, isSingle }) => {
   return (
     <Container>
       <TokenWrapper>
         {isSingle ? (
-          <img src={getImageUrlFromToken(token0Address)} className="img" alt="" />
-        ) : (
+          token0Address ? (
+            <img src={getImageUrlFromToken(token0Address)} className="img" alt="" />
+          ) : (
+            <DefaultImg />
+          )
+        ) : token0Address ? (
           <TokenPairImage
             variant="inverted"
             primaryToken={token0Address}
@@ -68,6 +67,8 @@ const Compounding: React.FunctionComponent<CompoundingProps> = ({
             width={60}
             height={60}
           />
+        ) : (
+          <DefaultImg />
         )}
       </TokenWrapper>
       <LabelStyled>
@@ -78,4 +79,4 @@ const Compounding: React.FunctionComponent<CompoundingProps> = ({
   );
 };
 
-export default Compounding;
+export default Vault;

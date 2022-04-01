@@ -7,15 +7,15 @@ import { usePriceCakeBusd } from 'state/farms/hooks';
 import { getBalanceNumber } from 'utils/formatBalance';
 import { getFarmApr } from 'utils/apr';
 import { orderBy } from 'lodash';
-import CompoundingTable from './components/CompoundingTable/CompoundingTable';
+import VaultTable from './components/VaultTable/VaultTable';
 
 import { DesktopColumnSchema } from './components/types';
 import useKacPerBlock from './hooks/useAvaultPerBlock';
 import { OptionProps } from 'components/Select/Select';
 import { ISortDir } from 'components/SortIcon';
-import { RowProps } from './components/CompoundingTable/Row';
-import { useCompounding, useCompoundingUserData, usePollCompoundingData } from 'state/vault/hooks';
-import { ICompounding } from 'state/vault/types';
+import { RowProps } from './components/VaultTable/Row';
+import { useVault, useVaultUserData, usePollVaultData } from 'state/vault/hooks';
+import { IVault } from 'state/vault/types';
 import { usePrice } from 'state/price/hooks';
 import PageLoader from 'components/Loader/PageLoader';
 // const StyledImage = styled(Image)`
@@ -49,9 +49,9 @@ export const getDisplayApy = (cakeRewardsApy?: number): string => {
   return null;
 };
 
-const Compoundings: React.FC = () => {
+const Vaults: React.FC = () => {
   const kacPerBlock = useKacPerBlock();
-  const { data: compoundingsLP, userDataLoaded } = useCompounding();
+  const { data: vaultsLP, userDataLoaded } = useVault();
   const cakePrice = usePriceCakeBusd();
   const { account } = useWeb3React();
   const [sortKey, setSortKey] = useState('hot');
@@ -59,18 +59,18 @@ const Compoundings: React.FC = () => {
   const chosenFarmsLength = useRef(0);
 
   const { priceVsBusdMap } = usePrice();
-  const { data: compoundings } = useCompounding();
+  const { data: vaults } = useVault();
   const userDataReady = !account || (!!account && userDataLoaded);
-  usePollCompoundingData();
-  useCompoundingUserData(compoundings);
+  usePollVaultData();
+  useVaultUserData(vaults);
   // Users with no wallet connected should see 0 as Earned amount
   // Connected users should see loading indicator until first userData has loaded
-  const compoundingsList = useCallback(
-    (compoundingsToDisplay: ICompounding[]): ICompounding[] => {
-      const compoundingsToDisplayWithAPR: ICompounding[] = compoundingsToDisplay.map((compounding) => {
-        const { farm } = compounding;
+  const vaultsList = useCallback(
+    (vaultsToDisplay: IVault[]): IVault[] => {
+      const vaultsToDisplayWithAPR: IVault[] = vaultsToDisplay.map((vault) => {
+        const { farm } = vault;
         // if (!farm.lpTotalInQuoteToken) {
-        //   return compounding;
+        //   return vault;
         // }
         const totalLiquidity = new BigNumber(farm.lpTotalInQuoteToken).times(
           priceVsBusdMap[farm.quoteToken.toLocaleLowerCase()],
@@ -84,7 +84,7 @@ const Compoundings: React.FC = () => {
           farm.lpAddresses,
         );
         // console.log(
-        //   `${compounding.token.symbol}-${compounding.token1Address.symbol}`,
+        //   `${vault.token.symbol}-${vault.token1Address.symbol}`,
         //   'kacPerBlock',
         //   kacPerBlock.toFixed(5),
         //   'cakePrice',
@@ -97,12 +97,12 @@ const Compoundings: React.FC = () => {
         //   lpRewardsApr,
         // );
         return {
-          ...compounding,
-          compounding: {
-            ...compounding.compounding,
+          ...vault,
+          vault: {
+            ...vault.vault,
           },
           farm: {
-            ...compounding.farm,
+            ...vault.farm,
             apr: `${kacRewardsApr}`,
             lpRewardsApr: `${lpRewardsApr}`,
             liquidity: totalLiquidity.toString(),
@@ -111,7 +111,7 @@ const Compoundings: React.FC = () => {
         };
       });
 
-      return compoundingsToDisplayWithAPR;
+      return vaultsToDisplayWithAPR;
     },
     [cakePrice, priceVsBusdMap, kacPerBlock],
   );
@@ -119,76 +119,74 @@ const Compoundings: React.FC = () => {
   const chosenFarmsMemoized = useMemo(() => {
     let chosenFarms = [];
 
-    const sortFarms = (compoundings: ICompounding[]): ICompounding[] => {
+    const sortFarms = (vaults: IVault[]): IVault[] => {
       const side = sortDir === ISortDir.default || sortDir === ISortDir.down ? 'desc' : 'asc';
       switch (sortKey) {
         case 'apy':
-          return orderBy(compoundings, (compounding: ICompounding) => compounding.farm.apy, side);
+          return orderBy(vaults, (vault: IVault) => vault.farm.apy, side);
         case 'multiplier':
           return orderBy(
-            compoundings,
-            (compounding: ICompounding) =>
-              compounding.farm.multiplier ? Number(compounding.farm.multiplier.slice(0, -1)) : 0,
+            vaults,
+            (vault: IVault) => (vault.farm.multiplier ? Number(vault.farm.multiplier.slice(0, -1)) : 0),
             side,
           );
         case 'earned':
           return orderBy(
-            compoundings,
-            (compounding: ICompounding) =>
-              compounding.farm.userData ? Number(compounding.farm.userData.pendingReward) : 0,
+            vaults,
+            (vault: IVault) => (vault.farm.userData ? Number(vault.farm.userData.pendingReward) : 0),
             side,
           );
         case 'liquidity':
-          console.log(compoundings.map((v) => v.farm.apy));
-          return orderBy(compoundings, (compounding: ICompounding) => Number(compounding.compounding.liquidity), side);
+          console.log(vaults.map((v) => v.farm.apy));
+          return orderBy(vaults, (vault: IVault) => Number(vault.vault.liquidity), side);
         default:
-          return compoundings;
+          return vaults;
       }
     };
 
-    chosenFarms = compoundingsList(compoundingsLP);
+    chosenFarms = vaultsList(vaultsLP);
     return sortFarms(chosenFarms);
-  }, [sortKey, compoundingsLP, compoundingsList, sortDir]);
+  }, [sortKey, vaultsLP, vaultsList, sortDir]);
 
   chosenFarmsLength.current = chosenFarmsMemoized.length;
 
-  const rowData = chosenFarmsMemoized.map((compounding: ICompounding) => {
+  const rowData = chosenFarmsMemoized.map((vault: IVault) => {
     const {
-      compounding: { token0Address, token1Address },
-    } = compounding;
+      vault: { token0Address, token1Address },
+    } = vault;
     //WAIT
     const row: RowProps = {
       apr: {
-        apy: getDisplayApy(Number(compounding.farm.apy)),
-        apr: getDisplayApr(Number(compounding.farm.apr), Number(compounding.farm.lpRewardsApr)),
-        multiplier: compounding.farm.multiplier,
-        compoundingSymbol: compounding.compounding.symbol,
-        lpLabel: compounding.lpDetail.symbol,
+        apy: getDisplayApy(Number(vault.farm.apy)),
+        apr: getDisplayApr(Number(vault.farm.apr), Number(vault.farm.lpRewardsApr)),
+        multiplier: vault.farm.multiplier,
+        vaultSymbol: vault.vault.symbol,
+        lpLabel: vault.lpDetail.symbol,
         token0Address,
         token1Address,
         cakePrice,
-        originalValue: Number(compounding.farm.apy),
-        fromSource: compounding.fromSource,
+        originalValue: Number(vault.farm.apy),
+        fromSource: vault.fromSource,
       },
-      compounding: {
-        label: compounding.lpDetail.symbol,
+      vault: {
+        label: vault.lpDetail.symbol,
         token0Address: token0Address,
         token1Address: token1Address,
       },
       earned: {
-        earnings: getBalanceNumber(new BigNumber(compounding?.farm?.userData?.pendingReward ?? '0')),
-        pid: compounding.farm.pid,
+        earnings: getBalanceNumber(new BigNumber(vault?.farm?.userData?.pendingReward ?? '0')),
+        pid: vault.farm.pid,
       },
       liquidity: {
-        liquidity: compounding.compounding.liquidity,
+        liquidity: vault.vault.liquidity,
       },
       net: {
         net: '333',
       },
       multiplier: {
-        multiplier: compounding.farm.multiplier,
+        multiplier: vault.farm.multiplier,
       },
-      details: compounding,
+      details: vault,
     };
 
     return row;
@@ -209,7 +207,7 @@ const Compoundings: React.FC = () => {
       label: column.label,
       sort: (a: RowType<RowProps>, b: RowType<RowProps>) => {
         switch (column.name) {
-          case 'compounding':
+          case 'vault':
             return b.id - a.id;
           case 'apr':
             if (a.original.apr.apr && b.original.apr.apr) {
@@ -225,7 +223,7 @@ const Compoundings: React.FC = () => {
       sortable: column.sortable,
     }));
     return (
-      <CompoundingTable
+      <VaultTable
         onOptionChange={handleSortKeyChange}
         data={rowData}
         sortKey={sortKey}
@@ -247,4 +245,4 @@ const Compoundings: React.FC = () => {
   );
 };
 
-export default Compoundings;
+export default Vaults;

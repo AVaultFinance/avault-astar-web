@@ -95,11 +95,11 @@ const TableContainer = styled.div`
   // }
 `;
 
-const CompoundingTable: React.FC<ITableProps> = (props) => {
+const VaultTable: React.FC<ITableProps> = (props) => {
   const tableWrapperEl = useRef<HTMLDivElement>(null);
   const { data, columns, userDataReady, userDataLoaded, onOptionChange, sortDir, sortKey } = props;
 
-  const { rows } = useTable(columns, data, { sortable: true, sortColumn: 'compounding' });
+  const { rows } = useTable(columns, data, { sortable: true, sortColumn: 'vault' });
   if (!rows.length) {
     return null;
   }
@@ -111,7 +111,7 @@ const CompoundingTable: React.FC<ITableProps> = (props) => {
             <TableHeader sortDir={sortDir} sortKey={sortKey} onOptionChange={onOptionChange} />
 
             <TableBody>
-              {/* {[...rows, ...compoundingData].map((row, index) => { */}
+              {/* {[...rows, ...vaultData].map((row, index) => { */}
               {rows.map((row, index) => {
                 return (
                   <Row
@@ -138,4 +138,4 @@ const CompoundingTable: React.FC<ITableProps> = (props) => {
   );
 };
 
-export default CompoundingTable;
+export default VaultTable;

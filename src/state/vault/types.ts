@@ -22,7 +22,7 @@ interface IAddress {
   [ChainId.BSC_MAINNET]?: string;
   [ChainId.BSC_TESTNET]?: string;
 }
-export interface ICompoundingConfigItem {
+export interface IVaultConfigItem {
   contractAddress: IAddress;
   fromSource: IFarmProject;
   abiType: IABIType;
@@ -33,7 +33,7 @@ export interface ICompoundingConfigItem {
     decimals: number;
   };
 }
-export interface ICompoundingFarm {
+export interface IVaultFarm {
   // abi
   pid: number;
   lpSymbol: string;
@@ -57,9 +57,9 @@ export interface ICompoundingFarm {
   liquidity?: string;
   lpTokenPrice?: string;
   lpAddressDecimals: number;
-  userData?: ICompoundingUserData;
+  userData?: IVaultUserData;
 }
-export interface ICompoundingUserData {
+export interface IVaultUserData {
   index?: number;
   pid?: number;
   allowance: string;
@@ -67,10 +67,10 @@ export interface ICompoundingUserData {
   stakedBalance: string;
   pendingReward: string;
   avaultAddressBalance: string;
-  userCompoundingSupply: string;
-  compoundingWantLockedTotal?: string;
+  userVaultSupply: string;
+  vaultWantLockedTotal?: string;
 }
-export interface ICompoundingComp {
+export interface IVaultComp {
   // abi
   symbol: string;
   name: string;
@@ -89,19 +89,19 @@ export interface ICompoundingComp {
   // calculate
   lpToCLpRate?: string;
 }
-export interface ICompounding extends ICompoundingConfigItem {
-  compounding: ICompoundingComp;
-  farm: ICompoundingFarm;
+export interface IVault extends IVaultConfigItem {
+  vault: IVaultComp;
+  farm: IVaultFarm;
   isLoading: boolean;
 }
 // BTC   ETH  USDC  ASTR
-export const compoundingData = [
+export const vaultData = [
   {
     id: 1,
     selected: false,
     hidden: false,
     original: {
-      compounding: {
+      vault: {
         label: 'USDT-USDC LP',
         token0Address: '0x55d398326f99059ff775485246999027b3197955',
         token1Address: '0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d',
@@ -116,7 +116,7 @@ export const compoundingData = [
         apy: '10.02',
         apr: '63.5',
         multiplier: '20X',
-        compoundingSymbol: 'aAUU',
+        vaultSymbol: 'aAUU',
         lpLabel: 'USDT-USDC LP',
         token0Address: '0x55d398326f99059ff775485246999027b3197955',
         token1Address: '0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d',
@@ -136,7 +136,7 @@ export const compoundingData = [
         fromSource: IFarmProject.arthswap,
         swapLink: ISwapLink.arthswap,
         abiType: 0,
-        compounding: {
+        vault: {
           symbol: 'aAUU',
           name: 'Avault Arthswap USDT-USDC LP',
           masterChef: '0x293A7824582C56B0842535f94F6E3841888168C8',
@@ -190,7 +190,7 @@ export const compoundingData = [
     cells: [
       {
         hidden: false,
-        field: 'compounding',
+        field: 'vault',
         value: {
           label: 'USDT-USDC LP',
           token0Address: '0x55d398326f99059ff775485246999027b3197955',
@@ -206,7 +206,7 @@ export const compoundingData = [
           apy: '10.02',
           apr: '63.5',
           multiplier: '20X',
-          compoundingSymbol: 'aAUU',
+          vaultSymbol: 'aAUU',
           lpLabel: 'USDT-USDC LP',
           token0Address: '0x55d398326f99059ff775485246999027b3197955',
           token1Address: '0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d',
@@ -226,7 +226,7 @@ export const compoundingData = [
           },
           fromSource: IFarmProject.arthswap,
           abiType: 0,
-          compounding: {
+          vault: {
             symbol: 'aAUU',
             name: 'Avault Arthswap USDT-USDC LP',
             masterChef: '0x293A7824582C56B0842535f94F6E3841888168C8',
@@ -286,7 +286,7 @@ export const compoundingData = [
     selected: false,
     hidden: false,
     original: {
-      compounding: {
+      vault: {
         label: 'USDC',
         token0Address: '0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d',
         token1Address: '0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d',
@@ -300,7 +300,7 @@ export const compoundingData = [
         apy: '8.91',
         apr: '63.5',
         multiplier: '20X',
-        compoundingSymbol: 'aSUSDC',
+        vaultSymbol: 'aSUSDC',
         fromSource: IFarmProject.starlay,
         lpLabel: 'USDC',
         token0Address: '0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d',
@@ -319,7 +319,7 @@ export const compoundingData = [
         fromSource: IFarmProject.starlay,
         swapLink: ISwapLink.starlay,
         abiType: 0,
-        compounding: {
+        vault: {
           symbol: 'aSUSDC',
           name: 'Avault Starlay USDC',
           masterChef: '0x293A7824582C56B0842535f94F6E3841888168C8',
@@ -373,7 +373,7 @@ export const compoundingData = [
     cells: [
       {
         hidden: false,
-        field: 'compounding',
+        field: 'vault',
         value: {
           label: 'USDC',
           token0Address: '0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d',
@@ -389,7 +389,7 @@ export const compoundingData = [
           apy: '8.91',
           apr: '63.5',
           multiplier: '20X',
-          compoundingSymbol: 'aSUSDC',
+          vaultSymbol: 'aSUSDC',
           lpLabel: 'USDC',
           token0Address: '0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d',
           token1Address: '0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d',
@@ -410,7 +410,7 @@ export const compoundingData = [
           fromSource: IFarmProject.starlay,
           swapLink: ISwapLink.starlay,
           abiType: 0,
-          compounding: {
+          vault: {
             symbol: 'aSUSDC',
             name: 'Avault Starlay USDC',
             masterChef: '0x293A7824582C56B0842535f94F6E3841888168C8',

@@ -42,7 +42,6 @@ export const ActionContent = styled.div`
 `;
 export const LongButton = styled(Button)<{ disabled: boolean }>`
   height: 36px;
-  border-radius: 8px;
   width: 100%;
   margin-top: 4px;
   transition: all 0.3s ease;

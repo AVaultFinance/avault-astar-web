@@ -7,11 +7,11 @@ import CInput from './C_Input';
 import styled from 'styled-components';
 import Loading from 'components/TransactionConfirmationModal/Loading';
 import { useWeb3React } from '@web3-react/core';
-import { useCompounding } from 'state/vault/hooks';
+import { useVault } from 'state/vault/hooks';
 import useToast from 'hooks/useToast';
 import { useAppDispatch } from 'state';
-import useCompoundingWithdraw from 'views/Vault/hooks/useCompoundingWithdraw';
-import { changeLoading, changeVaultItemLoading, fetchCompoundingFarmUserDataAsync } from 'state/vault';
+import useVaultWithdraw from 'views/Vault/hooks/useVaultWithdraw';
+import { changeLoading, changeVaultItemLoading, fetchVaultFarmUserDataAsync } from 'state/vault';
 import { showDecimals } from 'views/Vault/utils';
 
 interface WithdrawModalProps {
@@ -58,10 +58,10 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
   const [pendingTxSuccess, setPendingTxSuccess] = useState(true);
 
   const { account } = useWeb3React();
-  const { data: compoundings } = useCompounding();
+  const { data: vaults } = useVault();
   const { toastSuccess, toastError } = useToast();
   const dispatch = useAppDispatch();
-  const { onWithdraw } = useCompoundingWithdraw(account, contractAddress, lpAddressDecimals);
+  const { onWithdraw } = useVaultWithdraw(account, contractAddress, lpAddressDecimals);
 
   const handleSelectMax = useCallback(() => {
     setVal(fullBalance);
@@ -78,7 +78,7 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
       if (typeof result === 'boolean' && result) {
         dispatch(changeLoading());
         dispatch(changeVaultItemLoading({ index }));
-        dispatch(fetchCompoundingFarmUserDataAsync({ account, compoundings, index }));
+        dispatch(fetchVaultFarmUserDataAsync({ account, vaults, index }));
         toastSuccess(`Withdraw!`, `'Your ${lpSymbol} earnings have been sent to your wallet!'`);
         setTimeout(() => {
           setPendingTxSuccess(true);
@@ -101,7 +101,7 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
       setVal('');
       setPendingTx(false);
     }
-  }, [val, lpToCLpRate, account, index, compoundings, dispatch, lpSymbol, onWithdraw, toastError, toastSuccess]);
+  }, [val, lpToCLpRate, account, index, vaults, dispatch, lpSymbol, onWithdraw, toastError, toastSuccess]);
 
   const { isMd, isXl, isLg } = useMatchBreakpoints();
   const isMobile = !(isMd || isXl || isLg);

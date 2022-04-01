@@ -14,11 +14,11 @@ import { useWeb3React } from '@web3-react/core';
 import MobileAction from './MobileAction';
 import { useERC20 } from 'hooks/useContract';
 import { useAppDispatch } from 'state';
-import { ICompounding } from 'state/vault/types';
-import { useCompounding, useCompoundingFarmUser } from 'state/vault/hooks';
+import { IVault } from 'state/vault/types';
+import { useVault, useVaultFarmUser } from 'state/vault/hooks';
 import useAuth from 'hooks/useAuth';
 import { chainId } from 'config/constants/tokens';
-import { changeLoading, fetchCompoundingFarmUserDataAsync } from 'state/vault';
+import { changeLoading, fetchVaultFarmUserDataAsync } from 'state/vault';
 import { BASE_BSC_SCAN_URL } from 'config';
 import { useSpecialApproveFarm } from 'views/Vault/hooks/useApproveFarm';
 import { getDisplayApy } from 'views/Farms/Farms';
@@ -28,7 +28,7 @@ import { showDecimals } from 'views/Vault/utils';
 export interface ActionPanelProps {
   apr: AprProps;
   multiplier: MultiplierProps;
-  details: ICompounding;
+  details: IVault;
   userDataReady: boolean;
   expanded: boolean;
   index: number;
@@ -153,23 +153,23 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
   expanded,
   index,
 }) => {
-  const compounding = details;
+  const vault = details;
   const { isXl, isLg } = useMatchBreakpoints();
   const isMobile = !(isXl || isLg);
 
   const { t } = useTranslation();
-  const lpAddress = getAddress(compounding.farm.lpAddresses);
+  const lpAddress = getAddress(vault.farm.lpAddresses);
   const { account } = useWeb3React();
-  const { avaultAddressBalance, allowance } = useCompoundingFarmUser(compounding?.farm?.pid ?? 0);
+  const { avaultAddressBalance, allowance } = useVaultFarmUser(vault?.farm?.pid ?? 0);
   const isApproved = account && allowance && allowance.isGreaterThan(0);
-  // const stakingBigNumber = new BigNumber(compounding.farm.userData.stakingTokenBalance);
+  // const stakingBigNumber = new BigNumber(vault.farm.userData.stakingTokenBalance);
   let earnings = BIG_ZERO;
   let displayEarningsBalance: string = '0';
 
   // If user didn't connect wallet default balance will be 0
   if (isApproved) {
-    const _wantLockedTotal = new BigNumber(compounding.compounding.wantLockedTotal);
-    const _totalSupply = new BigNumber(compounding.compounding.totalSupply);
+    const _wantLockedTotal = new BigNumber(vault.vault.wantLockedTotal);
+    const _totalSupply = new BigNumber(vault.vault.totalSupply);
     // _totalSupply： 282962782793973
     // avaultAddressBalance： 89962782593973
     // _wantLockedTotal： 284598115334499
@@ -177,13 +177,13 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
     if (avaultAddressBalance.toNumber() > 0 && _totalSupply.toNumber() > 0) {
       earnings = _wantLockedTotal.dividedBy(_totalSupply).times(avaultAddressBalance);
       // console.log('earnings: ', earnings);
-      // earnings = getBalanceAmount(_value, compounding.farm.lpAddressDecimals);
+      // earnings = getBalanceAmount(_value, vault.farm.lpAddressDecimals);
       // wantLockedTotal / totalSupply()*CLpAmount
       // earningsBusd = earnings.multipliedBy(cakePrice).toNumber();
       displayEarningsBalance = getFullLocalDisplayBalance(
         earnings,
-        compounding.farm.lpAddressDecimals,
-        showDecimals(compounding.lpDetail.symbol),
+        vault.farm.lpAddressDecimals,
+        showDecimals(vault.lpDetail.symbol),
       );
     }
   }
@@ -191,10 +191,10 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
   const lpContract = useERC20(lpAddress);
   const [requestedApproval, setRequestedApproval] = useState(false);
   const [requestedApprovalSuccess, setRequestedApprovalSuccess] = useState(true);
-  // const { onApprove } = useSpecialApproveFarm(lpContract, compounding.compounding.masterChef);
-  const { onApprove } = useSpecialApproveFarm(lpContract, compounding.contractAddress[chainId]);
+  // const { onApprove } = useSpecialApproveFarm(lpContract, vault.vault.masterChef);
+  const { onApprove } = useSpecialApproveFarm(lpContract, vault.contractAddress[chainId]);
   const dispatch = useAppDispatch();
-  const { data: compoundings } = useCompounding();
+  const { data: vaults } = useVault();
   const { toastSuccess, toastError } = useToast();
   const { login, logout } = useAuth();
   const { onPresentConnectModal } = useWalletModal(login, logout);
@@ -213,7 +213,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
       if (typeof result === 'boolean' && result) {
         dispatch(changeLoading());
         // dispatch(changeVaultItemLoading({ index }));
-        dispatch(fetchCompoundingFarmUserDataAsync({ account, compoundings, index }));
+        dispatch(fetchVaultFarmUserDataAsync({ account, vaults, index }));
         toastSuccess('Approve!', 'Your are Approved');
         setTimeout(() => {
           setRequestedApprovalSuccess(true);
@@ -231,29 +231,29 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
     } finally {
       setRequestedApproval(false);
     }
-  }, [onApprove, dispatch, onPresentConnectModal, index, account, compoundings, toastError, toastSuccess]);
+  }, [onApprove, dispatch, onPresentConnectModal, index, account, vaults, toastError, toastSuccess]);
 
   return (
     <Container expanded={expanded}>
       <InfoContainer>
-        <StyledLinkExternal href={compounding.swapLink}>{t('Add Liquidity')}</StyledLinkExternal>
-        <StyledLinkExternal href={`${BASE_BSC_SCAN_URL}/address/${compounding.contractAddress[chainId]}`}>
+        <StyledLinkExternal href={vault.swapLink}>{t('Add Liquidity')}</StyledLinkExternal>
+        <StyledLinkExternal href={`${BASE_BSC_SCAN_URL}/address/${vault.contractAddress[chainId]}`}>
           {t('View Contract')}
         </StyledLinkExternal>
       </InfoContainer>
       <DetailContainer>
         <p>
           TVL
-          <i>${compounding?.compounding?.liquidity ?? ''}</i>
+          <i>${vault?.vault?.liquidity ?? ''}</i>
         </p>
         <p>
           APY
           <em>
-            <i className="green">{compounding?.farm?.apy ? getDisplayApy(Number(compounding.farm.apy)) + '%' : ''}</i>
+            <i className="green">{vault?.farm?.apy ? getDisplayApy(Number(vault.farm.apy)) + '%' : ''}</i>
             <i className="grey">Avault APR: 0.00%</i>
             <i className="grey">
-              {compounding.lpDetail.symbol} APY: &nbsp;
-              {compounding?.farm?.apy ? getDisplayApy(Number(compounding.farm.apy)) + '%' : ''}
+              {vault.lpDetail.symbol} APY: &nbsp;
+              {vault?.farm?.apy ? getDisplayApy(Number(vault.farm.apy)) + '%' : ''}
             </i>
           </em>
         </p>
@@ -261,27 +261,27 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
           wallet balance
           <em>
             <i>
-              {getBalanceNumber(new BigNumber(compounding?.farm?.userData?.avaultAddressBalance ?? '0')).toLocaleString(
+              {getBalanceNumber(new BigNumber(vault?.farm?.userData?.avaultAddressBalance ?? '0')).toLocaleString(
                 'en-US',
                 {
-                  maximumFractionDigits: showDecimals(compounding.lpDetail.symbol),
+                  maximumFractionDigits: showDecimals(vault.lpDetail.symbol),
                 },
               )}{' '}
-              {compounding?.compounding.symbol}
+              {vault?.vault.symbol}
             </i>
             <i>
               {getFullLocalDisplayBalance(
-                new BigNumber(compounding.farm.userData.stakingTokenBalance),
-                compounding.farm.lpAddressDecimals,
-                showDecimals(compounding.lpDetail.symbol),
+                new BigNumber(vault.farm.userData.stakingTokenBalance),
+                vault.farm.lpAddressDecimals,
+                showDecimals(vault.lpDetail.symbol),
               )}{' '}
-              {compounding.lpDetail.symbol}
+              {vault.lpDetail.symbol}
             </i>
           </em>
         </p>
         <InfoContainerSmall>
-          <StyledLinkExternal href={compounding.swapLink}>{t('Add Liquidity')}</StyledLinkExternal>
-          <StyledLinkExternal href={`${BASE_BSC_SCAN_URL}/address/${compounding.contractAddress[chainId]}`}>
+          <StyledLinkExternal href={vault.swapLink}>{t('Add Liquidity')}</StyledLinkExternal>
+          <StyledLinkExternal href={`${BASE_BSC_SCAN_URL}/address/${vault.contractAddress[chainId]}`}>
             {t('View Contract')}
           </StyledLinkExternal>
         </InfoContainerSmall>
@@ -289,67 +289,67 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
       {isMobile ? (
         <MobileAction
           requestedApprovalSuccess={requestedApprovalSuccess}
-          lpToCLpRate={compounding.compounding.lpToCLpRate}
+          lpToCLpRate={vault.vault.lpToCLpRate}
           requestedApproval={requestedApproval}
           isApproved={isApproved}
-          pid={compounding.farm.pid}
+          pid={vault.farm.pid}
           displayBalance={getFullLocalDisplayBalance(
-            new BigNumber(compounding.farm.userData.stakingTokenBalance),
-            compounding.farm.lpAddressDecimals,
-            showDecimals(compounding.lpDetail.symbol),
+            new BigNumber(vault.farm.userData.stakingTokenBalance),
+            vault.farm.lpAddressDecimals,
+            showDecimals(vault.lpDetail.symbol),
           )}
           displayEarningsBalance={displayEarningsBalance}
           earnings={earnings}
           userDataReady={userDataReady}
           handleApprove={handleApprove}
           account={account}
-          lpSymbol={compounding.lpDetail.symbol}
-          contractAddress={compounding.contractAddress[chainId]}
-          stakingTokenBalance={new BigNumber(compounding?.farm?.userData?.stakingTokenBalance ?? '0')}
-          lpAddressDecimals={compounding.farm.lpAddressDecimals}
+          lpSymbol={vault.lpDetail.symbol}
+          contractAddress={vault.contractAddress[chainId]}
+          stakingTokenBalance={new BigNumber(vault?.farm?.userData?.stakingTokenBalance ?? '0')}
+          lpAddressDecimals={vault.farm.lpAddressDecimals}
           index={index}
         />
       ) : (
         <ActionContainer style={{ justifyContent: 'end' }}>
           <DepositAction
-            contractAddress={compounding.contractAddress[chainId]}
-            lpAddressDecimals={compounding.farm.lpAddressDecimals}
+            contractAddress={vault.contractAddress[chainId]}
+            lpAddressDecimals={vault.farm.lpAddressDecimals}
             requestedApproval={requestedApproval}
             requestedApprovalSuccess={requestedApprovalSuccess}
             isApproved={isApproved}
             displayBalance={getFullLocalDisplayBalance(
-              new BigNumber(compounding?.farm?.userData?.stakingTokenBalance ?? '0'),
-              compounding.farm.lpAddressDecimals,
-              showDecimals(compounding.lpDetail.symbol),
+              new BigNumber(vault?.farm?.userData?.stakingTokenBalance ?? '0'),
+              vault.farm.lpAddressDecimals,
+              showDecimals(vault.lpDetail.symbol),
             )}
             displayEarningsBalance={displayEarningsBalance}
             earnings={earnings}
             handleApprove={handleApprove}
             userDataReady={userDataReady}
-            pid={compounding.farm.pid}
-            name={compounding.compounding.name}
-            lpSymbol={compounding.lpDetail.symbol}
+            pid={vault.farm.pid}
+            name={vault.vault.name}
+            lpSymbol={vault.lpDetail.symbol}
             index={index}
           />
           <div className="w20"></div>
           <WithdrawAction
-            lpToCLpRate={compounding.compounding.lpToCLpRate}
-            contractAddress={compounding.contractAddress[chainId]}
-            lpAddressDecimals={compounding.farm.lpAddressDecimals}
+            lpToCLpRate={vault.vault.lpToCLpRate}
+            contractAddress={vault.contractAddress[chainId]}
+            lpAddressDecimals={vault.farm.lpAddressDecimals}
             requestedApproval={requestedApproval}
             isApproved={isApproved}
             displayBalance={getFullLocalDisplayBalance(
-              new BigNumber(compounding?.farm?.userData?.stakingTokenBalance ?? '0'),
-              compounding.farm.lpAddressDecimals,
-              showDecimals(compounding.lpDetail.symbol),
+              new BigNumber(vault?.farm?.userData?.stakingTokenBalance ?? '0'),
+              vault.farm.lpAddressDecimals,
+              showDecimals(vault.lpDetail.symbol),
             )}
             displayEarningsBalance={displayEarningsBalance}
             earnings={earnings}
             userDataReady={userDataReady}
             handleApprove={handleApprove}
-            pid={compounding.farm.pid}
-            name={compounding.compounding.name}
-            lpSymbol={compounding.lpDetail.symbol}
+            pid={vault.farm.pid}
+            name={vault.vault.name}
+            lpSymbol={vault.lpDetail.symbol}
             index={index}
           />
         </ActionContainer>

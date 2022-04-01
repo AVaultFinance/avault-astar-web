@@ -35,6 +35,10 @@ const Zap = () => {
   const [pendingTxSuccess, setPendingTxSuccess] = useState(true);
   const valNumber = useDebounce(new BigNumber(val ?? '0'), 100);
   const { toastSuccess, toastError, toastWarning } = useToast();
+
+  const { login, logout } = useAuth();
+  const { onPresentConnectModal } = useWalletModal(login, logout);
+
   const handleChange = useCallback(
     (e: React.FormEvent<HTMLInputElement>) => {
       if (e.currentTarget.validity.valid) {
@@ -63,6 +67,10 @@ const Zap = () => {
   }, [fullBalance, toastWarning, setVal, fromCurrency]);
   const EstimatedPrice = useEstimatedPrice(val, fromCurrency, toCurrency, valNumber);
   const zapComfirm = useCallback(async () => {
+    if (!account) {
+      onPresentConnectModal();
+      return;
+    }
     setPendingTx(true);
     try {
       const result = await handleZapClick(val, account);
@@ -94,10 +102,8 @@ const Zap = () => {
 
       setPendingTx(false);
     }
-  }, [account, fromCurrency, toCurrency, val, handleZapClick, toastSuccess, toastError]);
+  }, [account, onPresentConnectModal, fromCurrency, toCurrency, val, handleZapClick, toastSuccess, toastError]);
   const [isLoaded, setIsLoaded] = useState(false);
-  const { login, logout } = useAuth();
-  const { onPresentConnectModal } = useWalletModal(login, logout);
   const { fetchApprove } = useHandleApproved(fromCurrency, account, zapAddress);
   const isApprove = useApprove(isLoaded, setPendingTx, fromCurrency, toCurrency, account, zapAddress);
   const zapApprove = useCallback(async () => {
@@ -198,6 +204,7 @@ const Zap = () => {
             <Button
               isLoading={pendingTx}
               disabled={
+                account &&
                 isApprove &&
                 (pendingTx ||
                   !valNumber.isFinite() ||
@@ -215,7 +222,7 @@ const Zap = () => {
                 }
               }}
             >
-              {isApprove ? 'Confirm' : 'Approve'}
+              {!account ? 'Connect Wallet' : isApprove ? 'Confirm' : 'Approve'}
               <Loading isLoading={pendingTx} success={pendingTxSuccess} />
             </Button>
           </TableContent>

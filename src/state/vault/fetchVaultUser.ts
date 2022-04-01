@@ -1,5 +1,5 @@
 import erc20ABI from 'config/abi/erc20.json';
-import { ICompounding } from './types';
+import { IVault } from './types';
 import BigNumber from 'bignumber.js';
 import multicall from 'utils/multicall';
 import masterchefABI from 'config/abi/masterchef.json';
@@ -10,15 +10,11 @@ import { chainId } from 'config/constants/tokens';
 import AVaultPCS_ABI from 'config/abi/AVaultPCS_ABI.json';
 import { haveNumber } from 'utils';
 
-export const fetchCompoundingsFarmUserAllowances = async (
-  account: string,
-  compoundings: ICompounding[],
-  index?: number,
-) => {
+export const fetchVaultsFarmUserAllowances = async (account: string, vaults: IVault[], index?: number) => {
   const calls = !haveNumber(index)
-    ? compoundings.map((compounding: ICompounding) => {
-        const lpAddresses = compounding.farm.lpAddresses;
-        const contractAddress = compounding.contractAddress[chainId];
+    ? vaults.map((vault: IVault) => {
+        const lpAddresses = vault.farm.lpAddresses;
+        const contractAddress = vault.contractAddress[chainId];
         return {
           address: lpAddresses,
           name: 'allowance',
@@ -27,9 +23,9 @@ export const fetchCompoundingsFarmUserAllowances = async (
       })
     : [
         {
-          address: compoundings[index].farm.lpAddresses,
+          address: vaults[index].farm.lpAddresses,
           name: 'allowance',
-          params: [account, compoundings[index].contractAddress[chainId]],
+          params: [account, vaults[index].contractAddress[chainId]],
         },
       ];
 
@@ -39,14 +35,10 @@ export const fetchCompoundingsFarmUserAllowances = async (
   });
   return parsedLpAllowances;
 };
-export const fetchCompoundingsFarmUserTokenBalances = async (
-  account: string,
-  compoundings: ICompounding[],
-  index?: number,
-) => {
+export const fetchVaultsFarmUserTokenBalances = async (account: string, vaults: IVault[], index?: number) => {
   const calls = !haveNumber(index)
-    ? compoundings.map((compounding: ICompounding) => {
-        const lpAddresses = compounding.farm.lpAddresses;
+    ? vaults.map((vault: IVault) => {
+        const lpAddresses = vault.farm.lpAddresses;
         return {
           address: lpAddresses,
           name: 'balanceOf',
@@ -55,7 +47,7 @@ export const fetchCompoundingsFarmUserTokenBalances = async (
       })
     : [
         {
-          address: compoundings[index].farm.lpAddresses,
+          address: vaults[index].farm.lpAddresses,
           name: 'balanceOf',
           params: [account],
         },
@@ -68,25 +60,21 @@ export const fetchCompoundingsFarmUserTokenBalances = async (
   return parsedTokenBalances;
 };
 
-export const fetchCompoundingsFarmStakedBalances = async (
-  account: string,
-  compoundings: ICompounding[],
-  index?: number,
-) => {
+export const fetchVaultsFarmStakedBalances = async (account: string, vaults: IVault[], index?: number) => {
   const calls = !haveNumber(index)
-    ? compoundings.map((compounding: ICompounding) => {
-        const masterChef = compounding.compounding.masterChef;
+    ? vaults.map((vault: IVault) => {
+        const masterChef = vault.vault.masterChef;
         return {
           address: masterChef,
           name: 'userInfo',
-          params: [compounding.farm.pid, account],
+          params: [vault.farm.pid, account],
         };
       })
     : [
         {
-          address: compoundings[index].compounding.masterChef,
+          address: vaults[index].vault.masterChef,
           name: 'userInfo',
-          params: [compoundings[index].farm.pid, account],
+          params: [vaults[index].farm.pid, account],
         },
       ];
   const _masterchefABI = chainKey === CHAINKEY.SDN ? masterchefSdnABI : masterchefABI;
@@ -96,21 +84,21 @@ export const fetchCompoundingsFarmStakedBalances = async (
   });
   return parsedStakedBalances;
 };
-export const fetchCompoundingsFarmEarnings = async (account: string, compoundings: ICompounding[], index?: number) => {
+export const fetchVaultsFarmEarnings = async (account: string, vaults: IVault[], index?: number) => {
   const calls = !haveNumber(index)
-    ? compoundings.map((compounding: ICompounding) => {
-        const masterChef = compounding.compounding.masterChef;
+    ? vaults.map((vault: IVault) => {
+        const masterChef = vault.vault.masterChef;
         return {
           address: masterChef,
           name: 'pendingCake',
-          params: [compounding.farm.pid, account],
+          params: [vault.farm.pid, account],
         };
       })
     : [
         {
-          address: compoundings[index].compounding.masterChef,
+          address: vaults[index].vault.masterChef,
           name: 'pendingCake',
-          params: [compoundings[index].farm.pid, account],
+          params: [vaults[index].farm.pid, account],
         },
       ];
   const _masterchefABI = chainKey === CHAINKEY.SDN ? masterchefSdnABI : masterchefABI;
@@ -121,45 +109,45 @@ export const fetchCompoundingsFarmEarnings = async (account: string, compounding
   return parsedEarnings;
 };
 
-export const fetchCompoundingsUsers = async (account: string, compoundings: ICompounding[], index?: number) => {
+export const fetchVaultsUsers = async (account: string, vaults: IVault[], index?: number) => {
   const calls01 = !haveNumber(index)
-    ? compoundings.map((compounding: ICompounding) => {
+    ? vaults.map((vault: IVault) => {
         return {
-          address: compounding.contractAddress[chainId],
+          address: vault.contractAddress[chainId],
           name: 'balanceOf',
           params: [account],
         };
       })
     : [
         {
-          address: compoundings[index].contractAddress[chainId],
+          address: vaults[index].contractAddress[chainId],
           name: 'balanceOf',
           params: [account],
         },
       ];
   const calls02 = !haveNumber(index)
-    ? compoundings.map((compounding: ICompounding) => {
+    ? vaults.map((vault: IVault) => {
         return {
-          address: compounding.contractAddress[chainId],
+          address: vault.contractAddress[chainId],
           name: 'totalSupply',
         };
       })
     : [
         {
-          address: compoundings[index].contractAddress[chainId],
+          address: vaults[index].contractAddress[chainId],
           name: 'totalSupply',
         },
       ];
   const calls03 = !haveNumber(index)
-    ? compoundings.map((compounding: ICompounding) => {
+    ? vaults.map((vault: IVault) => {
         return {
-          address: compounding.contractAddress[chainId],
+          address: vault.contractAddress[chainId],
           name: 'wantLockedTotal',
         };
       })
     : [
         {
-          address: compoundings[index].contractAddress[chainId],
+          address: vaults[index].contractAddress[chainId],
           name: 'wantLockedTotal',
         },
       ];
@@ -171,13 +159,13 @@ export const fetchCompoundingsUsers = async (account: string, compoundings: ICom
     const parsedEarnings = rawEarnings01.map((balances) => {
       return new BigNumber(balances).toJSON();
     });
-    const compoundingTotalSupply = rawEarnings02.map((balances) => {
+    const vaultTotalSupply = rawEarnings02.map((balances) => {
       return balances ? balances[0].toString() : null;
     });
-    const compoundingWantLockedTotal = rawEarnings03.map((balances) => {
+    const vaultWantLockedTotal = rawEarnings03.map((balances) => {
       return balances ? balances[0].toString() : null;
     });
 
-    return [parsedEarnings, compoundingTotalSupply, compoundingWantLockedTotal];
+    return [parsedEarnings, vaultTotalSupply, vaultWantLockedTotal];
   }
 };

@@ -9,9 +9,9 @@ import { LongButton } from './styles';
 import styled from 'styled-components';
 import CInput from './C_Input';
 import { getFullDisplayBalance } from 'utils/formatBalance';
-import { useCompounding, useCompoundingFarmUser } from 'state/vault/hooks';
-import useCompoundingDeposit from 'views/Vault/hooks/useCompoundingDeposit';
-import { changeLoading, changeVaultItemLoading, fetchCompoundingFarmUserDataAsync } from 'state/vault';
+import { useVault, useVaultFarmUser } from 'state/vault/hooks';
+import useVaultDeposit from 'views/Vault/hooks/useVaultDeposit';
+import { changeLoading, changeVaultItemLoading, fetchVaultFarmUserDataAsync } from 'state/vault';
 import Loading from 'components/TransactionConfirmationModal/Loading';
 import { ActionContainerBg, ActionContainerSize } from 'style/TableStyled';
 import { showDecimals } from 'views/Vault/utils';
@@ -56,16 +56,16 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
   index,
 }) => {
   const { toastSuccess, toastError } = useToast();
-  const { data: compoundings } = useCompounding();
+  const { data: vaults } = useVault();
 
   const [pendingTx, setPendingTx] = useState(false);
   const [pendingTxSuccess, setPendingTxSuccess] = useState(true);
 
   const { account } = useWeb3React();
-  const { onDeposit } = useCompoundingDeposit(account, contractAddress, lpAddressDecimals);
+  const { onDeposit } = useVaultDeposit(account, contractAddress, lpAddressDecimals);
   const dispatch = useAppDispatch();
   const [val, setVal] = useState('');
-  const { stakingTokenBalance } = useCompoundingFarmUser(pid ?? 0);
+  const { stakingTokenBalance } = useVaultFarmUser(pid ?? 0);
 
   const fullBalance = useMemo(() => {
     return getFullDisplayBalance(stakingTokenBalance, lpAddressDecimals, showDecimals(lpSymbol));
@@ -93,7 +93,7 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
       if (typeof result === 'boolean' && result) {
         dispatch(changeLoading());
         dispatch(changeVaultItemLoading({ index }));
-        dispatch(fetchCompoundingFarmUserDataAsync({ account, compoundings, index }));
+        dispatch(fetchVaultFarmUserDataAsync({ account, vaults, index }));
         toastSuccess(`Deposit!`, `Your ${lpSymbol} deposit!`);
         setTimeout(() => {
           setPendingTxSuccess(true);
@@ -117,7 +117,7 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
       setVal('');
       setPendingTx(false);
     }
-  }, [val, account, compoundings, index, dispatch, lpSymbol, onDeposit, toastError, toastSuccess]);
+  }, [val, account, vaults, index, dispatch, lpSymbol, onDeposit, toastError, toastSuccess]);
   const disabled =
     requestedApproval ||
     stakingTokenBalance.eq(BIG_ZERO) ||

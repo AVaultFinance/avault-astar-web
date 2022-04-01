@@ -4,7 +4,6 @@ export const ActionContainer = styled.div`
   padding: 13px 10px;
   // padding-left: 20px;
   border: 2px solid ${({ theme }) => theme.colors.input};
-  border-radius: 16px;
   flex-grow: 1;
   flex-basis: 0;
   margin-bottom: 16px;

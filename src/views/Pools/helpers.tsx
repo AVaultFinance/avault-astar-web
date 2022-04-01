@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { Pool } from 'state/types';
-import { getRoi, tokenEarnedPerThousandDollarsCompounding } from 'utils/compoundApyHelpers';
+import { getRoi, tokenEarnedPerThousandDollarsVault } from 'utils/compoundApyHelpers';
 import { getBalanceNumber, getFullDisplayBalance, getDecimalAmount } from 'utils/formatBalance';
 
 export const convertSharesToCake = (
@@ -45,7 +45,7 @@ export const getAprData = (pool: Pool, performanceFee: number) => {
 
   if (isAutoVault) {
     const oneThousandDollarsWorthOfToken = 1000 / earningTokenPrice;
-    const tokenEarnedPerThousand365D = tokenEarnedPerThousandDollarsCompounding({
+    const tokenEarnedPerThousand365D = tokenEarnedPerThousandDollarsVault({
       numberOfDays: 365,
       farmApr: apr,
       tokenPrice: earningTokenPrice,

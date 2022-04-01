@@ -12,7 +12,7 @@ export const getCustomMeta = (path: string, t: ContextApi['t']): PageMeta => {
   switch (path) {
     case '/':
       return {
-        title: `Compounding | Avault`,
+        title: `Vault | Avault`,
       };
     case '/vault':
       return {

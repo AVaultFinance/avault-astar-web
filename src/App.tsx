@@ -11,12 +11,12 @@ import history from './routerHistory';
 import { PriceProvider } from './contexts/PriceProvider';
 import SideMenu from './components/SideMenu';
 import { usePollCoreFarmData } from 'state/farms/hooks';
-// import { usePollCompoundingData } from 'state/vault/hooks';
+// import { usePollVaultData } from 'state/vault/hooks';
 import { usePollBlockNumber } from 'state/block/hooks';
 import PageLoader from 'components/Loader/PageLoader';
 import Unbind from 'views/Stake/Unbind';
 import useEagerConnect from 'hooks/useEagerConnect';
-import { usePollCompoundingData } from 'state/vault/hooks';
+import { usePollVaultData } from 'state/vault/hooks';
 // import { useFetchProfile } from 'state/profile/hooks';
 // import { usePollCoreFarmData } from './state/farms/hooks';
 
@@ -43,7 +43,7 @@ const App: React.FC = () => {
   useEagerConnect();
   // useFetchProfile();
   usePollCoreFarmData();
-  usePollCompoundingData();
+  usePollVaultData();
   return (
     <Router history={history}>
       <ResetCSS />

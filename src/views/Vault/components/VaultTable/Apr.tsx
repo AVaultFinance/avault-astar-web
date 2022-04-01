@@ -17,7 +17,7 @@ export interface AprProps {
   cakePrice: BigNumber;
   originalValue: number;
   hideButton?: boolean;
-  compoundingSymbol: string;
+  vaultSymbol: string;
   fromSource?: IFarmProject;
 }
 
@@ -54,7 +54,7 @@ const PStyled = styled.p`
   font-weight: 500;
   line-height: 20px;
 `;
-const Apr: React.FC<AprProps> = ({ apy, originalValue, fromSource, compoundingSymbol, lpLabel }) => {
+const Apr: React.FC<AprProps> = ({ apy, originalValue, fromSource, vaultSymbol, lpLabel }) => {
   const tooltipContent = <div>APY: {apy}%</div>;
   const { targetRef, tooltip, tooltipVisible } = useTooltip(tooltipContent, {
     placement: 'top-end',
@@ -68,7 +68,7 @@ const Apr: React.FC<AprProps> = ({ apy, originalValue, fromSource, compoundingSy
         <>
           <AprWrapper>{apy}%</AprWrapper>
           <PStyled>
-            {/* {compoundingSymbol} */}
+            {/* {vaultSymbol} */}
             Avault APR: 0.00%
           </PStyled>
           <PStyled>

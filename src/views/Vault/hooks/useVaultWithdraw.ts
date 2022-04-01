@@ -5,7 +5,7 @@ import { BIG_TEN } from 'utils/bigNumber';
 import { callWithEstimateGas } from 'utils/calls';
 import { DEFAULT_GAS_LIMIT } from 'config';
 
-const useCompoundingWithdraw = (account: string, contractAddress: string, decimal: number) => {
+const useVaultWithdraw = (account: string, contractAddress: string, decimal: number) => {
   const contractAddressContract = useAVaultPCSContract(contractAddress);
 
   const handleWithdraw = useCallback(
@@ -26,7 +26,7 @@ const useCompoundingWithdraw = (account: string, contractAddress: string, decima
         } else {
           return res.message;
         }
-        // return await withdrawCompoundingUtil(contractAddressContract, account, amount, decimal);
+        // return await withdrawVaultUtil(contractAddressContract, account, amount, decimal);
       } catch (e) {
         return false;
       }
@@ -37,4 +37,4 @@ const useCompoundingWithdraw = (account: string, contractAddress: string, decima
   return { onWithdraw: handleWithdraw };
 };
 
-export default useCompoundingWithdraw;
+export default useVaultWithdraw;

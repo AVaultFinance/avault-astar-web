@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { useMatchBreakpoints, Flex } from '@avault/ui';
-import { TableHeaderStyled } from './CompoundingTable/CompoundingTable';
+import { TableHeaderStyled } from './VaultTable/VaultTable';
 import styled from 'styled-components';
 import { OptionProps } from 'components/Select/Select';
 import SortIcon, { ISortDir } from 'components/SortIcon';

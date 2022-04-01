@@ -197,7 +197,7 @@ const Staked: React.FunctionComponent<StackedActionProps> = ({ pool, userDataRea
             {stakingToken.symbol}{' '}
           </Text>
           <Text fontSize="12px" bold color="textSubtle" as="span" textTransform="uppercase">
-            {isAutoVault ? t('Staked (compounding)') : t('Staked')}
+            {isAutoVault ? t('Staked (vault)') : t('Staked')}
           </Text>
           <Balance
             mt="16px"

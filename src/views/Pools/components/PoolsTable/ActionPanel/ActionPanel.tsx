@@ -246,7 +246,7 @@ const ActionPanel: React.FC<ActionPanelProps> = ({
           </StakeContainer>
         )}
         {/* <Flex mb="8px" justifyContent={['flex-end', 'flex-end', 'flex-start']}>
-          {isAutoVault ? <CompoundingPoolTag /> : <ManualPoolTag />}
+          {isAutoVault ? <VaultPoolTag /> : <ManualPoolTag />}
           {tagTooltipVisible && tagTooltip}
           <ReferenceElement ref={tagTargetRef}>
             <HelpIcon color="textSubtle" />

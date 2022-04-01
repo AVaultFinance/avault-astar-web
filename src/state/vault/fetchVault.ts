@@ -3,7 +3,7 @@ import masterchefSdnABI from 'config/abi/masterchef_Shiden.json';
 import { chainId } from 'config/constants/tokens';
 import { getAddress } from 'utils/addressHelpers';
 import multicall from 'utils/multicall';
-import { ICompounding, ICompoundingConfigItem } from './types';
+import { IVault, IVaultConfigItem } from './types';
 import AVaultPCS_ABI from 'config/abi/AVaultPCS_ABI.json';
 import erc20 from 'config/abi/erc20.json';
 import { BIG_TEN, BIG_ZERO } from 'utils/bigNumber';
@@ -12,20 +12,20 @@ import { CHAINKEY } from '@avault/sdk';
 import BigNumber from 'bignumber.js';
 import { getBalanceAmount } from 'utils/formatBalance';
 
-const fetchCompounding = async (
-  compounding: ICompoundingConfigItem,
+const fetchVault = async (
+  vault: IVaultConfigItem,
   priceVsBusdMap: Record<string, string>,
-  compoundingData: ICompounding,
-): Promise<ICompounding> => {
-  const compoundingPublicData = await fetch(compounding, priceVsBusdMap, compoundingData);
-  return { ...compounding, ...compoundingPublicData };
+  vaultData: IVault,
+): Promise<IVault> => {
+  const vaultPublicData = await fetch(vault, priceVsBusdMap, vaultData);
+  return { ...vault, ...vaultPublicData };
 };
 const fetch = async (
-  compounding: ICompoundingConfigItem,
+  vault: IVaultConfigItem,
   priceVsBusdMap: Record<string, string>,
-  compoundingData: ICompounding,
-): Promise<ICompounding> => {
-  const AVaultPCS = getAddress(compounding.contractAddress[chainId]);
+  vaultData: IVault,
+): Promise<IVault> => {
+  const AVaultPCS = getAddress(vault.contractAddress[chainId]);
   const {
     masterChef,
     name,
@@ -37,11 +37,11 @@ const fetch = async (
     earnedAddress,
     AVAAddress,
     wantLockedTotal,
-    compoundingTotalSupply,
-    compoundingDecimals,
-  } = await fetchCompoundingABI(AVaultPCS);
+    vaultTotalSupply,
+    vaultDecimals,
+  } = await fetchVaultABI(AVaultPCS);
 
-  const { lpAddresses, poolWeight, multiplier } = await fetchMasterChefABI(masterChef, pid, compoundingData);
+  const { lpAddresses, poolWeight, multiplier } = await fetchMasterChefABI(masterChef, pid, vaultData);
   const {
     tokenAmountMc,
     tokenAmountTotal,
@@ -56,28 +56,28 @@ const fetch = async (
     lpTokenPrice,
     lpAddressDecimals,
   } = await fetchFarmDataABI(masterChef, lpAddresses, token0Address, token1Address, priceVsBusdMap);
-  // console.log(compounding.lpDetail.symbol, lpAddresses, lpAddressDecimals);
+  // console.log(vault.lpDetail.symbol, lpAddresses, lpAddressDecimals);
   const lpToCLpRate =
-    wantLockedTotal && compoundingTotalSupply && wantLockedTotal > 0 && compoundingTotalSupply > 0
-      ? (Number(wantLockedTotal) / Number(compoundingTotalSupply)).toFixed(4)
+    wantLockedTotal && vaultTotalSupply && wantLockedTotal > 0 && vaultTotalSupply > 0
+      ? (Number(wantLockedTotal) / Number(vaultTotalSupply)).toFixed(4)
       : '1';
 
   return {
     isLoading: false,
-    ...compounding,
-    compounding: {
+    ...vault,
+    vault: {
       symbol: symbol,
       name: name,
       masterChef: masterChef,
       token0Address: token0Address,
       token1Address: token1Address,
-      fromSource: compounding.fromSource,
+      fromSource: vault.fromSource,
       wantAddress: wantAddress,
       earnedAddress: earnedAddress,
       wantLockedTotal: wantLockedTotal,
-      totalSupply: compoundingTotalSupply,
+      totalSupply: vaultTotalSupply,
       AVAAddress: AVAAddress,
-      decimals: compoundingDecimals,
+      decimals: vaultDecimals,
       lpToCLpRate: lpToCLpRate,
     },
     farm: {
@@ -100,17 +100,17 @@ const fetch = async (
       lpTokenPrice: lpTokenPrice,
       lpAddressDecimals: lpAddressDecimals,
       userData: {
-        allowance: compoundingData?.farm?.userData?.allowance ?? '0',
-        stakingTokenBalance: compoundingData?.farm?.userData?.stakingTokenBalance ?? '0',
-        stakedBalance: compoundingData?.farm?.userData?.stakedBalance ?? '0',
-        pendingReward: compoundingData?.farm?.userData?.pendingReward ?? '0',
-        avaultAddressBalance: compoundingData?.farm?.userData?.avaultAddressBalance ?? '0',
-        userCompoundingSupply: compoundingData?.farm?.userData?.userCompoundingSupply ?? '0',
+        allowance: vaultData?.farm?.userData?.allowance ?? '0',
+        stakingTokenBalance: vaultData?.farm?.userData?.stakingTokenBalance ?? '0',
+        stakedBalance: vaultData?.farm?.userData?.stakedBalance ?? '0',
+        pendingReward: vaultData?.farm?.userData?.pendingReward ?? '0',
+        avaultAddressBalance: vaultData?.farm?.userData?.avaultAddressBalance ?? '0',
+        userVaultSupply: vaultData?.farm?.userData?.userVaultSupply ?? '0',
       },
     },
   };
 };
-const fetchCompoundingABI = async (AVaultPCSAddress: string) => {
+const fetchVaultABI = async (AVaultPCSAddress: string) => {
   const calls = [
     {
       address: AVaultPCSAddress,
@@ -179,8 +179,8 @@ const fetchCompoundingABI = async (AVaultPCSAddress: string) => {
     _earnedAddress,
     _AVAAddress,
     _wantLockedTotal,
-    _compoundingTotalSupply,
-    _compoundingDecimals,
+    _vaultTotalSupply,
+    _vaultDecimals,
   ] = await multicall(AVaultPCS_ABI, calls);
   return {
     masterChef: _masterChef ? _masterChef[0] : null,
@@ -193,11 +193,11 @@ const fetchCompoundingABI = async (AVaultPCSAddress: string) => {
     earnedAddress: _earnedAddress ? _earnedAddress[0] : null,
     AVAAddress: _AVAAddress ? _AVAAddress[0] : null,
     wantLockedTotal: _wantLockedTotal ? _wantLockedTotal[0].toString() : null,
-    compoundingTotalSupply: _compoundingTotalSupply ? _compoundingTotalSupply[0].toString() : null,
-    compoundingDecimals: _compoundingDecimals ? _compoundingDecimals[0].toString() : null,
+    vaultTotalSupply: _vaultTotalSupply ? _vaultTotalSupply[0].toString() : null,
+    vaultDecimals: _vaultDecimals ? _vaultDecimals[0].toString() : null,
   };
 };
-const fetchMasterChefABI = async (masterChefAddress: string, pid: number, compoundingData: ICompounding) => {
+const fetchMasterChefABI = async (masterChefAddress: string, pid: number, vaultData: IVault) => {
   const _masterchefABI = chainKey === CHAINKEY.SDN ? masterchefSdnABI : masterchefABI;
   // info: [
   //   lpToken (address) : 0x456c0082de0048ee883881ff61341177fa1fef40
@@ -224,8 +224,8 @@ const fetchMasterChefABI = async (masterChefAddress: string, pid: number, compou
 
   const poolWeight = totalAllocPoint
     ? allocPoint.div(new BigNumber(totalAllocPoint))
-    : compoundingData?.farm?.poolWeight
-    ? new BigNumber(compoundingData.farm.poolWeight)
+    : vaultData?.farm?.poolWeight
+    ? new BigNumber(vaultData.farm.poolWeight)
     : BIG_ZERO;
   return {
     lpAddresses,
@@ -346,4 +346,4 @@ const fetchFarmDataABI = async (
     lpTokenPrice: lpTokenPrice.toString(),
   };
 };
-export default fetchCompounding;
+export default fetchVault;

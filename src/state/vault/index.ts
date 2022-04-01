@@ -1,65 +1,98 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { CompoundingState } from 'state/types';
-import compoundingsConfig from 'config/constants/compounding';
-import fetchCompoundings from './fetchCompoundings';
-import { ICompounding, ICompoundingUserData } from './types';
+import { VaultState } from 'state/types';
+import vaultsConfig from 'config/constants/vault';
+import fetchVaults from './fetchVaults';
+import { IVault, IVaultConfigItem, IVaultUserData } from './types';
 import {
-  fetchCompoundingsFarmEarnings,
-  fetchCompoundingsFarmStakedBalances,
-  fetchCompoundingsFarmUserAllowances,
-  fetchCompoundingsFarmUserTokenBalances,
-  fetchCompoundingsUsers,
-} from './fetchCompoundingUser';
+  fetchVaultsFarmEarnings,
+  fetchVaultsFarmStakedBalances,
+  fetchVaultsFarmUserAllowances,
+  fetchVaultsFarmUserTokenBalances,
+  fetchVaultsUsers,
+} from './fetchVaultUser';
 import { haveNumber } from 'utils';
-const initialState: CompoundingState = {
-  data: [],
+const initialState: VaultState = {
+  data: vaultsConfig.map((v: IVaultConfigItem) => {
+    return {
+      ...v,
+      vault: {
+        symbol: '',
+        name: '',
+        masterChef: '',
+        AVAAddress: '',
+        token0Address: '',
+        token1Address: '',
+        fromSource: v.fromSource,
+        wantAddress: '',
+        earnedAddress: '',
+        wantLockedTotal: '',
+        totalSupply: '',
+        decimals: 18,
+      },
+      farm: {
+        pid: 0,
+        lpSymbol: '',
+        lpAddresses: '',
+        tokenAmountMc: '',
+        token: '',
+        quoteToken: '',
+        quoteTokenAmountMc: '',
+        tokenAmountTotal: '',
+        quoteTokenAmountTotal: '',
+        lpTotalInQuoteToken: '',
+        lpTotalSupply: '',
+        tokenPriceVsQuote: '',
+        poolWeight: '',
+        multiplier: '',
+        quoteTokenDecimals: 18,
+        lpAddressDecimals: 18,
+      },
+      isLoading: false,
+    };
+  }),
   allLiquidity: '',
   isUserLoaded: false,
   userDataLoaded: false,
 };
-export const fetchCompoundingsPublicDataAsync = createAsyncThunk<
-  [ICompounding[], string],
+export const fetchVaultsPublicDataAsync = createAsyncThunk<
+  [IVault[], string],
   {
     priceVsBusdMap: Record<string, string>;
-    compoundingsData: ICompounding[];
+    vaultsData: IVault[];
   }
->('compounding/fetchCompoundingsPublicDataAsync', async ({ priceVsBusdMap, compoundingsData }) => {
-  const compoundings = await fetchCompoundings(compoundingsConfig, priceVsBusdMap, compoundingsData);
-  return compoundings;
+>('vault/fetchVaultsPublicDataAsync', async ({ priceVsBusdMap, vaultsData }) => {
+  const vaults = await fetchVaults(vaultsConfig, priceVsBusdMap, vaultsData);
+  return vaults;
 });
-export const fetchCompoundingFarmUserDataAsync = createAsyncThunk<
-  ICompoundingUserData[],
+export const fetchVaultFarmUserDataAsync = createAsyncThunk<
+  IVaultUserData[],
   {
     account: string;
-    compoundings: ICompounding[];
+    vaults: IVault[];
     index?: number;
   }
->('compounding/fetchCompoundingFarmUserDataAsync', async ({ account, compoundings, index }) => {
-  const userCompoundingsFarmAllowances = await fetchCompoundingsFarmUserAllowances(account, compoundings, index);
-  const userCompoundingsFarmTokenBalances = await fetchCompoundingsFarmUserTokenBalances(account, compoundings, index);
-  const userCompoundingsStakedBalances = await fetchCompoundingsFarmStakedBalances(account, compoundings, index);
-  const userCompoundingEarnings = await fetchCompoundingsFarmEarnings(account, compoundings, index);
-  const [userCompoundingUsers, userCompoundingSupply, compoundingWantLockedTotal] = await fetchCompoundingsUsers(
-    account,
-    compoundings,
-    index,
-  );
-  return userCompoundingsFarmAllowances.map((farmAllowance, _index) => {
+>('vault/fetchVaultFarmUserDataAsync', async ({ account, vaults, index }) => {
+  const userVaultsFarmAllowances = await fetchVaultsFarmUserAllowances(account, vaults, index);
+  const userVaultsFarmTokenBalances = await fetchVaultsFarmUserTokenBalances(account, vaults, index);
+  const userVaultsStakedBalances = await fetchVaultsFarmStakedBalances(account, vaults, index);
+  const userVaultEarnings = await fetchVaultsFarmEarnings(account, vaults, index);
+  const [userVaultUsers, userVaultSupply, vaultWantLockedTotal] = await fetchVaultsUsers(account, vaults, index);
+  return userVaultsFarmAllowances.map((farmAllowance, _index) => {
     return {
       index: index,
-      pid: compoundings[_index].farm.pid,
+      pid: vaults[_index].farm.pid,
       allowance: farmAllowance,
-      stakingTokenBalance: userCompoundingsFarmTokenBalances[_index],
-      stakedBalance: userCompoundingsStakedBalances[_index],
-      pendingReward: userCompoundingEarnings[_index],
-      avaultAddressBalance: userCompoundingUsers[_index],
-      userCompoundingSupply: userCompoundingSupply[_index],
-      compoundingWantLockedTotal: compoundingWantLockedTotal[_index],
+      stakingTokenBalance: userVaultsFarmTokenBalances[_index],
+      stakedBalance: userVaultsStakedBalances[_index],
+      pendingReward: userVaultEarnings[_index],
+      avaultAddressBalance: userVaultUsers[_index],
+      userVaultSupply: userVaultSupply[_index],
+      vaultWantLockedTotal: vaultWantLockedTotal[_index],
     };
   });
 });
-export const compoundingSlice = createSlice({
-  name: 'Compounding',
+export const vaultSlice = createSlice({
+  name: 'Vault',
   initialState,
   reducers: {
     changeLoading: (state) => {
@@ -85,37 +118,32 @@ export const compoundingSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchCompoundingsPublicDataAsync.fulfilled, (state, action) => {
-      // state.userDataLoaded = true;
+    builder.addCase(fetchVaultsPublicDataAsync.fulfilled, (state, action) => {
+      state.userDataLoaded = true;
       state.data = action.payload[0];
       state.allLiquidity = action.payload[1];
     });
-    builder.addCase(fetchCompoundingFarmUserDataAsync.fulfilled, (state, action) => {
+    builder.addCase(fetchVaultFarmUserDataAsync.fulfilled, (state, action) => {
       action.payload.forEach((userDataEl) => {
         const { pid, index: _index } = userDataEl;
-        const index = haveNumber(_index)
-          ? _index
-          : state.data.findIndex((compounding: ICompounding) => compounding.farm.pid === pid);
-        const compoundingWantLockedTotal = userDataEl.compoundingWantLockedTotal
-          ? userDataEl.compoundingWantLockedTotal
-          : state.data[index]?.compounding?.wantLockedTotal;
-        const userCompoundingSupply = userDataEl.userCompoundingSupply
-          ? userDataEl.userCompoundingSupply
-          : state.data[index]?.compounding?.totalSupply;
+        const index = haveNumber(_index) ? _index : state.data.findIndex((vault: IVault) => vault.farm.pid === pid);
+        const vaultWantLockedTotal = userDataEl.vaultWantLockedTotal
+          ? userDataEl.vaultWantLockedTotal
+          : state.data[index]?.vault?.wantLockedTotal;
+        const userVaultSupply = userDataEl.userVaultSupply
+          ? userDataEl.userVaultSupply
+          : state.data[index]?.vault?.totalSupply;
         const lpToCLpRate =
-          compoundingWantLockedTotal &&
-          userCompoundingSupply &&
-          Number(compoundingWantLockedTotal) > 0 &&
-          Number(userCompoundingSupply) > 0
-            ? (Number(compoundingWantLockedTotal) / Number(userCompoundingSupply)).toFixed(4)
+          vaultWantLockedTotal && userVaultSupply && Number(vaultWantLockedTotal) > 0 && Number(userVaultSupply) > 0
+            ? (Number(vaultWantLockedTotal) / Number(userVaultSupply)).toFixed(4)
             : '1';
 
         state.data[index] = {
           ...state.data[index],
-          compounding: {
-            ...state.data[index].compounding,
-            totalSupply: userDataEl.userCompoundingSupply,
-            wantLockedTotal: userDataEl.compoundingWantLockedTotal,
+          vault: {
+            ...state.data[index].vault,
+            totalSupply: userDataEl.userVaultSupply,
+            wantLockedTotal: userDataEl.vaultWantLockedTotal,
             lpToCLpRate: lpToCLpRate,
           },
           farm: {
@@ -131,6 +159,6 @@ export const compoundingSlice = createSlice({
   },
 });
 // Actions
-export const { changeLoading, changeVaultItemLoading, changeVaultLoading } = compoundingSlice.actions;
+export const { changeLoading, changeVaultItemLoading, changeVaultLoading } = vaultSlice.actions;
 
-export default compoundingSlice.reducer;
+export default vaultSlice.reducer;

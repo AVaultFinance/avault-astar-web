@@ -4,55 +4,52 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from 'state';
 import { usePrice } from 'state/price/hooks';
-import { CompoundingState, State } from 'state/types';
+import { VaultState, State } from 'state/types';
 import { BIG_ZERO } from 'utils/bigNumber';
-import {
-  fetchCompoundingsPublicDataAsync,
-  fetchCompoundingFarmUserDataAsync,
-  changeLoading,
-  changeVaultLoading,
-} from './index';
-import { ICompounding } from './types';
-export const usePollCompoundingData = () => {
+import { fetchVaultsPublicDataAsync, fetchVaultFarmUserDataAsync, changeLoading, changeVaultLoading } from './index';
+import { IVault } from './types';
+export const usePollVaultData = () => {
   const dispatch = useAppDispatch();
   const { priceVsBusdMap } = usePrice();
-  const { data: compoundings } = useCompounding();
+  const { data: vaults } = useVault();
   useEffect(() => {
-    dispatch(fetchCompoundingsPublicDataAsync({ priceVsBusdMap, compoundingsData: compoundings }));
+    dispatch(fetchVaultsPublicDataAsync({ priceVsBusdMap, vaultsData: vaults }));
     // eslint-disable-next-line
   }, [dispatch, priceVsBusdMap]);
 };
-export const useCompoundingUserData = (compoundings: ICompounding[]) => {
-  // const { data: compoundings } = useCompounding();
+export const useVaultUserData = (vaults: IVault[]) => {
+  // const { data: vaults } = useVault();
   const { account } = useWeb3React();
   const [length, setLength] = useState(0);
   const dispatch = useAppDispatch();
   useEffect(() => {
-    if (account && length !== compoundings.length) {
+    if (account && length !== vaults.length) {
       dispatch(changeLoading());
       dispatch(changeVaultLoading());
-      dispatch(fetchCompoundingFarmUserDataAsync({ account, compoundings }));
-      setLength(compoundings.length);
+      dispatch(fetchVaultFarmUserDataAsync({ account, vaults }));
+      setLength(vaults.length);
     }
-  }, [length, dispatch, account, compoundings]);
+  }, [length, dispatch, account, vaults]);
 };
-export const useCompounding = (): CompoundingState => {
-  const compounding = useSelector((state: State) => state.compounding);
-  return compounding;
+export const useVault = (): VaultState => {
+  const vault = useSelector((state: State) => {
+    return state.vault;
+  });
+  return vault;
 };
-// const useCompoundingPid = (pid: number) => {
-//   const compounding = useSelector((state: State) => state.compounding.data.find((f) => f.farm.pid === pid));
-//   return compounding;
+// const useVaultPid = (pid: number) => {
+//   const vault = useSelector((state: State) => state.vault.data.find((f) => f.farm.pid === pid));
+//   return vault;
 // };
-export const useCompoundingAllTotal = () => {
-  const compounding = useSelector((state: State) => state.compounding);
-  return compounding.allLiquidity;
+export const useVaultAllTotal = () => {
+  const vault = useSelector((state: State) => state.vault);
+  return vault.allLiquidity;
 };
-export const useCompoundingFarmUser = (pid?: number) => {
+export const useVaultFarmUser = (pid?: number) => {
   try {
-    const compounding = useSelector((state: State) => state.compounding.data.find((f) => f.farm.pid === pid));
-    // const { farm } = useCompoundingPid(pid);
-    const { farm } = compounding;
+    const vault = useSelector((state: State) => state.vault.data.find((f) => f.farm.pid === pid));
+    // const { farm } = useVaultPid(pid);
+    const { farm } = vault;
     return {
       allowance: farm.userData ? new BigNumber(farm.userData.allowance) : BIG_ZERO,
       stakingTokenBalance: farm.userData ? new BigNumber(farm.userData.stakingTokenBalance) : BIG_ZERO,

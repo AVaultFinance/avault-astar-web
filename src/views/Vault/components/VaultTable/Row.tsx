@@ -10,8 +10,8 @@ import Liquidity, { LiquidityProps } from './Liquidity';
 import ActionPanel from './Actions/ActionPanel';
 import CellLayout from './CellLayout';
 import { DesktopColumnSchema } from '../types';
-import Compounding, { CompoundingProps } from './Compounding';
-import { ICompounding } from 'state/vault/types';
+import Vault, { VaultProps } from './Vault';
+import { IVault } from 'state/vault/types';
 import BigNumber from 'bignumber.js';
 import { getBalanceNumber } from 'utils/formatBalance';
 import Balance from 'components/Balance';
@@ -19,14 +19,14 @@ import { showDecimals } from 'views/Vault/utils';
 
 export interface RowProps {
   apr: AprProps;
-  compounding: CompoundingProps;
+  vault: VaultProps;
   earned: EarnedProps;
   net: {
     net: string;
   };
   multiplier: MultiplierProps;
   liquidity: LiquidityProps;
-  details: ICompounding;
+  details: IVault;
 }
 
 interface RowPropsWithLoading extends RowProps {
@@ -38,7 +38,7 @@ interface RowPropsWithLoading extends RowProps {
 
 const cells = {
   apr: Apr,
-  compounding: Compounding,
+  vault: Vault,
   earned: Earned,
   details: Details,
   multiplier: Multiplier,
@@ -144,7 +144,7 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
   const shouldRenderChild = useDelayedUnmount(actionPanelExpanded, 300);
 
   const { targetRef, tooltip, tooltipVisible } = useTooltip(
-    `1 ${details.compounding.symbol} = ${details.compounding.lpToCLpRate} ${details.lpDetail.symbol}`,
+    `1 ${details.vault.symbol} = ${details.vault.lpToCLpRate} ${details.lpDetail.symbol}`,
     {
       trigger: 'hover',
       tootipStyle: { padding: '10px', whiteSpace: 'break-spaces', textAlign: 'center', fontSize: '14px' },
@@ -159,16 +159,13 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
     targetRef: balanceTargetRef,
     tooltip: balanceTooltip,
     tooltipVisible: balanceTooltipVisible,
-  } = useTooltip(
-    `${details.compounding.symbol}: ${details.compounding.name}, an interest-bearing token synthesized by Avault`,
-    {
-      trigger: 'hover',
-      tootipStyle: { padding: '10px', whiteSpace: 'break-spaces', textAlign: 'center', fontSize: '14px' },
-      placement: 'top-end',
-      hideArrow: true,
-      tooltipOffset: [20, 10],
-    },
-  );
+  } = useTooltip(`${details.vault.symbol}: ${details.vault.name}, an interest-bearing token synthesized by Avault`, {
+    trigger: 'hover',
+    tootipStyle: { padding: '10px', whiteSpace: 'break-spaces', textAlign: 'center', fontSize: '14px' },
+    placement: 'top-end',
+    hideArrow: true,
+    tooltipOffset: [20, 10],
+  });
 
   const toggleActionPanel = () => {
     setActionPanelExpanded(!actionPanelExpanded);
@@ -198,7 +195,7 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
                 return (
                   <td key={key}>
                     <Text color="text" bold fontSize="15px">
-                      ${details.compounding.liquidity}
+                      ${details.vault.liquidity}
                     </Text>
                   </td>
                 );
@@ -208,8 +205,8 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
                     {tooltipVisible && tooltip}
                     <Flex alignItems="center" justifyContent="start">
                       <Text color="text" bold fontSize="15px">
-                        1 : {details.compounding.lpToCLpRate}
-                        {/* 1 {details.compounding.symbol}={details.compounding.lpToCLpRate} {details.lpDetail.symbol} */}
+                        1 : {details.vault.lpToCLpRate}
+                        {/* 1 {details.vault.symbol}={details.vault.lpToCLpRate} {details.lpDetail.symbol} */}
                       </Text>
                       <QuestionWrapper ref={targetRef}>
                         <HelpIcon color="textSubtle" width="18px" height="18px" />
@@ -236,7 +233,7 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
                           18,
                           3,
                         )} */}
-                        {details.compounding.symbol}
+                        {details.vault.symbol}
                       </Text>
                       <QuestionWrapper ref={balanceTargetRef}>
                         <HelpIcon color="textSubtle" width="18px" height="18px" />
@@ -289,11 +286,11 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
       <StyledTr onClick={toggleActionPanel} isLast={props.isLast}>
         <td>
           <CellLayout>
-            <Compounding {...props.compounding} />
+            <Vault {...props.vault} />
           </CellLayout>
           <TextStyled>
-            1:{`${details.compounding.lpToCLpRate}`}
-            {/* 1 {details.compounding.symbol}={details.compounding.lpToCLpRate} {details.lpDetail.symbol} */}
+            1:{`${details.vault.lpToCLpRate}`}
+            {/* 1 {details.vault.symbol}={details.vault.lpToCLpRate} {details.lpDetail.symbol} */}
           </TextStyled>
         </td>
         <td></td>

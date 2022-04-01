@@ -8,7 +8,6 @@ const ButtonStyled = styled(Button)`
   height: 36px;
   width: 150px;
   background-image: linear-gradient(90deg, #8c1ab5 0%, #17b38d 100%);
-  border-radius: 8px;
   color: ${({ theme }) => theme.colors.text};
 `;
 const ConnectWalletButton = (props) => {

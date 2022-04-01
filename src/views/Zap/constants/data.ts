@@ -1,12 +1,12 @@
-import compounding from 'config/constants/compounding';
+import vault from 'config/constants/vault';
 import tokens, { chainId } from 'config/constants/tokens';
-import { ICompoundingConfigItem } from 'state/vault/types';
+import { IVaultConfigItem } from 'state/vault/types';
 import { IToken, ITokenType } from '../utils/types';
 import { chainKey } from 'config';
 import { CHAINKEY, Currency } from '@avault/sdk';
 export const zapLocalFromCurrency = 'FromCurrency';
 export const zapLocalToCurrency = 'ToCurrency';
-const _TokenALL = compounding.map((v: ICompoundingConfigItem) => {
+const _TokenALL = vault.map((v: IVaultConfigItem) => {
   const [symbol0, symbol1] = v.lpDetail.symbol.replace(' LP', '').split('-');
   const _v0 = symbol0.toLowerCase() === 'kac' ? 'kaco' : symbol0.toLowerCase();
   const _v1 = symbol1.toLowerCase() === 'kac' ? 'kaco' : symbol1.toLowerCase();

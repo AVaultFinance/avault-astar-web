@@ -55,7 +55,7 @@ const CollectModal: React.FC<CollectModalProps> = ({
 
   const handleHarvestConfirm = async () => {
     setPendingTx(true);
-    // compounding
+    // vault
     if (shouldCompound) {
       try {
         await onStake(fullBalance, earningToken.decimals);
@@ -109,7 +109,7 @@ const CollectModal: React.FC<CollectModalProps> = ({
       )}
 
       <Flex justifyContent="space-between" alignItems="center" mb="24px">
-        <Text>{shouldCompound ? t('Compounding') : t('Harvesting')}</Text>
+        <Text>{shouldCompound ? t('Vault') : t('Harvesting')}</Text>
         <Flex flexDirection="column">
           <Heading>
             {formattedBalance} {earningToken.symbol}

@@ -4,14 +4,14 @@ import BigNumber from 'bignumber.js';
 import { BIG_TEN } from 'utils/bigNumber';
 import { callWithEstimateGas } from 'utils/calls';
 import { DEFAULT_GAS_LIMIT } from 'config';
-const useCompoundingDeposit = (account: string, contractAddress: string, decimal: number) => {
+const useVaultDeposit = (account: string, contractAddress: string, decimal: number) => {
   const contractAddressContract = useAVaultPCSContract(contractAddress);
 
   const handleDeposit = useCallback(
     async (amount: string) => {
       // const txHash =
       // try {
-      //   return await depositCompoundingUtil(contractAddressContract, account, amount, decimal);
+      //   return await depositVaultUtil(contractAddressContract, account, amount, decimal);
       // } catch (e) {
       //   return false;
       // }
@@ -31,4 +31,4 @@ const useCompoundingDeposit = (account: string, contractAddress: string, decimal
   return { onDeposit: handleDeposit };
 };
 
-export default useCompoundingDeposit;
+export default useVaultDeposit;

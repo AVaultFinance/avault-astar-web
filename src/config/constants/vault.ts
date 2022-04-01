@@ -1,7 +1,7 @@
 import { ChainId, CHAINKEY } from '@avault/sdk';
 import { chainKey } from 'config';
-import { IFarmProject, IABIType, ICompoundingConfigItem } from 'state/vault/types';
-const compounding: ICompoundingConfigItem[] =
+import { IFarmProject, IABIType, IVaultConfigItem } from 'state/vault/types';
+const vault: IVaultConfigItem[] =
   chainKey === CHAINKEY.SDN
     ? [
         {
@@ -142,4 +142,4 @@ const compounding: ICompoundingConfigItem[] =
 // aKSJ deployed to: 0x5167E12139Ee4b2F6590F3C95E56B29d408a9048
 // aKJU deployed to: 0x9d03BfE2e0BEDA103f1961A8595bF5d8b1F6FD18
 
-export default compounding;
+export default vault;

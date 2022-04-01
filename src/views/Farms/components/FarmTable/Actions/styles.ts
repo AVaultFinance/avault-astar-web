@@ -20,7 +20,6 @@ export const ActionContent = styled.div`
 `;
 export const LongButton = styled(Button)<{ disabled: boolean }>`
   height: 36px;
-  border-radius: 8px;
   width: 100%;
   margin-top: 10px;
   // background: ${({ disabled, theme }) => (disabled ? '#eee' : theme.colors.primary)};
