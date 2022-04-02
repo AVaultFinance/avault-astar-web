@@ -1,4 +1,4 @@
-import vault from 'config/constants/vault';
+import vaultConfig from 'config/constants/vault';
 import tokens, { chainId } from 'config/constants/tokens';
 import { IVaultConfigItem } from 'state/vault/types';
 import { IToken, ITokenType } from '../utils/types';
@@ -7,7 +7,7 @@ import { CHAINKEY, Currency } from '@avault/sdk';
 export const zapLocalFromCurrency = 'FromCurrency';
 export const zapLocalToCurrency = 'ToCurrency';
 
-const _TokenALL = vault.map(
+const _TokenALL = vaultConfig.map(
   (
     v: IVaultConfigItem,
   ): [

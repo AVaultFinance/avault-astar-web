@@ -54,19 +54,18 @@ const ConnectModal: React.FC<Props> = ({ login, onDismiss = () => null, displayC
   const sortedConfig = getPreferredConfig(config).filter((c) => c.title === "Metamask");
   const displayListConfig = showMore ? sortedConfig : sortedConfig.slice(0, displayCount);
 
-  console.log("sortedConfig", sortedConfig);
   return (
     <ModalContainer minWidth="340px">
-      <ModalHeader>
+      <ModalHeaderStyled>
         <ModalTitle>
           <Heading>Connect Wallet</Heading>
         </ModalTitle>
         <ModalCloseButton onDismiss={onDismiss} />
-      </ModalHeader>
+      </ModalHeaderStyled>
       <ModalBody width={["340px", null, "480px"]}>
         <WalletWrapper paddingBottom="24px" maxHeight="453px" overflowY="auto">
           {displayListConfig.map((wallet) => (
-            <Box key={wallet.title} paddingLeft="30px" paddingRight="30px">
+            <Box key={wallet.title}>
               <WalletCard walletConfig={wallet} login={login} onDismiss={onDismiss} />
             </Box>
           ))}
@@ -90,5 +89,10 @@ const ConnectModal: React.FC<Props> = ({ login, onDismiss = () => null, displayC
     </ModalContainer>
   );
 };
-
+const ModalHeaderStyled = styled(ModalHeader)`
+  padding: 30px 16px 14px;
+  ${({ theme }) => theme.mediaQueries.sm} {
+    padding: 20px 30px 14px;
+  }
+`;
 export default ConnectModal;

@@ -195,8 +195,8 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
       );
     }
   }
-  const [onAddLiquidity] = useModal(<AddLiquidityModal account={account} index={index} vault={vault} />);
-  const [onRemoveLiquidity] = useModal(<RemoveLiquidityModal account={account} index={index} vault={vault} />);
+  const [onAddLiquidity] = useModal(<AddLiquidityModal account={account} vault={vault} />);
+  const [onRemoveLiquidity] = useModal(<RemoveLiquidityModal account={account} vault={vault} />);
 
   const lpContract = useERC20(lpAddress);
   const [requestedApproval, setRequestedApproval] = useState(false);

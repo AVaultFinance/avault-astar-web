@@ -28,7 +28,7 @@ export const ModalBody = styled(Flex)<{ bodyPadding?: string }>`
   overflow-y: auto;
   padding: ${({ bodyPadding }) => (bodyPadding ? bodyPadding : "0 16px 16px")};
   ${({ theme }) => theme.mediaQueries.sm} {
-    padding: ${({ bodyPadding }) => (bodyPadding ? bodyPadding : "14px 30px")};
+    padding: ${({ bodyPadding }) => (bodyPadding ? bodyPadding : "14px 30px 30px")};
   }
 `;
 

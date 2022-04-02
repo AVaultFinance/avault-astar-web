@@ -6,7 +6,7 @@ import toFormat from 'toformat'
 
 import { BigintIsh, Rounding } from '../../constants'
 import { ONE } from '../../constants'
-import { parseBigintIsh } from 'utils'
+import { parseBigintIsh } from '../../utils'
 
 const Decimal = toFormat(_Decimal)
 const Big = toFormat(_Big)

@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from 'react';
+import vaultConfig from 'config/constants/vault';
 import { BigNumber } from '@ethersproject/bignumber';
 import { TransactionResponse } from '@ethersproject/providers';
 import { Currency, ETHER, TokenAmount } from '@avault/sdk';
@@ -19,7 +20,7 @@ import { wrappedCurrency } from 'utils/wrappedCurrency';
 import JSBI from 'jsbi';
 import { chainKey } from 'config';
 import tokens, { chainId } from 'config/constants/tokens';
-import { IVault } from 'state/vault/types';
+import { IVault, IVaultConfigItem } from 'state/vault/types';
 import styled from 'styled-components';
 import { MaxButton } from 'style/SmallBorderPageLayout';
 import { tokenIndex } from 'views/Zap/constants/data';
@@ -30,13 +31,13 @@ import IconAdd from 'components/svg/IconAdd';
 
 interface AddLiquidityModalProps {
   vault: IVault;
-  index: number;
   account: string;
   onDismiss?: () => void;
 }
-const AddLiquidityModal: React.FC<AddLiquidityModalProps> = ({ vault, account, index, onDismiss }) => {
+const AddLiquidityModal: React.FC<AddLiquidityModalProps> = ({ vault, account, onDismiss }) => {
   const { isMd, isXl, isLg } = useMatchBreakpoints();
   const isMobile = !(isMd || isXl || isLg);
+  const index = vaultConfig.map((v: IVaultConfigItem) => v.lpDetail.symbol).indexOf(vault.lpDetail.symbol);
 
   const token = tokenIndex[index][0];
 

@@ -23,7 +23,7 @@ import { useBurnActionHandlers, useDerivedBurnInfo, useBurnState } from 'state/b
 import { Field } from 'state/burn/actions';
 import { useUserSlippageTolerance } from 'state/user/hooks';
 import { chainId } from 'config/constants/tokens';
-import { IVault } from 'state/vault/types';
+import { IVault, IVaultConfigItem } from 'state/vault/types';
 import { IToken } from 'views/Zap/utils/types';
 import { tokenIndex } from 'views/Zap/constants/data';
 import { MaxButton } from 'style/SmallBorderPageLayout';
@@ -31,16 +31,17 @@ import ZapBalance from 'views/Zap/components/ZapBalance';
 import ZapCurrencyLogo from 'views/Zap/components/ZapCurrencyLogo';
 import BigNumber from 'bignumber.js';
 import Loading from 'components/TransactionConfirmationModal/Loading';
+import vaultConfig from 'config/constants/vault';
 
 interface RemoveLiquidityModalProps {
   vault: IVault;
-  index: number;
   account: string;
   onDismiss?: () => void;
 }
-const RemoveLiquidityModal: React.FC<RemoveLiquidityModalProps> = ({ vault, account, index, onDismiss }) => {
+const RemoveLiquidityModal: React.FC<RemoveLiquidityModalProps> = ({ vault, account, onDismiss }) => {
   const [fullBalance, setMax] = useState('0');
   const [val, setVal] = useState('');
+  const index = vaultConfig.map((v: IVaultConfigItem) => v.lpDetail.symbol).indexOf(vault.lpDetail.symbol);
 
   const token: IToken = tokenIndex[index][1];
   const currencyIdA = token.token.address[chainId];
