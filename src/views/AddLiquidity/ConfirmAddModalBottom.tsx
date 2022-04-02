@@ -2,9 +2,9 @@ import { Currency, CurrencyAmount, Fraction, Percent } from '@avault/sdk';
 import React from 'react';
 import { Button, Text } from '@avault/ui';
 import { useTranslation } from 'contexts/Localization';
-import { RowBetween, RowFixed } from '../../components/Layout/Row';
-import { CurrencyLogo } from '../../components/Logo';
-import { Field } from '../../state/mint/actions';
+import { RowBetween, RowFixed } from 'components/Layout/Row';
+import { CurrencyLogo } from 'components/Logo';
+import { Field } from 'state/mint/actions';
 
 function ConfirmAddModalBottom({
   noLiquidity,

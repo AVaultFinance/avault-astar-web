@@ -7,12 +7,12 @@ import Card from 'components/Card';
 import { UNSUPPORTED_LIST_URLS } from 'config/constants/lists';
 import { parseENSAddress } from 'utils/ENS/parseENSAddress';
 import { useTranslation } from 'contexts/Localization';
-import useFetchListCallback from '../../hooks/useFetchListCallback';
+import useFetchListCallback from 'hooks/useFetchListCallback';
 
 import { AppDispatch, AppState } from '../../state';
-import { acceptListUpdate, removeList, disableList, enableList } from '../../state/lists/actions';
-import { useIsListActive, useAllLists, useActiveListUrls } from '../../state/lists/hooks';
-import uriToHttp from '../../utils/uriToHttp';
+import { acceptListUpdate, removeList, disableList, enableList } from 'state/lists/actions';
+import { useIsListActive, useAllLists, useActiveListUrls } from 'state/lists/hooks';
+import uriToHttp from 'utils/uriToHttp';
 
 import Column, { AutoColumn } from '../Layout/Column';
 import { ListLogo } from '../Logo';

@@ -11,7 +11,7 @@ import { useERC20 } from 'hooks/useContract';
 import ConnectWalletButton from 'components/ConnectWalletButton';
 import StakeAction from './StakeAction';
 import HarvestAction from './HarvestAction';
-import useApproveFarm from '../../hooks/useApproveFarm';
+import useApproveFarm from 'views/Farms/hooks/useApproveFarm';
 
 const Action = styled.div`
   padding-top: 16px;

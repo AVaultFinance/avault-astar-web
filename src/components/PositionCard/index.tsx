@@ -5,18 +5,18 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { useTranslation } from 'contexts/Localization';
 import useActiveWeb3React from 'hooks/useActiveWeb3React';
-import useTotalSupply from '../../hooks/useTotalSupply';
+import useTotalSupply from 'hooks/useTotalSupply';
 
-import { useTokenBalance } from '../../state/wallet/hooks';
-import { currencyId } from '../../utils/currencyId';
-import { unwrappedToken } from '../../utils/wrappedCurrency';
+import { useTokenBalance } from 'state/wallet/hooks';
+import { currencyId } from 'utils/currencyId';
+import { unwrappedToken } from 'utils/wrappedCurrency';
 
 import { SolidCard } from '../Card';
 import { AutoColumn } from '../Layout/Column';
 import CurrencyLogo from '../Logo/CurrencyLogo';
 import { DoubleCurrencyLogo } from '../Logo';
 import { RowBetween, RowFixed } from '../Layout/Row';
-import { BIG_INT_ZERO } from '../../config/constants';
+import { BIG_INT_ZERO } from 'config/constants';
 import Dots from '../Loader/Dots';
 import DropdownSvg from './imgs/dropdown.png';
 import AddIconWhite from 'components/svg/addIconWhite';

@@ -16,7 +16,7 @@ import { useCurrencyBalances } from '../wallet/hooks';
 import { Field, replaceSwapState, selectCurrency, setRecipient, switchCurrencies, typeInput } from './actions';
 import { SwapState } from './reducer';
 import { useUserSlippageTolerance } from '../user/hooks';
-import { chainId, DOT } from '../../config/constants/tokens';
+import { chainId, DOT } from 'config/constants/tokens';
 
 export function useSwapState(): AppState['swap'] {
   return useSelector<AppState, AppState['swap']>((state) => state.swap);

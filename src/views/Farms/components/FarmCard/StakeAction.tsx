@@ -12,11 +12,11 @@ import { useLpTokenPrice } from 'state/farms/hooks';
 import { getBalanceAmount, getBalanceNumber, getFullDisplayBalance } from 'utils/formatBalance';
 import DepositModal from '../DepositModal';
 import WithdrawModal from '../WithdrawModal';
-import useUnstakeFarms from '../../hooks/useUnstakeFarms';
-import useStakeFarms from '../../hooks/useStakeFarms';
 import MinusIconPrimary from 'components/svg/minusIconPrimary';
 import AddIconPrimary from 'components/svg/addIconPrimary';
 import { FarmWithStakedValue } from './CardActionsContainer';
+import useStakeFarms from 'views/Farms/hooks/useStakeFarms';
+import useUnstakeFarms from 'views/Farms/hooks/useUnstakeFarms';
 
 interface FarmCardActionsProps {
   stakedBalance?: BigNumber;

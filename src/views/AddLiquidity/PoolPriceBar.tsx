@@ -2,10 +2,10 @@ import { Currency, Percent, Price } from '@avault/sdk';
 import React from 'react';
 import { Text } from '@avault/ui';
 import { useTranslation } from 'contexts/Localization';
-import { AutoColumn } from '../../components/Layout/Column';
-import { AutoRow } from '../../components/Layout/Row';
-import { ONE_BIPS } from '../../config/constants';
-import { Field } from '../../state/mint/actions';
+import { AutoColumn } from 'components/Layout/Column';
+import { AutoRow } from 'components/Layout/Row';
+import { ONE_BIPS } from 'config/constants';
+import { Field } from 'state/mint/actions';
 
 function PoolPriceBar({
   currencies,
