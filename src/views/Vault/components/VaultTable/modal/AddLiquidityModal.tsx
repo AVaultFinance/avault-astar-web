@@ -193,9 +193,13 @@ const AddLiquidityModal: React.FC<AddLiquidityModalProps> = ({ vault, account, o
 
   const handleChangeA = useCallback(
     (e: React.FormEvent<HTMLInputElement>) => {
-      if (e.currentTarget.validity.valid) {
-        const value = e.currentTarget.value.replace(/,/g, '.');
-        onFieldAInput(value);
+      try {
+        if (e.currentTarget.validity.valid) {
+          const value = e.currentTarget.value.replace(/,/g, '.');
+          onFieldAInput(value);
+        }
+      } catch (e) {
+        onFieldAInput('');
       }
     },
     [onFieldAInput],
@@ -203,9 +207,13 @@ const AddLiquidityModal: React.FC<AddLiquidityModalProps> = ({ vault, account, o
 
   const handleChangeB = useCallback(
     (e: React.FormEvent<HTMLInputElement>) => {
-      if (e.currentTarget.validity.valid) {
-        const value = e.currentTarget.value.replace(/,/g, '.');
-        onFieldBInput(value);
+      try {
+        if (e.currentTarget.validity.valid) {
+          const value = e.currentTarget.value.replace(/,/g, '.');
+          onFieldBInput(value);
+        }
+      } catch (e) {
+        onFieldBInput('');
       }
     },
     [onFieldBInput],

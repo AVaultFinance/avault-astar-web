@@ -340,9 +340,11 @@ const RemoveLiquidityModal: React.FC<RemoveLiquidityModalProps> = ({ vault, acco
 
   const handleChange = useCallback(
     (e: React.FormEvent<HTMLInputElement>) => {
-      if (e.currentTarget.validity.valid) {
+      try {
         const value = e.currentTarget.value.replace(/,/g, '.');
         onLiquidityInput(value);
+      } catch (e) {
+        onLiquidityInput('');
       }
     },
     [onLiquidityInput],
