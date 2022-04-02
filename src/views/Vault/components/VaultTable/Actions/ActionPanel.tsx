@@ -170,7 +170,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
   const { avaultAddressBalance, allowance } = useVaultFarmUser(vault?.farm?.pid ?? 0);
   const isApproved = account && allowance && allowance.isGreaterThan(0);
   // const isMetaMaskInScope = !!window.ethereum?.isMetaMask;
-  // const stakingBigNumber = new BigNumber(vault.farm.userData.stakingTokenBalance);
+  // const stakingBigNumber = new BigNumber(vault.farm?.userData?.stakingTokenBalance??"0");
   let earnings = BIG_ZERO;
   let displayEarningsBalance: string = '0';
 
@@ -295,7 +295,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
             </i>
             <i>
               {getFullLocalDisplayBalance(
-                new BigNumber(vault.farm.userData.stakingTokenBalance),
+                new BigNumber(vault.farm?.userData?.stakingTokenBalance ?? '0'),
                 vault.farm.lpAddressDecimals,
                 showDecimals(vault.lpDetail.symbol),
               )}{' '}
@@ -323,7 +323,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
           isApproved={isApproved}
           pid={vault.farm.pid}
           displayBalance={getFullLocalDisplayBalance(
-            new BigNumber(vault.farm.userData.stakingTokenBalance),
+            new BigNumber(vault.farm?.userData?.stakingTokenBalance ?? '0'),
             vault.farm.lpAddressDecimals,
             showDecimals(vault.lpDetail.symbol),
           )}

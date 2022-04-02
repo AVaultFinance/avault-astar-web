@@ -133,7 +133,7 @@ const Vaults: React.FC = () => {
         case 'earned':
           return orderBy(
             vaults,
-            (vault: IVault) => (vault.farm.userData ? Number(vault.farm.userData.pendingReward) : 0),
+            (vault: IVault) => (vault.farm.userData ? Number(vault.farm?.userData?.pendingReward ?? '0') : 0),
             side,
           );
         case 'liquidity':
