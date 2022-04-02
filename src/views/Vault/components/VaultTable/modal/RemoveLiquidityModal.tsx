@@ -377,17 +377,21 @@ const RemoveLiquidityModal: React.FC<RemoveLiquidityModalProps> = ({ vault, acco
         </FlexCol>
       </InnerStyled>
       <RowBetween>
+        {approval === ApprovalState.APPROVED ? null : (
+          <Button
+            isLoading={approval === ApprovalState.PENDING}
+            variant={signatureData !== null ? 'success' : 'primary'}
+            onClick={onAttemptToApprove}
+            disabled={approval !== ApprovalState.NOT_APPROVED || signatureData !== null}
+            width="48%"
+          >
+            {signatureData !== null ? t('Approved') : t('Approve')}
+            <Loading isLoading={approval === ApprovalState.PENDING} success={true} />
+          </Button>
+        )}
         <Button
-          variant={approval === ApprovalState.APPROVED || signatureData !== null ? 'success' : 'primary'}
-          onClick={onAttemptToApprove}
-          disabled={approval !== ApprovalState.NOT_APPROVED || signatureData !== null}
-          width="48%"
-        >
-          {approval === ApprovalState.APPROVED || signatureData !== null ? t('Approved') : t('Approve')}
-          <Loading isLoading={approval === ApprovalState.PENDING} success={true} />
-        </Button>
-        <Button
-          width="48%"
+          isLoading={attemptingTxn}
+          width={approval === ApprovalState.APPROVED ? '100%' : '48%'}
           disabled={!(approval === ApprovalState.APPROVED || signatureData !== null)}
           onClick={onRemove}
         >

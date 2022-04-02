@@ -52,14 +52,14 @@ function ConfirmAddModalBottom({
         </RowBetween>
         <RowBetween mb="16px">
           <Text fontSize="12px">{t('Rates')}</Text>
-          <Text fontSize="12px" color="#181733">
+          <Text fontSize="12px">
             {`1 ${currencies[Field.CURRENCY_A]?.symbol} = ${price?.toSignificant(4)} ${
               currencies[Field.CURRENCY_B]?.symbol
             }`}
           </Text>
         </RowBetween>
         <RowBetween style={{ justifyContent: 'flex-end' }} mb="23px">
-          <Text fontSize="12px" color="#181733">
+          <Text fontSize="12px">
             {`1 ${currencies[Field.CURRENCY_B]?.symbol} = ${price?.invert().toSignificant(4)} ${
               currencies[Field.CURRENCY_A]?.symbol
             }`}
@@ -67,9 +67,7 @@ function ConfirmAddModalBottom({
         </RowBetween>
         <RowBetween>
           <Text fontSize="12px">{t('Share of Pool')}:</Text>
-          <Text fontSize="12px" color="#181733">
-            {noLiquidity ? '100' : poolTokenPercentage?.toSignificant(4)}%
-          </Text>
+          <Text fontSize="12px">{noLiquidity ? '100' : poolTokenPercentage?.toSignificant(4)}%</Text>
         </RowBetween>
       </div>
       <Button onClick={onAdd} mt="30px" width="100%">

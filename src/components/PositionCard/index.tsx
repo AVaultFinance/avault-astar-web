@@ -86,7 +86,7 @@ export function MinimalPositionCard({ pair, showUnwrapped = false }: PositionCar
             </FixedHeightRow>
             <AutoColumn gap="4px">
               <FixedHeightRow>
-                <Text fontSize="12px" color="secondary" small>
+                <Text fontSize="12px" color="textSubtle" small>
                   {t('Share of Pool')}:
                 </Text>
                 <Text fontSize="12px" color="text">
@@ -94,7 +94,7 @@ export function MinimalPositionCard({ pair, showUnwrapped = false }: PositionCar
                 </Text>
               </FixedHeightRow>
               <FixedHeightRow>
-                <Text fontSize="12px" color="secondary" small>
+                <Text fontSize="12px" color="textSubtle" small>
                   {t('Pooled %asset%', { asset: currency0.symbol })}:
                 </Text>
                 {token0Deposited ? (
@@ -108,7 +108,7 @@ export function MinimalPositionCard({ pair, showUnwrapped = false }: PositionCar
                 )}
               </FixedHeightRow>
               <FixedHeightRow>
-                <Text fontSize="12px" color="secondary" small>
+                <Text fontSize="12px" color="textSubtle" small>
                   {t('Pooled %asset%', { asset: currency1.symbol })}:
                 </Text>
                 {token1Deposited ? (

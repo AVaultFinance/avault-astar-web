@@ -107,7 +107,6 @@ const InputPanel = styled.div<{ hideInput?: boolean; focused: boolean }>`
       }
       > button {
         font-size: 12px;
-        color: #00dbde;
       }
     }
     .token-amount-input {
