@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import { splitSignature } from '@ethersproject/bytes';
 import { Contract } from '@ethersproject/contracts';
@@ -156,7 +156,12 @@ const RemoveLiquidityModal: React.FC<RemoveLiquidityModalProps> = ({ vault, acco
         }
       });
   }
-
+  useEffect(() => {
+    return () => {
+      onLiquidityInput('');
+    };
+    // eslint-disable-next-line
+  }, []);
   // wrapped onUserInput to clear signatures
   const onUserInput = useCallback(
     (field: Field, value: string) => {

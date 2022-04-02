@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import vaultConfig from 'config/constants/vault';
 import { BigNumber } from '@ethersproject/bignumber';
 import { TransactionResponse } from '@ethersproject/providers';
@@ -86,7 +86,13 @@ const AddLiquidityModal: React.FC<AddLiquidityModalProps> = ({ vault, account, o
     },
     {},
   );
-
+  useEffect(() => {
+    return () => {
+      onFieldAInput('');
+      onFieldBInput('');
+    };
+    // eslint-disable-next-line
+  }, []);
   // check whether the user has approved the router on the tokens
   const [approvalA, approveACallback] = useApproveCallback(parsedAmounts[Field.CURRENCY_A], ROUTER_ADDRESS[chainId]);
   const [approvalB, approveBCallback] = useApproveCallback(parsedAmounts[Field.CURRENCY_B], ROUTER_ADDRESS[chainId]);
