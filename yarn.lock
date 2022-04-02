@@ -9,22 +9,6 @@
   dependencies:
     "@jridgewell/trace-mapping" "^0.3.0"
 
-"@avault/sdk@./toolkit/packages/swap-sdk":
-  version "0.0.2"
-  dependencies:
-    big.js "^5.2.2"
-    decimal.js-light "^2.5.0"
-    jsbi "^3.1.1"
-    tiny-invariant "^1.1.0"
-    tiny-warning "^1.0.3"
-    toformat "^2.0.0"
-
-"@avault/ui@./toolkit/packages/avault-uikit":
-  version "0.0.2"
-  dependencies:
-    "@popperjs/core" "^2.9.2"
-    "@types/lodash" "^4.14.168"
-    react-popper "^2.2.5"
 
 "@babel/code-frame@7.10.4":
   version "7.10.4"
