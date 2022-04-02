@@ -158,17 +158,22 @@ const AddLiquidityModal: React.FC<AddLiquidityModalProps> = ({ vault, account, o
         method(...args, {
           ...(value ? { value } : {}),
           gasLimit: calculateGasMargin(estimatedGasLimit),
-        }).then((response) => {
-          setAttemptingTxn(false);
-
+        }).then(async (response) => {
           addTransaction(response, {
             summary: `Add ${parsedAmounts[Field.CURRENCY_A]?.toSignificant(3)} ${
               currencies[Field.CURRENCY_A]?.symbol
             } and ${parsedAmounts[Field.CURRENCY_B]?.toSignificant(3)} ${currencies[Field.CURRENCY_B]?.symbol}`,
           });
-          onFieldAInput('');
-          onFieldBInput('');
-          onDismiss();
+          const { hash } = response;
+          if (hash) {
+            const receipt = await response.wait();
+            if (receipt.status) {
+              setAttemptingTxn(false);
+              onFieldAInput('');
+              onFieldBInput('');
+              onDismiss();
+            }
+          }
         }),
       )
       .catch((err) => {
@@ -305,14 +310,15 @@ const AddLiquidityModal: React.FC<AddLiquidityModalProps> = ({ vault, account, o
         </SubtleBtnStyled>
       </RowBetween>
       <Button
+        isLoading={attemptingTxn}
         marginTop="16px"
         variant={
           !isValid && !!parsedAmounts[Field.CURRENCY_A] && !!parsedAmounts[Field.CURRENCY_B] ? 'danger' : 'primary'
         }
-        onClick={() => {
-          onAdd();
-        }}
-        disabled={!isValid || approvalA !== ApprovalState.APPROVED || approvalB !== ApprovalState.APPROVED}
+        onClick={onAdd}
+        disabled={
+          attemptingTxn || !isValid || approvalA !== ApprovalState.APPROVED || approvalB !== ApprovalState.APPROVED
+        }
       >
         Add Liquidity
         <Loading isLoading={attemptingTxn} success={true} />

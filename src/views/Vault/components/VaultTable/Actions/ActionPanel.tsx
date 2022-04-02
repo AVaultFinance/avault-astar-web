@@ -163,7 +163,6 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
   const vault = details;
   const { isXl, isLg } = useMatchBreakpoints();
   const isMobile = !(isXl || isLg);
-
   const { t } = useTranslation();
   const lpAddress = getAddress(vault.farm.lpAddresses);
   const { account } = useWeb3React();
@@ -195,8 +194,18 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
       );
     }
   }
-  const [onAddLiquidity] = useModal(<AddLiquidityModal account={account} vault={vault} />);
-  const [onRemoveLiquidity] = useModal(<RemoveLiquidityModal account={account} vault={vault} />);
+  const [onAddLiquidity] = useModal(
+    <AddLiquidityModal account={account} vault={vault} />,
+    true,
+    false,
+    'onAddLiquidity',
+  );
+  const [onRemoveLiquidity] = useModal(
+    <RemoveLiquidityModal account={account} vault={vault} />,
+    true,
+    false,
+    'onRemoveLiquidity',
+  );
 
   const lpContract = useERC20(lpAddress);
   const [requestedApproval, setRequestedApproval] = useState(false);

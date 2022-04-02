@@ -287,14 +287,20 @@ const RemoveLiquidityModal: React.FC<RemoveLiquidityModalProps> = ({ vault, acco
       await router[methodName](...args, {
         gasLimit: safeGasEstimate,
       })
-        .then((response: TransactionResponse) => {
-          setAttemptingTxn(false);
-
+        .then(async (response: TransactionResponse) => {
           addTransaction(response, {
             summary: `Remove ${formattedAmounts[Field.LIQUIDITY]} ${vault.lpDetail.symbol} success!`,
           });
-          onLiquidityInput('');
-          onDismiss();
+
+          const { hash } = response;
+          if (hash) {
+            const receipt = await response.wait();
+            if (receipt.status) {
+              setAttemptingTxn(false);
+              onLiquidityInput('');
+              onDismiss();
+            }
+          }
           // Remove ${parsedAmounts[Field.CURRENCY_A]?.toSignificant(3)} ${
           //   currencyA?.symbol
           // } and ${parsedAmounts[Field.CURRENCY_B]?.toSignificant(3)} ${currencyB?.symbol}
@@ -391,7 +397,7 @@ const RemoveLiquidityModal: React.FC<RemoveLiquidityModalProps> = ({ vault, acco
         <Button
           isLoading={attemptingTxn}
           width="48%"
-          disabled={!(approval === ApprovalState.APPROVED || signatureData !== null)}
+          disabled={attemptingTxn || !(approval === ApprovalState.APPROVED || signatureData !== null)}
           onClick={onRemove}
         >
           {t('Confirm')}
