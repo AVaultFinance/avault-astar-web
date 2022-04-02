@@ -84,6 +84,8 @@ const StyledLinkExternal = styled(LinkExternal)`
   font-size: 12px;
   padding: 4px 10px 4px 0;
   white-space: nowrap;
+  cursor: pointer;
+
   svg {
     width: 14px;
     path {
