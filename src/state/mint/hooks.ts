@@ -151,14 +151,16 @@ export function useDerivedMintInfo(
 
   // liquidity minted
   const liquidityMinted = useMemo(() => {
-    const { [Field.CURRENCY_A]: currencyAAmount, [Field.CURRENCY_B]: currencyBAmount } = parsedAmounts;
-    const [tokenAmountA, tokenAmountB] = [
-      wrappedCurrencyAmount(currencyAAmount, chainId),
-      wrappedCurrencyAmount(currencyBAmount, chainId),
-    ];
-    if (pair && totalSupply && tokenAmountA && tokenAmountB) {
-      return pair.getLiquidityMinted(totalSupply, tokenAmountA, tokenAmountB);
-    }
+    try {
+      const { [Field.CURRENCY_A]: currencyAAmount, [Field.CURRENCY_B]: currencyBAmount } = parsedAmounts;
+      const [tokenAmountA, tokenAmountB] = [
+        wrappedCurrencyAmount(currencyAAmount, chainId),
+        wrappedCurrencyAmount(currencyBAmount, chainId),
+      ];
+      if (pair && totalSupply && tokenAmountA && tokenAmountB) {
+        return pair.getLiquidityMinted(totalSupply, tokenAmountA, tokenAmountB);
+      }
+    } catch (e) {}
     return undefined;
   }, [parsedAmounts, chainId, pair, totalSupply]);
 

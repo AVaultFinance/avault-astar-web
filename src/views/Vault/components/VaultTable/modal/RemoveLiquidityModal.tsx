@@ -92,7 +92,6 @@ const RemoveLiquidityModal: React.FC<RemoveLiquidityModalProps> = ({ vault, acco
     null,
   );
   const [approval, approveCallback] = useApproveCallback(parsedAmounts[Field.LIQUIDITY], ROUTER_ADDRESS[chainId]);
-
   async function onAttemptToApprove() {
     if (!pairContract || !pair || !library || !deadline) throw new Error('missing dependencies');
     const liquidityAmount = parsedAmounts[Field.LIQUIDITY];
@@ -122,7 +121,7 @@ const RemoveLiquidityModal: React.FC<RemoveLiquidityModalProps> = ({ vault, acco
     ];
     const message = {
       owner: account,
-      spender: ROUTER_ADDRESS,
+      spender: ROUTER_ADDRESS[chainId],
       value: liquidityAmount.raw.toString(),
       nonce: nonce.toHexString(),
       deadline: deadline.toNumber(),
@@ -136,7 +135,6 @@ const RemoveLiquidityModal: React.FC<RemoveLiquidityModalProps> = ({ vault, acco
       primaryType: 'Permit',
       message,
     });
-
     library
       .send('eth_signTypedData_v4', [account, data])
       .then(splitSignature)
@@ -156,6 +154,7 @@ const RemoveLiquidityModal: React.FC<RemoveLiquidityModalProps> = ({ vault, acco
         }
       });
   }
+
   useEffect(() => {
     return () => {
       onLiquidityInput('');
