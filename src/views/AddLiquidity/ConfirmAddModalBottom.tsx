@@ -27,7 +27,7 @@ function ConfirmAddModalBottom({
       <div
         style={{
           background: '#272E32',
-          border: '1px dashed #238485',
+          border: '1px dashed #1476FF',
           borderRadius: '12px',
           padding: '24px 21px',
         }}

@@ -85,7 +85,7 @@ export default function ImportRow({
       </AutoColumn>
       {!isActive && !isAdded ? (
         <Button
-          style={{ background: '#238485', fontSize: '14px' }}
+          style={{ background: '#1476FF', fontSize: '14px' }}
           width="fit-content"
           onClick={() => {
             if (setImportToken) {

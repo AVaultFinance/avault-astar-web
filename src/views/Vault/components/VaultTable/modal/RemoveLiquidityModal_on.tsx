@@ -3,34 +3,34 @@ import styled from 'styled-components';
 import { splitSignature } from '@ethersproject/bytes';
 import { Contract } from '@ethersproject/contracts';
 import { TransactionResponse } from '@ethersproject/providers';
-import { ETHER, Percent } from '@avault/sdk';
-import { Button, Flex, Input, Heading, useMatchBreakpoints, Modal } from '@avault/ui';
+import { ETHER } from '@avault/sdk';
+import { Modal, Button, Box, Flex, Input, Heading, useMatchBreakpoints } from '@avault/ui';
+import { BigNumber } from '@ethersproject/bignumber';
 import { useTranslation } from 'contexts/Localization';
 import { RowBetween } from 'components/Layout/Row';
-import { ROUTER_ADDRESS } from 'config/constants';
-import useActiveWeb3React from 'hooks/useActiveWeb3React';
-import { useCurrency } from 'hooks/Tokens';
+import ConnectWalletButton from 'components/ConnectWalletButton';
 import { usePairContract } from 'hooks/useContract';
 import useTransactionDeadline from 'hooks/useTransactionDeadline';
-
 import { useTransactionAdder } from 'state/transactions/hooks';
 import { calculateGasMargin, calculateSlippageAmount, getRouterContract } from 'utils';
-import useDebouncedChangeHandler from 'hooks/useDebouncedChangeHandler';
+
 import { wrappedCurrency } from 'utils/wrappedCurrency';
 import { useApproveCallback, ApprovalState } from 'hooks/useApproveCallback';
-import { useBurnActionHandlers, useDerivedBurnInfo, useBurnState } from 'state/burn/hooks';
+import Dots from 'components/Loader/Dots';
+import { useBurnActionHandlers, useDerivedBurnInfo } from 'state/burn/hooks';
 
 import { Field } from 'state/burn/actions';
 import { useUserSlippageTolerance } from 'state/user/hooks';
 import { chainId } from 'config/constants/tokens';
-import { IVault } from 'state/vault/types';
 import { IToken } from 'views/Zap/utils/types';
+import { IVault } from 'state/vault/types';
 import { tokenIndex } from 'views/Zap/constants/data';
+import ZapCurrencyLogo from 'views/Zap/components/ZapCurrencyLogo';
 import { MaxButton } from 'style/SmallBorderPageLayout';
 import ZapBalance from 'views/Zap/components/ZapBalance';
-import ZapCurrencyLogo from 'views/Zap/components/ZapCurrencyLogo';
-import BigNumber from 'bignumber.js';
-import Loading from 'components/TransactionConfirmationModal/Loading';
+import { useCurrency } from 'hooks/Tokens';
+import useActiveWeb3React from 'hooks/useActiveWeb3React';
+import { ROUTER_ADDRESS } from 'config/constants';
 
 interface RemoveLiquidityModalProps {
   vault: IVault;
@@ -47,8 +47,7 @@ const RemoveLiquidityModal: React.FC<RemoveLiquidityModalProps> = ({ vault, acco
   const currencyIdB = token.quoteToken.address[chainId];
   const fromCurrency = token.token;
   const toCurrency = token.quoteToken;
-
-  const [currencyA, currencyB] = [useCurrency(currencyIdA), useCurrency(currencyIdB)];
+  const [currencyA, currencyB] = [useCurrency(currencyIdA) ?? undefined, useCurrency(currencyIdB) ?? undefined];
   const { library } = useActiveWeb3React();
   const [tokenA, tokenB] = useMemo(
     () => [wrappedCurrency(currencyA, chainId), wrappedCurrency(currencyB, chainId)],
@@ -58,30 +57,16 @@ const RemoveLiquidityModal: React.FC<RemoveLiquidityModalProps> = ({ vault, acco
   const { t } = useTranslation();
 
   // burn state
-  const { independentField, typedValue } = useBurnState();
-  const { pair, parsedAmounts } = useDerivedBurnInfo(currencyA, currencyB);
+  const { pair, parsedAmounts } = useDerivedBurnInfo(currencyA ?? undefined, currencyB ?? undefined);
   const { onUserInput: _onUserInput } = useBurnActionHandlers();
 
   // modal and loading
   const [attemptingTxn, setAttemptingTxn] = useState(false); // clicked confirm
 
   // txn values
+  const [txHash, setTxHash] = useState<string>('');
   const deadline = useTransactionDeadline();
   const [allowedSlippage] = useUserSlippageTolerance();
-
-  const formattedAmounts = {
-    [Field.LIQUIDITY_PERCENT]: parsedAmounts[Field.LIQUIDITY_PERCENT].equalTo('0')
-      ? '0'
-      : parsedAmounts[Field.LIQUIDITY_PERCENT].lessThan(new Percent('1', '100'))
-      ? '<1'
-      : parsedAmounts[Field.LIQUIDITY_PERCENT].toFixed(0),
-    [Field.LIQUIDITY]:
-      independentField === Field.LIQUIDITY ? typedValue : parsedAmounts[Field.LIQUIDITY]?.toSignificant(6) ?? '',
-    [Field.CURRENCY_A]:
-      independentField === Field.CURRENCY_A ? typedValue : parsedAmounts[Field.CURRENCY_A]?.toSignificant(6) ?? '',
-    [Field.CURRENCY_B]:
-      independentField === Field.CURRENCY_B ? typedValue : parsedAmounts[Field.CURRENCY_B]?.toSignificant(6) ?? '',
-  };
 
   // pair contract
   const pairContract: Contract | null = usePairContract(pair?.liquidityToken?.address);
@@ -91,6 +76,17 @@ const RemoveLiquidityModal: React.FC<RemoveLiquidityModalProps> = ({ vault, acco
     null,
   );
   const [approval, approveCallback] = useApproveCallback(parsedAmounts[Field.LIQUIDITY], ROUTER_ADDRESS[chainId]);
+
+  const onUserInput = useCallback(
+    (field: Field, value: string) => {
+      setSignatureData(null);
+      return _onUserInput(field, value);
+    },
+    [_onUserInput],
+  );
+  const onLiquidityInput = useCallback((value: string): void => onUserInput(Field.LIQUIDITY, value), [onUserInput]);
+  const onCurrencyAInput = useCallback((value: string): void => onUserInput(Field.CURRENCY_A, value), [onUserInput]);
+  const onCurrencyBInput = useCallback((value: string): void => onUserInput(Field.CURRENCY_B, value), [onUserInput]);
 
   async function onAttemptToApprove() {
     if (!pairContract || !pair || !library || !deadline) throw new Error('missing dependencies');
@@ -155,17 +151,6 @@ const RemoveLiquidityModal: React.FC<RemoveLiquidityModalProps> = ({ vault, acco
         }
       });
   }
-
-  // wrapped onUserInput to clear signatures
-  const onUserInput = useCallback(
-    (field: Field, value: string) => {
-      setSignatureData(null);
-      return _onUserInput(field, value);
-    },
-    [_onUserInput],
-  );
-
-  const onLiquidityInput = useCallback((value: string): void => onUserInput(Field.LIQUIDITY, value), [onUserInput]);
 
   // tx sending
   const addTransaction = useTransactionAdder();
@@ -290,13 +275,12 @@ const RemoveLiquidityModal: React.FC<RemoveLiquidityModalProps> = ({ vault, acco
           setAttemptingTxn(false);
 
           addTransaction(response, {
-            summary: `Remove ${formattedAmounts[Field.LIQUIDITY]} ${vault.lpDetail.symbol} success!`,
+            summary: `Remove ${parsedAmounts[Field.CURRENCY_A]?.toSignificant(3)} ${
+              currencyA?.symbol
+            } and ${parsedAmounts[Field.CURRENCY_B]?.toSignificant(3)} ${currencyB?.symbol}`,
           });
-          onLiquidityInput('');
-          onDismiss();
-          // Remove ${parsedAmounts[Field.CURRENCY_A]?.toSignificant(3)} ${
-          //   currencyA?.symbol
-          // } and ${parsedAmounts[Field.CURRENCY_B]?.toSignificant(3)} ${currencyB?.symbol}
+
+          setTxHash(response.hash);
         })
         .catch((err: Error) => {
           setAttemptingTxn(false);
@@ -306,57 +290,55 @@ const RemoveLiquidityModal: React.FC<RemoveLiquidityModalProps> = ({ vault, acco
     }
   }
 
-  const liquidityPercentChangeCallback = useCallback(
-    (value: number) => {
-      onUserInput(Field.LIQUIDITY_PERCENT, value.toString());
-    },
-    [onUserInput],
-  );
-
-  const [, setInnerLiquidityPercentage] = useDebouncedChangeHandler(
-    Number.parseInt(parsedAmounts[Field.LIQUIDITY_PERCENT].toFixed(0)),
-    liquidityPercentChangeCallback,
-  );
-
-  const { isMd, isXl, isLg } = useMatchBreakpoints();
-  const isMobile = !(isMd || isXl || isLg);
-
-  const handleSelectMax = useCallback(() => {
-    setVal(fullBalance);
-    setInnerLiquidityPercentage(100);
-  }, [setInnerLiquidityPercentage, fullBalance]);
+  const pendingText = t('Removing %amountA% %symbolA% and %amountB% %symbolB%', {
+    amountA: parsedAmounts[Field.CURRENCY_A]?.toSignificant(6) ?? '',
+    symbolA: currencyA?.symbol ?? '',
+    amountB: parsedAmounts[Field.CURRENCY_B]?.toSignificant(6) ?? '',
+    symbolB: currencyB?.symbol ?? '',
+  });
 
   const handleChange = useCallback(
     (e: React.FormEvent<HTMLInputElement>) => {
       if (e.currentTarget.validity.valid) {
+        // setVal(e.currentTarget.value.replace(/,/g, '.'));
         const value = e.currentTarget.value.replace(/,/g, '.');
-        onLiquidityInput(value);
+        setVal(value);
       }
     },
-    [onLiquidityInput],
+    [setVal],
   );
 
+  const handleSelectMax = useCallback(() => {
+    setVal(fullBalance);
+  }, [fullBalance]);
+
+  const { isMd, isXl, isLg } = useMatchBreakpoints();
+  const isMobile = !(isMd || isXl || isLg);
+  console.log(
+    approval !== ApprovalState.NOT_APPROVED || signatureData !== null,
+    approval,
+    ApprovalState.NOT_APPROVED,
+    signatureData,
+    null,
+  );
   return (
     <Modal
       title={`Remove LP`}
       minWidth={isMobile ? '343px' : '480px'}
-      headerPadding={isMobile ? '20px 16px 0' : '20px 30px 6px'}
-      bodyPadding={isMobile ? '0 16px 30px' : '0 30px 30px'}
-      onDismiss={onDismiss}
+      headerPadding={isMobile ? '0 16px' : '20px 30px 6px'}
+      bodyPadding={isMobile ? '0 16px' : '0 30px 30px'}
     >
       <TitleStyled>
         {vault.lpDetail.symbol}
         {' > '}
         {fromCurrency.symbol}+{toCurrency.symbol}
       </TitleStyled>
-
-      <Flex alignItems="center" justifyContent="end" paddingY="4px">
+      <Flex alignItems="center" justifyContent="end" paddingTop="4px">
         <ZapBalance account={account} currency={token} setMax={setMax} />
         <MaxButtonStyled variant="text" onClick={handleSelectMax}>
           Max
         </MaxButtonStyled>
       </Flex>
-
       <InnerStyled border={Number(`${val}`) > 0}>
         <FlexCol>
           <FlexCol>
@@ -370,35 +352,46 @@ const RemoveLiquidityModal: React.FC<RemoveLiquidityModalProps> = ({ vault, acco
               step="any"
               min="0"
               placeholder="0"
-              value={formattedAmounts[Field.LIQUIDITY]}
+              value={val}
               onChange={handleChange}
             />
           </Flex>
         </FlexCol>
       </InnerStyled>
-      <RowBetween>
-        <Button
-          variant={approval === ApprovalState.APPROVED || signatureData !== null ? 'success' : 'primary'}
-          onClick={onAttemptToApprove}
-          disabled={approval !== ApprovalState.NOT_APPROVED || signatureData !== null}
-          width="48%"
-        >
-          {approval === ApprovalState.APPROVED || signatureData !== null ? t('Approved') : t('Approve')}
-          <Loading isLoading={approval === ApprovalState.PENDING} success={true} />
-        </Button>
-        <Button
-          width="48%"
-          disabled={!(approval === ApprovalState.APPROVED || signatureData !== null)}
-          onClick={onRemove}
-        >
-          {t('Confirm')}
-          <Loading isLoading={attemptingTxn} success={true} />
-        </Button>
-      </RowBetween>
+
+      <Box position="relative">
+        {!account ? (
+          <ConnectWalletButton />
+        ) : (
+          <RowBetween>
+            <Button
+              variant={approval === ApprovalState.APPROVED || signatureData !== null ? 'success' : 'primary'}
+              onClick={onAttemptToApprove}
+              disabled={approval !== ApprovalState.NOT_APPROVED || signatureData !== null}
+              width="100%"
+              mr="0.5rem"
+            >
+              {approval === ApprovalState.PENDING ? (
+                <Dots>{t('Enabling')}</Dots>
+              ) : approval === ApprovalState.APPROVED || signatureData !== null ? (
+                t('Approved')
+              ) : (
+                t('Approve')
+              )}
+            </Button>
+            <Button
+              width="100%"
+              disabled={!(approval === ApprovalState.APPROVED || signatureData !== null)}
+              onClick={onRemove}
+            >
+              {t('Confirm')}
+            </Button>
+          </RowBetween>
+        )}
+      </Box>
     </Modal>
   );
 };
-
 const StyledInput = styled(Input)`
   box-shadow: none;
   padding: 0;

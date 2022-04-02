@@ -177,7 +177,7 @@ var variants$6 = {
     SUCCESS: "success",
 };
 
-var _a$5, _b$3;
+var _a$5, _b$3, _c;
 var scaleVariants$1 = (_a$5 = {},
     _a$5[scales$8.MD] = {
         height: "48px",
@@ -193,12 +193,27 @@ var scaleVariants$1 = (_a$5 = {},
         padding: "0 8px",
     },
     _a$5);
-var styleVariants$2 = (_b$3 = {},
-    _b$3[variants$6.PRIMARY] = {
+var scaleVariants_MD = (_b$3 = {},
+    _b$3[scales$8.MD] = {
+        height: "36px",
+        padding: "0 24px",
+    },
+    _b$3[scales$8.SM] = {
+        height: "30px",
+        padding: "0 12px",
+    },
+    _b$3[scales$8.XS] = {
+        height: "22px",
+        fontSize: "12px",
+        padding: "0 8px",
+    },
+    _b$3);
+var styleVariants$2 = (_c = {},
+    _c[variants$6.PRIMARY] = {
         backgroundColor: "primary",
         color: "btnTextColor",
     },
-    _b$3[variants$6.SECONDARY] = {
+    _c[variants$6.SECONDARY] = {
         backgroundColor: "cardBackground",
         border: "1px solid",
         borderColor: "primary",
@@ -207,33 +222,33 @@ var styleVariants$2 = (_b$3 = {},
         //   backgroundColor: "transparent",
         // },
     },
-    _b$3[variants$6.TERTIARY] = {
+    _c[variants$6.TERTIARY] = {
         backgroundColor: "tertiary",
         boxShadow: "none",
         color: "primary",
         border: "1px solid",
         borderColor: "primary",
     },
-    _b$3[variants$6.SUBTLE] = {
+    _c[variants$6.SUBTLE] = {
         backgroundColor: "btnBgSecondaryColor",
         color: "primary",
     },
-    _b$3[variants$6.DANGER] = {
+    _c[variants$6.DANGER] = {
         backgroundColor: "failure",
         color: "btnTextColor",
     },
-    _b$3[variants$6.SUCCESS] = {
+    _c[variants$6.SUCCESS] = {
         backgroundColor: "success",
         color: "btnTextColor",
     },
-    _b$3[variants$6.TEXT] = {
+    _c[variants$6.TEXT] = {
         backgroundColor: "transparent",
         // border: "1px solid",
         // borderColor: "primary",
         // boxShadow: "none",
         color: "primaryDark",
     },
-    _b$3);
+    _c);
 
 var getDisabledStyles = function (_a) {
     var isLoading = _a.isLoading, theme = _a.theme; _a.variant;
@@ -253,14 +268,21 @@ var getOpacity = function (_a) {
     var _b = _a.isLoading, isLoading = _b === void 0 ? false : _b;
     return isLoading ? ".5" : "1";
 };
-var StyledButton = styled__default['default'].button(templateObject_1$15 || (templateObject_1$15 = __makeTemplateObject(["\n  align-items: center;\n  border: 0;\n  border-radius: 12px;\n  cursor: pointer;\n  display: inline-flex;\n  font-family: inherit;\n  font-size: 14px;\n  font-weight: bold;\n  justify-content: center;\n  letter-spacing: 0.03em;\n  line-height: 1;\n  opacity: ", ";\n  outline: 0;\n  transition: background-color 0.2s, opacity 0.2s;\n\n  &:hover:not(:disabled):not(.pancake-button--disabled):not(.pancake-button--disabled):not(:active) {\n    opacity: 0.65;\n  }\n\n  &:active:not(:disabled):not(.pancake-button--disabled):not(.pancake-button--disabled) {\n    opacity: 0.85;\n    transform: translateY(1px);\n    box-shadow: none;\n  }\n\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n\n\n  &.loading {\n    color: ", ";\n    opacity: 1;\n    svg {\n      path {\n        fill: ", ";\n      }\n    }\n  }\n"], ["\n  align-items: center;\n  border: 0;\n  border-radius: 12px;\n  cursor: pointer;\n  display: inline-flex;\n  font-family: inherit;\n  font-size: 14px;\n  font-weight: bold;\n  justify-content: center;\n  letter-spacing: 0.03em;\n  line-height: 1;\n  opacity: ", ";\n  outline: 0;\n  transition: background-color 0.2s, opacity 0.2s;\n\n  &:hover:not(:disabled):not(.pancake-button--disabled):not(.pancake-button--disabled):not(:active) {\n    opacity: 0.65;\n  }\n\n  &:active:not(:disabled):not(.pancake-button--disabled):not(.pancake-button--disabled) {\n    opacity: 0.85;\n    transform: translateY(1px);\n    box-shadow: none;\n  }\n\n  ", "\n  ",
-    "\n  ",
-    "\n  ", "\n  ", "\n\n\n  &.loading {\n    color: ", ";\n    opacity: 1;\n    svg {\n      path {\n        fill: ", ";\n      }\n    }\n  }\n"])), getOpacity, getDisabledStyles, styledSystem.variant({
+var StyledButton = styled__default['default'].button(templateObject_1$15 || (templateObject_1$15 = __makeTemplateObject(["\n  align-items: center;\n  border: 0;\n  border-radius: 12px;\n  cursor: pointer;\n  display: inline-flex;\n  font-family: inherit;\n  font-size: 14px;\n  font-weight: bold;\n  justify-content: center;\n  letter-spacing: 0.03em;\n  line-height: 1;\n  opacity: ", ";\n  outline: 0;\n  transition: background-color 0.2s, opacity 0.2s;\n\n  &:hover:not(:disabled):not(.pancake-button--disabled):not(.pancake-button--disabled):not(:active) {\n    opacity: 0.65;\n  }\n\n  &:active:not(:disabled):not(.pancake-button--disabled):not(.pancake-button--disabled) {\n    opacity: 0.85;\n    transform: translateY(1px);\n    box-shadow: none;\n  }\n\n  ", "\n\n  ", "\n  ", "\n  ", "\n\n  ", "\n  ", " {\n    ", "\n  }\n\n  &.loading {\n    color: ", ";\n    opacity: 1;\n    svg {\n      path {\n        fill: ", ";\n      }\n    }\n  }\n"], ["\n  align-items: center;\n  border: 0;\n  border-radius: 12px;\n  cursor: pointer;\n  display: inline-flex;\n  font-family: inherit;\n  font-size: 14px;\n  font-weight: bold;\n  justify-content: center;\n  letter-spacing: 0.03em;\n  line-height: 1;\n  opacity: ", ";\n  outline: 0;\n  transition: background-color 0.2s, opacity 0.2s;\n\n  &:hover:not(:disabled):not(.pancake-button--disabled):not(.pancake-button--disabled):not(:active) {\n    opacity: 0.65;\n  }\n\n  &:active:not(:disabled):not(.pancake-button--disabled):not(.pancake-button--disabled) {\n    opacity: 0.85;\n    transform: translateY(1px);\n    box-shadow: none;\n  }\n\n  ", "\n\n  ",
+    "\n  ", "\n  ", "\n\n  ",
+    "\n  ", " {\n    ",
+    "\n  }\n\n  &.loading {\n    color: ", ";\n    opacity: 1;\n    svg {\n      path {\n        fill: ", ";\n      }\n    }\n  }\n"])), getOpacity, getDisabledStyles, styledSystem.variant({
+    variants: styleVariants$2,
+}), styledSystem.layout, styledSystem.space, styledSystem.variant({
+    prop: "scale",
+    variants: scaleVariants_MD,
+}), function (_a) {
+    var theme = _a.theme;
+    return theme.mediaQueries.md;
+}, styledSystem.variant({
     prop: "scale",
     variants: scaleVariants$1,
-}), styledSystem.variant({
-    variants: styleVariants$2,
-}), styledSystem.layout, styledSystem.space, function (_a) {
+}), function (_a) {
     var theme = _a.theme;
     return theme.colors.primary;
 }, function (_a) {
@@ -2289,7 +2311,7 @@ var getCursorStyle = function (_a) {
 };
 var getBaseThumbStyles = function (_a) {
     _a.isMax; var disabled = _a.disabled;
-    return "\n  -webkit-appearance: none;\n  width: 24px;\n  height: 24px;\n  background: #1BD3D5;\n  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.15);\n  border-radius: 50%;\n  cursor: " + getCursorStyle + ";\n  filter: " + (disabled ? "grayscale(100%)" : "none") + ";\n  transition: 200ms transform;\n\n  &:hover {\n    transform: " + (disabled ? "scale(1) translate(0px, 0px)" : "scale(1.1) translate(-1px, -1px)") + ";\n  }\n";
+    return "\n  -webkit-appearance: none;\n  width: 24px;\n  height: 24px;\n  background: #1476FF;\n  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.15);\n  border-radius: 50%;\n  cursor: " + getCursorStyle + ";\n  filter: " + (disabled ? "grayscale(100%)" : "none") + ";\n  transition: 200ms transform;\n\n  &:hover {\n    transform: " + (disabled ? "scale(1) translate(0px, 0px)" : "scale(1.1) translate(-1px, -1px)") + ";\n  }\n";
 };
 styled__default['default'].div(templateObject_1$w || (templateObject_1$w = __makeTemplateObject(["\n  bottom: 0;\n  position: absolute;\n  left: 14px;\n  width: calc(100% - 30px);\n"], ["\n  bottom: 0;\n  position: absolute;\n  left: 14px;\n  width: calc(100% - 30px);\n"])));
 styled__default['default'](Text)(templateObject_2$i || (templateObject_2$i = __makeTemplateObject(["\n  bottom: 0;\n  font-size: 12px;\n  left: ", ";\n  position: absolute;\n  text-align: center;\n  min-width: 24px; // Slider thumb size\n"], ["\n  bottom: 0;\n  font-size: 12px;\n  left: ", ";\n  position: absolute;\n  text-align: center;\n  min-width: 24px; // Slider thumb size\n"])), function (_a) {
@@ -4658,7 +4680,7 @@ var alertTypeMap = (_a = {},
     _a[types.DANGER] = variants$5.DANGER,
     _a[types.WARNING] = variants$5.WARNING,
     _a);
-var StyledToast = styled__default['default'].div(templateObject_1$5 || (templateObject_1$5 = __makeTemplateObject(["\n  right: 0;\n  position: fixed;\n  max-width: calc(80% - 32px);\n  transition: all 250ms ease-in;\n  width: 80%;\n\n  ", " {\n    max-width: 280px;\n  }\n"], ["\n  right: 0;\n  position: fixed;\n  max-width: calc(80% - 32px);\n  transition: all 250ms ease-in;\n  width: 80%;\n\n  ", " {\n    max-width: 280px;\n  }\n"])), function (_a) {
+var StyledToast = styled__default['default'].div(templateObject_1$5 || (templateObject_1$5 = __makeTemplateObject(["\n  right: 0;\n  position: fixed;\n  max-width: calc(80% - 32px);\n  transition: all 250ms ease-in;\n  width: 80%;\n\n  ", " {\n    max-width: 360px;\n  }\n"], ["\n  right: 0;\n  position: fixed;\n  max-width: calc(80% - 32px);\n  transition: all 250ms ease-in;\n  width: 80%;\n\n  ", " {\n    max-width: 360px;\n  }\n"])), function (_a) {
     var theme = _a.theme;
     return theme.mediaQueries.sm;
 });
@@ -4887,7 +4909,7 @@ var AccountModal = function (_a) {
     return (React__default['default'].createElement(Modal, { title: "Your wallet", onDismiss: onDismiss },
         React__default['default'].createElement(Text, { fontSize: "20px", bold: true, style: { whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", marginBottom: "8px" } }, account),
         React__default['default'].createElement(Flex, { mb: "32px" },
-            React__default['default'].createElement(LinkExternal, { small: true, href: "https://bscscan.com/address/" + account, mr: "16px" }, "View on BscScan"),
+            React__default['default'].createElement(LinkExternal, { small: true, href: "https://bscscan.com/address/" + account, mr: "16px" }, "View on Block browser"),
             React__default['default'].createElement(CopyToClipboard, { toCopy: account }, "Copy Address")),
         React__default['default'].createElement(Flex, { justifyContent: "center" },
             React__default['default'].createElement(Button, { scale: "sm", variant: "secondary", onClick: function () {

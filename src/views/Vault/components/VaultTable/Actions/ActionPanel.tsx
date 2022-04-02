@@ -83,6 +83,7 @@ const StyledLinkExternal = styled(LinkExternal)`
   font-weight: 600;
   font-size: 12px;
   padding: 4px 10px 4px 0;
+  white-space: nowrap;
   svg {
     width: 14px;
     path {
@@ -109,6 +110,7 @@ const InfoContainerSmall = styled(Flex)`
   justify-content: start;
   align-items: center;
   border-top: 1px solid ${({ theme }) => theme.colors.cardBorder};
+  flex-wrap: wrap;
 `;
 
 const DetailContainer = styled.div`

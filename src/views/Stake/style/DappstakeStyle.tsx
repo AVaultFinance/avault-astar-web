@@ -46,7 +46,7 @@ export const StyledInput = styled(Input)`
   text-align: right;
   font-size: 18px;
 `;
-// fontSize="12px" style={{ cursor: 'pointer' }} color="#1BD3D5" ml="8px"
+// fontSize="12px" style={{ cursor: 'pointer' }} color="#1476FF" ml="8px"
 
 export const InputWrap = styled.div`
   background: ${({ theme }) => theme.colors.background02};

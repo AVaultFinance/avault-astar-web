@@ -25,7 +25,7 @@ const getBaseThumbStyles = ({ isMax, disabled }: StyledInputProps) => `
   -webkit-appearance: none;
   width: 24px;
   height: 24px;
-  background: #1BD3D5;
+  background: #1476FF;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.15);
   border-radius: 50%;
   cursor: ${getCursorStyle};

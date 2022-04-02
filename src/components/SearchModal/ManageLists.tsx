@@ -32,7 +32,7 @@ const Wrapper = styled(Column)`
 const RowWrapper = styled(Row)<{ active: boolean }>`
   background-color: ${({ active, theme }) => (active ? theme.colors.cardBackground : 'transparent')};
   border: solid 2px;
-  border-color: ${({ active, theme }) => (active ? '#238485' : '#272E32')};
+  border-color: ${({ active, theme }) => (active ? '#1476FF' : '#272E32')};
   transition: 200ms;
   align-items: center;
   padding: 1.2rem 1.2rem;

@@ -213,7 +213,7 @@ export default function AddLiquidity({
   const modalHeader = () => {
     return noLiquidity ? (
       <Flex alignItems="center">
-        <Text fontSize="32px" color="#1BD3D5" marginRight="16px">
+        <Text fontSize="32px" color="#1476FF" marginRight="16px">
           {`${currencies[Field.CURRENCY_A]?.symbol}/${currencies[Field.CURRENCY_B]?.symbol}`}
         </Text>
         <DoubleCurrencyLogo
@@ -225,7 +225,7 @@ export default function AddLiquidity({
     ) : (
       <AutoColumn>
         <Flex alignItems="center">
-          <Text fontSize="32px" color="#1BD3D5" marginRight="16px">
+          <Text fontSize="32px" color="#1476FF" marginRight="16px">
             {liquidityMinted?.toSignificant(6)}
           </Text>
           <DoubleCurrencyLogo
@@ -361,7 +361,7 @@ export default function AddLiquidity({
               showCommonBases
             />
             <ColumnCenter>
-              <AddIcon color="#1BD3D5" width="16px" />
+              <AddIcon color="#1476FF" width="16px" />
             </ColumnCenter>
             <CurrencyInputPanel
               value={formattedAmounts[Field.CURRENCY_B]}

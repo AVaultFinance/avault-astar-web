@@ -19,7 +19,7 @@ const SwapModalFooterContainer = styled(AutoColumn)`
   margin-bottom: 12px;
   padding: 16px;
   background: ${({ theme }) => theme.colors.background02};
-  border: 1px dashed #238485;
+  border: 1px dashed #1476ff;
   border-radius: 12px;
 `;
 

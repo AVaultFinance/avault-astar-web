@@ -1,13 +1,12 @@
 import React, { useCallback } from 'react';
 import { Currency, Token, ChainId } from '@avault/sdk';
 import styled from 'styled-components';
-import { Button, Text, ErrorIcon, Flex, Box, Link, Modal, InjectedModalProps, MetamaskIcon } from '@avault/ui';
+import { Button, Text, ErrorIcon, Flex, Box, Modal, InjectedModalProps, MetamaskIcon } from '@avault/ui';
 import { registerToken } from 'utils/wallet';
 import { useTranslation } from 'contexts/Localization';
 import useActiveWeb3React from 'hooks/useActiveWeb3React';
 import { AutoColumn, ColumnCenter } from '../Layout/Column';
 import { RowFixed } from '../Layout/Row';
-import { getBscScanLink } from '../../utils';
 import PageLoading from './PageLoading';
 import IconSvg from '../svg/icon.svg';
 import { wrappedCurrency } from 'utils/wrappedCurrency';
@@ -78,11 +77,11 @@ function TransactionSubmittedContent({
       </ConfirmedIcon>
       <AutoColumn gap="12px" justify="center">
         <Text fontSize="14px">{t('Transaction Submitted')}</Text>
-        {chainId && hash && (
+        {/* {chainId && hash && (
           <Link external small href={getBscScanLink(hash, 'transaction', chainId)}>
-            {t('View on BscScan')}
+            View on Block browser
           </Link>
-        )}
+        )} */}
         {currencyToAdd && library?.provider?.isMetaMask && (
           <Button
             variant="tertiary"

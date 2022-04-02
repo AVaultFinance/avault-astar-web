@@ -1,12 +1,10 @@
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import styled from 'styled-components';
-import { Text, Link } from '@avault/ui';
+import { Text } from '@avault/ui';
 import { useTranslation } from 'contexts/Localization';
 import useENS from '../../../hooks/ENS/useENS';
-import useActiveWeb3React from '../../../hooks/useActiveWeb3React';
 import { AutoColumn } from '../../../components/Layout/Column';
 import { RowBetween } from '../../../components/Layout/Row';
-import { getBscScanLink } from '../../../utils';
 
 const InputPanel = styled.div`
   display: flex;
@@ -78,11 +76,9 @@ export default function AddressInputPanel({
   // triggers whenever the typed value changes
   onChange: (value: string) => void;
 }) {
-  const { chainId } = useActiveWeb3React();
-
   const { t } = useTranslation();
 
-  const { address, loading, name } = useENS(value);
+  const { address, loading } = useENS(value);
 
   const handleInput = useCallback(
     (event) => {
@@ -102,11 +98,11 @@ export default function AddressInputPanel({
           <AutoColumn gap="md">
             <RowBetween>
               <Text>{t('Recipient')}</Text>
-              {address && chainId && (
+              {/* {address && chainId && (
                 <Link external small href={getBscScanLink(name ?? address, 'address', chainId)}>
-                  ({t('View on BscScan')})
+                  (View on Block browser)
                 </Link>
-              )}
+              )} */}
             </RowBetween>
             <Input
               className="recipient-address-input"

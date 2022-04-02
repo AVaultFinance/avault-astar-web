@@ -11,7 +11,7 @@ const DropDownHeader = styled.div`
   justify-content: space-between;
 
   background: ${({ theme }) => theme.colors.cardBackground};
-  border: 2px solid #238485;
+  border: 2px solid #1476ff;
   border-radius: 12px;
 `;
 
@@ -33,7 +33,7 @@ const DropDownListContainer = styled.div`
 
   top: 64px;
   background: ${({ theme }) => theme.colors.secondary};
-  border: 2px solid #238485;
+  border: 2px solid #1476ff;
   box-shadow: 0px 8px 13px 3px rgba(9, 2, 18, 0.2);
   border-radius: 12px;
 `;

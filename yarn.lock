@@ -20,7 +20,7 @@
     toformat "^2.0.0"
 
 "@avault/ui@./toolkit/packages/avault-uikit":
-  version "0.0.1"
+  version "0.0.2"
   dependencies:
     "@popperjs/core" "^2.9.2"
     "@types/lodash" "^4.14.168"

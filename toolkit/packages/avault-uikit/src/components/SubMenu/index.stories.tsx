@@ -23,7 +23,7 @@ export const Default: React.FC = () => {
           options={{ placement: "right", offset: [0, 15], padding: { top: 20 } }}
         >
           <SubMenuItem as={LinkExternal} href="https://bscscan.com" bold={false} color="text">
-            View on BSCScan
+            View on Block browser
           </SubMenuItem>
           <SubMenuItem as={LinkExternal} href="https://pancakeswap.info" bold={false} color="text" target="blank">
             View on PCS Info
@@ -44,7 +44,7 @@ export const Default: React.FC = () => {
           }
         >
           <SubMenuItem as={LinkExternal} href="https://bscscan.com" bold={false} color="text">
-            View on BSCScan
+            View on Block browser
           </SubMenuItem>
           <SubMenuItem as={LinkExternal} href="https://pancakeswap.info" bold={false} color="text" target="blank">
             View on PCS Info

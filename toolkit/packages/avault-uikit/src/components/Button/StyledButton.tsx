@@ -1,6 +1,6 @@
 import styled, { DefaultTheme } from "styled-components";
 import { space, layout, variant } from "styled-system";
-import { scaleVariants, styleVariants } from "./theme";
+import { scaleVariants, scaleVariants_MD, styleVariants } from "./theme";
 import { BaseButtonProps } from "./types";
 
 interface ThemedButtonProps extends BaseButtonProps {
@@ -75,16 +75,23 @@ const StyledButton = styled.button<BaseButtonProps>`
   }
 
   ${getDisabledStyles}
-  ${variant({
-    prop: "scale",
-    variants: scaleVariants,
-  })}
+
   ${variant({
     variants: styleVariants,
   })}
   ${layout}
   ${space}
 
+  ${variant({
+    prop: "scale",
+    variants: scaleVariants_MD,
+  })}
+  ${({ theme }) => theme.mediaQueries.md} {
+    ${variant({
+      prop: "scale",
+      variants: scaleVariants,
+    })}
+  }
 
   &.loading {
     color: ${({ theme }) => theme.colors.primary};

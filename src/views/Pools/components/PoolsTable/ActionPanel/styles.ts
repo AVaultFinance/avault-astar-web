@@ -34,7 +34,7 @@ export const ActionTitles = styled.div`
     line-height: 20px;
     margin-bottom: 6px;
     > span:first-child {
-      color: #1bd3d5;
+      color: #1476ff;
       margin-right: 6px;
     }
     > span:last-child {
@@ -43,7 +43,7 @@ export const ActionTitles = styled.div`
   }
   > .balance {
     font-weight: bold;
-    color: #1bd3d5;
+    color: #1476ff;
     display: flex;
     align-items: center;
   }
