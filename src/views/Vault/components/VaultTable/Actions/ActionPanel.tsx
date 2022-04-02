@@ -255,10 +255,28 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
   return (
     <Container expanded={expanded}>
       <InfoContainer>
-        <StyledLinkExternal hideIcon={true} onClick={onAddLiquidity}>
+        <StyledLinkExternal
+          hideIcon={true}
+          onClick={() => {
+            if (!account) {
+              onPresentConnectModal();
+              return;
+            }
+            onAddLiquidity();
+          }}
+        >
           Add Liquidity
         </StyledLinkExternal>
-        <StyledLinkExternal hideIcon={true} onClick={onRemoveLiquidity}>
+        <StyledLinkExternal
+          hideIcon={true}
+          onClick={() => {
+            if (!account) {
+              onPresentConnectModal();
+              return;
+            }
+            onRemoveLiquidity();
+          }}
+        >
           Remove Liquidity
         </StyledLinkExternal>
         <StyledLinkExternal href={`${BASE_BSC_SCAN_URL}/address/${vault.contractAddress[chainId]}`}>
