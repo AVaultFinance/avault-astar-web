@@ -1,5 +1,4 @@
 import BigNumber from 'bignumber.js';
-import { DEFAULT_GAS_PRICE } from 'config';
 import { getDecimalAmount } from './formatBalance';
 
 export interface UserSettings {
@@ -9,7 +8,7 @@ export interface UserSettings {
 export const VERSION = 1.01;
 
 export const GAS_SETTINGS = {
-  default: DEFAULT_GAS_PRICE,
+  default: 5,
   fast: 10,
   reallyfast: 15,
 };

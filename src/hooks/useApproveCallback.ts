@@ -10,7 +10,7 @@ import { useTransactionAdder, useHasPendingApproval } from '../state/transaction
 import { computeSlippageAdjustedAmounts } from '../utils/prices';
 import { useTokenContract } from './useContract';
 import { chainId, chainId as myChainId } from 'config/constants/tokens';
-import { DEFAULT_GAS_LIMIT_40w } from 'config';
+import { DEFAULT_GAS_LIMIT_40w, DEFAULT_GAS_PRICE } from 'config';
 
 export enum ApprovalState {
   UNKNOWN,
@@ -75,6 +75,7 @@ export function useApproveCallback(
     return tokenContract
       .approve(spender, MaxUint256, {
         gasLimit: DEFAULT_GAS_LIMIT_40w,
+        gasPrice: DEFAULT_GAS_PRICE,
       })
       .then((response: TransactionResponse) => {
         addTransaction(response, {

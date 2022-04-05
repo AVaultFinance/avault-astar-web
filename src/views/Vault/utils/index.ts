@@ -1,9 +1,10 @@
 import BigNumber from 'bignumber.js';
-import { DEFAULT_GAS_LIMIT, DEFAULT_TOKEN_DECIMAL } from 'config';
+import { DEFAULT_GAS_LIMIT, DEFAULT_GAS_PRICE, DEFAULT_TOKEN_DECIMAL } from 'config';
 import { BIG_TEN } from 'utils/bigNumber';
 
 const options = {
   gasLimit: DEFAULT_GAS_LIMIT,
+  gasPrice: DEFAULT_GAS_PRICE,
 };
 export const isNaNString = (num: string | number) => {
   if (`${num}` === 'NaN') {

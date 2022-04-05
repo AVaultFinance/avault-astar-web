@@ -1,4 +1,4 @@
-import { DEFAULT_GAS_LIMIT, DEFAULT_GAS_LIMIT_40w } from 'config';
+import { DEFAULT_GAS_LIMIT, DEFAULT_GAS_LIMIT_40w, DEFAULT_GAS_PRICE } from 'config';
 import { ethers, Contract } from 'ethers';
 
 /**
@@ -48,6 +48,7 @@ export const callWithEstimateGas = async (
     // console.log(111, methodArgs, overrides);
     const tx = await contract[methodName](...methodArgs, {
       gasLimit: DEFAULT_GAS_LIMIT_40w,
+      gasPrice: DEFAULT_GAS_PRICE,
       ...overrides,
     });
     // console.log(tx);
