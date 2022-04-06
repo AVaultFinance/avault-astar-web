@@ -48,7 +48,9 @@ const DepositModal: React.FC<DepositModalProps> = ({
     return getFullDisplayBalance(max, lpAddressDecimals, showDecimals(lpSymbol));
   }, [max, lpAddressDecimals, lpSymbol]);
 
+  // eslint-disable-next-line
   const valNumber = new BigNumber(val);
+  // eslint-disable-next-line
   const fullBalanceNumber = new BigNumber(fullBalance);
 
   const handleChange = useCallback(
@@ -120,7 +122,8 @@ const DepositModal: React.FC<DepositModalProps> = ({
           height={isMobile ? '38px' : '48px'}
           isLoading={pendingTx}
           isMobile={isMobile}
-          disabled={pendingTx || !valNumber.isFinite() || valNumber.eq(0) || valNumber.gt(fullBalanceNumber)}
+          disabled={true}
+          // disabled={pendingTx || !valNumber.isFinite() || valNumber.eq(0) || valNumber.gt(fullBalanceNumber)}
           onClick={handleDeposit}
         >
           Deposit
