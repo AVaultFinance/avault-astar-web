@@ -1,4 +1,4 @@
-import { Button, Text } from '@ui';
+import { Button, Text } from '@my/ui';
 import styled from 'styled-components';
 
 export const ActionTitles = styled.div``;

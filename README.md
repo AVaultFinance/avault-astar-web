@@ -3,6 +3,6 @@
 Frontend of Avault
 
 ```js
-  "@sdk": "./toolkit/packages/swap-sdk",
-  "@ui": "./toolkit/packages/avault-uikit",
+  "@my/sdk": "./toolkit/packages/swap-sdk",
+  "@my/ui": "./toolkit/packages/avault-uikit",
 ```

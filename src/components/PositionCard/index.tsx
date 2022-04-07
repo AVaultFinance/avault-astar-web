@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { JSBI, Pair, Percent } from '@sdk';
-import { Button, Text, Flex, CardProps } from '@ui';
+import { JSBI, Pair, Percent } from '@my/sdk';
+import { Button, Text, Flex, CardProps } from '@my/ui';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { useTranslation } from 'contexts/Localization';

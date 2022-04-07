@@ -1,5 +1,5 @@
-import { ETHER, Token } from '@sdk';
-import { Flex, Skeleton } from '@ui';
+import { ETHER, Token } from '@my/sdk';
+import { Flex, Skeleton } from '@my/ui';
 import BigNumber from 'bignumber.js';
 import { chainId } from 'config/constants/tokens';
 import { useEffect, useState } from 'react';

@@ -1,4 +1,4 @@
-import { Token } from '@sdk';
+import { Token } from '@my/sdk';
 import { SerializedToken } from '../actions';
 
 export function serializeToken(token: Token): SerializedToken {

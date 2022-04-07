@@ -1,4 +1,4 @@
-import { ChainId, Currency } from '@sdk';
+import { ChainId, Currency } from '@my/sdk';
 export enum ITokenType {
   LP = 'LP',
   MAIN = 'MAIN',

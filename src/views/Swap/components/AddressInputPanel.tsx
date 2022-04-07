@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import styled from 'styled-components';
-import { Text } from '@ui';
+import { Text } from '@my/ui';
 import { useTranslation } from 'contexts/Localization';
 import useENS from '../../../hooks/ENS/useENS';
 import { AutoColumn } from '../../../components/Layout/Column';

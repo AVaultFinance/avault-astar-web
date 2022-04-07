@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Modal, Text, LinkExternal, Flex, Box } from '@ui';
+import { Modal, Text, LinkExternal, Flex, Box } from '@my/ui';
 import { useTranslation } from 'contexts/Localization';
 import { tokenEarnedPerThousandDollarsVault, getRoi } from 'utils/compoundApyHelpers';
 

@@ -1,4 +1,4 @@
-import { Currency, ETHER, Token } from '@sdk';
+import { Currency, ETHER, Token } from '@my/sdk';
 import { chainId } from 'config/constants/tokens';
 
 export function currencyId(currency: Currency): string {

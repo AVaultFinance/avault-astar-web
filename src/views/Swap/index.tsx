@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
-import { CurrencyAmount, JSBI, Token, Trade } from '@sdk';
-import { Button, Text, Box, useModal } from '@ui';
+import { CurrencyAmount, JSBI, Token, Trade } from '@my/sdk';
+import { Button, Text, Box, useModal } from '@my/ui';
 import { useIsTransactionUnsupported } from 'hooks/Trades';
 import UnsupportedCurrencyFooter from 'components/UnsupportedCurrencyFooter';
 import { RouteComponentProps } from 'react-router-dom';

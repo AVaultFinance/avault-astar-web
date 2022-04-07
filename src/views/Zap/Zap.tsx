@@ -1,4 +1,4 @@
-import { Heading, Text, Flex, Input, Button, useWalletModal } from '@ui';
+import { Heading, Text, Flex, Input, Button, useWalletModal } from '@my/ui';
 import PageLayout from 'components/Layout/Page';
 import { BgGlobalStyle } from 'style/Global';
 import styled from 'styled-components';

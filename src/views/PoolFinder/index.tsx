@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Currency, ETHER, JSBI, TokenAmount } from '@sdk';
-import { Button, ChevronDownIcon, Text, useModal } from '@ui';
+import { Currency, ETHER, JSBI, TokenAmount } from '@my/sdk';
+import { Button, ChevronDownIcon, Text, useModal } from '@my/ui';
 import styled from 'styled-components';
 import { useTranslation } from 'contexts/Localization';
 import { LightCard } from 'components/Card';

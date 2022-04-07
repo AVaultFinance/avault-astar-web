@@ -1,5 +1,5 @@
 import React from 'react';
-import { SvgProps } from '@ui';
+import { SvgProps } from '@my/ui';
 import styled from 'styled-components';
 const IconMenuStyled = styled.div`
   --color: ${({ theme }) => theme.colors.primary};

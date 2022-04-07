@@ -1,5 +1,5 @@
-import { Currency, CurrencyAmount, ETHER, Token, TokenAmount, WETH } from '@sdk';
-import { ChainId } from '@sdk';
+import { Currency, CurrencyAmount, ETHER, Token, TokenAmount, WETH } from '@my/sdk';
+import { ChainId } from '@my/sdk';
 import { chainId } from 'config/constants/tokens';
 
 export function wrappedCurrency(currency: Currency | undefined, chainId: ChainId | undefined): Token | undefined {

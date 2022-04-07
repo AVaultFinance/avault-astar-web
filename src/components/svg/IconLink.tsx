@@ -1,4 +1,4 @@
-import { Svg, SvgProps } from '@ui';
+import { Svg, SvgProps } from '@my/ui';
 import { FC } from 'react';
 
 const IconLink: FC<SvgProps> = (props) => {

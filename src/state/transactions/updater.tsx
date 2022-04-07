@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Text, Flex } from '@ui';
+import { Text, Flex } from '@my/ui';
 import useActiveWeb3React from 'hooks/useActiveWeb3React';
 import useToast from 'hooks/useToast';
 import { useBlockNumber } from '../application/hooks';

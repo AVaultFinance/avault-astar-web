@@ -1,6 +1,6 @@
 import React from 'react';
-import { Price } from '@sdk';
-import { Text } from '@ui';
+import { Price } from '@my/sdk';
+import { Text } from '@my/ui';
 import SwapSVG from './imgs/swap-price.svg';
 
 interface TradePriceProps {

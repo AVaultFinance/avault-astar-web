@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Flex, Button, ChevronDownIcon } from '@ui';
+import { Flex, Button, ChevronDownIcon } from '@my/ui';
 export const PageContainerWrap = styled(Flex)`
   justify-content: center;
   aligncontent: center;

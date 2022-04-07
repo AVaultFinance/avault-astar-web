@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Box } from '@ui';
+import { Box } from '@my/ui';
 
 const Card = styled(Box)<{
   width?: string;

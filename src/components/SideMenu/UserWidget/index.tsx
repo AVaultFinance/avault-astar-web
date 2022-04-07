@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Flex, useMatchBreakpoints } from '@ui';
+import { Flex, useMatchBreakpoints } from '@my/ui';
 import WalletAccountInfo from './WalletAccount';
 import { useVaultAllTotal } from 'state/vault/hooks';
 import Balance from 'components/Balance';

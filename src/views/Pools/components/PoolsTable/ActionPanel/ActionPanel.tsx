@@ -1,6 +1,17 @@
 import React from 'react';
 import styled, { keyframes, css } from 'styled-components';
-import { HelpIcon, Link, LinkExternal, Skeleton, Text, TimerIcon, useTooltip, MetamaskIcon, Flex, Button } from '@ui';
+import {
+  HelpIcon,
+  Link,
+  LinkExternal,
+  Skeleton,
+  Text,
+  TimerIcon,
+  useTooltip,
+  MetamaskIcon,
+  Flex,
+  Button,
+} from '@my/ui';
 import { BASE_BSC_SCAN_URL } from 'config';
 import { getBscScanLink } from 'utils';
 import { useBlock } from 'state/block/hooks';

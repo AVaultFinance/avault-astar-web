@@ -1,4 +1,4 @@
-import { Text } from '@ui';
+import { Text } from '@my/ui';
 import styled from 'styled-components';
 import { MaxButton } from 'style/SmallBorderPageLayout';
 const TextStyle = styled(Text)`

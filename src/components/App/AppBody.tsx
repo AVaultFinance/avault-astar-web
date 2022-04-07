@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Card } from '@ui';
+import { Card } from '@my/ui';
 
 export const BodyWrapper = styled(Card)`
   max-width: 486px;

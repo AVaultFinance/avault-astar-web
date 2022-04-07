@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import styled from 'styled-components';
-import { Flex } from '@ui';
+import { Flex } from '@my/ui';
 import { getImageUrlFromToken } from 'utils';
 
 interface IProps {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Flex, useModal } from '@ui';
+import { Flex, useModal } from '@my/ui';
 import BigNumber from 'bignumber.js';
 import { FarmWithStakedValue } from 'views/Farms/components/FarmCard/FarmCard';
 import { BIG_ZERO } from 'utils/bigNumber';

@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import styled from 'styled-components';
-import { Pair } from '@sdk';
-import { Text, Flex, CardBody, CardFooter, Button, AddIcon } from '@ui';
+import { Pair } from '@my/sdk';
+import { Text, Flex, CardBody, CardFooter, Button, AddIcon } from '@my/ui';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'contexts/Localization';
 import useActiveWeb3React from 'hooks/useActiveWeb3React';

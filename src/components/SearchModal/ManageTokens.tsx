@@ -1,6 +1,6 @@
 import React, { useRef, RefObject, useCallback, useState, useMemo } from 'react';
-import { Token } from '@sdk';
-import { Text, Button, CloseIcon, IconButton, LinkExternal, Input, Link } from '@ui';
+import { Token } from '@my/sdk';
+import { Text, Button, CloseIcon, IconButton, LinkExternal, Input, Link } from '@my/ui';
 import styled, { useTheme } from 'styled-components';
 import Row, { RowBetween, RowFixed } from 'components/Layout/Row';
 import { useToken } from 'hooks/Tokens';

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { keyframes, css } from 'styled-components';
 import { useTranslation } from 'contexts/Localization';
-import { LinkExternal } from '@ui';
+import { LinkExternal } from '@my/ui';
 import { FarmWithStakedValue } from 'views/Farms/components/FarmCard/FarmCard';
 import { getAddress } from 'utils/addressHelpers';
 import { getBscScanLink } from 'utils';

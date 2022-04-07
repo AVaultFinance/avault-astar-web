@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import React, { useCallback, useMemo, useState } from 'react';
-import { Button, Modal, Text, useMatchBreakpoints } from '@ui';
+import { Button, Modal, Text, useMatchBreakpoints } from '@my/ui';
 import { getFullDisplayBalance } from 'utils/formatBalance';
 import styled from 'styled-components';
 import Loading from 'components/TransactionConfirmationModal/Loading';

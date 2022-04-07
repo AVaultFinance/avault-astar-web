@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Flex, HelpIcon, Text, useMatchBreakpoints, useTooltip } from '@ui';
+import { Flex, HelpIcon, Text, useMatchBreakpoints, useTooltip } from '@my/ui';
 import useDelayedUnmount from 'hooks/useDelayedUnmount';
 import Apr, { AprProps } from './Apr';
 import Earned, { EarnedProps } from './Earned';

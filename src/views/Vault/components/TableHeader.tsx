@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { useMatchBreakpoints, Flex } from '@ui';
+import { useMatchBreakpoints, Flex } from '@my/ui';
 import { TableHeaderStyled } from './VaultTable/VaultTable';
 import styled from 'styled-components';
 import { OptionProps } from 'components/Select/Select';

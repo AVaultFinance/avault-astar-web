@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AutoRenewIcon, Button, Flex, InjectedModalProps, Text } from '@ui';
+import { AutoRenewIcon, Button, Flex, InjectedModalProps, Text } from '@my/ui';
 import { useTranslation } from 'contexts/Localization';
 import { useCake } from 'hooks/useContract';
 import useToast from 'hooks/useToast';

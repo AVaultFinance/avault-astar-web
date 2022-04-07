@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useMatchBreakpoints } from '@ui';
+import { useMatchBreakpoints } from '@my/ui';
 import { useTranslation } from 'contexts/Localization';
 import { ArrowIcon } from 'style/SmallBorderPageLayout';
 

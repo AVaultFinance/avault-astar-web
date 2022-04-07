@@ -1,5 +1,5 @@
 import React from 'react';
-import { SvgProps } from '@ui';
+import { SvgProps } from '@my/ui';
 
 const IconClose: React.FC<SvgProps> = () => {
   return (
