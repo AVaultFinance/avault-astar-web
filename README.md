@@ -2,8 +2,7 @@
 
 Frontend of Avault
 
-
-~~~js
-  "@avault/sdk": "./toolkit/packages/swap-sdk",
-  "@avault/ui": "./toolkit/packages/avault-uikit",
-~~~
+```js
+  "@sdk": "./toolkit/packages/swap-sdk",
+  "@ui": "./toolkit/packages/avault-uikit",
+```

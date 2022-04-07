@@ -1,4 +1,4 @@
-import { Currency, ETHER, Token } from '@avault/sdk';
+import { Currency, ETHER, Token } from '@sdk';
 import { chainId } from 'config/constants/tokens';
 
 export function currencyId(currency: Currency): string {

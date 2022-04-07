@@ -1,4 +1,4 @@
-import { ChainId, Currency } from '@avault/sdk';
+import { ChainId, Currency } from '@sdk';
 export enum ITokenType {
   LP = 'LP',
   MAIN = 'MAIN',

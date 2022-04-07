@@ -1,4 +1,4 @@
-import { Button, Flex, useModal } from '@avault/ui';
+import { Button, Flex, useModal } from '@ui';
 import BigNumber from 'bignumber.js';
 import Loading from 'components/TransactionConfirmationModal/Loading';
 import { FC } from 'react';

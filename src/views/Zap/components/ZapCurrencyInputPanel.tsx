@@ -1,4 +1,4 @@
-import { Flex, Heading, useModal } from '@avault/ui';
+import { Flex, Heading, useModal } from '@ui';
 import { ArrowIcon } from 'style/SmallBorderPageLayout';
 import styled from 'styled-components';
 import { IToken } from '../utils/types';

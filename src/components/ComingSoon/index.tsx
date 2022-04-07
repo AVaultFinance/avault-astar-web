@@ -1,4 +1,4 @@
-import { Modal } from '@avault/ui';
+import { Modal } from '@ui';
 
 import styled from 'styled-components';
 

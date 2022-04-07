@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ListViewIcon, CardViewIcon, IconButton } from '@avault/ui';
+import { ListViewIcon, CardViewIcon, IconButton } from '@ui';
 
 export enum ViewMode {
   'TABLE' = 'TABLE',

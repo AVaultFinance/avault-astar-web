@@ -1,4 +1,4 @@
-import { ChainId, CHAINKEY } from '@avault/sdk';
+import { ChainId, CHAINKEY } from '@sdk';
 import tokens from './tokens';
 import { PoolConfig, PoolCategory } from './types';
 import { chainKey } from 'config';

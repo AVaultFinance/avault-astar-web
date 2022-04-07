@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, IconButton, useModal } from '@avault/ui';
+import { Flex, IconButton, useModal } from '@ui';
 import SettingsModal from './SettingsModal';
 import SettingSvg from '../../svg/setting.svg';
 

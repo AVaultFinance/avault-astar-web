@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { HelpIcon } from '@avault/ui';
+import { HelpIcon } from '@ui';
 
 const BAD_SRCS: { [tokenAddress: string]: true } = {};
 

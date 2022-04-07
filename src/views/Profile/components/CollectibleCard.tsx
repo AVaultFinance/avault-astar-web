@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Text } from '@avault/ui';
+import { Text } from '@ui';
 import { Nft } from 'config/constants/types';
 
 interface CollectibleCardProps {

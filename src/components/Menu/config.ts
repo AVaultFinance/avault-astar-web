@@ -1,4 +1,4 @@
-import { MenuEntry } from '@avault/ui';
+import { MenuEntry } from '@ui';
 import { ContextApi } from 'contexts/Localization/types';
 
 const config: (t: ContextApi['t']) => MenuEntry[] = (t) => [

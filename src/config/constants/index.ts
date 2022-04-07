@@ -1,4 +1,4 @@
-import { JSBI, Percent, Token, ChainId } from '@avault/sdk';
+import { JSBI, Percent, Token, ChainId } from '@sdk';
 import { BUSD, DAI, USDT, BTCB, Kaco, Base_Token, USDC, JPYC, DOT, KSM, ETH, ALPACA, CAKE, chainId } from './tokens';
 
 export const ROUTER_ADDRESS = {

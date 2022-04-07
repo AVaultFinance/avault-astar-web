@@ -1,4 +1,4 @@
-import { ChainId } from '@avault/sdk';
+import { ChainId } from '@sdk';
 import PancakeNftAbi from '../abi/pancake-nft.json';
 import AvaultNftAbi from '../abi/kaco-nft.json';
 import AvaultLogo from 'components/svg/KKac.svg';

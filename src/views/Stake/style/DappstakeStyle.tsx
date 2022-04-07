@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Input, InputProps, Flex } from '@avault/ui';
+import { Input, InputProps, Flex } from '@ui';
 
 export const InnerWrapper = styled.div`
   width: 90%;

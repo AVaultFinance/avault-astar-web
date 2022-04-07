@@ -1,4 +1,4 @@
-import { Currency, ETHER } from '@avault/sdk';
+import { Currency, ETHER } from '@sdk';
 import {
   Heading,
   InjectedModalProps,
@@ -10,7 +10,7 @@ import {
   ModalTitle,
   Text,
   useMatchBreakpoints,
-} from '@avault/ui';
+} from '@ui';
 import { chainKey } from 'config';
 import { chainId } from 'config/constants/tokens';
 import useDebounce from 'hooks/useDebounce';

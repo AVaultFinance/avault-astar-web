@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Card } from '@avault/ui';
+import { Card } from '@ui';
 
 export const BodyWrapper = styled(Card)`
   max-width: 486px;

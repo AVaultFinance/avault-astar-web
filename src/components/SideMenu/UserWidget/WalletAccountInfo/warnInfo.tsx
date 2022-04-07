@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTooltip, Box, BoxProps } from '@avault/ui';
+import { useTooltip, Box, BoxProps } from '@ui';
 import styled from 'styled-components';
 import WarnSvg from './img/icon_warn.svg';
 

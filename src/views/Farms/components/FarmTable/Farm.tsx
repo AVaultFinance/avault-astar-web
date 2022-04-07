@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 // import { useFarmUser } from 'state/farms/hooks';
 // import { useTranslation } from 'contexts/Localization';
-// import { Text } from '@avault/ui';
+// import { Text } from '@ui';
 // import { getBalanceNumber } from 'utils/formatBalance';
 import { Token } from 'config/constants/types';
 import { chainId } from 'config/constants/tokens';

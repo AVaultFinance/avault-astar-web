@@ -1,4 +1,4 @@
-import { Pair, Token } from '@avault/sdk';
+import { Pair, Token } from '@sdk';
 import flatMap from 'lodash/flatMap';
 import { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';

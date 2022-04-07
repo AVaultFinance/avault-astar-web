@@ -1,6 +1,6 @@
-import { Currency, CurrencyAmount, Fraction, Percent } from '@avault/sdk';
+import { Currency, CurrencyAmount, Fraction, Percent } from '@sdk';
 import React from 'react';
-import { Button, Text } from '@avault/ui';
+import { Button, Text } from '@ui';
 import { useTranslation } from 'contexts/Localization';
 import { RowBetween, RowFixed } from 'components/Layout/Row';
 import { CurrencyLogo } from 'components/Logo';

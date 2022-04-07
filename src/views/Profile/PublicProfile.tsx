@@ -15,7 +15,7 @@ import {
   BlockIcon,
   VisibilityOn,
   VisibilityOff,
-} from '@avault/ui';
+} from '@ui';
 import { useTranslation } from 'contexts/Localization';
 import { useProfile } from 'state/profile/hooks';
 import usePersistState from 'hooks/usePersistState';

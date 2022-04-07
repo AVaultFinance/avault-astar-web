@@ -1,6 +1,6 @@
 import React, { CSSProperties, MutableRefObject, useCallback, useMemo } from 'react';
-import { Currency, CurrencyAmount, currencyEquals, ETHER, Token } from '@avault/sdk';
-import { Text } from '@avault/ui';
+import { Currency, CurrencyAmount, currencyEquals, ETHER, Token } from '@sdk';
+import { Text } from '@ui';
 import styled from 'styled-components';
 import { FixedSizeList } from 'react-window';
 import { wrappedCurrency } from 'utils/wrappedCurrency';

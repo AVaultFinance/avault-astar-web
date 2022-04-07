@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import styled from 'styled-components';
-import { Trade, TradeType } from '@avault/sdk';
-import { Button, Text, AutoRenewIcon } from '@avault/ui';
+import { Trade, TradeType } from '@sdk';
+import { Button, Text, AutoRenewIcon } from '@ui';
 import { Field } from 'state/swap/actions';
 import {
   computeSlippageAdjustedAmounts,

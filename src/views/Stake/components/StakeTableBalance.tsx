@@ -1,4 +1,4 @@
-import { Text } from '@avault/ui';
+import { Text } from '@ui';
 import styled from 'styled-components';
 import { MaxButton } from 'style/SmallBorderPageLayout';
 const TextStyle = styled(Text)`

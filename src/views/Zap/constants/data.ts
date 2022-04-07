@@ -3,7 +3,7 @@ import tokens, { chainId } from 'config/constants/tokens';
 import { IVaultConfigItem } from 'state/vault/types';
 import { IToken, ITokenType } from '../utils/types';
 import { chainKey } from 'config';
-import { CHAINKEY, Currency } from '@avault/sdk';
+import { CHAINKEY, Currency } from '@sdk';
 export const zapLocalFromCurrency = 'FromCurrency';
 export const zapLocalToCurrency = 'ToCurrency';
 

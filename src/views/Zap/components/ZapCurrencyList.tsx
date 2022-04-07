@@ -1,5 +1,5 @@
-import { ETHER, Token } from '@avault/sdk';
-import { Flex, Heading } from '@avault/ui';
+import { ETHER, Token } from '@sdk';
+import { Flex, Heading } from '@ui';
 import BigNumber from 'bignumber.js';
 import CircleLoader from 'components/Loader/CircleLoader';
 import { chainId } from 'config/constants/tokens';

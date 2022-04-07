@@ -6,7 +6,7 @@ import { BIG_TEN, BIG_ZERO } from 'utils/bigNumber';
 import multicall from 'utils/multicall';
 import { Farm, SerializedBigNumber } from '../types';
 import { chainKey } from 'config';
-import { CHAINKEY } from '@avault/sdk';
+import { CHAINKEY } from '@sdk';
 
 export type PublicFarmData = {
   tokenAmountMc: SerializedBigNumber;

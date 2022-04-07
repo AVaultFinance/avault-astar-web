@@ -1,4 +1,4 @@
-import { Svg, SvgProps } from '@avault/ui';
+import { Svg, SvgProps } from '@ui';
 import { FC } from 'react';
 
 const IconLink: FC<SvgProps> = (props) => {

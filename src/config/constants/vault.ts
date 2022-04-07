@@ -1,4 +1,4 @@
-import { ChainId, CHAINKEY } from '@avault/sdk';
+import { ChainId, CHAINKEY } from '@sdk';
 import { chainKey } from 'config';
 import { IFarmProject, IABIType, IVaultConfigItem } from 'state/vault/types';
 const vault: IVaultConfigItem[] =

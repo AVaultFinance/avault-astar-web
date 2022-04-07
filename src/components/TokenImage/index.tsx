@@ -4,7 +4,7 @@ import {
   TokenPairImageProps as UIKitTokenPairImageProps,
   TokenImage as UIKitTokenImage,
   ImageProps,
-} from '@avault/ui';
+} from '@ui';
 import { Token } from 'config/constants/types';
 import { getImageUrlFromToken } from 'utils';
 

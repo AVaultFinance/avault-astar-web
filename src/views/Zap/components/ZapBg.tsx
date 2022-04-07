@@ -1,4 +1,4 @@
-import { SvgProps } from '@avault/ui';
+import { SvgProps } from '@ui';
 
 const ZapBg: React.FC<SvgProps> = (props) => {
   return (

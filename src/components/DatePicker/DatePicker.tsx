@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDatePicker, { ReactDatePickerProps } from 'react-datepicker';
-import { Input, InputProps } from '@avault/ui';
+import { Input, InputProps } from '@ui';
 
 import 'react-datepicker/dist/react-datepicker.css';
 

@@ -1,6 +1,6 @@
 import React from 'react';
-import { Currency, Token } from '@avault/sdk';
-import { Button, Text, Modal, useModal, InjectedModalProps, Link } from '@avault/ui';
+import { Currency, Token } from '@sdk';
+import { Button, Text, Modal, useModal, InjectedModalProps, Link } from '@ui';
 import styled from 'styled-components';
 import { AutoRow } from 'components/Layout/Row';
 import { AutoColumn } from 'components/Layout/Column';

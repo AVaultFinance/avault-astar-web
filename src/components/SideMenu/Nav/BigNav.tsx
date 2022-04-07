@@ -2,7 +2,7 @@ import React, { FC, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link, useLocation } from 'react-router-dom';
 import { IMenu } from '../config';
-import { Flex, useTooltip } from '@avault/ui';
+import { Flex, useTooltip } from '@ui';
 import CollapseSvg from '../imgs/collapse';
 import NftContent from './NftContent';
 import MoreContent from './MoreContent';
@@ -79,7 +79,7 @@ const BigNav: FC<{ menuItems: IMenu[] }> = ({ menuItems }) => {
                   ? item.link === '/swap'
                   : ['/nft/pools', '/nft/wallet/mint', '/nft/wallet/burn'].find((p) => pathname.startsWith(p))
                   ? item.link === '/nft/pools/'
-                  : ['/stake', '/unstake'].find((p) => pathname.startsWith(p))
+                  : ['/stake', '/unbind', '/unstake'].find((p) => pathname.startsWith(p))
                   ? item.link === '/stake'
                   : pathname.startsWith(item.link)
               )

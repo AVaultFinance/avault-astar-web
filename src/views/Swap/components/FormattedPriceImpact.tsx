@@ -1,7 +1,7 @@
-import { Percent } from '@avault/sdk';
+import { Percent } from '@sdk';
 import React from 'react';
 import { ONE_BIPS } from '../../../config/constants';
-import { Text } from '@avault/ui';
+import { Text } from '@ui';
 
 /**
  * Formatted version of price impact text with warning colors

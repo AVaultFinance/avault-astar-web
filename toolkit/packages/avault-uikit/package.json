@@ -1,5 +1,5 @@
 {
-  "name": "@avault/ui",
+  "name": "@ui",
   "version": "0.0.2",
   "description": "Set of UI components for pancake projects",
   "main": "dist/index.cjs.js",

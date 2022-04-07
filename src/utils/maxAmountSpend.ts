@@ -1,4 +1,4 @@
-import { CurrencyAmount, ETHER, JSBI } from '@avault/sdk';
+import { CurrencyAmount, ETHER, JSBI } from '@sdk';
 import { chainId } from 'config/constants/tokens';
 import { MIN_BNB } from '../config/constants';
 

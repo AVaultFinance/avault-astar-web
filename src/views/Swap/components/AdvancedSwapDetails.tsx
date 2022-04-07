@@ -1,6 +1,6 @@
 import React from 'react';
-import { Trade, TradeType } from '@avault/sdk';
-import { Text } from '@avault/ui';
+import { Trade, TradeType } from '@sdk';
+import { Text } from '@ui';
 import { Field } from 'state/swap/actions';
 import { useUserSlippageTolerance } from 'state/user/hooks';
 import { computeSlippageAdjustedAmounts, computeTradePriceBreakdown } from 'utils/prices';

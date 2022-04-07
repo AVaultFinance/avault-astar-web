@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useModal, Text } from '@avault/ui';
+import { useModal, Text } from '@ui';
 import { useLocation } from 'react-router-dom';
 import { FarmWithStakedValue } from 'views/Farms/components/FarmCard/FarmCard';
 import { LongButton } from './styles';

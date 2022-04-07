@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Text, Button, HelpIcon, Link } from '@avault/ui';
+import { Text, Button, HelpIcon, Link } from '@ui';
 import { useTranslation } from 'contexts/Localization';
 
 const ButtonText = styled(Text)`

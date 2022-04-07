@@ -1,6 +1,6 @@
 import React from 'react';
-import { Token } from '@avault/sdk';
-import { Modal, InjectedModalProps } from '@avault/ui';
+import { Token } from '@sdk';
+import { Modal, InjectedModalProps } from '@ui';
 import ImportToken from 'components/SearchModal/ImportToken';
 
 interface Props extends InjectedModalProps {
