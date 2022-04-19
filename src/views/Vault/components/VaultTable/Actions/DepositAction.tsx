@@ -149,8 +149,7 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
             <LongButton
               variant="primary"
               className={pendingTx ? 'loading' : ''}
-              disabled={true}
-              // disabled={disabled}
+              disabled={disabled}
               onClick={handleDeposit}
             >
               Deposit

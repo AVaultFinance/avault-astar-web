@@ -122,8 +122,7 @@ const DepositModal: React.FC<DepositModalProps> = ({
           height={isMobile ? '38px' : '48px'}
           isLoading={pendingTx}
           isMobile={isMobile}
-          disabled={true}
-          // disabled={pendingTx || !valNumber.isFinite() || valNumber.eq(0) || valNumber.gt(fullBalanceNumber)}
+          disabled={pendingTx || !valNumber.isFinite() || valNumber.eq(0) || valNumber.gt(fullBalanceNumber)}
           onClick={handleDeposit}
         >
           Deposit
