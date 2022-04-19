@@ -86,10 +86,13 @@ const WithdrawAction: React.FunctionComponent<WithdrawActionProps> = ({
     setPendingTx(true);
     let result = null;
     try {
-      const _amount = new BigNumber(val)
+      let _amount = new BigNumber(val)
         .times(1 / Number(lpToCLpRate))
         .times(_rate)
         .toString();
+      if (Number(_amount) > Number(val)) {
+        _amount = val;
+      }
       result = await onWithdraw(_amount);
       if (typeof result === 'boolean' && result) {
         dispatch(changeLoading());
