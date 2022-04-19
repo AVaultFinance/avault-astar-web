@@ -3,7 +3,7 @@ import { useAVaultPCSContract } from 'hooks/useContract';
 import BigNumber from 'bignumber.js';
 import { BIG_TEN } from 'utils/bigNumber';
 import { callWithEstimateGas } from 'utils/calls';
-import { DEFAULT_GAS_LIMIT, DEFAULT_GAS_PRICE } from 'config';
+import { DEFAULT_GAS_LIMIT } from 'config';
 
 const useVaultWithdraw = (account: string, contractAddress: string, decimal: number) => {
   const contractAddressContract = useAVaultPCSContract(contractAddress);
@@ -20,7 +20,6 @@ const useVaultWithdraw = (account: string, contractAddress: string, decimal: num
         // const tx = await contract.withdraw(account, `${value}`, options);
         const res = await callWithEstimateGas(contractAddressContract, 'withdraw', [account, `${value}`], {
           gasLimit: DEFAULT_GAS_LIMIT,
-          gasPrice: DEFAULT_GAS_PRICE,
         });
         if (res.isOk) {
           return true;
