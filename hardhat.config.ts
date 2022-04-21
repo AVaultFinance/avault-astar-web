@@ -52,7 +52,7 @@ const config: HardhatUserConfig = {
       accounts: { mnemonic: mnemonic },
     },
     astarMainnet: {
-      url: 'https://rpc.astar.network:8545/',
+      url: 'https://astar.api.onfinality.io/public/',
       chainId: 592,
       gasPrice: 1000000000,
       accounts: { mnemonic: mnemonic },
