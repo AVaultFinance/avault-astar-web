@@ -16,6 +16,8 @@ import BigNumber from 'bignumber.js';
 import { getBalanceNumber } from 'utils/formatBalance';
 import Balance from 'components/Balance';
 import { showDecimals } from 'views/Vault/utils';
+import { useWeb3React } from '@web3-react/core';
+import { chainId } from 'config/constants/tokens';
 
 export interface RowProps {
   apr: AprProps;
@@ -142,6 +144,18 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
   const hasStakedAmount = false;
   const [actionPanelExpanded, setActionPanelExpanded] = useState(false);
   const shouldRenderChild = useDelayedUnmount(actionPanelExpanded, 300);
+  const userData = details?.farm?.userData ?? {};
+  const { account } = useWeb3React();
+  const _userDataKey = `${account}-${chainId}`;
+  const _userData = userData[_userDataKey] ?? {
+    account: '',
+    allowance: '0',
+    stakingTokenBalance: '0',
+    stakedBalance: '0',
+    pendingReward: '0',
+    avaultAddressBalance: '0',
+    userVaultSupply: '0',
+  };
 
   const { targetRef, tooltip, tooltipVisible } = useTooltip(
     `1 ${details.vault.symbol} = ${details.vault.lpToCLpRate} ${details.lpDetail.symbol}`,
@@ -225,7 +239,7 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
                         fontWeight="600"
                         decimals={showDecimals(details.lpDetail.symbol)}
                         // decimals={5}
-                        value={getBalanceNumber(new BigNumber(details?.farm?.userData?.avaultAddressBalance ?? '0'))}
+                        value={getBalanceNumber(new BigNumber(_userData.avaultAddressBalance))}
                       />
                       <Text color="text" bold fontSize="14px" paddingLeft="4px">
                         {/* {getFullDisplayBalance(
@@ -246,11 +260,7 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
                         fontWeight="600"
                         decimals={showDecimals(details.lpDetail.symbol)}
                         value={getBalanceNumber(
-                          new BigNumber(
-                            details?.farm?.userData?.stakingTokenBalance
-                              ? details.farm.userData.stakingTokenBalance
-                              : '0',
-                          ),
+                          new BigNumber(_userData.stakingTokenBalance),
                           details.farm.lpAddressDecimals,
                         )}
                       />

@@ -166,12 +166,24 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
   const { t } = useTranslation();
   const lpAddress = getAddress(vault.farm.lpAddresses);
   const { account } = useWeb3React();
-  const { avaultAddressBalance, allowance } = useVaultFarmUser(vault?.farm?.pid ?? 0);
+  const { avaultAddressBalance, allowance } = useVaultFarmUser(account, vault?.farm?.pid ?? 0);
   const isApproved = account && allowance && allowance.isGreaterThan(0);
   // const isMetaMaskInScope = !!window.ethereum?.isMetaMask;
   // const stakingBigNumber = new BigNumber(vault.farm?.userData?.stakingTokenBalance??"0");
   let earnings = BIG_ZERO;
   let displayEarningsBalance: string = '0';
+
+  const userData = vault?.farm?.userData ?? {};
+  const _userDataKey = `${account}-${chainId}`;
+  const _userData = userData[_userDataKey] ?? {
+    account: '',
+    allowance: '0',
+    stakingTokenBalance: '0',
+    stakedBalance: '0',
+    pendingReward: '0',
+    avaultAddressBalance: '0',
+    userVaultSupply: '0',
+  };
 
   // If user didn't connect wallet default balance will be 0
   if (isApproved) {
@@ -312,17 +324,14 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
           wallet balance
           <em>
             <i>
-              {getBalanceNumber(new BigNumber(vault?.farm?.userData?.avaultAddressBalance ?? '0')).toLocaleString(
-                'en-US',
-                {
-                  maximumFractionDigits: showDecimals(vault.lpDetail.symbol),
-                },
-              )}{' '}
+              {getBalanceNumber(new BigNumber(_userData.avaultAddressBalance)).toLocaleString('en-US', {
+                maximumFractionDigits: showDecimals(vault.lpDetail.symbol),
+              })}{' '}
               {vault?.vault.symbol}
             </i>
             <i>
               {getFullLocalDisplayBalance(
-                new BigNumber(vault.farm?.userData?.stakingTokenBalance ?? '0'),
+                new BigNumber(_userData.stakingTokenBalance),
                 vault.farm.lpAddressDecimals,
                 showDecimals(vault.lpDetail.symbol),
               )}{' '}
@@ -350,7 +359,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
           isApproved={isApproved}
           pid={vault.farm.pid}
           displayBalance={getFullLocalDisplayBalance(
-            new BigNumber(vault.farm?.userData?.stakingTokenBalance ?? '0'),
+            new BigNumber(_userData.stakingTokenBalance),
             vault.farm.lpAddressDecimals,
             showDecimals(vault.lpDetail.symbol),
           )}
@@ -361,7 +370,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
           account={account}
           lpSymbol={vault.lpDetail.symbol}
           contractAddress={vault.contractAddress[chainId]}
-          stakingTokenBalance={new BigNumber(vault?.farm?.userData?.stakingTokenBalance ?? '0')}
+          stakingTokenBalance={new BigNumber(_userData.stakingTokenBalance)}
           lpAddressDecimals={vault.farm.lpAddressDecimals}
           index={index}
         />
@@ -374,7 +383,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
             requestedApprovalSuccess={requestedApprovalSuccess}
             isApproved={isApproved}
             displayBalance={getFullLocalDisplayBalance(
-              new BigNumber(vault?.farm?.userData?.stakingTokenBalance ?? '0'),
+              new BigNumber(_userData.stakingTokenBalance),
               vault.farm.lpAddressDecimals,
               showDecimals(vault.lpDetail.symbol),
             )}
@@ -395,7 +404,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
             requestedApproval={requestedApproval}
             isApproved={isApproved}
             displayBalance={getFullLocalDisplayBalance(
-              new BigNumber(vault?.farm?.userData?.stakingTokenBalance ?? '0'),
+              new BigNumber(_userData.stakingTokenBalance),
               vault.farm.lpAddressDecimals,
               showDecimals(vault.lpDetail.symbol),
             )}

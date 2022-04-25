@@ -65,7 +65,7 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
   const { onDeposit } = useVaultDeposit(account, contractAddress, lpAddressDecimals);
   const dispatch = useAppDispatch();
   const [val, setVal] = useState('');
-  const { stakingTokenBalance } = useVaultFarmUser(pid ?? 0);
+  const { stakingTokenBalance } = useVaultFarmUser(account, pid ?? 0);
 
   const fullBalance = useMemo(() => {
     return getFullDisplayBalance(stakingTokenBalance, lpAddressDecimals, showDecimals(lpSymbol));

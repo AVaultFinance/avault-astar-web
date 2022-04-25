@@ -13,14 +13,16 @@ import BigNumber from 'bignumber.js';
 import { getBalanceAmount } from 'utils/formatBalance';
 
 const fetchVault = async (
+  account: string,
   vault: IVaultConfigItem,
   priceVsBusdMap: Record<string, string>,
   vaultData: IVault,
 ): Promise<IVault> => {
-  const vaultPublicData = await fetch(vault, priceVsBusdMap, vaultData);
+  const vaultPublicData = await fetch(account, vault, priceVsBusdMap, vaultData);
   return { ...vault, ...vaultPublicData };
 };
 const fetch = async (
+  account: string,
   vault: IVaultConfigItem,
   priceVsBusdMap: Record<string, string>,
   vaultData: IVault,
@@ -62,6 +64,18 @@ const fetch = async (
       ? (Number(wantLockedTotal) / Number(vaultTotalSupply)).toFixed(4)
       : '1';
 
+  const userData = vaultData?.farm?.userData ?? {};
+  const _userDataKey = `${account}-${chainId}`;
+  const _userData = userData[_userDataKey] ?? {
+    account: '',
+    allowance: '0',
+    stakingTokenBalance: '0',
+    stakedBalance: '0',
+    pendingReward: '0',
+    avaultAddressBalance: '0',
+    userVaultSupply: '0',
+  };
+
   return {
     isLoading: false,
     ...vault,
@@ -100,12 +114,15 @@ const fetch = async (
       lpTokenPrice: lpTokenPrice,
       lpAddressDecimals: lpAddressDecimals,
       userData: {
-        allowance: vaultData?.farm?.userData?.allowance ?? '0',
-        stakingTokenBalance: vaultData?.farm?.userData?.stakingTokenBalance ?? '0',
-        stakedBalance: vaultData?.farm?.userData?.stakedBalance ?? '0',
-        pendingReward: vaultData?.farm?.userData?.pendingReward ?? '0',
-        avaultAddressBalance: vaultData?.farm?.userData?.avaultAddressBalance ?? '0',
-        userVaultSupply: vaultData?.farm?.userData?.userVaultSupply ?? '0',
+        _userDataKey: {
+          account: _userData.account,
+          allowance: _userData.allowance,
+          stakingTokenBalance: _userData.stakingTokenBalance,
+          stakedBalance: _userData.stakedBalance,
+          pendingReward: _userData.pendingReward,
+          avaultAddressBalance: _userData.avaultAddressBalance,
+          userVaultSupply: _userData.userVaultSupply,
+        },
       },
     },
   };

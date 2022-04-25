@@ -11,6 +11,7 @@ import {
   fetchVaultsUsers,
 } from './fetchVaultUser';
 import { haveNumber } from 'utils';
+import { chainId } from 'config/constants/tokens';
 const initialState: VaultState = {
   data: vaultsConfig.map((v: IVaultConfigItem) => {
     return {
@@ -57,11 +58,12 @@ const initialState: VaultState = {
 export const fetchVaultsPublicDataAsync = createAsyncThunk<
   [IVault[], string],
   {
+    account: string;
     priceVsBusdMap: Record<string, string>;
     vaultsData: IVault[];
   }
->('vault/fetchVaultsPublicDataAsync', async ({ priceVsBusdMap, vaultsData }) => {
-  const vaults = await fetchVaults(vaultsConfig, priceVsBusdMap, vaultsData);
+>('vault/fetchVaultsPublicDataAsync', async ({ account, priceVsBusdMap, vaultsData }) => {
+  const vaults = await fetchVaults(account, vaultsConfig, priceVsBusdMap, vaultsData);
   return vaults;
 });
 export const fetchVaultFarmUserDataAsync = createAsyncThunk<
@@ -80,6 +82,7 @@ export const fetchVaultFarmUserDataAsync = createAsyncThunk<
   return userVaultsFarmAllowances.map((farmAllowance, _index) => {
     return {
       index: index,
+      account: account,
       pid: vaults[_index].farm.pid,
       allowance: farmAllowance,
       stakingTokenBalance: userVaultsFarmTokenBalances[_index],
@@ -108,12 +111,18 @@ export const vaultSlice = createSlice({
         console.log(e);
       }
     },
-    changeVaultLoading: (state) => {
-      if (state.isUserLoaded) {
-        return;
-      }
-      for (let i = 0; i < state.data.length; i++) {
-        state.data[i].isLoading = true;
+    changeVaultLoading: (state, action) => {
+      if (action.payload.isLoading) {
+        for (let i = 0; i < state.data.length; i++) {
+          state.data[i].isLoading = true;
+        }
+      } else {
+        if (state.isUserLoaded) {
+          return;
+        }
+        for (let i = 0; i < state.data.length; i++) {
+          state.data[i].isLoading = true;
+        }
       }
     },
   },
@@ -125,7 +134,7 @@ export const vaultSlice = createSlice({
     });
     builder.addCase(fetchVaultFarmUserDataAsync.fulfilled, (state, action) => {
       action.payload.forEach((userDataEl) => {
-        const { pid, index: _index } = userDataEl;
+        const { pid, index: _index, account } = userDataEl;
         const index = haveNumber(_index) ? _index : state.data.findIndex((vault: IVault) => vault.farm.pid === pid);
         const vaultWantLockedTotal = userDataEl.vaultWantLockedTotal
           ? userDataEl.vaultWantLockedTotal
@@ -148,7 +157,10 @@ export const vaultSlice = createSlice({
           },
           farm: {
             ...state.data[index].farm,
-            userData: userDataEl,
+            userData: {
+              ...state.data[index].farm.userData,
+              [`${account}-${chainId}`]: userDataEl,
+            },
           },
           isLoading: false,
         };

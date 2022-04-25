@@ -27,6 +27,7 @@ export interface IVaultConfigItem {
   fromSource: IFarmProject;
   abiType: IABIType;
   swapLink: string;
+  online_at: number; //  timestamp  s
   lpDetail: {
     symbol: string;
     address: IAddress;
@@ -57,11 +58,12 @@ export interface IVaultFarm {
   liquidity?: string;
   lpTokenPrice?: string;
   lpAddressDecimals: number;
-  userData?: IVaultUserData;
+  userData?: Record<string, IVaultUserData>;
 }
 export interface IVaultUserData {
   index?: number;
   pid?: number;
+  account: string;
   allowance: string;
   stakingTokenBalance: string;
   stakedBalance: string;

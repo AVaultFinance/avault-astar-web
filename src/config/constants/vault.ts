@@ -9,9 +9,11 @@ const vault: IVaultConfigItem[] =
             [ChainId.SDN_TESTNET]: '0x9A6080753a35dCd8e77102aE83A93170A831393e',
             [ChainId.SDN_MAINNET]: '0x9A6080753a35dCd8e77102aE83A93170A831393e',
           },
+          // 2022-03-28 00:00:00
           fromSource: IFarmProject.kaco, // from which swap
           abiType: IABIType.AVaultPCS, // use which abi
           swapLink: 'https://shiden.kaco.finance/add/SDN/0xb12c13e66AdE1F72f71834f2FC5082Db8C091358',
+          online_at: 1648396800,
           lpDetail: {
             symbol: 'KAC-wSDN LP',
             address: {
@@ -30,6 +32,7 @@ const vault: IVaultConfigItem[] =
           fromSource: IFarmProject.kaco, // from which swap
           abiType: IABIType.AVaultPCS, // use which abi
           swapLink: 'https://shiden.kaco.finance/add/0xfa9343c3897324496a05fc75abed6bac29f8a40f/SDN',
+          online_at: 1648396800,
           lpDetail: {
             symbol: 'wSDN-USDC LP',
             address: {
@@ -39,7 +42,6 @@ const vault: IVaultConfigItem[] =
             decimals: 18,
           },
         },
-
         {
           contractAddress: {
             [ChainId.SDN_TESTNET]: '0x0Aaf347F50b766cA85dB70f9e2B0E178E9a16F4D',
@@ -48,6 +50,7 @@ const vault: IVaultConfigItem[] =
           fromSource: IFarmProject.kaco, // from which swap
           abiType: IABIType.AVaultPCS, // use which abi
           swapLink: 'https://shiden.kaco.finance/add/SDN/0x765277eebeca2e31912c9946eae1021199b39c61',
+          online_at: 1648396800,
           lpDetail: {
             symbol: 'ETH-wSDN LP',
             address: {
@@ -67,6 +70,7 @@ const vault: IVaultConfigItem[] =
           abiType: IABIType.AVaultPCS, // use which abi
           swapLink:
             'https://shiden.kaco.finance/add/0xfa9343c3897324496a05fc75abed6bac29f8a40f/0x765277eebeca2e31912c9946eae1021199b39c61',
+          online_at: 1648396800,
           lpDetail: {
             symbol: 'ETH-USDC LP',
             address: {
@@ -86,6 +90,7 @@ const vault: IVaultConfigItem[] =
           abiType: IABIType.AVaultPCS, // use which abi
           swapLink:
             'https://shiden.kaco.finance/add/0xfa9343c3897324496a05fc75abed6bac29f8a40f/0x65e66a61d0a8f1e686c2d6083ad611a10d84d97a',
+          online_at: 1648396800,
           lpDetail: {
             symbol: 'BUSD-USDC LP',
             address: {
@@ -104,6 +109,7 @@ const vault: IVaultConfigItem[] =
           fromSource: IFarmProject.kaco, // from which swap
           abiType: IABIType.AVaultPCS, // use which abi
           swapLink: 'https://shiden.kaco.finance/add/SDN/0x735abe48e8782948a37c7765ecb76b98cde97b0f',
+          online_at: 1648396800,
           lpDetail: {
             symbol: 'wSDN-JPYC LP',
             address: {
@@ -123,6 +129,7 @@ const vault: IVaultConfigItem[] =
           abiType: IABIType.AVaultPCS, // use which abi
           swapLink:
             'https://shiden.kaco.finance/add/0xfa9343c3897324496a05fc75abed6bac29f8a40f/0x735abe48e8782948a37c7765ecb76b98cde97b0f',
+          online_at: 1648396800,
           lpDetail: {
             symbol: 'JPYC-USDC LP',
             address: {
