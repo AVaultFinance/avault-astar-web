@@ -96,7 +96,9 @@ const Vaults: React.FC = () => {
       const side = sortDir === ISortDir.default || sortDir === ISortDir.down ? 'desc' : 'asc';
       switch (sortKey) {
         case 'apy':
-          return orderBy(vaults, (vault: IVault) => vault.farm.apy, side);
+          return orderBy(vaults, (vault: IVault) => Number(vault?.farm?.apy ?? '0'), side);
+        case 'apr':
+          return orderBy(vaults, (vault: IVault) => Number(vault.farm.apy), side);
         case 'multiplier':
           return orderBy(
             vaults,
@@ -110,7 +112,6 @@ const Vaults: React.FC = () => {
             side,
           );
         case 'liquidity':
-          console.log(vaults.map((v) => v.farm.apy));
           return orderBy(vaults, (vault: IVault) => Number(vault.vault.liquidity), side);
         default:
           return vaults;
@@ -120,7 +121,6 @@ const Vaults: React.FC = () => {
     chosenFarms = vaultsList(vaultsLP);
     return sortFarms(chosenFarms);
   }, [sortKey, vaultsLP, vaultsList, sortDir]);
-
   chosenFarmsLength.current = chosenFarmsMemoized.length;
 
   const rowData = chosenFarmsMemoized.map((vault: IVault) => {
@@ -142,7 +142,7 @@ const Vaults: React.FC = () => {
     const row: RowProps = {
       apr: {
         apy: getDisplayApy(Number(vault.farm.apy)),
-        apr: getDisplayApy(Number(vault.farm.apr)),
+        apr: getDisplayApy(Number(vault.farm.apy)),
         multiplier: vault.farm.multiplier,
         vaultSymbol: vault.vault.symbol,
         lpLabel: vault.lpDetail.symbol,
@@ -219,7 +219,6 @@ const Vaults: React.FC = () => {
     );
   };
 
-  // console.log('userDataLoaded: ', userDataLoaded, 'dataLoaded: ', dataLoaded);
   return (
     <Page>
       {renderContent()}
