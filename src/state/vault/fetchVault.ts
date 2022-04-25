@@ -64,6 +64,13 @@ const fetch = async (
       ? (Number(wantLockedTotal) / Number(vaultTotalSupply)).toFixed(4)
       : '1';
 
+  const currentSeconds = Math.floor(Date.now() / 1000);
+  // 86400s/day
+  const data = Math.ceil((currentSeconds - vaultData.online_at) / 86400) - 1;
+  // state.data[index]?.online_at
+  const kacRewardsApr = (Number(lpToCLpRate) - 1) / data + 1;
+  const kacRewardApy = new BigNumber(kacRewardsApr).pow(365).times(100).minus(100).toFixed(2);
+
   const userData = vaultData?.farm?.userData ?? {};
   const _userDataKey = `${account}-${chainId}`;
   const _userData = userData[_userDataKey] ?? {
@@ -113,6 +120,8 @@ const fetch = async (
       liquidity: liquidity,
       lpTokenPrice: lpTokenPrice,
       lpAddressDecimals: lpAddressDecimals,
+      apr: `${kacRewardsApr}`,
+      apy: kacRewardApy,
       userData: {
         _userDataKey: {
           account: _userData.account,

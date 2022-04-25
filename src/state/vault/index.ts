@@ -12,6 +12,7 @@ import {
 } from './fetchVaultUser';
 import { haveNumber } from 'utils';
 import { chainId } from 'config/constants/tokens';
+import BigNumber from 'bignumber.js';
 const initialState: VaultState = {
   data: vaultsConfig.map((v: IVaultConfigItem) => {
     return {
@@ -146,6 +147,12 @@ export const vaultSlice = createSlice({
           vaultWantLockedTotal && userVaultSupply && Number(vaultWantLockedTotal) > 0 && Number(userVaultSupply) > 0
             ? (Number(vaultWantLockedTotal) / Number(userVaultSupply)).toFixed(4)
             : '1';
+        const currentSeconds = Math.floor(Date.now() / 1000);
+        // 86400s/day
+        const data = Math.ceil((currentSeconds - state.data[index]?.online_at) / 86400) - 1;
+        // state.data[index]?.online_at
+        const kacRewardsApr = (Number(lpToCLpRate) - 1) / data + 1;
+        const kacRewardApy = new BigNumber(kacRewardsApr).pow(365).times(100).minus(100).toFixed(2);
 
         state.data[index] = {
           ...state.data[index],
@@ -157,6 +164,8 @@ export const vaultSlice = createSlice({
           },
           farm: {
             ...state.data[index].farm,
+            apr: `${kacRewardsApr}`,
+            apy: kacRewardApy,
             userData: {
               ...state.data[index].farm.userData,
               [`${account}-${chainId}`]: userDataEl,

@@ -62,12 +62,12 @@ const Vaults: React.FC = () => {
           priceVsBusdMap[farm.quoteToken.toLocaleLowerCase()],
         );
 
-        const currentSeconds = Math.floor(Date.now() / 1000);
-        // 86400s/day
-        const data = Math.ceil((currentSeconds - vault.online_at) / 86400) - 1;
-        // vault.online_at
-        const kacRewardsApr = (Number(vault.vault.lpToCLpRate) - 1) / data + 1;
-        const kacRewardApy = new BigNumber(kacRewardsApr).pow(365).times(100).toFixed(2);
+        // const currentSeconds = Math.floor(Date.now() / 1000);
+        // // 86400s/day
+        // const data = Math.ceil((currentSeconds - vault.online_at) / 86400) - 1;
+        // // vault.online_at
+        // const kacRewardsApr = (Number(vault.vault.lpToCLpRate) - 1) / data + 1;
+        // const kacRewardApy = new BigNumber(kacRewardsApr).pow(365).times(100).minus(100).toFixed(2);
 
         return {
           ...vault,
@@ -76,10 +76,10 @@ const Vaults: React.FC = () => {
           },
           farm: {
             ...vault.farm,
-            apr: `${kacRewardsApr}`,
+            // apr: `${kacRewardsApr}`,
             lpRewardsApr: `0`,
             liquidity: totalLiquidity.toString(),
-            apy: `${kacRewardApy}`,
+            // apy: `${kacRewardApy}`,
           },
         };
       });
