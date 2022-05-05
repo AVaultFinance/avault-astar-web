@@ -219,7 +219,7 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
                     {tooltipVisible && tooltip}
                     <Flex alignItems="center" justifyContent="start">
                       <Text color="text" bold fontSize="15px">
-                        1 : {details.vault.lpToCLpRate}
+                        1:{`${Number(details.vault.lpToCLpRate).toFixed(4)}`}
                         {/* 1 {details.vault.symbol}={details.vault.lpToCLpRate} {details.lpDetail.symbol} */}
                       </Text>
                       <QuestionWrapper ref={targetRef}>
@@ -299,7 +299,7 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
             <Vault {...props.vault} />
           </CellLayout>
           <TextStyled>
-            1:{`${details.vault.lpToCLpRate}`}
+            1:{`${Number(details.vault.lpToCLpRate).toFixed(4)}`}
             {/* 1 {details.vault.symbol}={details.vault.lpToCLpRate} {details.lpDetail.symbol} */}
           </TextStyled>
         </td>

@@ -61,7 +61,7 @@ const fetch = async (
   // console.log(vault.lpDetail.symbol, lpAddresses, lpAddressDecimals);
   const lpToCLpRate =
     wantLockedTotal && vaultTotalSupply && wantLockedTotal > 0 && vaultTotalSupply > 0
-      ? (Number(wantLockedTotal) / Number(vaultTotalSupply)).toFixed(4)
+      ? (Number(wantLockedTotal) / Number(vaultTotalSupply)).toFixed(18)
       : '1';
 
   const currentSeconds = Math.floor(Date.now() / 1000);

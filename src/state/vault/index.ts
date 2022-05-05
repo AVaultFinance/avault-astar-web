@@ -145,7 +145,7 @@ export const vaultSlice = createSlice({
           : state.data[index]?.vault?.totalSupply;
         const lpToCLpRate =
           vaultWantLockedTotal && userVaultSupply && Number(vaultWantLockedTotal) > 0 && Number(userVaultSupply) > 0
-            ? (Number(vaultWantLockedTotal) / Number(userVaultSupply)).toFixed(4)
+            ? (Number(vaultWantLockedTotal) / Number(userVaultSupply)).toFixed(18)
             : '1';
         const currentSeconds = Math.floor(Date.now() / 1000);
         // 86400s/day

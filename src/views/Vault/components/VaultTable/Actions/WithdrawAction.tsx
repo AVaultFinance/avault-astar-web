@@ -89,6 +89,7 @@ const WithdrawAction: React.FunctionComponent<WithdrawActionProps> = ({
       let _amount = new BigNumber(val)
         .times(1 / Number(lpToCLpRate))
         .times(_rate)
+        .times(0.99999)
         .toString();
       if (Number(_amount) > Number(val)) {
         _amount = val;
