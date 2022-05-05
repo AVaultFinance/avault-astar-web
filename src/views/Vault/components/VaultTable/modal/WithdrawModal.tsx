@@ -69,10 +69,8 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
     setPendingTx(true);
     let result = null;
     try {
-      const _amount = new BigNumber(val)
-        .times(1 / Number(lpToCLpRate))
-        .times(0.99)
-        .toString();
+      // let _amount = new BigNumber(val).div(new BigNumber(lpToCLpRate)).times(_rate).times(0.99999).toString();
+      const _amount = new BigNumber(val).div(new BigNumber(lpToCLpRate)).times(0.99).toString();
       result = await onWithdraw(_amount);
       if (typeof result === 'boolean' && result) {
         dispatch(changeLoading());

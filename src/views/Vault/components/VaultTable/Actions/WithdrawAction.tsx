@@ -54,6 +54,7 @@ const WithdrawAction: React.FunctionComponent<WithdrawActionProps> = ({
   lpToCLpRate,
   index,
 }) => {
+  // const lpToCLpRate = '1.02819107614203074e+22';
   const { data: vaults } = useVault();
   const { toastSuccess, toastError } = useToast();
 
@@ -79,18 +80,14 @@ const WithdrawAction: React.FunctionComponent<WithdrawActionProps> = ({
   const handleSelectMax = useCallback(() => {
     setVal(fullBalance);
   }, [fullBalance, setVal]);
-
   const valNumber = new BigNumber(val);
   const fullBalanceNumber = new BigNumber(fullBalance);
   const handleWithdraw = useCallback(async () => {
     setPendingTx(true);
     let result = null;
     try {
-      let _amount = new BigNumber(val)
-        .times(1 / Number(lpToCLpRate))
-        .times(_rate)
-        .times(0.99999)
-        .toString();
+      let _amount = new BigNumber(val).div(new BigNumber(lpToCLpRate)).times(_rate).times(0.99999).toString();
+
       if (Number(_amount) > Number(val)) {
         _amount = val;
       }
