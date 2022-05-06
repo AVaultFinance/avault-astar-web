@@ -6,7 +6,8 @@ BigNumber.config({
   EXPONENTIAL_AT: 1000,
   DECIMAL_PLACES: 80,
 });
-export const chainKey: CHAINKEY = CHAINKEY.SDN;
+// change chain
+export const chainKey: CHAINKEY = CHAINKEY.ASTR;
 
 //  @ts-ignore
 export const BSC_BLOCK_TIME = chainKey === CHAINKEY.BSC ? 3 : chainKey === CHAINKEY.SDN ? 12 : 12;
