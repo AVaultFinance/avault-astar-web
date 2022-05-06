@@ -14,7 +14,7 @@ const StakeFr = () => {
   );
 };
 const UnbindListStyled = styled.div`
-  background-image: url('./images/StakeFr_bg.png');
+  background-image: url('/images/StakeFr_bg.png');
   background-color: ${({ theme }) => theme.colors.cardBackground};
 
   background-repeat: no-repeat;

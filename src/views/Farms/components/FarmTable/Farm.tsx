@@ -42,7 +42,7 @@ const TokenWrapper = styled.div`
   height: 47px;
   text-align: center;
 
-  background-image: url('./images/farm_img_bg.svg');
+  background-image: url('/images/farm_img_bg.svg');
   background-size: 100%;
   background-position: center;
   background-repeat: no-repeat;

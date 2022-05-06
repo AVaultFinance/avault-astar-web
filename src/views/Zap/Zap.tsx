@@ -156,16 +156,18 @@ const Zap = () => {
                 </TextCol>
 
                 <TextCol>
-                  <ZapCurrencyInputPanel
-                    currency={fromCurrency}
-                    otherCurrency={toCurrency}
-                    setCurrency={(currency: IToken) => {
-                      localStorage.setItem(zapLocalFromCurrency, JSON.stringify(currency));
-                      setVal('');
-                      setFromCurrency(currency);
-                    }}
-                    isTo={false}
-                  />
+                  {fromCurrency ? (
+                    <ZapCurrencyInputPanel
+                      currency={fromCurrency}
+                      otherCurrency={toCurrency}
+                      setCurrency={(currency: IToken) => {
+                        localStorage.setItem(zapLocalFromCurrency, JSON.stringify(currency));
+                        setVal('');
+                        setFromCurrency(currency);
+                      }}
+                      isTo={false}
+                    />
+                  ) : null}
                   <StyledInput
                     pattern={`^[0-9]*[.,]?[0-9]{0,8}$`}
                     inputMode="decimal"
@@ -184,16 +186,18 @@ const Zap = () => {
                 </TextCol>
 
                 <TextCol>
-                  <ZapCurrencyInputPanel
-                    currency={toCurrency}
-                    otherCurrency={fromCurrency}
-                    setCurrency={(currency: IToken) => {
-                      localStorage.setItem(zapLocalToCurrency, JSON.stringify(currency));
-                      setVal('');
-                      setToCurrency(currency);
-                    }}
-                    isTo={true}
-                  />
+                  {toCurrency ? (
+                    <ZapCurrencyInputPanel
+                      currency={toCurrency}
+                      otherCurrency={fromCurrency}
+                      setCurrency={(currency: IToken) => {
+                        localStorage.setItem(zapLocalToCurrency, JSON.stringify(currency));
+                        setVal('');
+                        setToCurrency(currency);
+                      }}
+                      isTo={true}
+                    />
+                  ) : null}
                   <HeadingStyled isSmall={EstimatedPrice === '0'} isLong={EstimatedPrice.length > 16}>
                     {EstimatedPrice}
                   </HeadingStyled>

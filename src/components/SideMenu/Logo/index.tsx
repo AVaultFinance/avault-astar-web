@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-const Logo: FC<{ collapsed: boolean }> = ({ collapsed }) => {
+const HeaderLogo: FC<{ collapsed: boolean }> = ({ collapsed }) => {
   return (
     <LogoStyle href="/">
       <img src={collapsed ? '/images/logo_small_beta.svg' : '/images/logo_beta.svg'} alt="" />
@@ -28,4 +28,4 @@ const LogoStyle = styled.a`
     }
   }
 `;
-export default Logo;
+export default HeaderLogo;

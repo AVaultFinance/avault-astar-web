@@ -39,11 +39,11 @@ BigNumber.config({
 });
 
 const App: React.FC = () => {
-  usePollBlockNumber();
-  useEagerConnect();
-  // useFetchProfile();
-  usePollCoreFarmData();
-  usePollVaultData();
+  // usePollBlockNumber();
+  // useEagerConnect();
+  // // useFetchProfile();
+  // usePollCoreFarmData();
+  // usePollVaultData();
   return (
     <Router history={history}>
       <ResetCSS />

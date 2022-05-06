@@ -29,6 +29,7 @@ const SideMenu: FC<{ className?: string }> = ({ className, children }) => {
       setCollapsed(false);
     }
   }, [isXs, isSm, isMd]);
+
   const hidenHeader = window.location.pathname === '/';
   return (
     <Wrapper className={className} collapsed={collapsed}>

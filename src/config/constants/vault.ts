@@ -23,7 +23,6 @@ const vault: IVaultConfigItem[] =
             decimals: 18,
           },
         },
-
         {
           contractAddress: {
             [ChainId.SDN_TESTNET]: '0xc5b8D0eC15984653A7554878eE9b4212EA059Fd2',
@@ -60,7 +59,6 @@ const vault: IVaultConfigItem[] =
             decimals: 18,
           },
         },
-
         {
           contractAddress: {
             [ChainId.SDN_TESTNET]: '0xCA9b609b7a0Bc46CcF744B2e0261B9Afd14f81C0',

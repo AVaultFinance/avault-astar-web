@@ -7,7 +7,7 @@ declare module 'styled-components' {
 }
 export const BgGlobalStyle = createGlobalStyle`
 body {
-  background-image: url('./images/stake/stake_bg_small.svg');
+  background-image: url('/images/stake/stake_bg_small.svg');
   background-size: 100%;
   background-position: center top;
   background-repeat: no-repeat;
@@ -25,18 +25,17 @@ body {
     }
   }
   ${({ theme }) => theme.mediaQueries.md} {
-    background-image: url('./images/stake/stake_bg.svg');
+    background-image: url('/images/stake/stake_bg.svg');
     background-position: center bottom;
   }
   &:before{
     content:"";
     width: 420px;
     height: 150px;
-    background-image: url('./images/stake/bg_element.svg');
+    background-image: url('/images/stake/bg_element.svg');
     background-size: 100%;
     position: absolute;
     background-repeat: no-repeat;
-    
   }
   &:before{
     top: 80px;
@@ -296,11 +295,14 @@ const GlobalStyle = createGlobalStyle`
   html {
     height: 100%;
   }
-  
+  ul,li{
+    list-style: none;
+  }
   body {
     height: 100%;
     background-color: ${({ theme }) => theme.colors.background02};
     padding: 0;
+    color: #fff;
     ${({ theme }) => theme.mediaQueries.md} {
       padding: 0 20px;
     }
