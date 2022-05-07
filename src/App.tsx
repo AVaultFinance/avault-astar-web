@@ -10,15 +10,12 @@ import { ToastListener } from './contexts/ToastsContext';
 import history from './routerHistory';
 import { PriceProvider } from './contexts/PriceProvider';
 import SideMenu from './components/SideMenu';
-import { usePollCoreFarmData } from 'state/farms/hooks';
-// import { usePollVaultData } from 'state/vault/hooks';
-import { usePollBlockNumber } from 'state/block/hooks';
+// import { usePollCoreFarmData } from 'state/farms/hooks';
+// import { usePollBlockNumber } from 'state/block/hooks';
 import PageLoader from 'components/Loader/PageLoader';
 import Unbind from 'views/Stake/Unbind';
-import useEagerConnect from 'hooks/useEagerConnect';
-import { usePollVaultData } from 'state/vault/hooks';
-// import { useFetchProfile } from 'state/profile/hooks';
-// import { usePollCoreFarmData } from './state/farms/hooks';
+// import useEagerConnect from 'hooks/useEagerConnect';
+// import { usePollVaultData } from 'state/vault/hooks';
 
 // Route-based code splitting
 // Only pool is included in the main bundle because of it's the most visited page

@@ -22,7 +22,7 @@ const partnersArr = [
 const HomePartners = () => {
   return (
     <HomePartnersStyled>
-      <ul>
+      <ul className="animate animate__animated" data-animate="animate__show">
         {partnersArr.map((v, index) => {
           return (
             <li key={index}>
@@ -44,6 +44,12 @@ const HomePartnersStyled = styled(Flex)`
   ${({ theme }) => theme.mediaQueries.xl} {
     padding: 0;
   }
+  .animate__show {
+    li {
+      animation: slide-up 1s ease-in-out;
+      animation-fill-mode: forwards;
+    }
+  }
   h2 {
     font-size: 80px;
   }
@@ -53,6 +59,7 @@ const HomePartnersStyled = styled(Flex)`
     overflow: hidden;
     margin: 200px 0 170px;
     li {
+      opacity: 0;
       float: left;
       width: 320px;
       height: 120px;

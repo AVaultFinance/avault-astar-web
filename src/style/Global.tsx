@@ -6,6 +6,7 @@ declare module 'styled-components' {
   export interface DefaultTheme extends PancakeTheme {}
 }
 export const BgGlobalStyle = createGlobalStyle`
+
 body {
   background-image: url('/images/stake/stake_bg_small.svg');
   background-size: 100%;
@@ -52,6 +53,36 @@ body {
 }
 `;
 const GlobalStyle = createGlobalStyle`
+@keyframes slide-up {
+  0% {
+    opacity: 0;
+    transform: translate(0, 54px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+@keyframes slide-left {
+  0% {
+    opacity: 0;
+    transform: translate(-54px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+@keyframes slide-right {
+  0% {
+    opacity: 0;
+    transform: translate(54px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
 @font-face {
   font-family: 'Poppins';
   font-style: normal;

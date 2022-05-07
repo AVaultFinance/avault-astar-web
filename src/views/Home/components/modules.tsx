@@ -30,7 +30,7 @@ const HomeModules = () => {
     <HomeModulesStyled>
       <HomeModulesStyledInner>
         <h2>Main Modules</h2>
-        <ul>
+        <ul className="animate animate__animated" data-animate="animate__show">
           {modulesArr.map((v) => {
             return (
               <li key={v.logo} className="animate animate__animated" data-animate="animate__fadeInUp">
@@ -71,6 +71,29 @@ const HomeModulesStyled = styled.div`
   //   top: 126px;
   //   right: 0;
   // }
+  .animate__show {
+    li {
+      &:nth-child(1) {
+        animation: slide-left 1s ease-in-out;
+        animation-fill-mode: forwards;
+      }
+      &:nth-child(2) {
+        animation: slide-right 0.4s ease-in-out;
+        animation-fill-mode: forwards;
+        animation-delay: 0.5s;
+      }
+      &:nth-child(3) {
+        animation: slide-left 0.4s ease-in-out;
+        animation-fill-mode: forwards;
+        animation-delay: 1s;
+      }
+      &:nth-child(4) {
+        animation: slide-right 0.4s ease-in-out;
+        animation-fill-mode: forwards;
+        animation-delay: 1.5s;
+      }
+    }
+  }
   h2 {
     font-size: 80px;
     text-align: center;
@@ -81,9 +104,10 @@ const HomeModulesStyled = styled.div`
   ul {
     // text-align: center;
     clear: both;
-    overflow: hidden;
     padding-bottom: 200px;
+    height: 760px;
     li {
+      opacity: 0;
       display: flex;
       justify-content: space-between;
       align-items: center;

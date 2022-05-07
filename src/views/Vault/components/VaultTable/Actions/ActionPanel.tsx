@@ -19,7 +19,6 @@ import { useVault, useVaultFarmUser } from 'state/vault/hooks';
 import useAuth from 'hooks/useAuth';
 import { chainId } from 'config/constants/tokens';
 import { changeLoading, fetchVaultFarmUserDataAsync } from 'state/vault';
-import { BASE_BSC_SCAN_URL } from 'config';
 import { useSpecialApproveFarm } from 'views/Vault/hooks/useApproveFarm';
 import { getDisplayApy } from 'views/Farms/Farms';
 import useToast from 'hooks/useToast';
@@ -27,6 +26,7 @@ import { InfoContainer } from 'style/TableStyled';
 import { showDecimals } from 'views/Vault/utils';
 import AddLiquidityModal from '../modal/AddLiquidityModal';
 import RemoveLiquidityModal from '../modal/RemoveLiquidityModal';
+import { getBscScanLink } from 'utils';
 // import { registerToken } from 'utils/wallet';
 export interface ActionPanelProps {
   apr: AprProps;
@@ -291,7 +291,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
         >
           Remove Liquidity
         </StyledLinkExternal>
-        <StyledLinkExternal href={`${BASE_BSC_SCAN_URL}/address/${vault.contractAddress[chainId]}`}>
+        <StyledLinkExternal href={`${getBscScanLink(vault.contractAddress[chainId], 'token')}`}>
           {t('View Contract')}
         </StyledLinkExternal>
         {/* 
@@ -346,8 +346,8 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
           <StyledLinkExternal hideIcon={true} onClick={onRemoveLiquidity}>
             Remove Liquidity
           </StyledLinkExternal>
-          <StyledLinkExternal href={`${BASE_BSC_SCAN_URL}/address/${vault.contractAddress[chainId]}`}>
-            View Contract
+          <StyledLinkExternal href={`${getBscScanLink(vault.contractAddress[chainId], 'token')}`}>
+            {t('View Contract')}
           </StyledLinkExternal>
         </InfoContainerSmall>
       </DetailContainer>

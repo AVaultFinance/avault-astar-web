@@ -5,7 +5,6 @@ import { JsonRpcSigner, Web3Provider } from '@ethersproject/providers';
 import { BigNumber } from '@ethersproject/bignumber';
 import { abi as IUniswapV2Router02ABI } from '@uniswap/v2-periphery/build/IUniswapV2Router02.json';
 import { JSBI, Percent, Token, CurrencyAmount, Currency, ETHER, CHAINKEY } from '@my/sdk';
-import { ChainId } from '@my/sdk';
 import { ROUTER_ADDRESS } from '../config/constants';
 import { BASE_BSC_SCAN_URL, chainKey } from '../config';
 import { TokenAddressMap } from '../state/lists/hooks';
@@ -59,6 +58,9 @@ export function getBscScanLink(
       return `${BASE_BSC_SCAN_URL}/block/countdown/${data}`;
     }
     default: {
+      if (chainKey === CHAINKEY.SDN) {
+        return `${BASE_BSC_SCAN_URL}/erc20_token/${data}`;
+      }
       return `${BASE_BSC_SCAN_URL}/address/${data}`;
     }
   }

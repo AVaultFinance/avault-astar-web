@@ -1,21 +1,25 @@
 import styled, { keyframes } from 'styled-components';
+
 const Banner = () => {
   return (
-    <BannerStyled>
+    <BannerStyled className="animate animate__animated" data-animate="animate__show">
       <div className="img">
         <img src="./images/home/banner_avat.svg" alt="banner_avat" />
         <img src="./images/home/banner_astr.svg" alt="banner_astr" />
         <div className="bg"></div>
       </div>
-      <h1>Avault</h1>
-      <p>
-        The Best Yield Aggregator on Astar Network
-        <br />
-        Compounding your revenue and unlocking your asset liquidity by using aLP/aToken
-      </p>
+      <div>
+        <h1>Avault</h1>
+        <p>
+          The Best Yield Aggregator on Astar Network
+          <br />
+          Compounding your revenue and unlocking your asset liquidity by using aLP/aToken
+        </p>
+      </div>
     </BannerStyled>
   );
 };
+
 const floatingAnim = (x: string, y: string) => keyframes`
   from {
     transform: translate(0,  0px);
@@ -27,6 +31,7 @@ const floatingAnim = (x: string, y: string) => keyframes`
     transform: translate(0, 0px);
   }
 `;
+
 const BannerStyled = styled.div`
   padding: 270px 20px 300px;
   max-width: 1208px;
@@ -35,6 +40,17 @@ const BannerStyled = styled.div`
   ${({ theme }) => theme.mediaQueries.xl} {
     padding: 270px 0 300px;
   }
+  &.animate__show {
+    h1 {
+      animation: slide-up 0.4s ease-in-out;
+      animation-fill-mode: forwards;
+    }
+    p {
+      animation: slide-up 0.4s ease-in-out;
+      animation-delay: 0.4s;
+      animation-fill-mode: forwards;
+    }
+  }
   h1 {
     font-size: 96px;
     background: linear-gradient(90deg, #ffd8fe 0%, #c5fff1 100%);
@@ -42,12 +58,14 @@ const BannerStyled = styled.div`
     color: transparent;
     display: inline-block;
     padding-bottom: 30px;
+    opacity: 0;
   }
   p {
     font-size: 20px;
     color: #ffffff;
     line-height: 32px;
     max-width: 522px;
+    opacity: 0;
   }
   .img {
     width: 600px;

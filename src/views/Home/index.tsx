@@ -15,27 +15,28 @@ export const Link = [
   { name: 'Medium', link: 'https://medium.com/@avault ' },
   { name: 'doc', link: 'https://co-go.gitbook.io/avault/ ' },
 ];
+
 const Home = () => {
   const [collapsed, setCollapsed] = useState(false);
   const { isXs, isSm, isMd } = useMatchBreakpoints();
-
-  // useEffect(() => {
-  //   doScroll();
-  //   window.addEventListener('scroll', doScroll,);
-  //   return () => window.removeEventListener('scroll', doScroll);
-  // }, []);
-  // const doScroll = () => {
-  //   const animates: NodeListOf<Element> = document.querySelectorAll('.animate');
-  //   for (const dom of animates as any) {
-  //     const top = dom.offsetTop;
-  //     const scrollTop = window.scrollY;
-  //     const innerHeight = window.innerHeight;
-  //     if (scrollTop + innerHeight - innerHeight / 10 > top) {
-  //       console.log(scrollTop + innerHeight - innerHeight / 10, top);
-  //       dom.className = dom.className.replace('animate', dom.dataset.animate);
-  //     }
-  //   }
-  // };
+  useEffect(() => {
+    doScroll();
+    window.addEventListener('scroll', doScroll);
+    return () => window.removeEventListener('scroll', doScroll);
+    // eslint-disable-next-line
+  }, []);
+  const doScroll = () => {
+    const animates: NodeListOf<Element> = document.querySelectorAll('.animate');
+    for (const dom of animates as any) {
+      const top = dom.offsetTop;
+      const scrollTop = window.scrollY;
+      const innerHeight = window.innerHeight;
+      if (scrollTop + innerHeight - innerHeight / 10 > top) {
+        console.log(scrollTop + innerHeight - innerHeight / 10, top);
+        dom.className = dom.className.replace('animate', dom.dataset.animate);
+      }
+    }
+  };
 
   useEffect(() => {
     if ([isXs, isSm, isMd].some(Boolean)) {

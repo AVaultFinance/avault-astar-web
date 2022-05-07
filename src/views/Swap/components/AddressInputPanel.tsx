@@ -99,7 +99,7 @@ export default function AddressInputPanel({
             <RowBetween>
               <Text>{t('Recipient')}</Text>
               {/* {address && chainId && (
-                <Link external small href={getBscScanLink(name ?? address, 'address', chainId)}>
+                <Link external small href={getBscScanLink(name ?? address, 'address')}>
                   (View on Block browser)
                 </Link>
               )} */}

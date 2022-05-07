@@ -63,7 +63,7 @@ const avaultArr: IVaultConfigItem[] = [
 ];
 const HomeTvl = () => {
   return (
-    <HomeTvlStyled>
+    <HomeTvlStyled className="animate animate__animated" data-animate="animate__show">
       <div className="text">
         <h2>0.00+</h2>
         <h3>AVAT TVL Amount</h3>
@@ -94,12 +94,33 @@ const HomeTvl = () => {
     </HomeTvlStyled>
   );
 };
+
 const HomeTvlStyled = styled.div`
   padding: 130px 20px 0;
   max-width: 1208px;
   margin: 0 auto;
   ${({ theme }) => theme.mediaQueries.xl} {
     padding: 130px 0 0;
+  }
+  &.animate__show {
+    ul {
+      li {
+        &:nth-child(1) {
+          animation: slide-up 1s ease-in-out;
+          animation-fill-mode: forwards;
+        }
+        &:nth-child(2) {
+          animation: slide-up 0.4s ease-in-out;
+          animation-fill-mode: forwards;
+          animation-delay: 0.4s;
+        }
+        &:nth-child(3) {
+          animation: slide-up 0.4s ease-in-out;
+          animation-fill-mode: forwards;
+          animation-delay: 1s;
+        }
+      }
+    }
   }
   //
   .text {
@@ -117,6 +138,7 @@ const HomeTvlStyled = styled.div`
     height: 108px;
     margin-bottom: 150px;
     li {
+      opacity: 0;
       display: flex;
       justify-content: space-between;
       align-items: center;

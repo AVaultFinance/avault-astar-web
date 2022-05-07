@@ -78,7 +78,7 @@ function TransactionSubmittedContent({
       <AutoColumn gap="12px" justify="center">
         <Text fontSize="14px">{t('Transaction Submitted')}</Text>
         {/* {chainId && hash && (
-          <Link external small href={getBscScanLink(hash, 'transaction', chainId)}>
+          <Link external small href={getBscScanLink(hash, 'transaction')}>
             View on Block browser
           </Link>
         )} */}
