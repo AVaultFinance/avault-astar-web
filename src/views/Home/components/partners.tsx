@@ -40,6 +40,10 @@ const HomePartnersStyled = styled(Flex)`
   margin: 0 auto;
   justify-content: space-between;
   align-items: center;
+  padding: 0 20px;
+  ${({ theme }) => theme.mediaQueries.xl} {
+    padding: 0;
+  }
   h2 {
     font-size: 80px;
   }

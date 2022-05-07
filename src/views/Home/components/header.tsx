@@ -28,11 +28,14 @@ const HomeHeader = ({ collapsed }: IProps) => {
 };
 export default HomeHeader;
 const HomeHeaderStyled = styled(Flex)`
-  padding: 40px 0;
+  padding: 40px 20px;
   max-width: 1208px;
   margin: 0 auto;
   align-content: center;
   justify-content: space-between;
+  ${({ theme }) => theme.mediaQueries.xl} {
+    padding: 40px 0;
+  }
   .fr {
     display: flex;
     align-content: center;

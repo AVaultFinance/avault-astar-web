@@ -7,10 +7,8 @@ const Banner = () => {
         <img src="./images/home/banner_astr.svg" alt="banner_astr" />
         <div className="bg"></div>
       </div>
-      <h1 className="animate animate__animated" data-animate="animate__fadeInUp">
-        Avault
-      </h1>
-      <p className="animate animate__animated" data-animate="animate__fadeInUp">
+      <h1>Avault</h1>
+      <p>
         The Best Yield Aggregator on Astar Network
         <br />
         Compounding your revenue and unlocking your asset liquidity by using aLP/aToken
@@ -30,10 +28,13 @@ const floatingAnim = (x: string, y: string) => keyframes`
   }
 `;
 const BannerStyled = styled.div`
-  padding: 270px 0 300px;
+  padding: 270px 20px 300px;
   max-width: 1208px;
   margin: 0 auto;
   position: relative;
+  ${({ theme }) => theme.mediaQueries.xl} {
+    padding: 270px 0 300px;
+  }
   h1 {
     font-size: 96px;
     background: linear-gradient(90deg, #ffd8fe 0%, #c5fff1 100%);

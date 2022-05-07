@@ -171,7 +171,7 @@ export const main_tokens = {
       [ChainId.SDN_MAINNET]: '0x0f933Dc137D21cA519ae4C7E93f87a4C8EF365Ef',
       [ChainId.SDN_TESTNET]: '0x0f933Dc137D21cA519ae4C7E93f87a4C8EF365Ef',
     },
-    projectLink: 'https://blockscout.com/shiden/',
+    projectLink: 'https://shiden.subscan.io/',
   },
   bnb: {
     symbol: 'BNB',

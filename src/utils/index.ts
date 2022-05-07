@@ -4,7 +4,7 @@ import { AddressZero } from '@ethersproject/constants';
 import { JsonRpcSigner, Web3Provider } from '@ethersproject/providers';
 import { BigNumber } from '@ethersproject/bignumber';
 import { abi as IUniswapV2Router02ABI } from '@uniswap/v2-periphery/build/IUniswapV2Router02.json';
-import { JSBI, Percent, Token, CurrencyAmount, Currency, ETHER } from '@my/sdk';
+import { JSBI, Percent, Token, CurrencyAmount, Currency, ETHER, CHAINKEY } from '@my/sdk';
 import { ChainId } from '@my/sdk';
 import { ROUTER_ADDRESS } from '../config/constants';
 import { BASE_BSC_SCAN_URL, chainKey } from '../config';
@@ -38,13 +38,18 @@ export function isAddress(value: any): string | false {
 export function getBscScanLink(
   data: string | number,
   type: 'transaction' | 'token' | 'address' | 'block' | 'countdown',
-  chainId: ChainId = ChainId.BSC_MAINNET,
 ): string {
   switch (type) {
     case 'transaction': {
+      if (chainKey === CHAINKEY.SDN) {
+        return `${BASE_BSC_SCAN_URL}/extrinsic/${data}`;
+      }
       return `${BASE_BSC_SCAN_URL}/tx/${data}`;
     }
     case 'token': {
+      if (chainKey === CHAINKEY.SDN) {
+        return `${BASE_BSC_SCAN_URL}/erc20_token/${data}`;
+      }
       return `${BASE_BSC_SCAN_URL}/token/${data}`;
     }
     case 'block': {

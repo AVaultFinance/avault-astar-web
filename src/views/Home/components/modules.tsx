@@ -54,6 +54,10 @@ const HomeModulesStyledInner = styled.div`
   background-size: 420px;
   background-position: right 120px;
   margin: 0 auto;
+  padding: 0 20px;
+  ${({ theme }) => theme.mediaQueries.xl} {
+    padding: 0;
+  }
 `;
 const HomeModulesStyled = styled.div`
   background-image: url('/images/home/modules_bg.webp');

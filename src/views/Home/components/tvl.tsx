@@ -95,9 +95,12 @@ const HomeTvl = () => {
   );
 };
 const HomeTvlStyled = styled.div`
-  padding: 130px 0 0;
+  padding: 130px 20px 0;
   max-width: 1208px;
   margin: 0 auto;
+  ${({ theme }) => theme.mediaQueries.xl} {
+    padding: 130px 0 0;
+  }
   //
   .text {
     h2 {
