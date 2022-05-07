@@ -10,11 +10,11 @@ const Banner = () => {
       </div>
       <div>
         <h1>Avault</h1>
-        <p>
-          The Best Yield Aggregator on Astar Network
-          <br />
-          Compounding your revenue and unlocking your asset liquidity by using aLP/aToken
-        </p>
+        <h2>
+          The Best Yield Aggregator <br />
+          on Astar Network
+        </h2>
+        <p>Compounding your revenue and unlocking your asset liquidity by using aLP/aToken</p>
       </div>
     </BannerStyled>
   );
@@ -44,20 +44,25 @@ const BannerStyled = styled.div`
     padding: 150px 20px 200px;
   }
   ${({ theme }) => theme.mediaQueries.lg} {
-    padding: 270px 20px 300px;
+    padding: 260px 20px 300px;
   }
   ${({ theme }) => theme.mediaQueries.xl} {
-    padding: 270px 0 300px;
+    padding: 260px 0 300px;
   }
   &.animate__show {
     h1 {
       animation: slide-up 0.4s ease-in-out;
       animation-fill-mode: forwards;
     }
+    h2 {
+      animation: slide-up 0.4s ease-in-out;
+      animation-fill-mode: forwards;
+      animation-delay: 0.4s;
+    }
     p {
       animation: slide-up 0.4s ease-in-out;
-      animation-delay: 0.4s;
       animation-fill-mode: forwards;
+      animation-delay: 0.8s;
     }
   }
   h1 {
@@ -74,6 +79,21 @@ const BannerStyled = styled.div`
     }
     ${({ theme }) => theme.mediaQueries.md} {
       font-size: 96px;
+    }
+  }
+  h2 {
+    opacity: 0;
+    width: 560px;
+    background-image: linear-gradient(90deg, #a428d0 0%, rgba(78, 153, 182, 0.15) 72%, rgba(32, 212, 169, 0) 100%);
+    border-radius: 20px;
+    padding: 19px 60px 19px 30px;
+    line-height: 26px;
+    font-size: 22px;
+    margin-bottom: 40px;
+
+    ${({ theme }) => theme.mediaQueries.md} {
+      font-size: 30px;
+      line-height: 37px;
     }
   }
   p {

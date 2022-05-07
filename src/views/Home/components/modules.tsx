@@ -67,10 +67,10 @@ const HomeModulesStyledInner = styled.div`
 const HomeModulesStyled = styled.div`
   background-image: url('/images/home/modules_bg.webp');
   background-size: 100% 120%;
-  background-position: center;
+  background-position: top center;
   background-repeat: no-repeat;
   ${({ theme }) => theme.mediaQueries.md} {
-    background-size: 100%;
+    background-size: 100% 138%;
   }
   .animate__show {
     li {
@@ -107,9 +107,9 @@ const HomeModulesStyled = styled.div`
     }
   }
   ul {
-    // text-align: center;
     padding-bottom: 80px;
     clear: both;
+    max-width: 1200px;
     ${({ theme }) => theme.mediaQueries.md} {
       height: 760px;
       padding-bottom: 200px;
@@ -132,11 +132,10 @@ const HomeModulesStyled = styled.div`
       background-repeat: no-repeat;
       color: #fff;
       ${({ theme }) => theme.mediaQueries.md} {
-        // display: flex;
         margin-top: 40px;
         padding: 30px;
         justify-content: space-between;
-        width: 46%;
+        width: 48.3%;
         background-image: radial-gradient(circle at 50% 0%, #040222 0%, #040222 100%);
         background-position: 0 -120px;
         height: 240px;

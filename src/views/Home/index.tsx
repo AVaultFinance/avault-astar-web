@@ -53,6 +53,7 @@ const Home = () => {
       <Banner />
       <Line />
       <HomeTvl />
+      <Line />
       <HomeModules />
       <HomePartners />
       <Line />

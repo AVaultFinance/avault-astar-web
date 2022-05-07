@@ -356,15 +356,15 @@ const GlobalStyle = createGlobalStyle`
 .back-top {
   position: fixed;
   bottom: 64px;
-  right: 10px;
-  width: 40px;
-  height: 40px;
+  right: 30px;
+  width: 30px;
+  height: 30px;
 
 }
 .back-top-icon {
       display: inline-block;
-      width: 40px;
-      height: 40px;
+      width: 30px;
+      height: 30px;
       background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAMAAAC5zwKfAAAAM1BMVEUAAADx8fEAAADo6OgAAAAAAADNzc39/f37+/vd3d21tbWYmJhERET39/fq6upxcXH///+E7V3/AAAAEHRSTlMmwACoGQ958+aRX0wx160938kFbQAAAPJJREFUWMPt2UuugzAQRNECbPM3vf/VvpdE+ZBWIitVwz4LKIF0mTTor3ICKeXbEq5zkMj3wQSRdBl0e+Qi3PtS8v8gpHpkSGUkSCWET9Z9hdIy2rhAp9hFgcpsNzM0qt1VCGydPXUbWMdur/aDzWWys2llc3k3LmQuXiFz8WYyF6+SuXjdxuXi7Qebi7l8yFy4fIq1KEQuXD7VWlU6F58Pm4vPh83F58Pm4vMhc/FKey5kPoP9amjLhcynDGeTfTMNZw2fYff9kfAmBmMwBmMwBmMwBmMwBl8Hw0MSz+lPpj2k5Gdn9WFcf7rX/1yQ//74A251bnrBUaCPAAAAAElFTkSuQmCC) no-repeat;
       background-size: 100% 100%;
   }

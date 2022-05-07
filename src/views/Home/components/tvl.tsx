@@ -108,10 +108,10 @@ const HomeTvlStyled = styled.div`
   border-bottom: 1px solid #2e2d5b;
   ${({ theme }) => theme.mediaQueries.md} {
     border-bottom: none;
-    padding: 130px 20px 0;
+    padding: 200px 20px 0;
   }
   ${({ theme }) => theme.mediaQueries.xl} {
-    padding: 130px 0 0;
+    padding: 200px 0 0;
   }
   &.animate__show {
     ul {
@@ -168,7 +168,7 @@ const HomeTvlStyled = styled.div`
       width: 100%;
       height: 108px;
       margin-top: 110px;
-      margin-bottom: 150px;
+      margin-bottom: 200px;
     }
     li {
       opacity: 0;
