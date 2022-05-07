@@ -1,4 +1,5 @@
 import { useMatchBreakpoints } from '@my/ui';
+import BackTop from 'components/BackTop';
 import { useEffect, useState } from 'react';
 import HomeGlobalStyle from 'style/HomeGlobal';
 import styled from 'styled-components';
@@ -32,7 +33,6 @@ const Home = () => {
       const scrollTop = window.scrollY;
       const innerHeight = window.innerHeight;
       if (scrollTop + innerHeight - innerHeight / 10 > top) {
-        console.log(scrollTop + innerHeight - innerHeight / 10, top);
         dom.className = dom.className.replace('animate', dom.dataset.animate);
       }
     }
@@ -57,14 +57,15 @@ const Home = () => {
       <HomePartners />
       <Line />
       <HomeFooter collapsed={collapsed} />
+      <BackTop />
     </Bg>
   );
 };
 const Bg = styled.div`
   background-image: url('/images/home/bannerBg.png');
   background-position: center top;
-  background-size: 100%;
   background-repeat: no-repeat;
+  background-size: 100%;
   max-width: 100vw;
   overflow: hidden;
 `;

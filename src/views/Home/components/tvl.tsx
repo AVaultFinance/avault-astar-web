@@ -68,37 +68,48 @@ const HomeTvl = () => {
         <h2>0.00+</h2>
         <h3>AVAT TVL Amount</h3>
       </div>
-      <ul>
-        {avaultArr.map((v: IVaultConfigItem) => {
-          return (
-            <li key={v.contractAddress[chainId]} className="animate animate__animated" data-animate="animate__fadeInUp">
-              <TokenPairImage
-                variant="inverted"
-                primaryToken={'0x3bfcae71e7d5ebc1e18313cecebcad8239aa386c'}
-                secondaryToken={'0x65e66a61d0a8f1e686c2d6083ad611a10d84d97a'}
-                width={60}
-                height={60}
-              />
-              <div className="flex-middle">
-                <h3>{v.lpDetail.symbol}</h3>
-                <h4>{v.fromSource}</h4>
-              </div>
-              <ButtonStyled>
-                0.00%
-                <i>APY</i>
-              </ButtonStyled>
-            </li>
-          );
-        })}
-      </ul>
+      <div className="scroll">
+        <ul>
+          {avaultArr.map((v: IVaultConfigItem) => {
+            return (
+              <li
+                key={v.contractAddress[chainId]}
+                className="animate animate__animated"
+                data-animate="animate__fadeInUp"
+              >
+                <TokenPairImage
+                  variant="inverted"
+                  primaryToken={'0x3bfcae71e7d5ebc1e18313cecebcad8239aa386c'}
+                  secondaryToken={'0x65e66a61d0a8f1e686c2d6083ad611a10d84d97a'}
+                  width={60}
+                  height={60}
+                />
+                <div className="flex-middle">
+                  <h3>{v.lpDetail.symbol}</h3>
+                  <h4>{v.fromSource}</h4>
+                </div>
+                <ButtonStyled>
+                  0.00%
+                  <i>APY</i>
+                </ButtonStyled>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
     </HomeTvlStyled>
   );
 };
 
 const HomeTvlStyled = styled.div`
-  padding: 130px 20px 0;
+  padding: 60px 0 0;
   max-width: 1208px;
   margin: 0 auto;
+  border-bottom: 1px solid #2e2d5b;
+  ${({ theme }) => theme.mediaQueries.md} {
+    border-bottom: none;
+    padding: 130px 20px 0;
+  }
   ${({ theme }) => theme.mediaQueries.xl} {
     padding: 130px 0 0;
   }
@@ -124,56 +135,96 @@ const HomeTvlStyled = styled.div`
   }
   //
   .text {
+    padding: 0 40px;
     h2 {
-      font-size: 80px;
-      padding-bottom: 8px;
+      font-size: 48px;
+      padding-bottom: 12px;
+      ${({ theme }) => theme.mediaQueries.md} {
+        font-size: 80px;
+        padding-bottom: 8px;
+      }
     }
     h3 {
-      font-size: 20px;
+      font-size: 16px;
+      ${({ theme }) => theme.mediaQueries.md} {
+        font-size: 20px;
+      }
+    }
+  }
+  .scroll {
+    overflow-x: auto;
+    padding-left: 20px;
+    ${({ theme }) => theme.mediaQueries.md} {
+      overflow-x: inherit;
+      padding-left: 0;
     }
   }
   ul {
-    // position: relative;
-    margin-top: 110px;
-    height: 108px;
-    margin-bottom: 150px;
+    height: 180px;
+    margin-top: 40px;
+    margin-bottom: 60px;
+    width: 770px;
+    ${({ theme }) => theme.mediaQueries.md} {
+      width: 100%;
+      height: 108px;
+      margin-top: 110px;
+      margin-bottom: 150px;
+    }
     li {
       opacity: 0;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0 30px;
-      width: 480px;
-      height: 108px;
+      padding: 0 20px;
+      width: 240px;
+      height: 180px;
       background: #030222;
       border: 1px solid #2e2d5b;
       box-shadow: 0 10px 20px 5px rgba(0, 0, 0, 0.03);
       border-radius: 20px;
       transition: all 0.2s ease;
-      background-image: radial-gradient(circle at 50% 0%, #040222 0%, #040222 100%);
-      background-position: 0 -120px;
       background-repeat: no-repeat;
-      float: right;
-      &:hover {
-        background-image: radial-gradient(circle at 50% 0%, #3e255b 0%, #040222 100%);
-        background-position: 0 0;
+      float: left;
+      background-image: radial-gradient(circle at 50% 0%, #3e255b 0%, #181733 100%);
+      background-position: 0 0;
+      margin-right: 12px;
+      flex-wrap: wrap;
+      ${({ theme }) => theme.mediaQueries.md} {
+        float: right;
+        width: 480px;
+        height: 108px;
+        background-image: radial-gradient(circle at 50% 0%, #040222 0%, #040222 100%);
+        background-position: 0 -120px;
+        padding: 0 30px;
       }
-      &:nth-child(1) {
-        margin-top: -160px;
-        margin-right: 160px;
-      }
-
-      &:nth-child(2) {
-        // margin-left: 180px;
-      }
-      &:nth-child(3) {
-        margin-right: 60px;
+      ${({ theme }) => theme.mediaQueries.md} {
+        &:hover {
+          background-image: radial-gradient(circle at 50% 0%, #3e255b 0%, #040222 100%);
+          background-position: 0 0;
+        }
+        &:nth-child(1) {
+          margin-top: -160px;
+          margin-right: 160px;
+        }
+        &:nth-child(2) {
+          margin-right: 0;
+        }
+        &:nth-child(3) {
+          margin-right: 60px;
+        }
       }
       .flex-middle {
-        margin-left: 12px;
-        flex: 2;
+        width: 60%;
+        display: line-block;
+        ${({ theme }) => theme.mediaQueries.md} {
+          margin-left: 12px;
+          flex: 2;
+        }
         h3 {
-          font-size: 20px;
+          font-size: 16px;
+          ${({ theme }) => theme.mediaQueries.md} {
+            font-size: 20px;
+          }
         }
         h4 {
           font-size: 14px;
@@ -188,6 +239,10 @@ const HomeTvlStyled = styled.div`
 const ButtonStyled = styled(Button)`
   font-size: 20px;
   background-image: linear-gradient(90deg, #a428d0 0%, #20d4a9 100%);
+  margin-top: -40px;
+  ${({ theme }) => theme.mediaQueries.md} {
+    margin-top: 0;
+  }
   i {
     font-size: 12px;
     font-style: normal;

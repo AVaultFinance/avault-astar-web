@@ -17,19 +17,45 @@ const HomeFooter = ({ collapsed }: IProps) => {
           </li>
         ))}
       </UlStyled>
-      <HeaderLogo collapsed={collapsed} />
+      <p className="footer-text">C 2022 AVAULT Fin Corporation</p>
+      <div className="footer-logo">
+        <HeaderLogo collapsed={collapsed} />
+      </div>
     </HomeFooterStyled>
   );
 };
 const HomeFooterStyled = styled(Flex)`
-  max-width: 1208px;
-  margin: 0 auto;
-  align-content: center;
-  justify-content: space-between;
-  padding: 85px 0 65px;
+  display: block;
+  padding: 40px 0 60px;
+  ${({ theme }) => theme.mediaQueries.md} {
+    max-width: 1208px;
+    margin: 0 auto;
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+    padding: 85px 0 65px;
+  }
+  .footer-logo {
+    display: none;
+    ${({ theme }) => theme.mediaQueries.md} {
+      display: block;
+    }
+  }
+  .footer-text {
+    display: block;
+    font-size: 14px;
+    color: #6a6991;
+    font-weight: 500;
+    padding-top: 20px;
+    text-align: center;
+    ${({ theme }) => theme.mediaQueries.md} {
+      display: none;
+    }
+  }
 `;
 const UlStyled = styled.ul`
   list-style: none;
+  text-align: center;
   li {
     margin: 0 10px;
     display: inline-block;

@@ -28,11 +28,14 @@ const HomeHeader = ({ collapsed }: IProps) => {
 };
 export default HomeHeader;
 const HomeHeaderStyled = styled(Flex)`
-  padding: 40px 20px;
+  padding: 20px 20px;
   max-width: 1208px;
   margin: 0 auto;
   align-content: center;
   justify-content: space-between;
+  ${({ theme }) => theme.mediaQueries.sm} {
+    padding: 40px 20px;
+  }
   ${({ theme }) => theme.mediaQueries.xl} {
     padding: 40px 0;
   }
@@ -62,8 +65,12 @@ const ButtonStyled = styled(Button)`
 `;
 
 const UlStyled = styled.ul`
+  display: none;
   list-style: none;
   margin-right: 40px;
+  ${({ theme }) => theme.mediaQueries.md} {
+    display: block;
+  }
   li {
     margin: 0 10px;
     display: inline-block;

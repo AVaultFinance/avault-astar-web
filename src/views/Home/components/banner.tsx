@@ -33,10 +33,19 @@ const floatingAnim = (x: string, y: string) => keyframes`
 `;
 
 const BannerStyled = styled.div`
-  padding: 270px 20px 300px;
+  padding: 430px 30px 60px;
   max-width: 1208px;
   margin: 0 auto;
   position: relative;
+  ${({ theme }) => theme.mediaQueries.sm} {
+    padding: 100px 20px 200px;
+  }
+  ${({ theme }) => theme.mediaQueries.md} {
+    padding: 150px 20px 200px;
+  }
+  ${({ theme }) => theme.mediaQueries.lg} {
+    padding: 270px 20px 300px;
+  }
   ${({ theme }) => theme.mediaQueries.xl} {
     padding: 270px 0 300px;
   }
@@ -52,50 +61,109 @@ const BannerStyled = styled.div`
     }
   }
   h1 {
-    font-size: 96px;
+    font-size: 48px;
     background: linear-gradient(90deg, #ffd8fe 0%, #c5fff1 100%);
     -webkit-background-clip: text;
     color: transparent;
     display: inline-block;
-    padding-bottom: 30px;
+    padding-bottom: 40px;
     opacity: 0;
+    ${({ theme }) => theme.mediaQueries.sm} {
+      font-size: 66px;
+      padding-bottom: 30px;
+    }
+    ${({ theme }) => theme.mediaQueries.md} {
+      font-size: 96px;
+    }
   }
   p {
-    font-size: 20px;
+    font-size: 15px;
+    line-height: 22px;
     color: #ffffff;
-    line-height: 32px;
     max-width: 522px;
     opacity: 0;
+    font-weight: 600;
+    ${({ theme }) => theme.mediaQueries.sm} {
+      font-size: 16px;
+      line-height: 26px;
+    }
+    ${({ theme }) => theme.mediaQueries.md} {
+      font-size: 20px;
+      line-height: 32px;
+    }
   }
   .img {
-    width: 600px;
-    height: 710px;
     position: absolute;
     top: 0;
-    right: -40px;
+    height: 380px;
+    width: 75%;
+    left: 20%;
+    right: auto;
+    ${({ theme }) => theme.mediaQueries.xs} {
+      height: 420px;
+    }
+    ${({ theme }) => theme.mediaQueries.sm} {
+      width: 40%;
+      right: 20px;
+      height: 300px;
+      left: auto;
+    }
+    ${({ theme }) => theme.mediaQueries.md} {
+      height: 450px;
+    }
+    ${({ theme }) => theme.mediaQueries.lg} {
+      right: -40px;
+      height: 710px;
+      width: 50%;
+      max-width: 600px;
+      left: auto;
+    }
     .bg {
-      width: 420px;
-      height: 150px;
+      width: 70%;
+      height: 200px;
       background-image: url('/images/stake/bg_element.svg');
       background-size: 100%;
       position: absolute;
       background-repeat: no-repeat;
-      top: 400px;
-      left: 0;
+      top: 240px;
+      left: auto;
+      right: -20px;
+      ${({ theme }) => theme.mediaQueries.sm} {
+        height: 150px;
+        top: 220px;
+        left: 0;
+        right: auto;
+      }
+      ${({ theme }) => theme.mediaQueries.md} {
+        top: 430px;
+      }
     }
     img {
       position: absolute;
-      width: 350px;
+      width: 70%;
       z-index: 2;
+      ${({ theme }) => theme.mediaQueries.sm} {
+        width: 58%;
+      }
       &:nth-child(1) {
         top: 0;
-        left: 0;
+        right: 0;
+        left: auto;
         animation: ${floatingAnim('1px', '14px')} 3s ease-in-out infinite;
+        ${({ theme }) => theme.mediaQueries.sm} {
+          left: 0;
+          right: auto;
+        }
       }
       &:nth-child(2) {
         bottom: 0;
-        right: 0;
+        left: 0;
+        right: auto;
         animation: ${floatingAnim('5px', '20px')} 3s ease-in-out infinite;
+        ${({ theme }) => theme.mediaQueries.sm} {
+          left: auto;
+          right: 0;
+        }
       }
     }
   }
