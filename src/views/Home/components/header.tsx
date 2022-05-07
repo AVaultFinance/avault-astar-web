@@ -1,14 +1,14 @@
 import { Button, Flex } from '@my/ui';
-import HeaderLogo from 'components/SideMenu/Logo';
 import styled from 'styled-components';
 import { Link } from '..';
+import HomeLogo from './HomeLogo';
 interface IProps {
   collapsed: boolean;
 }
 const HomeHeader = ({ collapsed }: IProps) => {
   return (
     <HomeHeaderStyled>
-      <HeaderLogo collapsed={collapsed} />
+      <HomeLogo collapsed={collapsed} />
       <div className="fr">
         <UlStyled>
           {Link.map((v, index) => (
@@ -74,9 +74,10 @@ const UlStyled = styled.ul`
   li {
     margin: 0 10px;
     display: inline-block;
+    vertical-align: middle;
     &:last-child {
       img {
-        width: 28px;
+        width: 27px;
       }
     }
     a {

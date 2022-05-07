@@ -1,7 +1,7 @@
-import HeaderLogo from 'components/SideMenu/Logo';
 import { Link } from '..';
 import styled from 'styled-components';
 import { Flex } from '@my/ui';
+import HomeLogo from './HomeLogo';
 interface IProps {
   collapsed: boolean;
 }
@@ -19,7 +19,7 @@ const HomeFooter = ({ collapsed }: IProps) => {
       </UlStyled>
       <p className="footer-text">C 2022 AVAULT Fin Corporation</p>
       <div className="footer-logo">
-        <HeaderLogo collapsed={collapsed} />
+        <HomeLogo collapsed={collapsed} />
       </div>
     </HomeFooterStyled>
   );
@@ -59,6 +59,7 @@ const UlStyled = styled.ul`
   li {
     margin: 0 10px;
     display: inline-block;
+    vertical-align: middle;
     &:last-child {
       img {
         width: 28px;
