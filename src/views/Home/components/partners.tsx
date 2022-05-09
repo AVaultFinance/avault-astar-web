@@ -44,14 +44,13 @@ const HomePartners = () => {
             </li>
           );
         })}
+        {partnersArr.length % 2 !== 0 ? <li className="null"></li> : null}
       </ul>
       <h2>Partners</h2>
     </HomePartnersStyled>
   );
 };
 const IconBg = styled.div<{ name: string }>`
-  width: 100%;
-  height: 100%;
   background-image: url('/images/home/partner/${({ name }) => name}.svg');
   &:hover {
     background-image: url('/images/home/partner_on/${({ name }) => name}.svg');
@@ -60,7 +59,7 @@ const IconBg = styled.div<{ name: string }>`
 const HomePartnersStyled = styled(Flex)`
   display: block;
   padding: 0 20px;
-  ${({ theme }) => theme.mediaQueries.md} {
+  ${({ theme }) => theme.mediaQueries.xl} {
     display: flex;
     max-width: 1208px;
     margin: 0 auto;
@@ -81,14 +80,14 @@ const HomePartnersStyled = styled(Flex)`
     text-align: center;
     padding-top: 60px;
     display: block;
-    ${({ theme }) => theme.mediaQueries.md} {
+    ${({ theme }) => theme.mediaQueries.xl} {
       display: none;
     }
   }
   h2 {
     font-size: 80px;
     display: none;
-    ${({ theme }) => theme.mediaQueries.md} {
+    ${({ theme }) => theme.mediaQueries.xl} {
       display: block;
     }
   }
@@ -97,7 +96,9 @@ const HomePartnersStyled = styled(Flex)`
     overflow: hidden;
     padding: 60px 0;
     text-align: center;
-    ${({ theme }) => theme.mediaQueries.md} {
+    ${({ theme }) => theme.mediaQueries.sm} {
+    }
+    ${({ theme }) => theme.mediaQueries.xl} {
       width: 700px;
       margin: 200px 0 170px;
     }
@@ -112,10 +113,24 @@ const HomePartnersStyled = styled(Flex)`
       background-image: radial-gradient(circle at 50% 0%, #181733 0%, #181733 100%);
       transition: all 0.2s ease;
       background-position: 0 -60px;
+      &.null {
+        background: none;
+        border: none;
+        &:hover {
+          background: none;
+          border: none;
+        }
+      }
       &:nth-child(2n + 1) {
         margin-right: 15px;
       }
+      ${({ theme }) => theme.mediaQueries.sm} {
+        height: 80px;
+      }
       ${({ theme }) => theme.mediaQueries.md} {
+        height: 100px;
+      }
+      ${({ theme }) => theme.mediaQueries.xl} {
         float: left;
         width: 320px;
         height: 120px;
@@ -123,14 +138,20 @@ const HomePartnersStyled = styled(Flex)`
         margin-bottom: 30px;
         border-radius: 20px;
         background-position: 0 -120px;
-
         &:nth-child(2n + 1) {
           margin-right: 30px;
         }
       }
+
       &:hover {
         background-image: radial-gradient(circle at 50% 0%, #3e255b 0%, #040222 100%);
         background-position: 0 0;
+      }
+      div {
+        width: 100%;
+        height: 100%;
+        background-repeat: no-repeat;
+        background-position: center;
       }
       img {
         height: 100%;
