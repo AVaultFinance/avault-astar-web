@@ -62,7 +62,7 @@ const UlStyled = styled.ul`
     vertical-align: middle;
     &:last-child {
       img {
-        width: 28px;
+        width: 25px;
       }
     }
     a {
