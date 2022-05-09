@@ -8,7 +8,7 @@ import HomeFooter from './components/footer';
 import HomeHeader from './components/header';
 import HomeModules from './components/modules';
 import HomePartners from './components/partners';
-import HomeTvl from './components/tvl';
+// import HomeTvl from './components/tvl';
 export const Link = [
   { name: 'Discord', link: 'https://discord.gg/WcARFMy2t8' },
   { name: 'Github', link: 'https://github.com/AVaultFinance ' },
@@ -52,7 +52,7 @@ const Home = () => {
       <HomeHeader collapsed={collapsed} />
       <Banner />
       <Line />
-      <HomeTvl />
+      {/* <HomeTvl /> */}
       <Line />
       <HomeModules />
       <HomePartners />
