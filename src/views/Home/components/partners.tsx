@@ -120,6 +120,7 @@ const HomePartnersStyled = styled(Flex)`
       background-image: radial-gradient(circle at 50% 0%, #181733 0%, #181733 100%);
       transition: all 0.2s ease;
       background-position: 0 -60px;
+      background-repeat: no-repeat;
       &.null {
         background: none;
         border: none;
