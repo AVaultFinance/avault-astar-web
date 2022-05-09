@@ -5,30 +5,37 @@ const partnersArr = [
   {
     icon: '/images/home/partner/Astar.svg',
     name: 'Astar',
+    link: 'https://astar.network/',
   },
   {
     icon: '/images/home/partner/Astriddao.svg',
     name: 'Astriddao',
+    link: 'https://astriddao.xyz/',
   },
   {
     icon: '/images/home/partner/AU21.svg',
     name: 'AU21',
+    link: 'https://au21.capital/',
   },
   {
     icon: '/images/home/partner/Libra.svg',
     name: 'Libra',
+    link: 'https://drive.google.com/drive/folders/1Ydb2tV67qafHo3Er6fitaUmk9KihPg0v',
   },
   {
     icon: '/images/home/partner/Next Web.svg',
     name: 'Next Web',
+    link: 'https://nextweb.capital/',
   },
   {
     icon: '/images/home/partner/Sirius.svg',
     name: 'Sirius',
+    link: 'https://www.sirius.finance/',
   },
   {
     icon: '/images/home/partner/Starbank.svg',
     name: 'Starbank',
+    link: 'https://test.starbank.finance/#/',
   },
 ];
 const HomePartners = () => {
@@ -40,7 +47,7 @@ const HomePartners = () => {
           return (
             <li key={index}>
               {/* <img src={v.icon} alt={v.name} /> */}
-              <IconBg name={v.name} />
+              <IconBg name={v.name} href={v.link} target="_blank" rel="noreferrer" title={v.name} />
             </li>
           );
         })}
@@ -50,11 +57,11 @@ const HomePartners = () => {
     </HomePartnersStyled>
   );
 };
-const IconBg = styled.div<{ name: string }>`
-  background-image: url('/images/home/partner/${({ name }) => name}.svg');
-  &:hover {
-    background-image: url('/images/home/partner_on/${({ name }) => name}.svg');
-  }
+const IconBg = styled.a<{ name: string }>`
+  // background-image: url('/images/home/partner/${({ name }) => name}.svg');
+  // &:hover {
+  background-image: url('/images/home/partner_on/${({ name }) => name}.svg');
+  // }
 `;
 const HomePartnersStyled = styled(Flex)`
   display: block;
@@ -147,7 +154,8 @@ const HomePartnersStyled = styled(Flex)`
         background-image: radial-gradient(circle at 50% 0%, #3e255b 0%, #040222 100%);
         background-position: 0 0;
       }
-      div {
+      a {
+        display: block;
         width: 100%;
         height: 100%;
         background-repeat: no-repeat;
