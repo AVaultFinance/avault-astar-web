@@ -159,6 +159,7 @@ const HomePartnersStyled = styled(Flex)`
         width: 100%;
         height: 100%;
         background-repeat: no-repeat;
+        background-size: 80%;
         background-position: center;
       }
       img {
