@@ -3,20 +3,32 @@ import styled from 'styled-components';
 
 const partnersArr = [
   {
-    icon: '/images/github.svg',
-    name: 'github',
+    icon: '/images/home/partner/Astar.svg',
+    name: 'Astar',
   },
   {
-    icon: '/images/github.svg',
-    name: 'github',
+    icon: '/images/home/partner/Astriddao.svg',
+    name: 'Astriddao',
   },
   {
-    icon: '/images/github.svg',
-    name: 'github',
+    icon: '/images/home/partner/AU21.svg',
+    name: 'AU21',
   },
   {
-    icon: '/images/github.svg',
-    name: 'github',
+    icon: '/images/home/partner/Libra.svg',
+    name: 'Libra',
+  },
+  {
+    icon: '/images/home/partner/Next Web.svg',
+    name: 'Next Web',
+  },
+  {
+    icon: '/images/home/partner/Sirius.svg',
+    name: 'Sirius',
+  },
+  {
+    icon: '/images/home/partner/Starbank.svg',
+    name: 'Starbank',
   },
 ];
 const HomePartners = () => {
@@ -27,7 +39,8 @@ const HomePartners = () => {
         {partnersArr.map((v, index) => {
           return (
             <li key={index}>
-              <img src={v.icon} alt={v.name} />
+              {/* <img src={v.icon} alt={v.name} /> */}
+              <IconBg name={v.name} />
             </li>
           );
         })}
@@ -36,6 +49,14 @@ const HomePartners = () => {
     </HomePartnersStyled>
   );
 };
+const IconBg = styled.div<{ name: string }>`
+  width: 100%;
+  height: 100%;
+  background-image: url('/images/home/partner/${({ name }) => name}.svg');
+  &:hover {
+    background-image: url('/images/home/partner_on/${({ name }) => name}.svg');
+  }
+`;
 const HomePartnersStyled = styled(Flex)`
   display: block;
   padding: 0 20px;
@@ -84,11 +105,13 @@ const HomePartnersStyled = styled(Flex)`
       opacity: 0;
       width: 46%;
       height: 60px;
-      background: #181733;
       border: 1px solid #2e2d5b;
       border-radius: 12px;
       display: inline-block;
       margin-bottom: 15px;
+      background-image: radial-gradient(circle at 50% 0%, #181733 0%, #181733 100%);
+      transition: all 0.2s ease;
+      background-position: 0 -60px;
       &:nth-child(2n + 1) {
         margin-right: 15px;
       }
@@ -99,9 +122,15 @@ const HomePartnersStyled = styled(Flex)`
         margin-right: 30px;
         margin-bottom: 30px;
         border-radius: 20px;
+        background-position: 0 -120px;
+
         &:nth-child(2n + 1) {
           margin-right: 30px;
         }
+      }
+      &:hover {
+        background-image: radial-gradient(circle at 50% 0%, #3e255b 0%, #040222 100%);
+        background-position: 0 0;
       }
       img {
         height: 100%;
