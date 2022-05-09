@@ -13,7 +13,7 @@ const LogoStyle = styled.a`
   margin-top: 0;
   height: 34px;
   ${({ theme }) => theme.mediaQueries.md} {
-    height: 26px;
+    height: 50px;
     margin-top: 0;
     margin-right: 48px;
   }
@@ -23,8 +23,8 @@ const LogoStyle = styled.a`
     height: 34px;
     width: 34px;
     ${({ theme }) => theme.mediaQueries.md} {
-      margin-top: -4px;
-      width: 150px;
+      // margin-top: -4px;
+      width: 164px;
       height: 50px;
     }
   }

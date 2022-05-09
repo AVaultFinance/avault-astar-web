@@ -56,6 +56,7 @@ const ButtonStyled = styled(Button)`
   width: 136px;
   padding: 0;
   cursor: pointer;
+  margin-top: 7px;
   a {
     display: block;
     height: 36px;
@@ -70,6 +71,8 @@ const UlStyled = styled.ul`
   margin-right: 40px;
   ${({ theme }) => theme.mediaQueries.md} {
     display: block;
+    height: 50px;
+    line-height: 50px;
   }
   li {
     margin: 0 10px;
