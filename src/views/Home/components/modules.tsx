@@ -14,7 +14,7 @@ const modulesArr = [
   },
   {
     logo: './images/home/icon_zap.webp',
-    title: 'Vault',
+    title: 'Zap',
     content:
       'Allows you to directly switch from single asset to an LP token with just a click of a button without having to go other dex to switch out different asset',
   },
@@ -126,7 +126,6 @@ const HomeModulesStyled = styled.div`
       width: 100%;
       margin-top: 16px;
       padding: 40px 30px;
-      transition: all 0.2s ease;
       background-image: radial-gradient(circle at 50% 0%, #3e255b 0%, #050222 100%);
       background-position: 0 0;
       background-repeat: no-repeat;
@@ -136,8 +135,10 @@ const HomeModulesStyled = styled.div`
         padding: 30px;
         justify-content: space-between;
         width: 48.3%;
-        background-image: radial-gradient(circle at 50% 0%, #040222 0%, #040222 100%);
-        background-position: 0 -120px;
+        // background-image: radial-gradient(circle at 50% 0%, #181733 0%, #181733 100%);
+        background-color: #181733;
+        background-position: 0 -240px;
+        transition: all 0.5s ease;
         height: 240px;
         color: #6a6991;
       }
@@ -155,9 +156,9 @@ const HomeModulesStyled = styled.div`
         }
         &:hover {
           background-image: radial-gradient(circle at 50% 0%, #3e255b 0%, #050222 100%);
-          box-shadow: 0 10px 20px 5px rgb(0 0 0 / 3%);
+          // box-shadow: 0 10px 20px 5px rgb(0 0 0 / 3%);
           background-position: 0 0;
-          border-color: #050222;
+          // border-color: #050222;
           h3,
           p {
             color: #fff;

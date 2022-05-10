@@ -118,8 +118,9 @@ const HomePartnersStyled = styled(Flex)`
       display: inline-block;
       margin-bottom: 15px;
       background-image: radial-gradient(circle at 50% 0%, #181733 0%, #181733 100%);
-      transition: all 0.2s ease;
       background-position: 0 -60px;
+      background-color: #181733;
+      transition: all 0.5s ease;
       background-repeat: no-repeat;
       &.null {
         background: none;
