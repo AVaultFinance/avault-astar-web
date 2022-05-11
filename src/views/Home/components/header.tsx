@@ -20,7 +20,7 @@ const HomeHeader = ({ collapsed }: IProps) => {
           ))}
         </UlStyled>
         <ButtonStyled>
-          <a href="https://test.avault.network/">Launch Dapp</a>
+          <a href="https://test.avault.network/vault">Launch Dapp</a>
         </ButtonStyled>
       </div>
     </HomeHeaderStyled>
