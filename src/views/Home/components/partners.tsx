@@ -211,10 +211,10 @@ const HomePartnersStyled = styled(Flex)`
   ul {
     animation: ${marquee} 15s linear infinite;
 
-    backface-visibility: hidden;
-    -webkit-transform: translate3d(0, 0, 0);
-    -webkit-backface-visibility: hidden;
-    -webkit-transform-style: preserve-3d;
+    // backface-visibility: hidden;
+    // -webkit-transform: translate3d(0, 0, 0);
+    // -webkit-backface-visibility: hidden;
+    // -webkit-transform-style: preserve-3d;
     a {
       diplay: block;
       opacity: 0.7;
