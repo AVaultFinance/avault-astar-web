@@ -8,24 +8,20 @@ const partnersArr = [
     link: 'https://astar.network/',
   },
   {
-    icon: '/images/home/partner/Astriddao.svg',
-    name: 'Astriddao',
-    link: 'https://astriddao.xyz/',
+    icon: '/images/home/partner/Next Web.svg',
+    name: 'Next Web',
+    link: 'https://nextweb.capital/',
   },
+
   {
     icon: '/images/home/partner/AU21.svg',
     name: 'AU21',
     link: 'https://au21.capital/',
   },
   {
-    icon: '/images/home/partner/Libra.svg',
-    name: 'Libra',
-    link: 'https://drive.google.com/drive/folders/1Ydb2tV67qafHo3Er6fitaUmk9KihPg0v',
-  },
-  {
-    icon: '/images/home/partner/Next Web.svg',
-    name: 'Next Web',
-    link: 'https://nextweb.capital/',
+    icon: '/images/home/partner/Astriddao.svg',
+    name: 'Astriddao',
+    link: 'https://astriddao.xyz/',
   },
   {
     icon: '/images/home/partner/Sirius.svg',
@@ -33,9 +29,21 @@ const partnersArr = [
     link: 'https://www.sirius.finance/',
   },
   {
+    icon: '/images/home/partner/Libra.svg',
+    name: 'Libra',
+    link: 'https://drive.google.com/drive/folders/1Ydb2tV67qafHo3Er6fitaUmk9KihPg0v',
+  },
+
+  {
     icon: '/images/home/partner/Starbank.svg',
     name: 'Starbank',
     link: 'https://test.starbank.finance/#/',
+  },
+
+  {
+    icon: '/images/home/partner/Cogitent.svg',
+    name: 'Cogitent',
+    link: 'https://cogitent.ventures/',
   },
 ];
 const HomePartners = () => {
