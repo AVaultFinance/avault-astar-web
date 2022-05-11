@@ -18,6 +18,12 @@ const partnersArr = [
     name: 'AU21',
     link: 'https://au21.capital/',
   },
+
+  {
+    icon: '/images/home/partner/Cogitent.svg',
+    name: 'Cogitent',
+    link: 'https://cogitent.ventures/',
+  },
   {
     icon: '/images/home/partner/Astriddao.svg',
     name: 'Astriddao',
@@ -29,21 +35,14 @@ const partnersArr = [
     link: 'https://www.sirius.finance/',
   },
   {
-    icon: '/images/home/partner/Libra.svg',
-    name: 'Libra',
-    link: 'https://drive.google.com/drive/folders/1Ydb2tV67qafHo3Er6fitaUmk9KihPg0v',
-  },
-
-  {
     icon: '/images/home/partner/Starbank.svg',
     name: 'Starbank',
     link: 'https://test.starbank.finance/#/',
   },
-
   {
-    icon: '/images/home/partner/Cogitent.svg',
-    name: 'Cogitent',
-    link: 'https://cogitent.ventures/',
+    icon: '/images/home/partner/Libra.svg',
+    name: 'Libra',
+    link: 'https://drive.google.com/drive/folders/1Ydb2tV67qafHo3Er6fitaUmk9KihPg0v',
   },
 ];
 const HomePartners = () => {
