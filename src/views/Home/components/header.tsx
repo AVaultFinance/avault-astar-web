@@ -56,7 +56,9 @@ const ButtonStyled = styled(Button)`
   width: 136px;
   padding: 0;
   cursor: pointer;
-  margin-top: 7px;
+  ${({ theme }) => theme.mediaQueries.md} {
+    margin-top: 7px;
+  }
   a {
     display: block;
     height: 36px;
