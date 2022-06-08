@@ -62,6 +62,11 @@ const arr02 = [
     name: 'Astar Domain',
     link: 'https://astr.domains/',
   },
+  {
+    icon: '/images/home/partner_on/GTS VENTURES.svg',
+    name: 'GTS VENTURES',
+    link: 'https://gts.ventures/',
+  },
 ];
 
 const marquee = keyframes`
