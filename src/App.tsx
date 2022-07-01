@@ -14,6 +14,10 @@ import SideMenu from './components/SideMenu';
 // import { usePollBlockNumber } from 'state/block/hooks';
 import PageLoader from 'components/Loader/PageLoader';
 import Unbind from 'views/Stake/Unbind';
+import { usePollBlockNumber } from 'state/block/hooks';
+import useEagerConnect from 'hooks/useEagerConnect';
+import { usePollCoreFarmData } from 'state/farms/hooks';
+import { usePollVaultData } from 'state/vault/hooks';
 // import useEagerConnect from 'hooks/useEagerConnect';
 // import { usePollVaultData } from 'state/vault/hooks';
 
@@ -36,11 +40,11 @@ BigNumber.config({
 });
 
 const App: React.FC = () => {
-  // usePollBlockNumber();
-  // useEagerConnect();
-  // // useFetchProfile();
-  // usePollCoreFarmData();
-  // usePollVaultData();
+  usePollBlockNumber();
+  useEagerConnect();
+  // useFetchProfile();
+  usePollCoreFarmData();
+  usePollVaultData();
   return (
     <Router history={history}>
       <ResetCSS />

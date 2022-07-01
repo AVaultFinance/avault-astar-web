@@ -44,7 +44,9 @@ import WETH_ABI from '../config/abi/weth.json';
 import multiCallAbi from '../config/abi/Multicall.json';
 import { getContract } from '../utils';
 
-import AVaultPCS_ABI from 'config/abi/AVaultPCS_ABI.json';
+import AVaultPCS from 'config/abi/AVaultPCS.json';
+import AVaultForArthswapFarm from 'config/abi/AVaultForArthswapFarm.json';
+import { IABIType } from 'state/vault/types';
 /**
  * Helper hooks to get specific contracts (by ABI)
  */
@@ -254,6 +256,11 @@ export function useMulticallContract(): Contract | null {
   return useContract(getMulticallAddress(), multiCallAbi, false);
 }
 
-export function useAVaultPCSContract(avaultAddress: string, withSignerIfPossible?: boolean): Contract | null {
-  return useContract(avaultAddress, AVaultPCS_ABI, withSignerIfPossible);
+export function useAVaultPCSContract(
+  avaultAddress: string,
+  abiType: IABIType,
+  withSignerIfPossible?: boolean,
+): Contract | null {
+  const abi = abiType === IABIType.AVaultPCS ? AVaultPCS : AVaultForArthswapFarm;
+  return useContract(avaultAddress, abi, withSignerIfPossible);
 }

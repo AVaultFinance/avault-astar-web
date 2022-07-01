@@ -18,7 +18,7 @@ import { IVault } from 'state/vault/types';
 import { useVault, useVaultFarmUser } from 'state/vault/hooks';
 import useAuth from 'hooks/useAuth';
 import { chainId } from 'config/constants/tokens';
-import { changeLoading, fetchVaultFarmUserDataAsync } from 'state/vault';
+import { changeLoading, changeVaultItemLoading, fetchVaultFarmUserDataAsync } from 'state/vault';
 import { useSpecialApproveFarm } from 'views/Vault/hooks/useApproveFarm';
 import { getDisplayApy } from 'views/Farms/Farms';
 import useToast from 'hooks/useToast';
@@ -243,7 +243,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
       const result = await onApprove();
       if (typeof result === 'boolean' && result) {
         dispatch(changeLoading());
-        // dispatch(changeVaultItemLoading({ index }));
+        dispatch(changeVaultItemLoading({ index }));
         dispatch(fetchVaultFarmUserDataAsync({ account, vaults, index }));
         toastSuccess('Approve!', 'Your are Approved');
         setTimeout(() => {
@@ -353,6 +353,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
       </DetailContainer>
       {isMobile ? (
         <MobileAction
+          abiType={vault.abiType}
           requestedApprovalSuccess={requestedApprovalSuccess}
           lpToCLpRate={vault.vault.lpToCLpRate}
           requestedApproval={requestedApproval}
@@ -377,6 +378,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
       ) : (
         <ActionContainer style={{ justifyContent: 'end' }}>
           <DepositAction
+            abiType={vault.abiType}
             contractAddress={vault.contractAddress[chainId]}
             lpAddressDecimals={vault.farm.lpAddressDecimals}
             requestedApproval={requestedApproval}
@@ -398,6 +400,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
           />
           <div className="w20"></div>
           <WithdrawAction
+            abiType={vault.abiType}
             lpToCLpRate={vault.vault.lpToCLpRate}
             contractAddress={vault.contractAddress[chainId]}
             lpAddressDecimals={vault.farm.lpAddressDecimals}

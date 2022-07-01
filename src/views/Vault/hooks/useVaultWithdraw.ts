@@ -4,9 +4,10 @@ import BigNumber from 'bignumber.js';
 import { BIG_TEN } from 'utils/bigNumber';
 import { callWithEstimateGas } from 'utils/calls';
 import { DEFAULT_GAS_LIMIT } from 'config';
+import { IABIType } from 'state/vault/types';
 
-const useVaultWithdraw = (account: string, contractAddress: string, decimal: number) => {
-  const contractAddressContract = useAVaultPCSContract(contractAddress);
+const useVaultWithdraw = (abiType: IABIType, account: string, contractAddress: string, decimal: number) => {
+  const contractAddressContract = useAVaultPCSContract(contractAddress, abiType);
 
   const handleWithdraw = useCallback(
     async (amount: string) => {
@@ -21,7 +22,7 @@ const useVaultWithdraw = (account: string, contractAddress: string, decimal: num
         const res = await callWithEstimateGas(contractAddressContract, 'withdraw', [account, `${value}`], {
           gasLimit: DEFAULT_GAS_LIMIT,
         });
-        if (res.isOk) {
+        if (res && res.isOk) {
           return true;
         } else {
           return res.message;

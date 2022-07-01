@@ -15,9 +15,11 @@ import { changeLoading, changeVaultItemLoading, fetchVaultFarmUserDataAsync } fr
 import Loading from 'components/TransactionConfirmationModal/Loading';
 import { ActionContainerBg, ActionContainerSize } from 'style/TableStyled';
 import { showDecimals } from 'views/Vault/utils';
+import { IABIType } from 'state/vault/types';
 const _rate = 1;
 
 interface WithdrawActionProps {
+  abiType: IABIType;
   userDataReady: boolean;
   displayBalance: string | JSX.Element;
   earnings: BigNumber;
@@ -44,6 +46,7 @@ const FlexStyled = styled(Flex)`
 
 const WithdrawAction: React.FunctionComponent<WithdrawActionProps> = ({
   pid,
+  abiType,
   earnings,
   userDataReady,
   requestedApproval,
@@ -63,7 +66,7 @@ const WithdrawAction: React.FunctionComponent<WithdrawActionProps> = ({
 
   const dispatch = useAppDispatch();
   const { account } = useWeb3React();
-  const { onWithdraw } = useVaultWithdraw(account, contractAddress, lpAddressDecimals);
+  const { onWithdraw } = useVaultWithdraw(abiType, account, contractAddress, lpAddressDecimals);
   const [val, setVal] = useState('');
   const fullBalance = useMemo(() => {
     return getFullDisplayBalance(earnings, lpAddressDecimals, showDecimals(lpSymbol));

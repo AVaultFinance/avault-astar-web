@@ -133,6 +133,9 @@ export const vaultSlice = createSlice({
       state.data = action.payload[0];
       state.allLiquidity = action.payload[1];
     });
+    builder.addCase(fetchVaultFarmUserDataAsync.pending, (state, action) => {
+      // changeLoading();
+    });
     builder.addCase(fetchVaultFarmUserDataAsync.fulfilled, (state, action) => {
       action.payload.forEach((userDataEl) => {
         const { pid, index: _index, account } = userDataEl;

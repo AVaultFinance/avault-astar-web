@@ -15,6 +15,7 @@ import { changeLoading, changeVaultItemLoading, fetchVaultFarmUserDataAsync } fr
 import Loading from 'components/TransactionConfirmationModal/Loading';
 import { ActionContainerBg, ActionContainerSize } from 'style/TableStyled';
 import { showDecimals } from 'views/Vault/utils';
+import { IABIType } from 'state/vault/types';
 
 interface HarvestActionProps {
   userDataReady: boolean;
@@ -31,6 +32,7 @@ interface HarvestActionProps {
   contractAddress: string;
   lpAddressDecimals: number;
   index: number;
+  abiType: IABIType;
 }
 const FlexStyled = styled(Flex)`
   margin-top: 0;
@@ -54,6 +56,7 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
   lpAddressDecimals,
   requestedApprovalSuccess,
   index,
+  abiType,
 }) => {
   const { toastSuccess, toastError } = useToast();
   const { data: vaults } = useVault();
@@ -62,7 +65,7 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
   const [pendingTxSuccess, setPendingTxSuccess] = useState(true);
 
   const { account } = useWeb3React();
-  const { onDeposit } = useVaultDeposit(account, contractAddress, lpAddressDecimals);
+  const { onDeposit } = useVaultDeposit(abiType, account, contractAddress, lpAddressDecimals);
   const dispatch = useAppDispatch();
   const [val, setVal] = useState('');
   const { stakingTokenBalance } = useVaultFarmUser(account, pid ?? 0);

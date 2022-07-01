@@ -11,7 +11,7 @@ export interface VaultProps {
   label?: string;
   token0Address: string;
   token1Address: string;
-  farmProject?: string;
+  farmProject: string;
   isSingle?: boolean;
 }
 
@@ -73,7 +73,7 @@ const Vault: React.FunctionComponent<VaultProps> = ({ token0Address, token1Addre
       </TokenWrapper>
       <LabelStyled>
         <h2>{label}</h2>
-        <p>{farmProject ?? 'Kacoswap'}</p>
+        <p>{farmProject}</p>
       </LabelStyled>
     </Container>
   );

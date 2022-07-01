@@ -50,10 +50,10 @@ const avaultMenuItems: IMenu[] = [
     text: 'Zap',
     link: '/zap',
   },
-  {
-    text: 'Farm',
-    link: '/farms',
-  },
+  // {
+  //   text: 'Farm',
+  //   link: '/farms',
+  // },
   // {
   //   text: 'Stake',
   //   link: '/stake',

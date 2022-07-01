@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import BigNumber from 'bignumber.js';
 // import { BASE_ADD_LIQUIDITY_URL } from 'config';
 // import getLiquidityUrlPathParts from 'utils/getLiquidityUrlPathParts';
-import { HelpIcon, Skeleton, useTooltip } from '@my/ui';
+import { Skeleton } from '@my/ui';
 import { IFarmProject } from 'state/vault/types';
 
 export interface AprProps {
@@ -35,10 +35,6 @@ const Container = styled.div`
     }
   }
 `;
-const ReferenceElement = styled.div`
-  display: inline-block;
-  padding-left: 5px;
-`;
 
 const AprWrapper = styled.div`
   min-width: 60px;
@@ -55,11 +51,6 @@ const PStyled = styled.p`
   line-height: 20px;
 `;
 const Apr: React.FC<AprProps> = ({ apy, originalValue, fromSource, vaultSymbol, lpLabel }) => {
-  const tooltipContent = <div>APY: {apy}%</div>;
-  const { targetRef, tooltip, tooltipVisible } = useTooltip(tooltipContent, {
-    placement: 'top-end',
-    tooltipOffset: [20, 10],
-  });
   // const liquidityUrlPathParts = getLiquidityUrlPathParts({ quoteTokenAddress, tokenAddress });
   // const addLiquidityUrl = `${BASE_ADD_LIQUIDITY_URL}/${liquidityUrlPathParts}`;
   return originalValue !== 0 ? (
@@ -98,11 +89,18 @@ const Apr: React.FC<AprProps> = ({ apy, originalValue, fromSource, vaultSymbol, 
     </Container>
   ) : (
     <Container>
-      <AprWrapper>{originalValue}%</AprWrapper>
-      <ReferenceElement ref={targetRef}>
+      <AprWrapper>{apy}%</AprWrapper>
+      <PStyled>
+        {/* {vaultSymbol} */}
+        Avault APR: 0.00%
+      </PStyled>
+      <PStyled>
+        {fromSource} APY: {apy}%
+      </PStyled>
+      {/* <ReferenceElement ref={targetRef}>
         <HelpIcon color="textSubtle" />
-      </ReferenceElement>
-      {tooltipVisible && tooltip}
+      </ReferenceElement> */}
+      {/* {tooltipVisible && tooltip} */}
     </Container>
   );
 };

@@ -12,6 +12,7 @@ import useToast from 'hooks/useToast';
 import useVaultDeposit from 'views/Vault/hooks/useVaultDeposit';
 import { showDecimals } from 'views/Vault/utils';
 import CInput from '../Actions/C_Input';
+import { IABIType } from 'state/vault/types';
 
 interface DepositModalProps {
   lpSymbol?: string;
@@ -21,6 +22,7 @@ interface DepositModalProps {
   onDismiss?: () => void;
   contractAddress: string;
   index: number;
+  abiType: IABIType;
 }
 const ModalInputStyled = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.cardBorder};
@@ -42,6 +44,7 @@ const DepositModal: React.FC<DepositModalProps> = ({
   lpSymbol,
   contractAddress,
   index,
+  abiType,
 }) => {
   const [val, setVal] = useState('');
   const fullBalance = useMemo(() => {
@@ -74,7 +77,7 @@ const DepositModal: React.FC<DepositModalProps> = ({
   const { data: vaults } = useVault();
   const { toastSuccess, toastError } = useToast();
   const dispatch = useAppDispatch();
-  const { onDeposit } = useVaultDeposit(account, contractAddress, lpAddressDecimals);
+  const { onDeposit } = useVaultDeposit(abiType, account, contractAddress, lpAddressDecimals);
   const handleDeposit = useCallback(async () => {
     setPendingTx(true);
     let result = null;

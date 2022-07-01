@@ -39,7 +39,7 @@ export const tokenIndex = _TokenALL;
 const _Token = _TokenALL.map((v: any[]) => v[0]);
 const tokenSingle = [...new Set(_Token.flat())];
 export const tokenAll: IToken[] =
-  chainKey === CHAINKEY.SDN
+  chainKey === CHAINKEY.SDN || chainKey === CHAINKEY.ASTR
     ? tokenSingle.map((v: string) => {
         // console.log(v, tokens[chainKey][v]);
         return {

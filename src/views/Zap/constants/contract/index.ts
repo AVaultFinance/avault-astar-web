@@ -10,8 +10,14 @@ import { IToken, ITokenType } from 'views/Zap/utils/types';
 import zapAbi from './zapAbi.json';
 import erc20 from 'config/abi/erc20.json';
 import { chainKey } from 'config';
+import { ChainId } from '@my/sdk';
 
-export const zapAddress = '0x5Af88505CF2cE57bb5e36816d7853A221F6Fc981';
+export const zapAddress = {
+  [ChainId.SDN_MAINNET]: '0x5Af88505CF2cE57bb5e36816d7853A221F6Fc981',
+  [ChainId.SDN_TESTNET]: '0x5Af88505CF2cE57bb5e36816d7853A221F6Fc981',
+  [ChainId.ASTR_MAINNET]: '0x8fcbe72710185dd34a8bBBA1Cc05eB2628945FEC',
+  [ChainId.ASTR_TESTNET]: '0x8fcbe72710185dd34a8bBBA1Cc05eB2628945FEC',
+};
 
 function useZapContractFn(zapAddress: string): Contract | null {
   return useContract(zapAddress, zapAbi);
@@ -98,7 +104,7 @@ export const useHandleApproved = (fromCurrency: IToken, account: string, approve
       return;
     }
     const res = await callWithEstimateGas(contract, 'approve', [approvedAddress, ethers.constants.MaxUint256]);
-    if (res.isOk) {
+    if (res && res.isOk) {
       return true;
     } else {
       return res.message;

@@ -40,13 +40,13 @@ export function getBscScanLink(
 ): string {
   switch (type) {
     case 'transaction': {
-      if (chainKey === CHAINKEY.SDN) {
+      if (chainKey === CHAINKEY.SDN || chainKey === CHAINKEY.ASTR) {
         return `${BASE_BSC_SCAN_URL}/extrinsic/${data}`;
       }
       return `${BASE_BSC_SCAN_URL}/tx/${data}`;
     }
     case 'token': {
-      if (chainKey === CHAINKEY.SDN) {
+      if (chainKey === CHAINKEY.SDN || chainKey === CHAINKEY.ASTR) {
         return `${BASE_BSC_SCAN_URL}/erc20_token/${data}`;
       }
       return `${BASE_BSC_SCAN_URL}/token/${data}`;
@@ -58,7 +58,7 @@ export function getBscScanLink(
       return `${BASE_BSC_SCAN_URL}/block/countdown/${data}`;
     }
     default: {
-      if (chainKey === CHAINKEY.SDN) {
+      if (chainKey === CHAINKEY.SDN || chainKey === CHAINKEY.ASTR) {
         return `${BASE_BSC_SCAN_URL}/erc20_token/${data}`;
       }
       return `${BASE_BSC_SCAN_URL}/address/${data}`;

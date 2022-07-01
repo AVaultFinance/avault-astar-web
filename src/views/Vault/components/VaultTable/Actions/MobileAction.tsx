@@ -2,6 +2,7 @@ import { Button, Flex, useModal } from '@my/ui';
 import BigNumber from 'bignumber.js';
 import Loading from 'components/TransactionConfirmationModal/Loading';
 import { FC } from 'react';
+import { IABIType } from 'state/vault/types';
 import styled from 'styled-components';
 import DepositModal from '../modal/DepositModal';
 import WithdrawModal from '../modal/WithdrawModal';
@@ -24,6 +25,7 @@ interface MobileActionProps {
   lpAddressDecimals: number;
   lpToCLpRate: string;
   index: number;
+  abiType: IABIType;
 }
 const Container = styled(Flex)`
   justify-content: space-between;
@@ -50,9 +52,11 @@ const MobileAction: FC<MobileActionProps> = ({
   lpAddressDecimals,
   lpToCLpRate,
   index,
+  abiType,
 }) => {
   const [onPresentDeposit] = useModal(
     <DepositModal
+      abiType={abiType}
       max={stakingTokenBalance}
       lpSymbol={lpSymbol}
       displayBalance={displayBalance}
@@ -70,6 +74,7 @@ const MobileAction: FC<MobileActionProps> = ({
       contractAddress={contractAddress}
       lpToCLpRate={lpToCLpRate}
       index={index}
+      abiType={abiType}
     />,
   );
 

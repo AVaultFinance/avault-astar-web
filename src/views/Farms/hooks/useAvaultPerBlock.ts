@@ -19,7 +19,7 @@ const useKacPerBlock = (): RealBigNumber => {
   const [kacPerBlock, setKacPerBlock] = useState<RealBigNumber>(new RealBigNumber(0));
 
   useEffect(() => {
-    const _masterchefABI = chainKey === CHAINKEY.SDN ? masterchefSdnABI : masterchefABI;
+    const _masterchefABI = chainKey === CHAINKEY.SDN || chainKey === CHAINKEY.ASTR ? masterchefSdnABI : masterchefABI;
     multicall(_masterchefABI, [
       {
         address: addresses.masterChef[chainId],

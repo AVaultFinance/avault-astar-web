@@ -154,6 +154,7 @@ const Vaults: React.FC = () => {
       },
       vault: {
         label: vault.lpDetail.symbol,
+        farmProject: vault.fromSource,
         token0Address: token0Address,
         token1Address: token1Address,
       },

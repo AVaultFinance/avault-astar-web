@@ -1,7 +1,8 @@
 import { useCallback } from 'react';
 import { ethers, Contract } from 'ethers';
 import { useContract, useMasterchef } from 'hooks/useContract';
-import AVaultPCS_ABI from 'config/abi/AVaultPCS_ABI.json';
+import AVaultPCS from 'config/abi/AVaultPCS.json';
+
 import { callWithEstimateGas } from 'utils/calls';
 
 const useApproveFarm = (lpContract: Contract) => {
@@ -20,14 +21,14 @@ const useApproveFarm = (lpContract: Contract) => {
 };
 
 export const useSpecialApproveFarm = (lpContract: Contract, avaultAddress: string) => {
-  const contractAddressContract = useContract(avaultAddress, AVaultPCS_ABI);
+  const contractAddressContract = useContract(avaultAddress, AVaultPCS);
   const handleApprove = useCallback(async () => {
     try {
       const res = await callWithEstimateGas(lpContract, 'approve', [
         contractAddressContract.address,
         ethers.constants.MaxUint256,
       ]);
-      if (res.isOk) {
+      if (res && res.isOk) {
         return true;
       } else {
         return res.message;

@@ -12,7 +12,8 @@ export enum ISwapLink {
 }
 
 export enum IABIType {
-  AVaultPCS,
+  AVaultPCS = 'AVaultPCS',
+  AVaultForArthswapFarm = 'AVaultForArthswapFarm',
 }
 interface IAddress {
   [ChainId.SDN_MAINNET]?: string;

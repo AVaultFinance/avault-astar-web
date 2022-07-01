@@ -13,6 +13,15 @@ export const tokens = {
       decimals: 18,
       projectLink: '',
     },
+    arsw: {
+      symbol: 'ARSW',
+      address: {
+        [ChainId.ASTR_MAINNET]: '0xDe2578Edec4669BA7F41c5d5D2386300bcEA4678',
+        [ChainId.ASTR_TESTNET]: '0xDe2578Edec4669BA7F41c5d5D2386300bcEA4678',
+      },
+      decimals: 18,
+      projectLink: '',
+    },
     wastr: {
       symbol: 'WASTR',
       address: {

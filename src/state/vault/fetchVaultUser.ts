@@ -1,19 +1,21 @@
 import erc20ABI from 'config/abi/erc20.json';
-import { IVault } from './types';
+import { IFarmProject, IVault } from './types';
 import BigNumber from 'bignumber.js';
 import multicall from 'utils/multicall';
 import masterchefABI from 'config/abi/masterchef.json';
 import masterchefSdnABI from 'config/abi/masterchef_Shiden.json';
+import masterchefArthABI from 'config/abi/masterchef_arth.json';
 import { chainKey } from 'config';
 import { CHAINKEY } from '@my/sdk';
 import { chainId } from 'config/constants/tokens';
-import AVaultPCS_ABI from 'config/abi/AVaultPCS_ABI.json';
+import AVaultPCS from 'config/abi/AVaultPCS.json';
+
 import { haveNumber } from 'utils';
 
 export const fetchVaultsFarmUserAllowances = async (account: string, vaults: IVault[], index?: number) => {
   const calls = !haveNumber(index)
     ? vaults.map((vault: IVault) => {
-        const lpAddresses = vault.farm.lpAddresses;
+        const lpAddresses = vault.lpDetail.address[chainId];
         const contractAddress = vault.contractAddress[chainId];
         return {
           address: lpAddresses,
@@ -23,7 +25,7 @@ export const fetchVaultsFarmUserAllowances = async (account: string, vaults: IVa
       })
     : [
         {
-          address: vaults[index].farm.lpAddresses,
+          address: vaults[index].lpDetail.address[chainId],
           name: 'allowance',
           params: [account, vaults[index].contractAddress[chainId]],
         },
@@ -38,7 +40,7 @@ export const fetchVaultsFarmUserAllowances = async (account: string, vaults: IVa
 export const fetchVaultsFarmUserTokenBalances = async (account: string, vaults: IVault[], index?: number) => {
   const calls = !haveNumber(index)
     ? vaults.map((vault: IVault) => {
-        const lpAddresses = vault.farm.lpAddresses;
+        const lpAddresses = vault.lpDetail.address[chainId];
         return {
           address: lpAddresses,
           name: 'balanceOf',
@@ -47,7 +49,7 @@ export const fetchVaultsFarmUserTokenBalances = async (account: string, vaults: 
       })
     : [
         {
-          address: vaults[index].farm.lpAddresses,
+          address: vaults[index].lpDetail.address[chainId],
           name: 'balanceOf',
           params: [account],
         },
@@ -66,18 +68,23 @@ export const fetchVaultsFarmStakedBalances = async (account: string, vaults: IVa
         const masterChef = vault.vault.masterChef;
         return {
           address: masterChef,
-          name: 'userInfo',
+          name: vault.fromSource === IFarmProject.arthswap ? 'userInfos' : 'userInfo',
           params: [vault.farm.pid, account],
         };
       })
     : [
         {
           address: vaults[index].vault.masterChef,
-          name: 'userInfo',
+          name: vaults[index].fromSource === IFarmProject.arthswap ? 'userInfos' : 'userInfo',
           params: [vaults[index].farm.pid, account],
         },
       ];
-  const _masterchefABI = chainKey === CHAINKEY.SDN ? masterchefSdnABI : masterchefABI;
+  const _masterchefABI =
+    chainKey === CHAINKEY.SDN
+      ? masterchefSdnABI
+      : vaults[0].fromSource === IFarmProject.arthswap
+      ? masterchefArthABI
+      : masterchefABI;
   const rawStakedBalances = await multicall(_masterchefABI, calls);
   const parsedStakedBalances = rawStakedBalances.map((stakedBalance) => {
     return new BigNumber(stakedBalance[0]._hex).toJSON();
@@ -90,18 +97,23 @@ export const fetchVaultsFarmEarnings = async (account: string, vaults: IVault[],
         const masterChef = vault.vault.masterChef;
         return {
           address: masterChef,
-          name: 'pendingCake',
+          name: vault.fromSource === IFarmProject.arthswap ? 'pendingARSW' : 'pendingCake',
           params: [vault.farm.pid, account],
         };
       })
     : [
         {
           address: vaults[index].vault.masterChef,
-          name: 'pendingCake',
+          name: vaults[index].fromSource === IFarmProject.arthswap ? 'pendingARSW' : 'pendingCake',
           params: [vaults[index].farm.pid, account],
         },
       ];
-  const _masterchefABI = chainKey === CHAINKEY.SDN ? masterchefSdnABI : masterchefABI;
+  const _masterchefABI =
+    chainKey === CHAINKEY.SDN
+      ? masterchefSdnABI
+      : vaults[0].fromSource === IFarmProject.arthswap
+      ? masterchefArthABI
+      : masterchefABI;
   const rawEarnings = await multicall(_masterchefABI, calls);
   const parsedEarnings = rawEarnings.map((earnings) => {
     return new BigNumber(earnings).toJSON();
@@ -153,9 +165,9 @@ export const fetchVaultsUsers = async (account: string, vaults: IVault[], index?
       ];
 
   if (calls01.length && calls02.length) {
-    const rawEarnings01 = await multicall(AVaultPCS_ABI, calls01);
-    const rawEarnings02 = await multicall(AVaultPCS_ABI, calls02);
-    const rawEarnings03 = await multicall(AVaultPCS_ABI, calls03);
+    const rawEarnings01 = await multicall(AVaultPCS, calls01);
+    const rawEarnings02 = await multicall(AVaultPCS, calls02);
+    const rawEarnings03 = await multicall(AVaultPCS, calls03);
     const parsedEarnings = rawEarnings01.map((balances) => {
       return new BigNumber(balances).toJSON();
     });

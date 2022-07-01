@@ -1,17 +1,18 @@
 import masterchefABI from 'config/abi/masterchef.json';
 import masterchefSdnABI from 'config/abi/masterchef_Shiden.json';
+import masterchefArthABI from 'config/abi/masterchef_arth.json';
 import { chainId } from 'config/constants/tokens';
 import { getAddress } from 'utils/addressHelpers';
 import multicall from 'utils/multicall';
-import { IVault, IVaultConfigItem } from './types';
-import AVaultPCS_ABI from 'config/abi/AVaultPCS_ABI.json';
+import { IFarmProject, IVault, IVaultConfigItem } from './types';
+import AVaultPCS from 'config/abi/AVaultPCS.json';
+
 import erc20 from 'config/abi/erc20.json';
 import { BIG_TEN, BIG_ZERO } from 'utils/bigNumber';
 import { chainKey } from 'config';
 import { CHAINKEY } from '@my/sdk';
 import BigNumber from 'bignumber.js';
 import { getBalanceAmount } from 'utils/formatBalance';
-
 const fetchVault = async (
   account: string,
   vault: IVaultConfigItem,
@@ -27,7 +28,7 @@ const fetch = async (
   priceVsBusdMap: Record<string, string>,
   vaultData: IVault,
 ): Promise<IVault> => {
-  const AVaultPCS = getAddress(vault.contractAddress[chainId]);
+  const AVaultPCSAddress = getAddress(vault.contractAddress[chainId]);
   const {
     masterChef,
     name,
@@ -41,9 +42,10 @@ const fetch = async (
     wantLockedTotal,
     vaultTotalSupply,
     vaultDecimals,
-  } = await fetchVaultABI(AVaultPCS);
-
-  const { lpAddresses, poolWeight, multiplier } = await fetchMasterChefABI(masterChef, pid, vaultData);
+  } = await fetchVaultABI(AVaultPCSAddress);
+  const { poolWeight, multiplier } = await fetchMasterChefABI(masterChef, pid, vaultData);
+  const lpAddresses = vaultData.lpDetail.address[chainId];
+  // console.log({ vaultData, lpAddresses });
   const {
     tokenAmountMc,
     tokenAmountTotal,
@@ -84,7 +86,7 @@ const fetch = async (
   };
 
   return {
-    isLoading: false,
+    isLoading: true,
     ...vault,
     vault: {
       symbol: symbol,
@@ -207,7 +209,7 @@ const fetchVaultABI = async (AVaultPCSAddress: string) => {
     _wantLockedTotal,
     _vaultTotalSupply,
     _vaultDecimals,
-  ] = await multicall(AVaultPCS_ABI, calls);
+  ] = await multicall(AVaultPCS, calls);
   return {
     masterChef: _masterChef ? _masterChef[0] : null,
     name: _name ? _name[0] : null,
@@ -224,7 +226,12 @@ const fetchVaultABI = async (AVaultPCSAddress: string) => {
   };
 };
 const fetchMasterChefABI = async (masterChefAddress: string, pid: number, vaultData: IVault) => {
-  const _masterchefABI = chainKey === CHAINKEY.SDN ? masterchefSdnABI : masterchefABI;
+  const _masterchefABI =
+    chainKey === CHAINKEY.SDN
+      ? masterchefSdnABI
+      : vaultData.fromSource === IFarmProject.arthswap
+      ? masterchefArthABI
+      : masterchefABI;
   // info: [
   //   lpToken (address) : 0x456c0082de0048ee883881ff61341177fa1fef40
   //   allocPoint (uint256) : 2000
@@ -236,7 +243,7 @@ const fetchMasterChefABI = async (masterChefAddress: string, pid: number, vaultD
       ? await multicall(_masterchefABI, [
           {
             address: masterChefAddress,
-            name: 'poolInfo',
+            name: vaultData.fromSource === IFarmProject.arthswap ? 'poolInfos' : 'poolInfo',
             params: [pid],
           },
           {
@@ -245,8 +252,9 @@ const fetchMasterChefABI = async (masterChefAddress: string, pid: number, vaultD
           },
         ])
       : [null, null];
+
   const allocPoint = info ? new BigNumber(info.allocPoint?._hex) : BIG_ZERO;
-  const lpAddresses = info ? info.lpToken : '';
+  // const lpAddresses = info ? info.lpToken : '';
 
   const poolWeight = totalAllocPoint
     ? allocPoint.div(new BigNumber(totalAllocPoint))
@@ -254,7 +262,7 @@ const fetchMasterChefABI = async (masterChefAddress: string, pid: number, vaultD
     ? new BigNumber(vaultData.farm.poolWeight)
     : BIG_ZERO;
   return {
-    lpAddresses,
+    // lpAddresses,
     poolWeight,
     multiplier: `${allocPoint.div(new BigNumber(100)).toString()}X`,
   };

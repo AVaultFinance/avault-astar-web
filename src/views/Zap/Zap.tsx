@@ -24,13 +24,15 @@ import { DEFAULT_GAS_LIMIT } from 'config';
 import useDebounce from 'hooks/useDebounce';
 import useAuth from 'hooks/useAuth';
 import ArrowDown from 'views/Stake/components/svg/arrow_down';
+import { chainId } from 'config/constants/tokens';
 const Zap = () => {
   const { account } = useActiveWeb3React();
   const [fromCurrency, setFromCurrency] = useState(_fromCurrency);
   const [toCurrency, setToCurrency] = useState(_toCurrency);
+  console.log({ fromCurrency, toCurrency });
   const [fullBalance, setMax] = useState('0');
   const [val, setVal] = useState('');
-  const { handleZapClick } = useZapContract(zapAddress, fromCurrency, toCurrency);
+  const { handleZapClick } = useZapContract(zapAddress[chainId], fromCurrency, toCurrency);
   const [pendingTx, setPendingTx] = useState(false);
   const [pendingTxSuccess, setPendingTxSuccess] = useState(true);
   const valNumber = useDebounce(new BigNumber(val ?? '0'), 100);
@@ -104,8 +106,8 @@ const Zap = () => {
     }
   }, [account, onPresentConnectModal, fromCurrency, toCurrency, val, handleZapClick, toastSuccess, toastError]);
   const [isLoaded, setIsLoaded] = useState(false);
-  const { fetchApprove } = useHandleApproved(fromCurrency, account, zapAddress);
-  const isApprove = useApprove(isLoaded, setPendingTx, fromCurrency, toCurrency, account, zapAddress);
+  const { fetchApprove } = useHandleApproved(fromCurrency, account, zapAddress[chainId]);
+  const isApprove = useApprove(isLoaded, setPendingTx, fromCurrency, toCurrency, account, zapAddress[chainId]);
   const zapApprove = useCallback(async () => {
     if (!account) {
       onPresentConnectModal();

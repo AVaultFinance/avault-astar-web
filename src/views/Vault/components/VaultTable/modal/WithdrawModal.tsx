@@ -12,8 +12,10 @@ import useVaultWithdraw from 'views/Vault/hooks/useVaultWithdraw';
 import { changeLoading, changeVaultItemLoading, fetchVaultFarmUserDataAsync } from 'state/vault';
 import { showDecimals } from 'views/Vault/utils';
 import CInput from '../Actions/C_Input';
+import { IABIType } from 'state/vault/types';
 
 interface WithdrawModalProps {
+  abiType: IABIType;
   displayEarningsBalance: string;
   max: BigNumber;
   lpSymbol: string;
@@ -31,6 +33,7 @@ const ModalInputStyled = styled.div`
 `;
 const WithdrawModal: React.FC<WithdrawModalProps> = ({
   onDismiss,
+  abiType,
   max,
   displayEarningsBalance,
   lpSymbol,
@@ -60,7 +63,7 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
   const { data: vaults } = useVault();
   const { toastSuccess, toastError } = useToast();
   const dispatch = useAppDispatch();
-  const { onWithdraw } = useVaultWithdraw(account, contractAddress, lpAddressDecimals);
+  const { onWithdraw } = useVaultWithdraw(abiType, account, contractAddress, lpAddressDecimals);
 
   const handleSelectMax = useCallback(() => {
     setVal(fullBalance);

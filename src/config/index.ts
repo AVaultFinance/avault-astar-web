@@ -13,7 +13,7 @@ export const chainKey: CHAINKEY = CHAINKEY.ASTR;
 export const BSC_BLOCK_TIME = chainKey === CHAINKEY.BSC ? 3 : chainKey === CHAINKEY.SDN ? 12 : 12;
 
 export const BASE_BSC_SCAN_URLS = {
-  [ChainId.ASTR_MAINNET]: 'https://blockscout.com/astar',
+  [ChainId.ASTR_MAINNET]: 'https://astar.subscan.io/',
   [ChainId.ASTR_TESTNET]: 'https://blockscout.com/shibuya',
 
   [ChainId.SDN_MAINNET]: 'https://shiden.subscan.io',

@@ -15,7 +15,7 @@ import { CHAINKEY } from '@my/sdk';
 const base = BIG_TEN.pow(new BigNumber(18));
 
 export const fetchTokenPerBlock = async () => {
-  const _masterchefABI = chainKey === CHAINKEY.SDN ? masterchefSdnABI : masterchefABI;
+  const _masterchefABI = chainKey === CHAINKEY.SDN || chainKey === CHAINKEY.ASTR ? masterchefSdnABI : masterchefABI;
   const res = await multicall(_masterchefABI, [
     {
       address: addresses.masterChef[chainId],
