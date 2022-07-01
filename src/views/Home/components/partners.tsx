@@ -67,6 +67,11 @@ const arr02 = [
     name: 'GTS VENTURES',
     link: 'https://gts.ventures/',
   },
+  {
+    icon: '/images/home/partner_on/Microsoft.svg',
+    name: 'Microsoft',
+    link: '',
+  },
 ];
 
 const marquee = keyframes`
@@ -100,9 +105,14 @@ const HomePartners = () => {
             {partnersArr.map((v, index) => {
               return (
                 <li key={index}>
-                  <a href={v.link} target="_blank" rel="noreferrer" title={v.name}>
+                  {v.link === '' ? (
                     <img src={v.icon} alt={v.name} />
-                  </a>
+                  ) : (
+                    <a href={v.link} target="_blank" rel="noreferrer" title={v.name}>
+                      <img src={v.icon} alt={v.name} />
+                    </a>
+                  )}
+
                   {/* <IconBg name={v.name} href={v.link} target="_blank" rel="noreferrer" title={v.name} /> */}
                 </li>
               );
