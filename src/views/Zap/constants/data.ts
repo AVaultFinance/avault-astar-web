@@ -22,8 +22,26 @@ const _TokenALL = vaultConfig.map(
     },
   ] => {
     const [symbol0, symbol1] = v.lpDetail.symbol.replace(' LP', '').split('-');
-    const _v0 = symbol0.toLowerCase() === 'wastr' ? 'astr' : symbol0.toLowerCase();
-    const _v1 = symbol1.toLowerCase() === 'wastr' ? 'astr' : symbol1.toLowerCase();
+    const _v0 =
+      symbol0.toLowerCase() === 'wastr'
+        ? 'astr'
+        : symbol0.toLowerCase() === 'weth'
+        ? 'eth'
+        : symbol0.toLowerCase() === 'wsdn'
+        ? 'sdn'
+        : symbol0.toLowerCase() === 'wbtc'
+        ? 'btc'
+        : symbol0.toLowerCase();
+    const _v1 =
+      symbol1.toLowerCase() === 'wastr'
+        ? 'astr'
+        : symbol1.toLowerCase() === 'weth'
+        ? 'eth'
+        : symbol1.toLowerCase() === 'wsdn'
+        ? 'sdn'
+        : symbol1.toLowerCase() === 'wbtc'
+        ? 'btc'
+        : symbol1.toLowerCase();
     return [
       [_v0, _v1],
       {

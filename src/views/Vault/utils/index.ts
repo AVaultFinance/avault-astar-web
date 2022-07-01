@@ -46,12 +46,13 @@ export const harvestFarm = async (masterChefContract, pid) => {
   return receipt.status;
 };
 
-const isUSDCLp = (lpSymbol: string): boolean => {
-  return `${lpSymbol}`.indexOf('USDC') > -1;
+const isSpecialLp = (lpSymbol: string): boolean => {
+  return `${lpSymbol}`.indexOf('USD') > -1 || `${lpSymbol}`.indexOf('DOT') > -1 || `${lpSymbol}`.indexOf('BTC') > -1;
 };
+
 export const showDecimals = (lpSymbol: string): number => {
-  if (isUSDCLp(lpSymbol)) {
-    return 10;
+  if (isSpecialLp(lpSymbol)) {
+    return 15;
   } else {
     return 6;
   }

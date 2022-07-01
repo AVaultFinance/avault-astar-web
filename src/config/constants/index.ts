@@ -1,5 +1,21 @@
 import { JSBI, Percent, Token, ChainId } from '@my/sdk';
-import { BUSD, DAI, USDT, BTCB, Kaco, Base_Token, USDC, JPYC, DOT, KSM, ETH, ALPACA, CAKE, chainId } from './tokens';
+import {
+  BUSD,
+  DAI,
+  USDT,
+  BTCB,
+  Kaco,
+  Base_Token,
+  USDC,
+  JPYC,
+  DOT,
+  KSM,
+  ETH,
+  ALPACA,
+  CAKE,
+  chainId,
+  BTC,
+} from './tokens';
 
 export const ROUTER_ADDRESS = {
   [ChainId.ASTR_MAINNET]: '0xE915D2393a08a00c5A463053edD31bAe2199b9e7',
@@ -21,6 +37,7 @@ export const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
     USDT,
     // BTCB[chainId],
     // UST[chainId],
+    BTC,
     JPYC,
     ETH[chainId],
     USDC,

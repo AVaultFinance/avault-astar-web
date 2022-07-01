@@ -18,7 +18,7 @@
         "symbol": "DOT",
         "address": "0xffffffffffffffffffffffffffffffffffffffff",
         "chainId": 592,
-        "decimals": 18,
+        "decimals": 10,
         "logoURI": "/images/tokens/ASTR/0xffffffffffffffffffffffffffffffffffffffff.svg"
       },
       {
@@ -50,7 +50,7 @@
         "symbol": "OUSD",
         "address": "0x29f6e49c6e3397c3a84f715885f9f233a441165c",
         "chainId": 592,
-        "decimals": 18,
+        "decimals": 6,
         "logoURI": "/images/tokens/ASTR/0x29f6e49c6e3397c3a84f715885f9f233a441165c.svg"
       },
       {
@@ -170,7 +170,7 @@
         "symbol": "WBTC",
         "address": "0xad543f18cFf85c77E140E3E5E3c3392f6Ba9d5CA",
         "chainId": 592,
-        "decimals": 18,
+        "decimals": 8,
         "logoURI": "https://bitcoin.org//images/tokens/ASTR/0xad543f18cFf85c77E140E3E5E3c3392f6Ba9d5CA.svg"
       },
       {

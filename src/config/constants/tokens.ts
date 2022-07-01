@@ -10,7 +10,7 @@ export const tokens = {
         [ChainId.ASTR_MAINNET]: '0xffffffffffffffffffffffffffffffffffffffff',
         [ChainId.ASTR_TESTNET]: '0xffffffffffffffffffffffffffffffffffffffff',
       },
-      decimals: 18,
+      decimals: 10,
       projectLink: '',
     },
 
@@ -86,16 +86,6 @@ export const tokens = {
       decimals: 18,
       projectLink: '',
     },
-    wsdn: {
-      symbol: 'wsdn'.toUpperCase(),
-      address: {
-        [ChainId.ASTR_MAINNET]: '0x75364d4f779d0bd0facd9a218c67f87dd9aff3b4',
-        [ChainId.ASTR_TESTNET]: '0x75364d4f779d0bd0facd9a218c67f87dd9aff3b4',
-      },
-      decimals: 18,
-      projectLink: '',
-    },
-
     ibASTR: {
       symbol: 'ibASTR',
       address: {
@@ -163,7 +153,7 @@ export const tokens = {
       projectLink: 'https://www.centre.io/usdc',
     },
 
-    weth: {
+    eth: {
       symbol: 'WETH',
       address: {
         [ChainId.ASTR_MAINNET]: '0x81ECac0D6Be0550A00FF064a4f9dd2400585FE9c',
@@ -192,13 +182,13 @@ export const tokens = {
       projectLink: 'https://bitcoin.org/',
     },
 
-    wbtc: {
+    btc: {
       symbol: 'WBTC',
       address: {
         [ChainId.ASTR_MAINNET]: '0xad543f18cFf85c77E140E3E5E3c3392f6Ba9d5CA',
         [ChainId.ASTR_TESTNET]: '0xad543f18cFf85c77E140E3E5E3c3392f6Ba9d5CA',
       },
-      decimals: 18,
+      decimals: 8,
       projectLink: 'https://bitcoin.org/',
     },
 
@@ -334,6 +324,15 @@ export const Base_Token: Token = new Token(
   DEFAULT_Token[chainId].name,
 );
 
+export const BTC: Token = CHAINKEY.ASTR
+  ? new Token(
+      chainId,
+      tokens[chainKey].btc.address[chainId],
+      tokens[chainKey].btc.decimals,
+      tokens[chainKey].btc.symbol,
+      'BTC Coin',
+    )
+  : null;
 export const Kaco: Token = CHAINKEY.SDN
   ? new Token(chainId, main_tokens.kaco.address[chainId], 18, main_tokens.kaco.symbol, main_tokens.kaco.name)
   : null;
@@ -381,7 +380,7 @@ export const DOT: { [chainId: number]: Token } = {
   [ChainId.ASTR_TESTNET]: new Token(
     ChainId.ASTR_TESTNET as any,
     '0x7083609fCE4d1d8Dc0C979AAb8c869Ea2C873402',
-    18,
+    tokens[chainKey].dot.decimals,
     'DOT',
     'DOT Token',
   ),
@@ -488,9 +487,9 @@ export const ETH = {
   ),
   [ChainId.ASTR_MAINNET]: new Token(
     chainId,
-    tokens[chainKey].weth.address[chainId],
-    tokens[chainKey].weth.decimals,
-    tokens[chainKey].weth.symbol,
+    tokens[chainKey].eth.address[chainId],
+    tokens[chainKey].eth.decimals,
+    tokens[chainKey].eth.symbol,
     'Binance-Peg Ethereum Token',
   ),
 };
