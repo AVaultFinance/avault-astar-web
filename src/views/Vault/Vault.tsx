@@ -142,7 +142,7 @@ const Vaults: React.FC = () => {
     //WAIT
     const row: RowProps = {
       apr: {
-        apy: getDisplayApy(Number(vault.farm.apy)),
+        apy: vault.farm.apy,
         apr: getDisplayApy(Number(vault.farm.apy)),
         multiplier: vault.farm.multiplier,
         vaultSymbol: vault.vault.symbol,

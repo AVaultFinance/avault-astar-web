@@ -79,7 +79,6 @@ const fetch = async (
 
   const kacRewardsApr = (Number(lpToCLpRate) - 1) / data;
   const kacRewardApy = new BigNumber(kacRewardsApr).times(365).times(100).toFixed(2);
-
   const userData = vaultData?.farm?.userData ?? {};
   const _userDataKey = `${account}-${chainId}`;
   const _userData = userData[_userDataKey] ?? {
