@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
-import { splitSignature } from '@ethersproject/bytes';
-import { Contract } from '@ethersproject/contracts';
+// import { splitSignature } from '@ethersproject/bytes';
+// import { Contract } from '@ethersproject/contracts';
 import { TransactionResponse } from '@ethersproject/providers';
 import { ETHER, Percent } from '@my/sdk';
 import { Button, Flex, Input, Heading, useMatchBreakpoints, Modal } from '@my/ui';
@@ -10,7 +10,7 @@ import { RowBetween } from 'components/Layout/Row';
 import { ROUTER_ADDRESS } from 'config/constants';
 import useActiveWeb3React from 'hooks/useActiveWeb3React';
 import { useCurrency } from 'hooks/Tokens';
-import { usePairContract } from 'hooks/useContract';
+// import { usePairContract } from 'hooks/useContract';
 import useTransactionDeadline from 'hooks/useTransactionDeadline';
 
 import { useTransactionAdder } from 'state/transactions/hooks';
@@ -60,7 +60,7 @@ const RemoveLiquidityModal: React.FC<RemoveLiquidityModalProps> = ({ vault, acco
 
   // burn state
   const { independentField, typedValue } = useBurnState();
-  const { pair, parsedAmounts } = useDerivedBurnInfo(currencyA, currencyB);
+  const { parsedAmounts } = useDerivedBurnInfo(currencyA, currencyB);
   const { onUserInput: _onUserInput } = useBurnActionHandlers();
 
   // modal and loading
@@ -85,7 +85,7 @@ const RemoveLiquidityModal: React.FC<RemoveLiquidityModalProps> = ({ vault, acco
   };
 
   // pair contract
-  const pairContract: Contract | null = usePairContract(pair?.liquidityToken?.address);
+  // const pairContract: Contract | null = usePairContract(pair?.liquidityToken?.address);
 
   // allowance handling
   const [signatureData, setSignatureData] = useState<{ v: number; r: string; s: string; deadline: number } | null>(

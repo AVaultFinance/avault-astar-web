@@ -11,7 +11,7 @@ const vault: IVaultConfigItem[] = [
     abiType: IABIType.AVaultPCS,
     swapLink:
       'https://app.arthswap.org/#/add/0xDe2578Edec4669BA7F41c5d5D2386300bcEA4678/0xAeaaf0e2c81Af264101B9129C00F4440cCF0F720',
-    online_at: 1656673591,
+    online_at: 1656525599,
     lpDetail: {
       symbol: 'ARSW-WASTR LP',
       address: {
@@ -66,7 +66,7 @@ const vault: IVaultConfigItem[] = [
     fromSource: IFarmProject.arthswap,
     abiType: IABIType.AVaultPCS,
     swapLink: 'https://app.arthswap.org/#/add/',
-    online_at: 1656673591,
+    online_at: 1656525599,
     lpDetail: {
       symbol: 'DOT-USDC LP',
       address: {
@@ -85,7 +85,7 @@ const vault: IVaultConfigItem[] = [
     fromSource: IFarmProject.arthswap,
     abiType: IABIType.AVaultPCS,
     swapLink: 'https://app.arthswap.org/#/add/',
-    online_at: 1656673591,
+    online_at: 1656525599,
     lpDetail: {
       symbol: 'DOT-WASTR LP',
       address: {
@@ -104,7 +104,7 @@ const vault: IVaultConfigItem[] = [
     fromSource: IFarmProject.arthswap,
     abiType: IABIType.AVaultPCS,
     swapLink: 'https://app.arthswap.org/#/add/',
-    online_at: 1656673591,
+    online_at: 1656525599,
     lpDetail: {
       symbol: 'MUUU-WASTR LP',
       address: {
@@ -123,7 +123,7 @@ const vault: IVaultConfigItem[] = [
     fromSource: IFarmProject.arthswap,
     abiType: IABIType.AVaultPCS,
     swapLink: 'https://app.arthswap.org/#/add/',
-    online_at: 1656673591,
+    online_at: 1656525599,
     lpDetail: {
       symbol: 'KGL-WASTR LP',
       address: {
@@ -142,7 +142,7 @@ const vault: IVaultConfigItem[] = [
     fromSource: IFarmProject.arthswap,
     abiType: IABIType.AVaultPCS,
     swapLink: 'https://app.arthswap.org/#/add/',
-    online_at: 1656673591,
+    online_at: 1656525599,
     lpDetail: {
       symbol: 'LAY-WASTR LP',
       address: {
@@ -161,7 +161,7 @@ const vault: IVaultConfigItem[] = [
     fromSource: IFarmProject.arthswap,
     abiType: IABIType.AVaultPCS,
     swapLink: 'https://app.arthswap.org/#/add/',
-    online_at: 1656673591,
+    online_at: 1656525599,
     lpDetail: {
       symbol: 'OUSD-USDC LP',
       address: {
@@ -180,7 +180,7 @@ const vault: IVaultConfigItem[] = [
     fromSource: IFarmProject.arthswap,
     abiType: IABIType.AVaultPCS,
     swapLink: 'https://app.arthswap.org/#/add/',
-    online_at: 1656673591,
+    online_at: 1656525599,
     lpDetail: {
       symbol: 'BAI-USDC LP',
       address: {
@@ -199,7 +199,7 @@ const vault: IVaultConfigItem[] = [
     fromSource: IFarmProject.arthswap,
     abiType: IABIType.AVaultPCS,
     swapLink: 'https://app.arthswap.org/#/add/',
-    online_at: 1656673591,
+    online_at: 1656525599,
     lpDetail: {
       symbol: 'BAI-WASTR LP',
       address: {
@@ -218,7 +218,7 @@ const vault: IVaultConfigItem[] = [
     fromSource: IFarmProject.arthswap,
     abiType: IABIType.AVaultPCS,
     swapLink: 'https://app.arthswap.org/#/add/',
-    online_at: 1656673591,
+    online_at: 1656525599,
     lpDetail: {
       symbol: 'NIKA-WASTR LP',
       address: {
@@ -237,7 +237,7 @@ const vault: IVaultConfigItem[] = [
     fromSource: IFarmProject.arthswap,
     abiType: IABIType.AVaultPCS,
     swapLink: 'https://app.arthswap.org/#/add/',
-    online_at: 1656673591,
+    online_at: 1656525599,
     lpDetail: {
       symbol: 'ORU-WASTR LP',
       address: {
@@ -256,7 +256,7 @@ const vault: IVaultConfigItem[] = [
     fromSource: IFarmProject.arthswap,
     abiType: IABIType.AVaultPCS,
     swapLink: 'https://app.arthswap.org/#/add/',
-    online_at: 1656673591,
+    online_at: 1656525599,
     lpDetail: {
       symbol: 'JPYC-WASTR LP',
       address: {
@@ -275,7 +275,7 @@ const vault: IVaultConfigItem[] = [
     fromSource: IFarmProject.arthswap,
     abiType: IABIType.AVaultPCS,
     swapLink: 'https://app.arthswap.org/#/add/',
-    online_at: 1656673591,
+    online_at: 1656525599,
     lpDetail: {
       symbol: 'WSDN-WASTR LP',
       address: {
@@ -294,7 +294,7 @@ const vault: IVaultConfigItem[] = [
     fromSource: IFarmProject.arthswap,
     abiType: IABIType.AVaultPCS,
     swapLink: 'https://app.arthswap.org/#/add/',
-    online_at: 1656673591,
+    online_at: 1656525599,
     lpDetail: {
       symbol: 'MATIC-WASTR LP',
       address: {
@@ -313,7 +313,7 @@ const vault: IVaultConfigItem[] = [
     fromSource: IFarmProject.arthswap,
     abiType: IABIType.AVaultPCS,
     swapLink: 'https://app.arthswap.org/#/add/',
-    online_at: 1656673591,
+    online_at: 1656525599,
     lpDetail: {
       symbol: 'BNB-WASTR LP',
       address: {
@@ -332,7 +332,7 @@ const vault: IVaultConfigItem[] = [
     fromSource: IFarmProject.arthswap,
     abiType: IABIType.AVaultPCS,
     swapLink: 'https://app.arthswap.org/#/add/',
-    online_at: 1656673591,
+    online_at: 1656525599,
     lpDetail: {
       symbol: 'WBTC-WASTR LP',
       address: {
@@ -351,7 +351,7 @@ const vault: IVaultConfigItem[] = [
     fromSource: IFarmProject.arthswap,
     abiType: IABIType.AVaultPCS,
     swapLink: 'https://app.arthswap.org/#/add/',
-    online_at: 1656673591,
+    online_at: 1656525599,
     lpDetail: {
       symbol: 'USDT-WASTR LP',
       address: {
@@ -370,7 +370,7 @@ const vault: IVaultConfigItem[] = [
     fromSource: IFarmProject.arthswap,
     abiType: IABIType.AVaultPCS,
     swapLink: 'https://app.arthswap.org/#/add/',
-    online_at: 1656673591,
+    online_at: 1656525599,
     lpDetail: {
       symbol: 'USDC-WASTR LP',
       address: {
@@ -389,7 +389,7 @@ const vault: IVaultConfigItem[] = [
     fromSource: IFarmProject.arthswap,
     abiType: IABIType.AVaultPCS,
     swapLink: 'https://app.arthswap.org/#/add/',
-    online_at: 1656673591,
+    online_at: 1656525599,
     lpDetail: {
       symbol: 'WETH-WASTR LP',
       address: {
@@ -408,7 +408,7 @@ const vault: IVaultConfigItem[] = [
     fromSource: IFarmProject.arthswap,
     abiType: IABIType.AVaultPCS,
     swapLink: 'https://app.arthswap.org/#/add/',
-    online_at: 1656673591,
+    online_at: 1656525599,
     lpDetail: {
       symbol: 'DAI-USDC LP',
       address: {
@@ -427,7 +427,7 @@ const vault: IVaultConfigItem[] = [
     fromSource: IFarmProject.arthswap,
     abiType: IABIType.AVaultPCS,
     swapLink: 'https://app.arthswap.org/#/add/',
-    online_at: 1656673591,
+    online_at: 1656525599,
     lpDetail: {
       symbol: 'BUSD-USDC LP',
       address: {
@@ -446,7 +446,7 @@ const vault: IVaultConfigItem[] = [
     fromSource: IFarmProject.arthswap,
     abiType: IABIType.AVaultPCS,
     swapLink: 'https://app.arthswap.org/#/add/',
-    online_at: 1656673591,
+    online_at: 1656525599,
     lpDetail: {
       symbol: 'USDT-USDC LP',
       address: {

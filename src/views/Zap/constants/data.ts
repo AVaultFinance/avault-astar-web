@@ -24,7 +24,6 @@ const _TokenALL = vaultConfig.map(
     const [symbol0, symbol1] = v.lpDetail.symbol.replace(' LP', '').split('-');
     const _v0 = symbol0.toLowerCase() === 'wastr' ? 'astr' : symbol0.toLowerCase();
     const _v1 = symbol1.toLowerCase() === 'wastr' ? 'astr' : symbol1.toLowerCase();
-    console.log(_v0, _v1);
     return [
       [_v0, _v1],
       {
@@ -49,7 +48,6 @@ export const tokenAll: IToken[] =
         };
       })
     : [];
-console.log({ _TokenALL });
 export const lpTokenAll = [..._TokenALL.map((v: any[]) => v[1])].concat(tokenAll);
 
 export const fromCurrency: IToken = localStorage.getItem(zapLocalFromCurrency)

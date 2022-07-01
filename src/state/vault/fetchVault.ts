@@ -69,10 +69,16 @@ const fetch = async (
 
   const currentSeconds = Math.floor(Date.now() / 1000);
   // 86400s/day
-  const data = Math.ceil((currentSeconds - vaultData.online_at) / 86400) - 1;
+  let data = Math.ceil((currentSeconds - vaultData.online_at) / 86400) - 1;
+  if (data <= 0) {
+    data = 1;
+  }
   // state.data[index]?.online_at
-  const kacRewardsApr = (Number(lpToCLpRate) - 1) / data + 1;
-  const kacRewardApy = new BigNumber(kacRewardsApr).pow(365).times(100).minus(100).toFixed(2);
+  // const kacRewardsApr = (Number(lpToCLpRate) - 1) / data + 1;
+  // const kacRewardApy = new BigNumber(kacRewardsApr).pow(365).times(100).minus(100).toFixed(2);
+
+  const kacRewardsApr = (Number(lpToCLpRate) - 1) / data;
+  const kacRewardApy = new BigNumber(kacRewardsApr).times(365).times(100).toFixed(2);
 
   const userData = vaultData?.farm?.userData ?? {};
   const _userDataKey = `${account}-${chainId}`;
