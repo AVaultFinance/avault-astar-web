@@ -68,7 +68,7 @@ const TableHeader: FC<Iprops> = ({ sortKey, sortDir, onOptionChange }) => {
           </TrStyled>
           <TrStyled>
             <TextStyled onClick={() => HandleClick('APY', 'apy')}>
-              <p>APR</p>
+              <p>APY</p>
               <SortIconStyled sortDir={sortKey === 'apy' ? sortDir : ISortDir.default} />
             </TextStyled>
           </TrStyled>
