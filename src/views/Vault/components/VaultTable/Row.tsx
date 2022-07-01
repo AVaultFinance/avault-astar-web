@@ -283,7 +283,6 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
                 return null;
 
               case 'apr':
-                console.log(details.farm.apy);
                 return (
                   <td key={key}>
                     <Apr

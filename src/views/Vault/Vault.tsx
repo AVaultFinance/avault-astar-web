@@ -3,7 +3,6 @@ import BigNumber from 'bignumber.js';
 import { useWeb3React } from '@web3-react/core';
 import { RowType } from '@my/ui';
 import Page from 'components/Layout/Page';
-import { usePriceCakeBusd } from 'state/farms/hooks';
 import { getBalanceNumber } from 'utils/formatBalance';
 import { orderBy } from 'lodash';
 import VaultTable from './components/VaultTable/VaultTable';
@@ -39,7 +38,6 @@ export const getDisplayApy = (cakeRewardsApy?: number): string => {
 
 const Vaults: React.FC = () => {
   const { data: vaultsLP, userDataLoaded } = useVault();
-  const cakePrice = usePriceCakeBusd();
   const { account } = useWeb3React();
   const [sortKey, setSortKey] = useState('hot');
   const [sortDir, setSortDir] = useState(ISortDir.default);
@@ -140,7 +138,6 @@ const Vaults: React.FC = () => {
       avaultAddressBalance: '0',
       userVaultSupply: '0',
     };
-    console.log('vault.farm.apy: ', vault.farm.apy);
     //WAIT
     const row: RowProps = {
       apr: {

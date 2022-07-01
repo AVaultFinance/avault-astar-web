@@ -104,7 +104,6 @@ export const vaultSlice = createSlice({
     },
     changeVaultItemLoading: (state, action) => {
       // state.userDataLoaded = false;
-      console.log(action.payload.index);
       try {
         const index = action.payload.index;
         state.data[index].isLoading = true;
