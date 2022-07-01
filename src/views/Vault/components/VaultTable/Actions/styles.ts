@@ -40,15 +40,17 @@ export const ActionContent = styled.div`
   justify-content: space-between;
   align-items: center;
 `;
+export const HelfButton = styled(Button)<{ disabled: boolean }>`
+  height: 36px;
+  width: 48%;
+  margin-top: 4px;
+  transition: all 0.3s ease;
+  position: relative;
+`;
 export const LongButton = styled(Button)<{ disabled: boolean }>`
   height: 36px;
   width: 100%;
   margin-top: 4px;
   transition: all 0.3s ease;
   position: relative;
-  // &.loading {
-  // color: ${({ theme }) => theme.colors.primary};
-  // text-align: left;
-  // justify-content: space-between;
-  // }
 `;

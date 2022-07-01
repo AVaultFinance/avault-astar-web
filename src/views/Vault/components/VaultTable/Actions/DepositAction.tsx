@@ -5,7 +5,7 @@ import { useWeb3React } from '@web3-react/core';
 import { BIG_ZERO } from 'utils/bigNumber';
 import { useAppDispatch } from 'state';
 import useToast from 'hooks/useToast';
-import { LongButton } from './styles';
+import { HelfButton, LongButton } from './styles';
 import styled from 'styled-components';
 import CInput from './C_Input';
 import { getFullDisplayBalance } from 'utils/formatBalance';
@@ -139,15 +139,21 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
         <FlexStyled>
           <CInput value={val} onSelectMax={handleSelectMax} onChange={handleChange} />
           {!isApproved ? (
-            <LongButton
-              disabled={requestedApproval || !userDataReady}
-              isLoading={requestedApproval}
-              onClick={handleApprove}
-              variant="secondary"
-            >
-              {account ? 'Approve' : 'Connect Wallet'}
-              <Loading isLoading={requestedApproval} success={requestedApprovalSuccess} />
-            </LongButton>
+            <Flex alignItems="center" justifyContent="space-between">
+              <HelfButton
+                disabled={requestedApproval || !userDataReady}
+                isLoading={requestedApproval}
+                onClick={handleApprove}
+                variant="secondary"
+              >
+                {account ? 'Approve' : 'Connect Wallet'}
+                <Loading isLoading={requestedApproval} success={requestedApprovalSuccess} />
+              </HelfButton>
+              <HelfButton variant="primary" disabled={true}>
+                Deposit
+                <Loading isLoading={pendingTx} success={pendingTxSuccess} />
+              </HelfButton>
+            </Flex>
           ) : (
             <LongButton
               variant="primary"

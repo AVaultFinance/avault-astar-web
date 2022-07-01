@@ -3,8 +3,8 @@ import { IFarmProject, IABIType, IVaultConfigItem } from 'state/vault/types';
 const vault: IVaultConfigItem[] = [
   {
     contractAddress: {
-      [ChainId.ASTR_MAINNET]: '0x6D88aE7C2b7117F065E5c3B641f2B1D0B23e8d1F',
-      [ChainId.ASTR_TESTNET]: '0x6D88aE7C2b7117F065E5c3B641f2B1D0B23e8d1F',
+      [ChainId.ASTR_MAINNET]: '0x9a45b203Af044ADACceD4D95ca3cDa020E082c8A',
+      [ChainId.ASTR_TESTNET]: '0x9a45b203Af044ADACceD4D95ca3cDa020E082c8A',
     },
     // 2022-03-28 00:00:00
     fromSource: IFarmProject.arthswap, // from which swap
