@@ -11,6 +11,7 @@ import {
   fetchFarmUserStakedBalances,
 } from './fetchFarmUser';
 import { FarmsState, Farm } from '../types';
+import { IVault } from 'state/vault/types';
 
 const noAccountFarmConfig = farmsConfig.map((farm) => ({
   ...farm,
@@ -22,31 +23,32 @@ const noAccountFarmConfig = farmsConfig.map((farm) => ({
   },
 }));
 
-const initialState: FarmsState = { data: noAccountFarmConfig, loadArchivedFarmsData: false, userDataLoaded: false };
-
+const initialState: FarmsState = {
+  data: noAccountFarmConfig,
+  loadArchivedFarmsData: false,
+  userDataLoaded: false,
+  tvlTotal: '0',
+};
 export const nonArchivedFarms = farmsConfig.filter(({ pid }) => !isArchivedPid(pid));
 
 // Async thunks
 export const fetchFarmsPublicDataAsync = createAsyncThunk<
   Farm[],
   // number[],
-  { pids: number[]; priceVsBusdMap: Record<string, string> }
->('farms/fetchFarmsPublicDataAsync', async ({ pids, priceVsBusdMap }) => {
+  { pids: number[]; priceVsBusdMap: Record<string, string>; vaultData: IVault[] }
+>('farms/fetchFarmsPublicDataAsync', async ({ pids, priceVsBusdMap, vaultData }) => {
   const farmsToFetch = farmsConfig.filter((farmConfig) => pids.includes(farmConfig.pid));
 
   // Add price helper farms
   const farmsWithPriceHelpers = farmsToFetch.concat([]);
-  // console.log('farmsWithPriceHelpers------------', farmsWithPriceHelpers);
 
-  const farms = await fetchFarms(farmsWithPriceHelpers);
+  const farms = await fetchFarms(farmsWithPriceHelpers, priceVsBusdMap, vaultData);
   const farmsWithPrices = await fetchFarmsPrices(farms, priceVsBusdMap);
   // Filter out price helper LP config farms
-  // console.log('farmsWithPrices', pids, farmsWithPrices);
 
   const farmsWithoutHelperLps = farmsWithPrices.filter((farm: Farm) => {
     return farm.pid || farm.pid === 0;
   });
-
   return farmsWithoutHelperLps;
 });
 

@@ -13,7 +13,7 @@ import {
 import { haveNumber } from 'utils';
 import { chainId } from 'config/constants/tokens';
 import BigNumber from 'bignumber.js';
-const initialState: VaultState = {
+export const initialState: VaultState = {
   data: vaultsConfig.map((v: IVaultConfigItem) => {
     return {
       ...v,
@@ -52,7 +52,7 @@ const initialState: VaultState = {
       isLoading: false,
     };
   }),
-  allLiquidity: '',
+  tvlTotal: '',
   isUserLoaded: false,
   userDataLoaded: false,
 };
@@ -130,8 +130,13 @@ export const vaultSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchVaultsPublicDataAsync.fulfilled, (state, action) => {
       state.userDataLoaded = true;
-      state.data = action.payload[0];
-      state.allLiquidity = action.payload[1];
+      state.data = action.payload[0].map((v) => {
+        return {
+          ...v,
+          isLoading: false,
+        };
+      });
+      state.tvlTotal = action.payload[1];
     });
     builder.addCase(fetchVaultFarmUserDataAsync.pending, (state, action) => {
       // changeLoading();

@@ -76,11 +76,12 @@ export interface FarmsState {
   data: Farm[];
   loadArchivedFarmsData: boolean;
   userDataLoaded: boolean;
+  tvlTotal: string;
 }
 
 export interface VaultState {
   data: IVault[];
-  allLiquidity: string;
+  tvlTotal: string;
   isUserLoaded: boolean;
   userDataLoaded: boolean;
 }

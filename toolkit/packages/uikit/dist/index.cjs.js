@@ -1913,9 +1913,13 @@ var variants$4 = {
 };
 
 var _a$3, _b$2;
-var StyledPrimaryImage = styled__default['default'](TokenImage)(templateObject_1$I || (templateObject_1$I = __makeTemplateObject(["\n  position: absolute;\n  width: ", "; // 92, 72 are arbitrary numbers to fit the variant\n\n  ", "\n"], ["\n  position: absolute;\n  width: ",
+var StyledPrimaryImage = styled__default['default'](TokenImage)(templateObject_1$I || (templateObject_1$I = __makeTemplateObject(["\n  position: absolute;\n  width: ", "; // 92, 72 are arbitrary numbers to fit the variant\n\n  height: ", "; // 92, 72 are arbitrary numbers to fit the variant\n\n  ", "\n"], ["\n  position: absolute;\n  width: ",
+    "; // 92, 72 are arbitrary numbers to fit the variant\n\n  height: ",
     "; // 92, 72 are arbitrary numbers to fit the variant\n\n  ",
     "\n"])), function (_a) {
+    var variant = _a.variant;
+    return variant === variants$4.DEFAULT ? "92%" : "62%";
+}, function (_a) {
     var variant = _a.variant;
     return variant === variants$4.DEFAULT ? "92%" : "62%";
 }, styledSystem.variant({
@@ -1924,21 +1928,25 @@ var StyledPrimaryImage = styled__default['default'](TokenImage)(templateObject_1
             bottom: 0,
             left: 0,
             right: "auto",
-            top: 0,
+            top: "19%",
             zIndex: 5,
         },
         _a$3[variants$4.INVERTED] = {
             bottom: 0,
             left: "auto",
             right: 0,
-            top: 0,
+            top: "19%",
             zIndex: 6,
         },
         _a$3),
 }));
-var StyledSecondaryImage = styled__default['default'](TokenImage)(templateObject_2$o || (templateObject_2$o = __makeTemplateObject(["\n  position: absolute;\n  width: ", "; // 92, 72 are arbitrary numbers to fit the variant\n\n  ", "\n"], ["\n  position: absolute;\n  width: ",
+var StyledSecondaryImage = styled__default['default'](TokenImage)(templateObject_2$o || (templateObject_2$o = __makeTemplateObject(["\n  position: absolute;\n  width: ", "; // 92, 72 are arbitrary numbers to fit the variant\n  height: ", "; // 92, 72 are arbitrary numbers to fit the variant\n\n  ", "\n"], ["\n  position: absolute;\n  width: ",
+    "; // 92, 72 are arbitrary numbers to fit the variant\n  height: ",
     "; // 92, 72 are arbitrary numbers to fit the variant\n\n  ",
     "\n"])), function (_a) {
+    var variant = _a.variant;
+    return variant === variants$4.DEFAULT ? "92%" : "62%";
+}, function (_a) {
     var variant = _a.variant;
     return variant === variants$4.DEFAULT ? "92%" : "62%";
 }, styledSystem.variant({
@@ -1954,7 +1962,7 @@ var StyledSecondaryImage = styled__default['default'](TokenImage)(templateObject
             bottom: 0,
             left: 0,
             right: "auto",
-            top: 0,
+            top: "19%",
             zIndex: 5,
         },
         _b$2),

@@ -58,8 +58,15 @@ export interface FarmConfig {
   pid: number;
   lpSymbol: string;
   lpAddresses: Address;
+  lpMasterChefes: Address;
   token: Token;
   quoteToken: Token;
+  decimals: number;
+  lpDetail: {
+    symbol: string;
+    address: Address;
+    decimals: number;
+  };
   multiplier?: string;
   isCommunity?: boolean;
   dual?: {
@@ -68,7 +75,6 @@ export interface FarmConfig {
     endBlock: number;
   };
 }
-
 export interface PoolConfig {
   sousId: number;
   earningToken: Token;

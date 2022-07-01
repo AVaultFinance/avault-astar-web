@@ -25,11 +25,12 @@ import useDebounce from 'hooks/useDebounce';
 import useAuth from 'hooks/useAuth';
 import ArrowDown from 'views/Stake/components/svg/arrow_down';
 import { chainId } from 'config/constants/tokens';
+import { usePollVaultData } from 'state/vault/hooks';
 const Zap = () => {
+  usePollVaultData();
   const { account } = useActiveWeb3React();
   const [fromCurrency, setFromCurrency] = useState(_fromCurrency);
   const [toCurrency, setToCurrency] = useState(_toCurrency);
-  console.log({ fromCurrency, toCurrency });
   const [fullBalance, setMax] = useState('0');
   const [val, setVal] = useState('');
   const { handleZapClick } = useZapContract(zapAddress[chainId], fromCurrency, toCurrency);
@@ -232,7 +233,9 @@ const Zap = () => {
               <Loading isLoading={pendingTx} success={pendingTxSuccess} />
             </Button>
           </TableContent>
-          <ZapBgStyled />
+          <ZapBgStyled>
+            <ZapBg />
+          </ZapBgStyled>
         </W480BorderPageLayout>
       </PageContainerWrap>
     </PageLayout>
@@ -245,13 +248,12 @@ const HeadingStyled = styled(Heading)<{ isSmall: boolean; isLong: boolean }>`
   word-break: break-all;
   text-align: end;
 `;
-const ZapBgStyled = styled(ZapBg)`
+const ZapBgStyled = styled.div`
   position: absolute;
-  width: 210px;
-  top: 0;
-  right: 8px;
+  width: 152px;
+  top: 15px;
+  right: 3px;
 `;
-
 const MaxButtonStyled = styled(MaxButton)`
   font-size: 12px;
 `;
@@ -288,10 +290,14 @@ const PaddingStyled = styled.div`
     border-bottom: none;
   }
 `;
-
 const TitleStyled = styled(Heading)`
-  font-size: 20px;
+  display: inline-block;
+  background: linear-gradient(90deg, #ffd8fe 0%, #c5fff1 100%);
+  -webkit-background-clip: text;
+  color: transparent;
+  font-size: 36px;
   padding-bottom: 12px;
+  font-weight: 800;
 `;
 const TextStyled = styled(Text)`
   font-size: 14px;

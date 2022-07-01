@@ -4,6 +4,98 @@ import { BASE_BSC_SCAN_URL, chainKey } from 'config';
 export const chainId = parseInt(process.env.REACT_APP_CHAIN_ID, 10);
 export const tokens = {
   [CHAINKEY.ASTR]: {
+    dot: {
+      symbol: 'dot'.toUpperCase(),
+      address: {
+        [ChainId.ASTR_MAINNET]: '0xffffffffffffffffffffffffffffffffffffffff',
+        [ChainId.ASTR_TESTNET]: '0xffffffffffffffffffffffffffffffffffffffff',
+      },
+      decimals: 18,
+      projectLink: '',
+    },
+
+    muuu: {
+      symbol: 'muuu'.toUpperCase(),
+      address: {
+        [ChainId.ASTR_MAINNET]: '0xc5bcac31cf55806646017395ad119af2441aee37',
+        [ChainId.ASTR_TESTNET]: '0xc5bcac31cf55806646017395ad119af2441aee37',
+      },
+      decimals: 18,
+      projectLink: '',
+    },
+    kgl: {
+      symbol: 'kgl'.toUpperCase(),
+      address: {
+        [ChainId.ASTR_MAINNET]: '0x257f1a047948f73158dadd03eb84b34498bcdc60',
+        [ChainId.ASTR_TESTNET]: '0x257f1a047948f73158dadd03eb84b34498bcdc60',
+      },
+      decimals: 18,
+      projectLink: '',
+    },
+    lay: {
+      symbol: 'lay'.toUpperCase(),
+      address: {
+        [ChainId.ASTR_MAINNET]: '0xc4335b1b76fa6d52877b3046eca68f6e708a27dd',
+        [ChainId.ASTR_TESTNET]: '0xc4335b1b76fa6d52877b3046eca68f6e708a27dd',
+      },
+      decimals: 18,
+      projectLink: '',
+    },
+    ousd: {
+      symbol: 'ousd'.toUpperCase(),
+      address: {
+        [ChainId.ASTR_MAINNET]: '0x29f6e49c6e3397c3a84f715885f9f233a441165c',
+        [ChainId.ASTR_TESTNET]: '0x29f6e49c6e3397c3a84f715885f9f233a441165c',
+      },
+      decimals: 6,
+      projectLink: '',
+    },
+    bai: {
+      symbol: 'bai'.toUpperCase(),
+      address: {
+        [ChainId.ASTR_MAINNET]: '0x733ebcc6df85f8266349defd0980f8ced9b45f35',
+        [ChainId.ASTR_TESTNET]: '0x733ebcc6df85f8266349defd0980f8ced9b45f35',
+      },
+      decimals: 18,
+      projectLink: '',
+    },
+    nika: {
+      symbol: 'nika'.toUpperCase(),
+      address: {
+        [ChainId.ASTR_MAINNET]: '0x6df98e5fbff3041105cb986b9d44c572a43fcd22',
+        [ChainId.ASTR_TESTNET]: '0x6df98e5fbff3041105cb986b9d44c572a43fcd22',
+      },
+      decimals: 18,
+      projectLink: '',
+    },
+    oru: {
+      symbol: 'oru'.toUpperCase(),
+      address: {
+        [ChainId.ASTR_MAINNET]: '0xcdb32eed99aa19d39e5d6ec45ba74dc4afec549f',
+        [ChainId.ASTR_TESTNET]: '0xcdb32eed99aa19d39e5d6ec45ba74dc4afec549f',
+      },
+      decimals: 18,
+      projectLink: '',
+    },
+    jpyc: {
+      symbol: 'jpyc'.toUpperCase(),
+      address: {
+        [ChainId.ASTR_MAINNET]: '0x431d5dff03120afa4bdf332c61a6e1766ef37bdb',
+        [ChainId.ASTR_TESTNET]: '0x431d5dff03120afa4bdf332c61a6e1766ef37bdb',
+      },
+      decimals: 18,
+      projectLink: '',
+    },
+    wsdn: {
+      symbol: 'wsdn'.toUpperCase(),
+      address: {
+        [ChainId.ASTR_MAINNET]: '0x75364d4f779d0bd0facd9a218c67f87dd9aff3b4',
+        [ChainId.ASTR_TESTNET]: '0x75364d4f779d0bd0facd9a218c67f87dd9aff3b4',
+      },
+      decimals: 18,
+      projectLink: '',
+    },
+
     ibASTR: {
       symbol: 'ibASTR',
       address: {
@@ -22,7 +114,7 @@ export const tokens = {
       decimals: 18,
       projectLink: '',
     },
-    wastr: {
+    astr: {
       symbol: 'WASTR',
       address: {
         [ChainId.ASTR_MAINNET]: '0xAeaaf0e2c81Af264101B9129C00F4440cCF0F720',
@@ -47,7 +139,7 @@ export const tokens = {
         [ChainId.ASTR_MAINNET]: '0x3795C36e7D12A8c252A20C5a7B455f7c57b60283',
         [ChainId.ASTR_TESTNET]: '0x3795C36e7D12A8c252A20C5a7B455f7c57b60283',
       },
-      decimals: 18,
+      decimals: 6,
       projectLink: 'https://tether.to/',
     },
 
@@ -72,7 +164,7 @@ export const tokens = {
     },
 
     weth: {
-      symbol: 'WETH: ',
+      symbol: 'WETH',
       address: {
         [ChainId.ASTR_MAINNET]: '0x81ECac0D6Be0550A00FF064a4f9dd2400585FE9c',
         [ChainId.ASTR_TESTNET]: '0x81ECac0D6Be0550A00FF064a4f9dd2400585FE9c',
@@ -96,7 +188,7 @@ export const tokens = {
         [ChainId.ASTR_MAINNET]: '0x4Bf769b05E832FCdc9053fFFBC78Ca889aCb5E1E',
         [ChainId.ASTR_TESTNET]: '0x4Bf769b05E832FCdc9053fFFBC78Ca889aCb5E1E',
       },
-      decimals: 18,
+      decimals: 6,
       projectLink: 'https://bitcoin.org/',
     },
 
@@ -164,7 +256,7 @@ export const tokens = {
 export const main_tokens = {
   astr: {
     symbol: 'ASTR',
-    name: 'ASTR Token',
+    name: 'ASTR',
     decimals: 18,
     address: {
       [ChainId.ASTR_MAINNET]: '0xAeaaf0e2c81Af264101B9129C00F4440cCF0F720',
@@ -280,11 +372,11 @@ export const BUSD: { [chainId: number]: Token } = {
 
 export const DOT: { [chainId: number]: Token } = {
   [ChainId.ASTR_MAINNET]: new Token(
-    ChainId.ASTR_MAINNET as any,
-    '0x7083609fCE4d1d8Dc0C979AAb8c869Ea2C873402',
-    18,
-    'DOT',
-    'DOT Token',
+    chainId,
+    tokens[chainKey].dot.address[chainId],
+    tokens[chainKey].dot.decimals,
+    tokens[chainKey].dot.symbol,
+    'DOT Coin',
   ),
   [ChainId.ASTR_TESTNET]: new Token(
     ChainId.ASTR_TESTNET as any,
@@ -395,10 +487,10 @@ export const ETH = {
     'Binance-Peg Ethereum Token',
   ),
   [ChainId.ASTR_MAINNET]: new Token(
-    ChainId.ASTR_MAINNET as any,
-    '0x765277eebeca2e31912c9946eae1021199b39c61',
-    18,
-    'ETH',
+    chainId,
+    tokens[chainKey].weth.address[chainId],
+    tokens[chainKey].weth.decimals,
+    tokens[chainKey].weth.symbol,
     'Binance-Peg Ethereum Token',
   ),
 };
@@ -407,19 +499,16 @@ export const USDC = new Token(
   tokens[chainKey].usdc.address[chainId],
   tokens[chainKey].usdc.decimals,
   tokens[chainKey].usdc.symbol,
-  'USD Coin',
+  'usdc Token',
 );
 
-export const JPYC =
-  chainKey === CHAINKEY.ASTR
-    ? null
-    : new Token(
-        chainId,
-        tokens[chainKey].jpyc.address[chainId],
-        tokens[chainKey].jpyc.decimals,
-        tokens[chainKey].jpyc.symbol,
-        'JPYC Coin',
-      );
+export const JPYC = new Token(
+  chainId,
+  tokens[chainKey].jpyc.address[chainId],
+  tokens[chainKey].jpyc.decimals,
+  tokens[chainKey].jpyc.symbol,
+  'JPYC Coin',
+);
 export const ALPACA: { [chainId: number]: Token } = {
   [ChainId.BSC_MAINNET]: new Token(
     ChainId.BSC_MAINNET as any,

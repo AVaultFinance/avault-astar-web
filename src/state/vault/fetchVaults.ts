@@ -20,6 +20,7 @@ const fetchVaults = async (
   const _data = [];
   for (let i = 0; i < data.length; i++) {
     const v = data[i];
+    // console.log('v.farm.lpTokenPrice: ', v.contractAddress[chainId], v.farm.lpTokenPrice);
     if (v.farm.lpTokenPrice) {
       const _liquidity = new BigNumber(v.vault.wantLockedTotal)
         .div(BIG_TEN.pow(new BigNumber(v.vault.decimals)))
@@ -31,7 +32,7 @@ const fetchVaults = async (
         vault: {
           ...v.vault,
           liquidity: _liquidity.toLocaleString('en-US', {
-            maximumFractionDigits: 2,
+            maximumFractionDigits: 4,
           }),
         },
       });

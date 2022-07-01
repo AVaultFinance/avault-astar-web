@@ -15,8 +15,8 @@ import { ChainId } from '@my/sdk';
 export const zapAddress = {
   [ChainId.SDN_MAINNET]: '0x5Af88505CF2cE57bb5e36816d7853A221F6Fc981',
   [ChainId.SDN_TESTNET]: '0x5Af88505CF2cE57bb5e36816d7853A221F6Fc981',
-  [ChainId.ASTR_MAINNET]: '0x8fcbe72710185dd34a8bBBA1Cc05eB2628945FEC',
-  [ChainId.ASTR_TESTNET]: '0x8fcbe72710185dd34a8bBBA1Cc05eB2628945FEC',
+  [ChainId.ASTR_MAINNET]: '0xDd06ec4C599C66CB3cd986ff3610e07CF1A45bF1',
+  [ChainId.ASTR_TESTNET]: '0xDd06ec4C599C66CB3cd986ff3610e07CF1A45bF1',
 };
 
 function useZapContractFn(zapAddress: string): Contract | null {

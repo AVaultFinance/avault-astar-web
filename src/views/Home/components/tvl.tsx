@@ -1,103 +1,77 @@
-import { ChainId } from '@my/sdk';
-import { IABIType, IFarmProject, IVaultConfigItem } from 'state/vault/types';
-import { chainId } from 'config/constants/tokens';
+import { IVault } from 'state/vault/types';
 import { TokenPairImage } from 'components/TokenImage';
 import { Button } from '@my/ui';
 import styled from 'styled-components';
+import { useEffect, useMemo, useState } from 'react';
+import BigNumber from 'bignumber.js';
+import { useVault, useVaultAllTotal } from 'state/vault/hooks';
+import { useFarmsAllTotal } from 'state/farms/hooks';
+// import { useGovernanceAllTotal } from 'views/Governance/state/governance/hooks';
+import { getDisplayApy } from 'views/Vault/Vault';
 
-const avaultArr: IVaultConfigItem[] = [
-  {
-    contractAddress: {
-      [ChainId.ASTR_MAINNET]: '0x9A6080753a35dCd8e77102aE83A93170A831393e',
-      [ChainId.ASTR_TESTNET]: '0x9A6080753a35dCd8e77102aE83A93170A831393e',
-    },
-    fromSource: IFarmProject.kaco, // from which swap
-    abiType: IABIType.AVaultPCS, // use which abi
-    swapLink: 'https://shiden.kaco.finance/add/SDN/0xb12c13e66AdE1F72f71834f2FC5082Db8C091358',
-    online_at: 1648396800,
-    lpDetail: {
-      symbol: 'KAC-wSDN LP',
-      address: {
-        [ChainId.ASTR_MAINNET]: '0x456C0082DE0048EE883881fF61341177FA1FEF40',
-        [ChainId.ASTR_TESTNET]: '0x456C0082DE0048EE883881fF61341177FA1FEF40',
-      },
-      decimals: 18,
-    },
-  },
-  {
-    contractAddress: {
-      [ChainId.ASTR_MAINNET]: '0xc5b8D0eC15984653A7554878eE9b4212EA059Fd2',
-      [ChainId.ASTR_TESTNET]: '0xc5b8D0eC15984653A7554878eE9b4212EA059Fd2',
-    },
-    fromSource: IFarmProject.kaco, // from which swap
-    abiType: IABIType.AVaultPCS, // use which abi
-    swapLink: 'https://shiden.kaco.finance/add/0xfa9343c3897324496a05fc75abed6bac29f8a40f/SDN',
-    online_at: 1648396800,
-    lpDetail: {
-      symbol: 'wSDN-USDC LP',
-      address: {
-        [ChainId.ASTR_MAINNET]: '0xdB9a42E1165bA2fc479e1f2C1ce939807dbe6020',
-        [ChainId.ASTR_TESTNET]: '0xdB9a42E1165bA2fc479e1f2C1ce939807dbe6020',
-      },
-      decimals: 18,
-    },
-  },
-  {
-    contractAddress: {
-      [ChainId.ASTR_MAINNET]: '0x0Aaf347F50b766cA85dB70f9e2B0E178E9a16F4D',
-      [ChainId.ASTR_TESTNET]: '0x0Aaf347F50b766cA85dB70f9e2B0E178E9a16F4D',
-    },
-    fromSource: IFarmProject.kaco, // from which swap
-    abiType: IABIType.AVaultPCS, // use which abi
-    swapLink: 'https://shiden.kaco.finance/add/SDN/0x765277eebeca2e31912c9946eae1021199b39c61',
-    online_at: 1648396800,
-    lpDetail: {
-      symbol: 'ETH-wSDN LP',
-      address: {
-        [ChainId.ASTR_MAINNET]: '0xeb2C6d3F1bbe9DA50A0272E80fAA89354630DE88',
-        [ChainId.ASTR_TESTNET]: '0xeb2C6d3F1bbe9DA50A0272E80fAA89354630DE88',
-      },
-      decimals: 18,
-    },
-  },
-];
 const HomeTvl = () => {
-  return (
-    <HomeTvlStyled className="animate animate__animated" data-animate="animate__show">
-      <div className="text">
-        <h2>0.00+</h2>
-        <h3>AVAT TVL Amount</h3>
-      </div>
-      <div className="scroll">
-        <ul>
-          {avaultArr.map((v: IVaultConfigItem) => {
-            return (
-              <li
-                key={v.contractAddress[chainId]}
-                className="animate animate__animated"
-                data-animate="animate__fadeInUp"
-              >
-                <TokenPairImage
-                  variant="inverted"
-                  primaryToken={'0x3bfcae71e7d5ebc1e18313cecebcad8239aa386c'}
-                  secondaryToken={'0x65e66a61d0a8f1e686c2d6083ad611a10d84d97a'}
-                  width={60}
-                  height={60}
-                />
-                <div className="flex-middle">
-                  <h3>{v.lpDetail.symbol}</h3>
-                  <h4>{v.fromSource}</h4>
-                </div>
-                <ButtonStyled>
-                  0.00%
-                  <i>APY</i>
-                </ButtonStyled>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-    </HomeTvlStyled>
+  const allVaultTotal = useVaultAllTotal();
+  const allFarmsTotal = useFarmsAllTotal();
+  // const allGovernanceTotal = useGovernanceAllTotal();
+  const { data: vaultsLP } = useVault();
+
+  const [allTotal, setAllTotal] = useState('0');
+  useEffect(() => {
+    const _allVaultTotal = new BigNumber(allVaultTotal);
+    if (_allVaultTotal.gt(0)) {
+      const _allFarmsTotal = new BigNumber(allFarmsTotal);
+      const _allGovernanceTotal = new BigNumber('0');
+      setAllTotal(_allVaultTotal.plus(_allFarmsTotal).plus(_allGovernanceTotal).toFixed(8));
+    }
+    // setAllTotal(_allVaultTotal.toFixed(8));
+  }, [allVaultTotal, allFarmsTotal]);
+  return useMemo(
+    () => (
+      <HomeTvlStyled className="animate animate__animated" data-animate="animate__show">
+        <div className="text">
+          <h2>{Number(allTotal === 'NaN' ? '0' : allTotal).toFixed(2)}+</h2>
+          <h3>AVAT TVL Amount</h3>
+        </div>
+        <div className="scroll">
+          <ul>
+            {vaultsLP && vaultsLP.length
+              ? vaultsLP.map((v: IVault, index: number) => {
+                  if (index <= 2) {
+                    return (
+                      <li
+                        key={index}
+                        className="animate animate__animated"
+                        data-animate="animate__fadeInUp"
+                        onClick={() => {
+                          window.location.href = '/vault';
+                        }}
+                      >
+                        <TokenPairImage
+                          variant="inverted"
+                          primaryToken={v.vault.token0Address}
+                          secondaryToken={v.vault.token1Address}
+                          width={60}
+                          height={60}
+                        />
+                        <div className="flex-middle">
+                          <h3>{v.lpDetail.symbol}</h3>
+                          <h4>{v.fromSource}</h4>
+                        </div>
+                        <ButtonStyled>
+                          {getDisplayApy(Number(v.farm.apy))}%<i>APY</i>
+                        </ButtonStyled>
+                      </li>
+                    );
+                  } else {
+                    return null;
+                  }
+                })
+              : null}
+          </ul>
+        </div>
+      </HomeTvlStyled>
+    ),
+    [allTotal, vaultsLP],
   );
 };
 
@@ -116,6 +90,7 @@ const HomeTvlStyled = styled.div`
   &.animate__show {
     ul {
       li {
+        cursor: pointer;
         &:nth-child(1) {
           animation: slide-up 1s ease-in-out;
           animation-fill-mode: forwards;
@@ -163,12 +138,15 @@ const HomeTvlStyled = styled.div`
     height: 180px;
     margin-top: 40px;
     margin-bottom: 60px;
-    width: 770px;
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 780px;
     ${({ theme }) => theme.mediaQueries.md} {
       width: 100%;
       height: 108px;
       margin-top: 110px;
       margin-bottom: 200px;
+      padding: 0;
     }
     li {
       opacity: 0;
@@ -240,6 +218,8 @@ const ButtonStyled = styled(Button)`
   font-size: 20px;
   background-image: linear-gradient(90deg, #a428d0 0%, #20d4a9 100%);
   margin-top: -40px;
+  font-family: 'Poppins-SemiBold';
+
   ${({ theme }) => theme.mediaQueries.md} {
     margin-top: 0;
   }

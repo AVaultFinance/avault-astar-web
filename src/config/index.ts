@@ -13,7 +13,7 @@ export const chainKey: CHAINKEY = CHAINKEY.ASTR;
 export const BSC_BLOCK_TIME = chainKey === CHAINKEY.BSC ? 3 : chainKey === CHAINKEY.SDN ? 12 : 12;
 
 export const BASE_BSC_SCAN_URLS = {
-  [ChainId.ASTR_MAINNET]: 'https://astar.subscan.io/',
+  [ChainId.ASTR_MAINNET]: 'https://blockscout.com/astar',
   [ChainId.ASTR_TESTNET]: 'https://blockscout.com/shibuya',
 
   [ChainId.SDN_MAINNET]: 'https://shiden.subscan.io',
@@ -48,7 +48,7 @@ export const DEFAULT_GAS_LIMIT_40w = 400000;
 // 1000000
 // 400000
 // 200000
-export const DEFAULT_GAS_PRICE = 1000000000; // 2gwei
+export const DEFAULT_GAS_PRICE = 3000000000; // 2gwei
 export const AUCTION_BIDDERS_TO_FETCH = 500;
 export const RECLAIM_AUCTIONS_TO_FETCH = 500;
 export const AUCTION_WHITELISTED_BIDDERS_TO_FETCH = 500;

@@ -1,3 +1,4 @@
+import { chainId, DEFAULT_Token } from 'config/constants/tokens';
 import styled, { keyframes } from 'styled-components';
 
 const Banner = () => {
@@ -12,7 +13,7 @@ const Banner = () => {
         <h1>Avault</h1>
         <h2>
           The Best Yield Aggregator <br />
-          on Astar Network
+          on {DEFAULT_Token[chainId].name} Network
         </h2>
         <p>Compounding your revenue and unlocking your asset liquidity by using aLP/aToken</p>
       </div>

@@ -2,7 +2,7 @@ import { JSBI, Percent, Token, ChainId } from '@my/sdk';
 import { BUSD, DAI, USDT, BTCB, Kaco, Base_Token, USDC, JPYC, DOT, KSM, ETH, ALPACA, CAKE, chainId } from './tokens';
 
 export const ROUTER_ADDRESS = {
-  [ChainId.ASTR_MAINNET]: '0xa5e48a6E56e164907263e901B98D9b11CCB46C47',
+  [ChainId.ASTR_MAINNET]: '0xE915D2393a08a00c5A463053edD31bAe2199b9e7',
   [ChainId.SDN_MAINNET]: '0x72e86269b919Db5bDbF61cB1DeCfD6d14feC4D7F',
 };
 
@@ -14,14 +14,15 @@ type ChainTokenList = {
 export const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
   [ChainId.ASTR_MAINNET]: [
     Base_Token,
-    Kaco,
+    // Kaco,
     // DOT[chainId],
     // KSM[chainId],
     // BUSD[chainId],
-    // USDT,
+    USDT,
     // BTCB[chainId],
     // UST[chainId],
-    // ETH[chainId],
+    JPYC,
+    ETH[chainId],
     USDC,
   ],
   [ChainId.ASTR_TESTNET]: [Base_Token, ETH[chainId], Kaco, BUSD[ChainId.BSC_TESTNET]],
@@ -170,8 +171,8 @@ export const FACTORY_ADDRESS = {
   [ChainId.SDN_MAINNET]: '0xcd8620889c1dA22ED228e6C00182177f9dAd16b7',
   [ChainId.SDN_TESTNET]: '0xcd8620889c1dA22ED228e6C00182177f9dAd16b7',
 
-  [ChainId.ASTR_MAINNET]: '0x72e86269b919Db5bDbF61cB1DeCfD6d14feC4D7F',
-  [ChainId.ASTR_TESTNET]: '0x72e86269b919Db5bDbF61cB1DeCfD6d14feC4D7F',
+  [ChainId.ASTR_MAINNET]: '0xA9473608514457b4bF083f9045fA63ae5810A03E',
+  [ChainId.ASTR_TESTNET]: '0xA9473608514457b4bF083f9045fA63ae5810A03E',
 
   [ChainId.BSC_TESTNET]: '0xa5e48a6E56e164907263e901B98D9b11CCB46C47',
   [ChainId.BSC_MAINNET]: '0xa5e48a6E56e164907263e901B98D9b11CCB46C47',

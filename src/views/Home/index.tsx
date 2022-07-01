@@ -1,6 +1,6 @@
 import { useMatchBreakpoints } from '@my/ui';
 import BackTop from 'components/BackTop';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import HomeGlobalStyle from 'style/HomeGlobal';
 import styled from 'styled-components';
 import Banner from './components/banner';
@@ -8,6 +8,7 @@ import HomeFooter from './components/footer';
 import HomeHeader from './components/header';
 import HomeModules from './components/modules';
 import HomePartners from './components/partners';
+import HomeTvl from './components/tvl';
 // import HomeTvl from './components/tvl';
 export const Link = [
   { name: 'Discord', link: 'https://discord.gg/WcARFMy2t8' },
@@ -46,20 +47,23 @@ const Home = () => {
     }
   }, [isXs, isSm, isMd]);
 
-  return (
-    <Bg>
-      <HomeGlobalStyle />
-      <HomeHeader collapsed={collapsed} />
-      <Banner />
-      <Line />
-      {/* <HomeTvl /> */}
-      <Line />
-      <HomeModules />
-      <HomePartners />
-      <Line />
-      <HomeFooter collapsed={collapsed} />
-      <BackTop />
-    </Bg>
+  return useMemo(
+    () => (
+      <Bg>
+        <HomeGlobalStyle />
+        <HomeHeader collapsed={collapsed} />
+        <Banner />
+        <Line />
+        <HomeTvl />
+        <Line />
+        <HomeModules />
+        <HomePartners />
+        <Line />
+        <HomeFooter collapsed={collapsed} />
+        <BackTop />
+      </Bg>
+    ),
+    [collapsed],
   );
 };
 const Bg = styled.div`

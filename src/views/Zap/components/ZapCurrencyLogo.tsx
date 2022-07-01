@@ -14,7 +14,7 @@ const ImgStyled = styled.img`
 `;
 const ZapCurrencyLogo = ({ currency }: { currency: IToken }) => {
   if (currency.type === ITokenType.LP) {
-    return (
+    return currency?.token?.address && currency?.quoteToken?.address ? (
       <TokenPairImageWrap>
         <TokenPairImage
           variant="inverted"
@@ -24,6 +24,8 @@ const ZapCurrencyLogo = ({ currency }: { currency: IToken }) => {
           height={60}
         />
       </TokenPairImageWrap>
+    ) : (
+      <ImgStyled src={getImageUrlFromToken(currency.address[chainId])} alt="" />
     );
   }
   if (!currency.address) {

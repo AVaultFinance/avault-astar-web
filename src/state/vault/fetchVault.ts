@@ -45,6 +45,7 @@ const fetch = async (
   } = await fetchVaultABI(AVaultPCSAddress);
   const { poolWeight, multiplier } = await fetchMasterChefABI(masterChef, pid, vaultData);
   const lpAddresses = vaultData.lpDetail.address[chainId];
+  const lpAddressSymbol = vaultData.lpDetail.symbol;
   // console.log({ vaultData, lpAddresses });
   const {
     tokenAmountMc,
@@ -59,7 +60,7 @@ const fetch = async (
     liquidity,
     lpTokenPrice,
     lpAddressDecimals,
-  } = await fetchFarmDataABI(masterChef, lpAddresses, token0Address, token1Address, priceVsBusdMap);
+  } = await fetchFarmDataABI(masterChef, lpAddressSymbol, lpAddresses, token0Address, token1Address, priceVsBusdMap);
   // console.log(vault.lpDetail.symbol, lpAddresses, lpAddressDecimals);
   const lpToCLpRate =
     wantLockedTotal && vaultTotalSupply && wantLockedTotal > 0 && vaultTotalSupply > 0
@@ -269,6 +270,7 @@ const fetchMasterChefABI = async (masterChefAddress: string, pid: number, vaultD
 };
 const fetchFarmDataABI = async (
   masterChefAddress: string,
+  lpAddressSymbol: string,
   lpAddress: string,
   token: string,
   quoteToken: string,
@@ -364,7 +366,16 @@ const fetchFarmDataABI = async (
     const totalLpTokens = getBalanceAmount(new BigNumber(lpTotalSupply));
     lpTokenPrice = overallValueOfAllTokensInFarm.div(totalLpTokens);
   }
-
+  // else if (lpAddressSymbol.toLowerCase().indexOf('usd') > -1) {
+  //   const totalLpTokens = getBalanceAmount(new BigNumber(lpTotalSupply));
+  //   lpTokenPrice = quoteTokenAmountTotal.times(2).div(totalLpTokens);
+  // } else if (priceVsBusdMap[quoteToken.toLocaleLowerCase()]) {
+  //   const totalLpTokens = getBalanceAmount(new BigNumber(lpTotalSupply));
+  //   lpTokenPrice = quoteTokenAmountTotal
+  //     .times(2)
+  //     .times(priceVsBusdMap[quoteToken.toLocaleLowerCase()])
+  //     .div(totalLpTokens);
+  // }
   return {
     tokenAmountMc: tokenAmountMc.toString(),
     tokenAmountTotal: tokenAmountTotal.toString(),

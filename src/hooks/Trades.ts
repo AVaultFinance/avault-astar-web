@@ -100,7 +100,6 @@ export function useTradeExactIn(
   currencyOut?: Currency,
 ): Trade | null {
   const allowedPairs = useAllCommonPairs(currencyAmountIn?.currency, currencyOut);
-
   const [singleHopOnly] = useUserSingleHopOnly();
   const _singleHopOnly = propsSingleHopOnly != null ? propsSingleHopOnly : singleHopOnly;
   return useMemo(() => {

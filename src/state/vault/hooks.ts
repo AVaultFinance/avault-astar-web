@@ -8,14 +8,20 @@ import { usePrice } from 'state/price/hooks';
 import { VaultState, State } from 'state/types';
 import { BIG_ZERO } from 'utils/bigNumber';
 import { fetchVaultsPublicDataAsync, fetchVaultFarmUserDataAsync, changeLoading, changeVaultLoading } from './index';
+import vaultsConfig from 'config/constants/vault';
 import { IVault } from './types';
+import { initialState } from 'state/vault/index';
 export const usePollVaultData = () => {
   const dispatch = useAppDispatch();
   const { priceVsBusdMap } = usePrice();
   const { data: vaults } = useVault();
   const { account = '' } = useWeb3React();
   useEffect(() => {
-    dispatch(fetchVaultsPublicDataAsync({ account, priceVsBusdMap, vaultsData: vaults }));
+    let _vaults = vaults;
+    if (vaults.length !== vaultsConfig.length) {
+      _vaults = initialState.data;
+    }
+    dispatch(fetchVaultsPublicDataAsync({ account, priceVsBusdMap, vaultsData: _vaults }));
     // eslint-disable-next-line
   }, [dispatch, priceVsBusdMap]);
 };
@@ -57,7 +63,7 @@ export const useVault = (): VaultState => {
 // };
 export const useVaultAllTotal = () => {
   const vault = useSelector((state: State) => state.vault);
-  return vault.allLiquidity;
+  return vault.tvlTotal;
 };
 export const useVaultFarmUser = (account: string, pid?: number) => {
   try {
@@ -92,4 +98,8 @@ export const useVaultFarmUser = (account: string, pid?: number) => {
       avaultAddressBalance: BIG_ZERO,
     };
   }
+};
+export const useVaultData = () => {
+  const vaultData = useSelector((state: State) => state.vault.data);
+  return vaultData;
 };

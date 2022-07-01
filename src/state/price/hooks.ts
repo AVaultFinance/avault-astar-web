@@ -21,13 +21,14 @@ export const usePollPrice = (_address: string, amount = '1') => {
   const currencyOut: Currency = BUSD[chainId];
   const bestTradeExactIn = useTradeExactIn(false, currencyIn, currencyOut);
   const { priceVsBusdMap } = usePrice();
-
   useEffect(() => {
-    if (priceVsBusdMap[address] && amount === '1') {
+    if (priceVsBusdMap[address]) {
       return null;
     }
     if (bestTradeExactIn && bestTradeExactIn.executionPrice) {
       dispatch(setPrice({ address: address, num: bestTradeExactIn.executionPrice.toFixed() }));
+    } else {
+      // console.log({ address, bestTradeExactIn });
     }
   }, [dispatch, address, bestTradeExactIn, amount, bestTradeExactIn?.executionPrice, priceVsBusdMap]);
 };

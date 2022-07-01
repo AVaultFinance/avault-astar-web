@@ -24,6 +24,7 @@ export const useSpecialApproveFarm = (lpContract: Contract, avaultAddress: strin
   const contractAddressContract = useContract(avaultAddress, AVaultPCS);
   const handleApprove = useCallback(async () => {
     try {
+      console.log(lpContract, contractAddressContract.address, ethers.constants.MaxUint256);
       const res = await callWithEstimateGas(lpContract, 'approve', [
         contractAddressContract.address,
         ethers.constants.MaxUint256,

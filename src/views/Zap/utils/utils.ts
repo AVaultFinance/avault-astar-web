@@ -9,6 +9,7 @@ import erc20 from 'config/abi/erc20.json';
 import multicall from 'utils/multicall';
 import { getBalanceAmount } from 'utils/formatBalance';
 import { showDecimals } from 'views/Vault/utils';
+import { IVault } from 'state/vault/types';
 
 export const isCurrencyEquals = (selectedCurrency: IToken, currency: IToken) => {
   if (!selectedCurrency.address && !currency.address) {
@@ -30,8 +31,8 @@ export function currencyKey(currency: IToken, index: number): string {
 export function deweight(comeArr: IToken[]) {
   const map = new Map();
   for (const i of comeArr) {
-    if (!map.has(i.symbol.toLocaleLowerCase())) {
-      map.set(i.symbol.toLocaleLowerCase(), i);
+    if (!map.has((i?.symbol ?? '').toLocaleLowerCase())) {
+      map.set((i?.symbol ?? '').toLocaleLowerCase(), i);
     }
   }
 
@@ -155,4 +156,22 @@ const getLpAddreeTotalSupply = async (
     lpTokenPrice = overallValueOfAllTokensInFarm.div(totalLpTokens);
   }
   return lpTokenPrice.toString();
+};
+export const getAultPrice = async (
+  token: string,
+  tokenDecimals: number,
+  priceVsBusdMap: Record<string, string>,
+  lpAddress: string,
+  contractAddress: string,
+  vaultData: IVault[],
+): Promise<string> => {
+  const _lpPrice = await getLpAddreeTotalSupply(token, tokenDecimals, priceVsBusdMap, lpAddress);
+  const vault = vaultData.filter((v) => v.contractAddress[chainId].toLowerCase() === contractAddress);
+  let lpToCLpRate = '1';
+  if (vault) {
+    const _valut = vault[0];
+    lpToCLpRate = _valut.vault.lpToCLpRate;
+  }
+
+  return new BigNumber(_lpPrice).times(new BigNumber(lpToCLpRate)).toFixed(8);
 };

@@ -3,7 +3,8 @@ import { getAddress } from '@ethersproject/address';
 import { AddressZero } from '@ethersproject/constants';
 import { JsonRpcSigner, Web3Provider } from '@ethersproject/providers';
 import { BigNumber } from '@ethersproject/bignumber';
-import { abi as IUniswapV2Router02ABI } from '@uniswap/v2-periphery/build/IUniswapV2Router02.json';
+// import { abi as IUniswapV2Router02ABI } from '@uniswap/v2-periphery/build/IUniswapV2Router02.json';
+import IUniswapV2Router02ABI from './IUniswapV2Router02.json';
 import { JSBI, Percent, Token, CurrencyAmount, Currency, ETHER, CHAINKEY } from '@my/sdk';
 import { ROUTER_ADDRESS } from '../config/constants';
 import { BASE_BSC_SCAN_URL, chainKey } from '../config';
@@ -19,7 +20,6 @@ export const getImageUrlFromToken = (token: any) => {
   if (typeof token === 'string') {
     return `/images/tokens/${chainKey}/${token.toLocaleLowerCase()}.svg`;
   }
-  console.log('getImageUrlFromToken: ', token);
   if (typeof token.address === 'string') {
     return `/images/tokens/${chainKey}/${token.address.toLocaleLowerCase()}.svg`;
   }
@@ -40,13 +40,13 @@ export function getBscScanLink(
 ): string {
   switch (type) {
     case 'transaction': {
-      if (chainKey === CHAINKEY.SDN || chainKey === CHAINKEY.ASTR) {
+      if (chainKey === CHAINKEY.SDN) {
         return `${BASE_BSC_SCAN_URL}/extrinsic/${data}`;
       }
       return `${BASE_BSC_SCAN_URL}/tx/${data}`;
     }
     case 'token': {
-      if (chainKey === CHAINKEY.SDN || chainKey === CHAINKEY.ASTR) {
+      if (chainKey === CHAINKEY.SDN) {
         return `${BASE_BSC_SCAN_URL}/erc20_token/${data}`;
       }
       return `${BASE_BSC_SCAN_URL}/token/${data}`;
@@ -58,7 +58,7 @@ export function getBscScanLink(
       return `${BASE_BSC_SCAN_URL}/block/countdown/${data}`;
     }
     default: {
-      if (chainKey === CHAINKEY.SDN || chainKey === CHAINKEY.ASTR) {
+      if (chainKey === CHAINKEY.SDN) {
         return `${BASE_BSC_SCAN_URL}/erc20_token/${data}`;
       }
       return `${BASE_BSC_SCAN_URL}/address/${data}`;

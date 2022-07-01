@@ -218,7 +218,6 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
     false,
     `onRemoveLiquidity${index}`,
   );
-
   const lpContract = useERC20(lpAddress);
   const [requestedApproval, setRequestedApproval] = useState(false);
   const [requestedApprovalSuccess, setRequestedApprovalSuccess] = useState(true);
@@ -251,7 +250,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
         }, 10000);
       } else {
         const message = result ? result : 'Your approved failed';
-        toastError('Approve!', message);
+        toastError('Approve Error!', message);
         setRequestedApprovalSuccess(false);
         setTimeout(() => {
           setRequestedApprovalSuccess(true);
@@ -291,7 +290,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
         >
           Remove Liquidity
         </StyledLinkExternal>
-        <StyledLinkExternal href={`${getBscScanLink(vault.contractAddress[chainId], 'token')}`}>
+        <StyledLinkExternal href={`${getBscScanLink(vault.contractAddress[chainId], 'address')}`}>
           {t('View Contract')}
         </StyledLinkExternal>
         {/* 
@@ -346,7 +345,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
           <StyledLinkExternal hideIcon={true} onClick={onRemoveLiquidity}>
             Remove Liquidity
           </StyledLinkExternal>
-          <StyledLinkExternal href={`${getBscScanLink(vault.contractAddress[chainId], 'token')}`}>
+          <StyledLinkExternal href={`${getBscScanLink(vault.contractAddress[chainId], 'address')}`}>
             {t('View Contract')}
           </StyledLinkExternal>
         </InfoContainerSmall>

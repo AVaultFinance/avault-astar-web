@@ -7,6 +7,7 @@ import { usePriceCakeBusd } from 'state/farms/hooks';
 import { getBalanceNumber } from 'utils/formatBalance';
 import { orderBy } from 'lodash';
 import VaultTable from './components/VaultTable/VaultTable';
+import VaultBanner from './components/VaultBanner/VaultBanner';
 
 import { DesktopColumnSchema } from './components/types';
 import { OptionProps } from 'components/Select/Select';
@@ -222,6 +223,7 @@ const Vaults: React.FC = () => {
 
   return (
     <Page>
+      <VaultBanner />
       {renderContent()}
       {/* <PageLoader /> */}
       {!rowData.length ? <PageLoader /> : null}

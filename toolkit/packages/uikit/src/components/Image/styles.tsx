@@ -12,20 +12,23 @@ export const StyledPrimaryImage = styled(TokenImage)<StyledImageProps>`
   width: ${({ variant }) =>
     variant === variants.DEFAULT ? "92%" : "62%"}; // 92, 72 are arbitrary numbers to fit the variant
 
+  height: ${({ variant }) =>
+    variant === variants.DEFAULT ? "92%" : "62%"}; // 92, 72 are arbitrary numbers to fit the variant
+
   ${StyledSystemVariant({
     variants: {
       [variants.DEFAULT]: {
         bottom: 0,
         left: 0,
         right: "auto",
-        top: 0,
+        top: "19%",
         zIndex: 5,
       },
       [variants.INVERTED]: {
         bottom: 0,
         left: "auto",
         right: 0,
-        top: 0,
+        top: "19%",
         zIndex: 6,
       },
     },
@@ -35,6 +38,8 @@ export const StyledPrimaryImage = styled(TokenImage)<StyledImageProps>`
 export const StyledSecondaryImage = styled(TokenImage)<StyledImageProps>`
   position: absolute;
   width: ${({ variant }) =>
+    variant === variants.DEFAULT ? "92%" : "62%"}; // 92, 72 are arbitrary numbers to fit the variant
+  height: ${({ variant }) =>
     variant === variants.DEFAULT ? "92%" : "62%"}; // 92, 72 are arbitrary numbers to fit the variant
 
   ${StyledSystemVariant({
@@ -50,7 +55,7 @@ export const StyledSecondaryImage = styled(TokenImage)<StyledImageProps>`
         bottom: 0,
         left: 0,
         right: "auto",
-        top: 0,
+        top: "19%",
         zIndex: 5,
       },
     },
