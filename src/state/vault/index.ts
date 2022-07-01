@@ -159,8 +159,11 @@ export const vaultSlice = createSlice({
         // 86400s/day
         const data = Math.ceil((currentSeconds - state.data[index]?.online_at) / 86400) - 1;
         // state.data[index]?.online_at
-        const kacRewardsApr = (Number(lpToCLpRate) - 1) / data + 1;
-        const kacRewardApy = new BigNumber(kacRewardsApr).pow(365).times(100).minus(100).toFixed(2);
+        // const kacRewardsApr = (Number(lpToCLpRate) - 1) / data + 1;
+        // const kacRewardApy = new BigNumber(kacRewardsApr).pow(365).times(100).minus(100).toFixed(2);
+
+        const kacRewardsApr = (Number(lpToCLpRate) - 1) / data;
+        const kacRewardApy = new BigNumber(kacRewardsApr).times(365).times(100).toFixed(2);
 
         state.data[index] = {
           ...state.data[index],

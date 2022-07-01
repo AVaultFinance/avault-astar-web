@@ -80,6 +80,7 @@ const Vaults: React.FC = () => {
             // apr: `${kacRewardsApr}`,
             lpRewardsApr: `0`,
             liquidity: totalLiquidity.toString(),
+            apy: vault.farm.apy,
             // apy: `${kacRewardApy}`,
           },
         };
@@ -139,17 +140,18 @@ const Vaults: React.FC = () => {
       avaultAddressBalance: '0',
       userVaultSupply: '0',
     };
+    console.log('vault.farm.apy: ', vault.farm.apy);
     //WAIT
     const row: RowProps = {
       apr: {
         apy: vault.farm.apy,
-        apr: getDisplayApy(Number(vault.farm.apy)),
-        multiplier: vault.farm.multiplier,
-        vaultSymbol: vault.vault.symbol,
-        lpLabel: vault.lpDetail.symbol,
-        token0Address,
-        token1Address,
-        cakePrice,
+        // apr: getDisplayApy(Number(vault.farm.apy)),
+        // multiplier: vault.farm.multiplier,
+        // vaultSymbol: vault.vault.symbol,
+        // lpLabel: vault.lpDetail.symbol,
+        // token0Address,
+        // token1Address,
+        // cakePrice,
         originalValue: Number(vault.farm.apy),
         fromSource: vault.fromSource,
       },
@@ -196,8 +198,8 @@ const Vaults: React.FC = () => {
           case 'vault':
             return b.id - a.id;
           case 'apr':
-            if (a.original.apr.apr && b.original.apr.apr) {
-              return Number(a.original.apr.apr) - Number(b.original.apr.apr);
+            if (a.original.apr.apy && b.original.apr.apy) {
+              return Number(a.original.apr.apy) - Number(b.original.apr.apy);
             }
             return 0;
           case 'earned':

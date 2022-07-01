@@ -283,9 +283,15 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
                 return null;
 
               case 'apr':
+                console.log(details.farm.apy);
                 return (
                   <td key={key}>
-                    <Apr {...props.apr} hideButton={isMobile} />
+                    <Apr
+                      apy={details.farm.apy}
+                      originalValue={+details.farm.apy}
+                      fromSource={details.fromSource}
+                      hideButton={isMobile}
+                    />
                   </td>
                 );
               default:

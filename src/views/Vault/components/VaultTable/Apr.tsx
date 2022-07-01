@@ -8,17 +8,19 @@ import { Skeleton } from '@my/ui';
 import { IFarmProject } from 'state/vault/types';
 
 export interface AprProps {
-  apr: string;
+  // apr: string;
   apy: string;
-  multiplier: string;
-  lpLabel: string;
-  token0Address?: string;
-  token1Address?: string;
-  cakePrice: BigNumber;
+  // multiplier: string;
+  // lpLabel: string;
+  // token0Address?: string;
+  // token1Address?: string;
+  // cakePrice: BigNumber;
   originalValue: number;
   hideButton?: boolean;
-  vaultSymbol: string;
+  // vaultSymbol: string;
   fromSource?: IFarmProject;
+
+  // apy, originalValue, fromSource
 }
 
 const Container = styled.div`
@@ -50,7 +52,7 @@ const PStyled = styled.p`
   font-weight: 500;
   line-height: 20px;
 `;
-const Apr: React.FC<AprProps> = ({ apy, originalValue, fromSource, vaultSymbol, lpLabel }) => {
+const Apr: React.FC<AprProps> = ({ apy, originalValue, fromSource }) => {
   // const liquidityUrlPathParts = getLiquidityUrlPathParts({ quoteTokenAddress, tokenAddress });
   // const addLiquidityUrl = `${BASE_ADD_LIQUIDITY_URL}/${liquidityUrlPathParts}`;
   return originalValue !== 0 ? (
