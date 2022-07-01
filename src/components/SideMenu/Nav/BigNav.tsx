@@ -98,10 +98,10 @@ const BigNav: FC<{ menuItems: IMenu[] }> = ({ menuItems }) => {
           Bridge
           <IconLink />
         </NavLinkA> */}
-        <NavLinkA href="https://portal.astar.network/#/balance/wallet" target="_blank" rel="noreferrer" title="">
+        {/* <NavLinkA href="https://portal.astar.network/#/balance/wallet" target="_blank" rel="noreferrer" title="">
           Faucet
           <IconLink />
-        </NavLinkA>
+        </NavLinkA> */}
         <NavLinkA href="https://co-go.gitbook.io/avault/" target="_blank" rel="noreferrer" title="">
           Doc
           <IconLink />
