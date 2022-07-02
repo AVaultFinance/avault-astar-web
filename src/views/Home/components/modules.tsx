@@ -5,7 +5,7 @@ const modulesArr = [
     logo: './images/home/icon_vault.webp',
     title: 'Vault',
     content:
-      'Providing the aLP/aToken to the users by deposited their LP or token from other dapp. Then, the vault will automation to continually reinvest deposited funds',
+      'The aLP/aToken is provided to users who deposit their LP tokens from other dapps. The vault will then automatically reinvest deposited funds.',
   },
   {
     logo: './images/home/icon_farm.webp',

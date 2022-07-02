@@ -7,8 +7,8 @@ const VaultBanner = () => {
       <VaultBannerStyled>
         <h2 className="vaultBanner_title">Vault</h2>
         <p className="vaultBanner_subtext">
-          Providing the aLP/aToken to the users by deposited their LP or token from other dapp. Then, the vault will
-          automation to continually reinvest deposited funds
+          The aLP/aToken is provided to users who deposit their LP tokens from other dapps. The vault will then
+          automatically reinvest deposited funds.
         </p>
         <div className="bg_image">
           <img className="one" src="/images/vault/bg_image_01.svg" alt="Vault" />
