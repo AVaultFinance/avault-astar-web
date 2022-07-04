@@ -141,7 +141,10 @@ const Vaults: React.FC = () => {
     //WAIT
     const row: RowProps = {
       apr: {
+        lpLabel: vault.lpDetail.symbol,
         apy: vault.farm.apy,
+        feeApy: vault.farm.feeApy,
+        farmApy: vault.farm.farmApy,
         // apr: getDisplayApy(Number(vault.farm.apy)),
         // multiplier: vault.farm.multiplier,
         // vaultSymbol: vault.vault.symbol,

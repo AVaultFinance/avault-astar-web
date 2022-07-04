@@ -55,6 +55,10 @@ export interface IVaultFarm {
   // calculate
   apr?: string;
   apy?: string;
+  farmApr?: string;
+  farmApy?: string;
+  feeApr?: string;
+  feeApy?: string;
   lpRewardsApr?: string;
   liquidity?: string;
   lpTokenPrice?: string;

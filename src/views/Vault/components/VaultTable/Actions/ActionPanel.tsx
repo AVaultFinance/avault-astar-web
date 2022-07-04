@@ -312,10 +312,10 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
           APY
           <em>
             <i className="green">{vault?.farm?.apy ? getDisplayApy(Number(vault.farm.apy)) + '%' : ''}</i>
-            <i className="grey">Avault APR: 0.00%</i>
+            <i className="grey">Arthswap Fee APY: ≈{vault.farm.feeApy}%</i>
             <i className="grey">
-              {vault.lpDetail.symbol} APY: &nbsp;
-              {vault?.farm?.apy ? getDisplayApy(Number(vault.farm.apy)) + '%' : ''}
+              {vault.lpDetail.symbol} Farm APY: &nbsp;
+              {vault?.farm?.apy ? getDisplayApy(Number(vault.farm.farmApy)) + '%' : ''}
             </i>
           </em>
         </p>

@@ -286,7 +286,10 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
                 return (
                   <td key={key}>
                     <Apr
+                      lpLabel={details.lpDetail.symbol}
                       apy={details.farm.apy}
+                      farmApy={details.farm.farmApy}
+                      feeApy={details.farm.feeApy}
                       originalValue={+details.farm.apy}
                       fromSource={details.fromSource}
                       hideButton={isMobile}

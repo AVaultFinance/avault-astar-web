@@ -5,12 +5,13 @@ import styled from 'styled-components';
 // import getLiquidityUrlPathParts from 'utils/getLiquidityUrlPathParts';
 import { Skeleton } from '@my/ui';
 import { IFarmProject } from 'state/vault/types';
-
 export interface AprProps {
   // apr: string;
   apy: string;
+  farmApy: string;
+  feeApy: string;
   // multiplier: string;
-  // lpLabel: string;
+  lpLabel: string;
   // token0Address?: string;
   // token1Address?: string;
   // cakePrice: BigNumber;
@@ -51,7 +52,7 @@ const PStyled = styled.p`
   font-weight: 500;
   line-height: 20px;
 `;
-const Apr: React.FC<AprProps> = ({ apy, originalValue, fromSource }) => {
+const Apr: React.FC<AprProps> = ({ apy, farmApy, feeApy, originalValue, fromSource, lpLabel }) => {
   // const liquidityUrlPathParts = getLiquidityUrlPathParts({ quoteTokenAddress, tokenAddress });
   // const addLiquidityUrl = `${BASE_ADD_LIQUIDITY_URL}/${liquidityUrlPathParts}`;
   return originalValue !== 0 ? (
@@ -61,10 +62,10 @@ const Apr: React.FC<AprProps> = ({ apy, originalValue, fromSource }) => {
           <AprWrapper>{apy}%</AprWrapper>
           <PStyled>
             {/* {vaultSymbol} */}
-            Avault APR: 0.00%
+            Arthswap Fee APY: ≈{feeApy}%
           </PStyled>
           <PStyled>
-            {fromSource} APY: {apy}%
+            {fromSource} Farm APY: {farmApy}%
           </PStyled>
           {/* <ReferenceElement ref={targetRef}>
             <HelpIcon color="textSubtle" />
@@ -93,10 +94,10 @@ const Apr: React.FC<AprProps> = ({ apy, originalValue, fromSource }) => {
       <AprWrapper>{apy}%</AprWrapper>
       <PStyled>
         {/* {vaultSymbol} */}
-        Avault APR: 0.00%
+        Arthswap Fee APY: ≈{feeApy}%
       </PStyled>
       <PStyled>
-        {fromSource} APY: {apy}%
+        {fromSource} Farm APY: {apy}%
       </PStyled>
       {/* <ReferenceElement ref={targetRef}>
         <HelpIcon color="textSubtle" />

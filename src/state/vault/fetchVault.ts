@@ -6,7 +6,7 @@ import { getAddress } from 'utils/addressHelpers';
 import multicall from 'utils/multicall';
 import { IFarmProject, IVault, IVaultConfigItem } from './types';
 import AVaultPCS from 'config/abi/AVaultPCS.json';
-
+import vault_fee_apr from './vault_fee_apr.json';
 import erc20 from 'config/abi/erc20.json';
 import { BIG_TEN, BIG_ZERO } from 'utils/bigNumber';
 import { chainKey } from 'config';
@@ -14,6 +14,7 @@ import { CHAINKEY } from '@my/sdk';
 import BigNumber from 'bignumber.js';
 import { getBalanceAmount } from 'utils/formatBalance';
 import { getFarmApr } from 'utils/apr';
+import { aprToApy } from 'apr-tools';
 const fetchVault = async (
   currentBlock: number,
   account: string,
@@ -70,12 +71,12 @@ const fetch = async (
       ? (Number(wantLockedTotal) / Number(vaultTotalSupply)).toFixed(18)
       : '1';
 
-  const currentSeconds = Math.floor(Date.now() / 1000);
+  // const currentSeconds = Math.floor(Date.now() / 1000);
   // 86400s/day
-  let data = Math.ceil((currentSeconds - vaultData.online_at) / 86400) - 1;
-  if (data <= 0) {
-    data = 1;
-  }
+  // let data = Math.ceil((currentSeconds - vaultData.online_at) / 86400) - 1;
+  // if (data <= 0) {
+  //   data = 1;
+  // }
   // state.data[index]?.online_at
   // const kacRewardsApr = (Number(lpToCLpRate) - 1) / data + 1;
   // const kacRewardApy = new BigNumber(kacRewardsApr).pow(365).times(100).minus(100).toFixed(2);
@@ -91,6 +92,12 @@ const fetch = async (
     new BigNumber(liquidity),
     lpAddresses,
   );
+  const feeApr: number = vault_fee_apr[`${vaultData.lpDetail.symbol}`];
+  const feeApy = aprToApy(feeApr);
+
+  if (vaultData.lpDetail.symbol === 'ARSW-WASTR LP') {
+    console.log({ feeApr, feeApy, kacRewardsApr, kacRewardApy });
+  }
   // console.log(`kacRewardsApr: ${kacRewardsApr}, kacRewardApy: ${kacRewardApy}`);
   const userData = vaultData?.farm?.userData ?? {};
   const _userDataKey = `${account}-${chainId}`;
@@ -141,8 +148,12 @@ const fetch = async (
       liquidity: liquidity,
       lpTokenPrice: lpTokenPrice,
       lpAddressDecimals: lpAddressDecimals,
-      apr: `${kacRewardsApr.toFixed(2)}`,
-      apy: `${kacRewardApy.toFixed(2)}`,
+      apr: `${(kacRewardsApr + feeApr).toFixed(2)}`,
+      apy: `${(kacRewardApy + feeApy).toFixed(2)}`,
+      farmApr: `${kacRewardsApr.toFixed(2)}`,
+      farmApy: `${kacRewardApy.toFixed(2)}`,
+      feeApr: `${feeApr}`,
+      feeApy: `${feeApy.toFixed(2)}`,
       userData: {
         _userDataKey: {
           account: _userData.account,
