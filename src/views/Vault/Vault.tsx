@@ -112,7 +112,7 @@ const Vaults: React.FC = () => {
             side,
           );
         case 'liquidity':
-          return orderBy(vaults, (vault: IVault) => Number(vault.vault.liquidity), side);
+          return orderBy(vaults, (vault: IVault) => Number(vault.vault.liquidity.replace(',', '')), side);
         default:
           return vaults;
       }
@@ -173,7 +173,6 @@ const Vaults: React.FC = () => {
       },
       details: vault,
     };
-
     return row;
   });
   const handleSortKeyChange = (option: OptionProps): void => {
