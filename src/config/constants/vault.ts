@@ -20,42 +20,6 @@ const vault: IVaultConfigItem[] = [
       },
       decimals: 18,
     },
-    farm: {
-      pid: 21,
-      lpSymbol: 'ARSW-LP',
-      lpAddresses: '0x50497E7181eB9e8CcD70a9c44FB997742149482a',
-      token: '0xDe2578Edec4669BA7F41c5d5D2386300bcEA4678',
-      quoteToken: '0xAeaaf0e2c81Af264101B9129C00F4440cCF0F720',
-      tokenAmountMc:
-        '23666019.83038530220408502324677831618758950267777873699126507417514578688413141465096564074615871942070001',
-      quoteTokenAmountMc:
-        '3682588.54074413675849422887365513987160587918474113737532509487606900073647145244572697830696106262273771',
-      tokenAmountTotal: '24294214.169869651846920073',
-      quoteTokenAmountTotal: '3780339.717009746025495283',
-      lpTotalInQuoteToken:
-        '7365177.08148827351698845774731027974321175836948227475065018975213800147294290489145395661392212524547542',
-      lpTotalSupply: '9412251394043877104225006',
-      tokenPriceVsQuote: '0.15560658560828144113361934830279215485329770745903548650107990402601075477901657',
-      poolWeight: '0.24715768660405338606030647553138902619871478002965892239248640632723677706376668',
-      multiplier: '100X',
-      quoteTokenDecimals: 18,
-      liquidity: '310073.96',
-      lpTokenPrice: '0.03407087354734380707189079139038953208982931618585677936834547575460086151985243',
-      lpAddressDecimals: 18,
-      apr: '1.0001181799520416',
-      apy: '4.41',
-      userData: {
-        _userDataKey: {
-          account: '',
-          allowance: '0',
-          stakingTokenBalance: '0',
-          stakedBalance: '0',
-          pendingReward: '0',
-          avaultAddressBalance: '0',
-          userVaultSupply: '0',
-        },
-      },
-    },
   },
   // aDotUsdc
   {
