@@ -43,7 +43,7 @@ export const useVaultUserData = (vaults: IVault[]) => {
   };
   const dispatch = useAppDispatch();
   useEffect(() => {
-    if (account) {
+    if (account && length !== vaults.length) {
       dispatch(changeLoading());
       dispatch(fetchVaultFarmUserDataAsync({ account, vaults }));
       setLength(vaults.length);

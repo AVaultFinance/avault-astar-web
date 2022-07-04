@@ -35,6 +35,7 @@ import vaultConfig from 'config/constants/vault';
 import { useVault } from 'state/vault/hooks';
 import { useAppDispatch } from 'state';
 import { fetchVaultFarmUserDataAsync } from 'state/vault';
+import useToast from 'hooks/useToast';
 
 interface RemoveLiquidityModalProps {
   vault: IVault;
@@ -46,6 +47,7 @@ const RemoveLiquidityModal: React.FC<RemoveLiquidityModalProps> = ({ vault, acco
   const [val, setVal] = useState('');
   const index = vaultConfig.map((v: IVaultConfigItem) => v.lpDetail.symbol).indexOf(vault.lpDetail.symbol);
   const { data: vaults } = useVault();
+  const { toastSuccess } = useToast();
 
   const token: IToken = tokenIndex[index][1];
   const currencyIdA = token.token.address[chainId];
@@ -305,6 +307,10 @@ const RemoveLiquidityModal: React.FC<RemoveLiquidityModalProps> = ({ vault, acco
           if (hash) {
             const receipt = await response.wait();
             if (receipt.status) {
+              toastSuccess(
+                'Remove Liquidity Successful!',
+                `Remove ${formattedAmounts[Field.LIQUIDITY]} ${vault.lpDetail.symbol} success!`,
+              );
               setAttemptingTxn(false);
               onLiquidityInput('');
               dispatch(fetchVaultFarmUserDataAsync({ account, vaults }));

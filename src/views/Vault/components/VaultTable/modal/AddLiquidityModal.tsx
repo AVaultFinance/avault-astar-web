@@ -12,7 +12,6 @@ import { ApprovalState, useApproveCallback } from 'hooks/useApproveCallback';
 import useTransactionDeadline from 'hooks/useTransactionDeadline';
 import { Field } from 'state/mint/actions';
 import { useDerivedMintInfo, useMintActionHandlers, useMintState } from 'state/mint/hooks';
-import { useTransactionAdder } from 'state/transactions/hooks';
 import { useUserSlippageTolerance } from 'state/user/hooks';
 import { calculateGasMargin, calculateSlippageAmount, getRouterContract } from 'utils';
 import { maxAmountSpend } from 'utils/maxAmountSpend';
@@ -30,6 +29,7 @@ import ZapBalance from 'views/Zap/components/ZapBalance';
 import IconAdd from 'components/svg/IconAdd';
 import { fetchVaultFarmUserDataAsync } from 'state/vault';
 import { useAppDispatch } from 'state';
+import useToast from 'hooks/useToast';
 import { useVault } from 'state/vault/hooks';
 
 interface AddLiquidityModalProps {
@@ -102,7 +102,7 @@ const AddLiquidityModal: React.FC<AddLiquidityModalProps> = ({ vault, account, o
   const [approvalA, approveACallback] = useApproveCallback(parsedAmounts[Field.CURRENCY_A], ROUTER_ADDRESS[chainId]);
   const [approvalB, approveBCallback] = useApproveCallback(parsedAmounts[Field.CURRENCY_B], ROUTER_ADDRESS[chainId]);
 
-  const addTransaction = useTransactionAdder();
+  const { toastSuccess } = useToast();
 
   async function onAdd() {
     if (!chainId || !library || !account) return;
@@ -170,15 +170,16 @@ const AddLiquidityModal: React.FC<AddLiquidityModalProps> = ({ vault, account, o
           ...(value ? { value } : {}),
           gasLimit: calculateGasMargin(estimatedGasLimit),
         }).then(async (response) => {
-          addTransaction(response, {
-            summary: `Add ${parsedAmounts[Field.CURRENCY_A]?.toSignificant(3)} ${
-              currencies[Field.CURRENCY_A]?.symbol
-            } and ${parsedAmounts[Field.CURRENCY_B]?.toSignificant(3)} ${currencies[Field.CURRENCY_B]?.symbol}`,
-          });
           const { hash } = response;
           if (hash) {
             const receipt = await response.wait();
             if (receipt.status) {
+              toastSuccess(
+                'Add Liquidity Successful!',
+                `Add ${parsedAmounts[Field.CURRENCY_A]?.toSignificant(3)} ${
+                  currencies[Field.CURRENCY_A]?.symbol
+                } and ${parsedAmounts[Field.CURRENCY_B]?.toSignificant(3)} ${currencies[Field.CURRENCY_B]?.symbol}`,
+              );
               setAttemptingTxn(false);
               onFieldAInput('');
               onFieldBInput('');
