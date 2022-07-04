@@ -95,9 +95,6 @@ const fetch = async (
   const feeApr: number = vault_fee_apr[`${vaultData.lpDetail.symbol}`];
   const feeApy = aprToApy(feeApr);
 
-  if (vaultData.lpDetail.symbol === 'ARSW-WASTR LP') {
-    console.log({ feeApr, feeApy, kacRewardsApr, kacRewardApy });
-  }
   // console.log(`kacRewardsApr: ${kacRewardsApr}, kacRewardApy: ${kacRewardApy}`);
   const userData = vaultData?.farm?.userData ?? {};
   const _userDataKey = `${account}-${chainId}`;
