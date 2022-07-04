@@ -152,7 +152,7 @@ const fetch = async (
       feeApr: `${feeApr}`,
       feeApy: `${feeApy.toFixed(2)}`,
       userData: {
-        _userDataKey: {
+        [_userDataKey]: {
           account: _userData.account,
           allowance: _userData.allowance,
           stakingTokenBalance: _userData.stakingTokenBalance,
