@@ -28,6 +28,9 @@ import Loading from 'components/TransactionConfirmationModal/Loading';
 import ZapCurrencyLogo from 'views/Zap/components/ZapCurrencyLogo';
 import ZapBalance from 'views/Zap/components/ZapBalance';
 import IconAdd from 'components/svg/IconAdd';
+import { fetchVaultFarmUserDataAsync } from 'state/vault';
+import { useAppDispatch } from 'state';
+import { useVault } from 'state/vault/hooks';
 
 interface AddLiquidityModalProps {
   vault: IVault;
@@ -51,6 +54,8 @@ const AddLiquidityModal: React.FC<AddLiquidityModalProps> = ({ vault, account, o
 
   const currencyA = useCurrency(currencyIdA);
   const currencyB = useCurrency(currencyIdB);
+  const dispatch = useAppDispatch();
+  const { data: vaults } = useVault();
 
   // mint state
   const { independentField, typedValue, otherTypedValue } = useMintState();
@@ -177,6 +182,7 @@ const AddLiquidityModal: React.FC<AddLiquidityModalProps> = ({ vault, account, o
               setAttemptingTxn(false);
               onFieldAInput('');
               onFieldBInput('');
+              dispatch(fetchVaultFarmUserDataAsync({ account, vaults }));
               onDismiss();
             }
           }

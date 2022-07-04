@@ -32,6 +32,9 @@ import ZapCurrencyLogo from 'views/Zap/components/ZapCurrencyLogo';
 import BigNumber from 'bignumber.js';
 import Loading from 'components/TransactionConfirmationModal/Loading';
 import vaultConfig from 'config/constants/vault';
+import { useVault } from 'state/vault/hooks';
+import { useAppDispatch } from 'state';
+import { fetchVaultFarmUserDataAsync } from 'state/vault';
 
 interface RemoveLiquidityModalProps {
   vault: IVault;
@@ -42,6 +45,7 @@ const RemoveLiquidityModal: React.FC<RemoveLiquidityModalProps> = ({ vault, acco
   const [fullBalance, setMax] = useState('0');
   const [val, setVal] = useState('');
   const index = vaultConfig.map((v: IVaultConfigItem) => v.lpDetail.symbol).indexOf(vault.lpDetail.symbol);
+  const { data: vaults } = useVault();
 
   const token: IToken = tokenIndex[index][1];
   const currencyIdA = token.token.address[chainId];
@@ -57,6 +61,7 @@ const RemoveLiquidityModal: React.FC<RemoveLiquidityModalProps> = ({ vault, acco
   );
 
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
 
   // burn state
   const { independentField, typedValue } = useBurnState();
@@ -302,6 +307,7 @@ const RemoveLiquidityModal: React.FC<RemoveLiquidityModalProps> = ({ vault, acco
             if (receipt.status) {
               setAttemptingTxn(false);
               onLiquidityInput('');
+              dispatch(fetchVaultFarmUserDataAsync({ account, vaults }));
               onDismiss();
             }
           }
