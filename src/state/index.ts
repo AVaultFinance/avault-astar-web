@@ -23,7 +23,7 @@ import lists from './lists/reducer';
 import burn from './burn/reducer';
 import multicall from './multicall/reducer';
 
-const PERSISTED_KEYS: string[] = ['user', 'transactions', 'lists', 'vault'];
+const PERSISTED_KEYS: string[] = ['user', 'transactions', 'price', 'lists', 'vault'];
 // const PERSISTED_KEYS: string[] = ['user', 'transactions', 'lists'];
 
 const store = configureStore({

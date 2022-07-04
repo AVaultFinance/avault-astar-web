@@ -23,7 +23,13 @@ export const usePollPrice = (_address: string, amount = '1') => {
   const { priceVsBusdMap } = usePrice();
   useEffect(() => {
     if (priceVsBusdMap[address]) {
-      return null;
+      if (
+        bestTradeExactIn &&
+        bestTradeExactIn.executionPrice &&
+        priceVsBusdMap[address] === bestTradeExactIn.executionPrice.toFixed()
+      ) {
+        return null;
+      }
     }
     if (bestTradeExactIn && bestTradeExactIn.executionPrice) {
       dispatch(setPrice({ address: address, num: bestTradeExactIn.executionPrice.toFixed() }));
