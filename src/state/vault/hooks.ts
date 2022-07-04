@@ -11,19 +11,23 @@ import { fetchVaultsPublicDataAsync, fetchVaultFarmUserDataAsync, changeLoading,
 import vaultsConfig from 'config/constants/vault';
 import { IVault } from './types';
 import { initialState } from 'state/vault/index';
+import { useBlock } from 'state/block/hooks';
 export const usePollVaultData = () => {
   const dispatch = useAppDispatch();
   const { priceVsBusdMap } = usePrice();
   const { data: vaults } = useVault();
   const { account = '' } = useWeb3React();
+  const { currentBlock } = useBlock();
   useEffect(() => {
     let _vaults = vaults;
     if (vaults.length !== vaultsConfig.length) {
       _vaults = initialState.data;
     }
-    dispatch(fetchVaultsPublicDataAsync({ account, priceVsBusdMap, vaultsData: _vaults }));
+    if (dispatch && currentBlock) {
+      dispatch(fetchVaultsPublicDataAsync({ currentBlock, account, priceVsBusdMap, vaultsData: _vaults }));
+    }
     // eslint-disable-next-line
-  }, [dispatch, priceVsBusdMap]);
+  }, [dispatch, priceVsBusdMap, currentBlock]);
 };
 export const useVaultUserData = (vaults: IVault[]) => {
   // const { data: vaults } = useVault();

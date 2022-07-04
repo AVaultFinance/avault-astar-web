@@ -5,6 +5,7 @@ import { BIG_TEN, BIG_ZERO } from 'utils/bigNumber';
 import { isNaNString } from 'views/Vault/utils';
 
 const fetchVaults = async (
+  currentBlock: number,
   account: string,
   vaults: IVaultConfigItem[],
   priceVsBusdMap: Record<string, string>,
@@ -12,7 +13,7 @@ const fetchVaults = async (
 ): Promise<[IVault[], string]> => {
   const data = await Promise.all(
     vaults.map(async (vaultConfig, index) => {
-      const vault = await fetchVault(account, vaultConfig, priceVsBusdMap, vaultsData[index]);
+      const vault = await fetchVault(currentBlock, account, vaultConfig, priceVsBusdMap, vaultsData[index]);
       return vault;
     }),
   );
@@ -32,7 +33,7 @@ const fetchVaults = async (
         vault: {
           ...v.vault,
           liquidity: _liquidity.toLocaleString('en-US', {
-            maximumFractionDigits: 4,
+            maximumFractionDigits: 2,
           }),
         },
       });

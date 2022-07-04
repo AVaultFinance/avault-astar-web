@@ -1,7 +1,7 @@
 import masterchefABI from 'config/abi/masterchef.json';
 import masterchefSdnABI from 'config/abi/masterchef_Shiden.json';
 import masterchefArthABI from 'config/abi/masterchef_arth.json';
-import { chainId } from 'config/constants/tokens';
+import tokens, { chainId } from 'config/constants/tokens';
 import { getAddress } from 'utils/addressHelpers';
 import multicall from 'utils/multicall';
 import { IFarmProject, IVault, IVaultConfigItem } from './types';
@@ -13,16 +13,19 @@ import { chainKey } from 'config';
 import { CHAINKEY } from '@my/sdk';
 import BigNumber from 'bignumber.js';
 import { getBalanceAmount } from 'utils/formatBalance';
+import { getFarmApr } from 'utils/apr';
 const fetchVault = async (
+  currentBlock: number,
   account: string,
   vault: IVaultConfigItem,
   priceVsBusdMap: Record<string, string>,
   vaultData: IVault,
 ): Promise<IVault> => {
-  const vaultPublicData = await fetch(account, vault, priceVsBusdMap, vaultData);
+  const vaultPublicData = await fetch(currentBlock, account, vault, priceVsBusdMap, vaultData);
   return { ...vault, ...vaultPublicData };
 };
 const fetch = async (
+  currentBlock: number,
   account: string,
   vault: IVaultConfigItem,
   priceVsBusdMap: Record<string, string>,
@@ -43,7 +46,7 @@ const fetch = async (
     vaultTotalSupply,
     vaultDecimals,
   } = await fetchVaultABI(AVaultPCSAddress);
-  const { poolWeight, multiplier } = await fetchMasterChefABI(masterChef, pid, vaultData);
+  const { poolWeight, multiplier, perBlock } = await fetchMasterChefABI(currentBlock, masterChef, pid, vaultData);
   const lpAddresses = vaultData.lpDetail.address[chainId];
   const lpAddressSymbol = vaultData.lpDetail.symbol;
   // console.log({ vaultData, lpAddresses });
@@ -77,8 +80,18 @@ const fetch = async (
   // const kacRewardsApr = (Number(lpToCLpRate) - 1) / data + 1;
   // const kacRewardApy = new BigNumber(kacRewardsApr).pow(365).times(100).minus(100).toFixed(2);
 
-  const kacRewardsApr = (Number(lpToCLpRate) - 1) / data;
-  const kacRewardApy = new BigNumber(kacRewardsApr).times(365).times(100).toFixed(2);
+  // const kacRewardsApr = (Number(lpToCLpRate) - 1) / data;
+  // const kacRewardApy = new BigNumber(kacRewardsApr).times(365).times(100).toFixed(2);
+  const priceAddress =
+    vaultData.fromSource === IFarmProject.arthswap ? tokens[chainKey].arsw.address[chainId].toLowerCase() : '';
+  const { kacRewardsApr, kacRewardApy } = getFarmApr(
+    new BigNumber(perBlock),
+    new BigNumber(poolWeight),
+    new BigNumber(priceVsBusdMap[priceAddress] ?? '1'),
+    new BigNumber(liquidity),
+    lpAddresses,
+  );
+  // console.log(`kacRewardsApr: ${kacRewardsApr}, kacRewardApy: ${kacRewardApy}`);
   const userData = vaultData?.farm?.userData ?? {};
   const _userDataKey = `${account}-${chainId}`;
   const _userData = userData[_userDataKey] ?? {
@@ -128,8 +141,8 @@ const fetch = async (
       liquidity: liquidity,
       lpTokenPrice: lpTokenPrice,
       lpAddressDecimals: lpAddressDecimals,
-      apr: `${kacRewardsApr}`,
-      apy: kacRewardApy,
+      apr: `${kacRewardsApr.toFixed(2)}`,
+      apy: `${kacRewardApy.toFixed(2)}`,
       userData: {
         _userDataKey: {
           account: _userData.account,
@@ -231,7 +244,7 @@ const fetchVaultABI = async (AVaultPCSAddress: string) => {
     vaultDecimals: _vaultDecimals ? _vaultDecimals[0].toString() : null,
   };
 };
-const fetchMasterChefABI = async (masterChefAddress: string, pid: number, vaultData: IVault) => {
+const fetchMasterChefABI = async (currentBlock: number, masterChefAddress: string, pid: number, vaultData: IVault) => {
   const _masterchefABI =
     chainKey === CHAINKEY.SDN
       ? masterchefSdnABI
@@ -244,7 +257,8 @@ const fetchMasterChefABI = async (masterChefAddress: string, pid: number, vaultD
   //   lastRewardBlock (uint256) : 1296996
   //   accKacPerShare (uint256) : 349319463345545
   // ]
-  const [info, totalAllocPoint] =
+
+  const [info, totalAllocPoint, getPeriod] =
     pid || pid === 0
       ? await multicall(_masterchefABI, [
           {
@@ -256,9 +270,32 @@ const fetchMasterChefABI = async (masterChefAddress: string, pid: number, vaultD
             address: masterChefAddress,
             name: 'totalAllocPoint',
           },
+          {
+            address: masterChefAddress,
+            name: 'getPeriod',
+            params: [currentBlock],
+          },
+          // {
+          //   address: masterChefAddress,
+          //   name:
+          //     vaultData.fromSource === IFarmProject.arthswap
+          //       ? 'ARSWPerBlock'
+          //       : chainKey === CHAINKEY.SDN
+          //       ? 'kacPerShidenBlock'
+          //       : 'kacPerBlock',
+          //   params: [pid],
+          // },
         ])
-      : [null, null];
-
+      : [null, null, null];
+  const _getPeriod = getPeriod.toString();
+  const perBlock = await multicall(_masterchefABI, [
+    {
+      address: masterChefAddress,
+      name: 'ARSWPerBlock',
+      params: [_getPeriod],
+    },
+  ]);
+  // console.log(`getPeriod: ${getPeriod}, perBlock:${perBlock.toString()}`);
   const allocPoint = info ? new BigNumber(info.allocPoint?._hex) : BIG_ZERO;
   // const lpAddresses = info ? info.lpToken : '';
 
@@ -271,6 +308,7 @@ const fetchMasterChefABI = async (masterChefAddress: string, pid: number, vaultD
     // lpAddresses,
     poolWeight,
     multiplier: `${allocPoint.div(new BigNumber(100)).toString()}X`,
+    perBlock: new BigNumber(perBlock.toString()).div(BIG_TEN.pow(new BigNumber(18))).toFixed(2),
   };
 };
 const fetchFarmDataABI = async (
@@ -328,23 +366,6 @@ const fetchFarmDataABI = async (
     quoteTokenDecimals,
     lpSymbol,
   ] = await multicall(erc20, calls);
-  // const {
-  //   tokenBalanceLP,
-  //   quoteTokenBalanceLp,
-  //   lpTokenBalanceMC,
-  //   lpTotalSupply,
-  //   tokenDecimals,
-  //   quoteTokenDecimals,
-  //   lpSymbol,
-  // } = {
-  //   tokenBalanceLP: _tokenBalanceLP ? _tokenBalanceLP[0] : null,
-  //   quoteTokenBalanceLp: _quoteTokenBalanceLp ? _quoteTokenBalanceLp[0] : null,
-  //   lpTokenBalanceMC: _lpTokenBalanceMC ? _lpTokenBalanceMC[0] : null,
-  //   lpTotalSupply: _lpTotalSupply ? _lpTotalSupply[0] : null,
-  //   tokenDecimals: _tokenDecimals ? _tokenDecimals[0] : null,
-  //   quoteTokenDecimals: _quoteTokenDecimals ? _quoteTokenDecimals[0] : null,
-  //   lpSymbol: _lpSymbol ? _lpSymbol[0] : null,
-  // };
   // div 除法   times 乘法
   const lpTokenRatio = new BigNumber(lpTokenBalanceMC).div(new BigNumber(lpTotalSupply));
   // token balance

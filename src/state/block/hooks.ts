@@ -9,12 +9,12 @@ export const usePollBlockNumber = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const interval = setInterval(async () => {
+    (async () => {
       const blockNumber = await simpleRpcProvider.getBlockNumber();
       dispatch(setBlock(blockNumber));
-    }, 6000);
+    })();
 
-    return () => clearInterval(interval);
+    // return () => clearInterval(interval);
   }, [dispatch]);
 };
 
