@@ -35,10 +35,10 @@ export default function Updater(): null {
 
     setState({ chainId, blockNumber: null });
 
-    library
-      .getBlockNumber()
-      .then(blockNumberCallback)
-      .catch((error) => console.error(`Failed to get block number for chainId: ${chainId}`, error));
+    // library
+    //   .getBlockNumber()
+    //   .then(blockNumberCallback)
+    //   .catch((error) => console.error(`Failed to get block number for chainId: ${chainId}`, error));
 
     // library.on('block', blockNumberCallback);
     return () => {

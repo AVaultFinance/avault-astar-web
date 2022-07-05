@@ -46,7 +46,6 @@ const Vaults: React.FC = () => {
   const { priceVsBusdMap } = usePrice();
   const { data: vaults } = useVault();
   const userDataReady = !account || (!!account && userDataLoaded);
-  usePollVaultData();
   useVaultUserData(vaults);
   // Users with no wallet connected should see 0 as Earned amount
   // Connected users should see loading indicator until first userData has loaded
