@@ -25,9 +25,8 @@ import useDebounce from 'hooks/useDebounce';
 import useAuth from 'hooks/useAuth';
 import ArrowDown from 'views/Stake/components/svg/arrow_down';
 import { chainId } from 'config/constants/tokens';
-import { usePollVaultData } from 'state/vault/hooks';
 const Zap = () => {
-  usePollVaultData();
+  // usePollVaultData();
   const { account } = useActiveWeb3React();
   const [fromCurrency, setFromCurrency] = useState(_fromCurrency);
   const [toCurrency, setToCurrency] = useState(_toCurrency);
