@@ -1,9 +1,8 @@
 import BigNumber from 'bignumber.js';
 import React, { useCallback, useMemo, useState } from 'react';
-import { Button, Modal, Text, useMatchBreakpoints } from '@my/ui';
+import { AutoRenewIcon, Button, Modal, Text, useMatchBreakpoints } from '@my/ui';
 import { getFullDisplayBalance } from 'utils/formatBalance';
 import styled from 'styled-components';
-import Loading from 'components/TransactionConfirmationModal/Loading';
 import { useWeb3React } from '@web3-react/core';
 import { useVault } from 'state/vault/hooks';
 import useToast from 'hooks/useToast';
@@ -57,7 +56,6 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
   );
 
   const [pendingTx, setPendingTx] = useState(false);
-  const [pendingTxSuccess, setPendingTxSuccess] = useState(true);
 
   const { account } = useWeb3React();
   const { data: vaults } = useVault();
@@ -80,23 +78,12 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
         dispatch(changeVaultItemLoading({ index }));
         dispatch(fetchVaultFarmUserDataAsync({ account, vaults, index }));
         toastSuccess(`Withdraw!`, `'Your ${lpSymbol} earnings have been sent to your wallet!'`);
-        setTimeout(() => {
-          setPendingTxSuccess(true);
-        }, 10000);
       } else {
         const message = result ? result : `Your ${lpSymbol} withdraw failed!`;
         toastError('Error', message);
-        setPendingTxSuccess(false);
-        setTimeout(() => {
-          setPendingTxSuccess(true);
-        }, 1500);
       }
     } catch (e: any) {
       toastError('Error', e.message ? e.message : `Your ${lpSymbol} withdraw failed! `);
-      setPendingTxSuccess(false);
-      setTimeout(() => {
-        setPendingTxSuccess(true);
-      }, 1500);
     } finally {
       setVal('');
       setPendingTx(false);
@@ -123,9 +110,9 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
           isLoading={pendingTx}
           onClick={handleWithdraw}
           width="100%"
+          endIcon={pendingTx ? <AutoRenewIcon spin color="currentColor" /> : null}
         >
           Withdraw
-          <Loading isLoading={pendingTx} success={pendingTxSuccess} />
         </Button>
       </ModalInputStyled>
     </Modal>

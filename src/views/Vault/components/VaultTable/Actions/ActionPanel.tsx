@@ -220,7 +220,6 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
   );
   const lpContract = useERC20(lpAddress);
   const [requestedApproval, setRequestedApproval] = useState(false);
-  const [requestedApprovalSuccess, setRequestedApprovalSuccess] = useState(true);
   // const { onApprove } = useSpecialApproveFarm(lpContract, vault.vault.masterChef);
   const { onApprove } = useSpecialApproveFarm(lpContract, vault.contractAddress[chainId]);
   const dispatch = useAppDispatch();
@@ -245,16 +244,9 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
         dispatch(changeVaultItemLoading({ index }));
         dispatch(fetchVaultFarmUserDataAsync({ account, vaults, index }));
         toastSuccess('Approve!', 'Your are Approved');
-        setTimeout(() => {
-          setRequestedApprovalSuccess(true);
-        }, 10000);
       } else {
         const message = result ? result : 'Your approved failed';
         toastError('Approve Error!', message);
-        setRequestedApprovalSuccess(false);
-        setTimeout(() => {
-          setRequestedApprovalSuccess(true);
-        }, 1500);
       }
     } catch (e) {
       console.error(e);
@@ -353,7 +345,6 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
       {isMobile ? (
         <MobileAction
           abiType={vault.abiType}
-          requestedApprovalSuccess={requestedApprovalSuccess}
           lpToCLpRate={vault.vault.lpToCLpRate}
           requestedApproval={requestedApproval}
           isApproved={isApproved}
@@ -381,7 +372,6 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
             contractAddress={vault.contractAddress[chainId]}
             lpAddressDecimals={vault.farm.lpAddressDecimals}
             requestedApproval={requestedApproval}
-            requestedApprovalSuccess={requestedApprovalSuccess}
             isApproved={isApproved}
             displayBalance={getFullLocalDisplayBalance(
               new BigNumber(_userData.stakingTokenBalance),

@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import { Flex, Text } from '@my/ui';
+import { AutoRenewIcon, Flex, Text } from '@my/ui';
 import BigNumber from 'bignumber.js';
 import { useWeb3React } from '@web3-react/core';
 import { BIG_ZERO } from 'utils/bigNumber';
@@ -12,7 +12,6 @@ import { getFullDisplayBalance } from 'utils/formatBalance';
 import { useVault } from 'state/vault/hooks';
 import useVaultWithdraw from 'views/Vault/hooks/useVaultWithdraw';
 import { changeLoading, changeVaultItemLoading, fetchVaultFarmUserDataAsync } from 'state/vault';
-import Loading from 'components/TransactionConfirmationModal/Loading';
 import { ActionContainerBg, ActionContainerSize } from 'style/TableStyled';
 import { showDecimals } from 'views/Vault/utils';
 import { IABIType } from 'state/vault/types';
@@ -62,7 +61,6 @@ const WithdrawAction: React.FunctionComponent<WithdrawActionProps> = ({
   const { toastSuccess, toastError } = useToast();
 
   const [pendingTx, setPendingTx] = useState(false);
-  const [pendingTxSuccess, setPendingTxSuccess] = useState(true);
 
   const dispatch = useAppDispatch();
   const { account } = useWeb3React();
@@ -100,23 +98,12 @@ const WithdrawAction: React.FunctionComponent<WithdrawActionProps> = ({
         dispatch(changeVaultItemLoading({ index }));
         dispatch(fetchVaultFarmUserDataAsync({ account, vaults, index }));
         toastSuccess(`Withdraw!`, `'Your ${lpSymbol} earnings have been sent to your wallet!'`);
-        setTimeout(() => {
-          setPendingTxSuccess(true);
-        }, 10000);
       } else {
         const message = result ? result : `Your ${lpSymbol} withdraw failed!`;
         toastError('Error', message);
-        setPendingTxSuccess(false);
-        setTimeout(() => {
-          setPendingTxSuccess(true);
-        }, 1500);
       }
     } catch (e: any) {
       toastError('Error', e.message ? e.message : `Your ${lpSymbol} withdraw failed! `);
-      setPendingTxSuccess(false);
-      setTimeout(() => {
-        setPendingTxSuccess(true);
-      }, 1500);
     } finally {
       setVal('');
       setPendingTx(false);
@@ -141,10 +128,15 @@ const WithdrawAction: React.FunctionComponent<WithdrawActionProps> = ({
       <ActionContainerBg smallBorder={disabled ? false : true}>
         <FlexStyled>
           <CInput value={val} onSelectMax={handleSelectMax} onChange={handleChange} />
-          <LongButton variant="primary" isLoading={pendingTx} disabled={disabled} onClick={handleWithdraw}>
+          <LongButton
+            variant="primary"
+            isLoading={pendingTx}
+            disabled={disabled}
+            onClick={handleWithdraw}
+            endIcon={pendingTx ? <AutoRenewIcon spin color="currentColor" /> : null}
+          >
             Withdraw
             {/* {pendingTx ? 'Withdrawing' : ''} */}
-            <Loading isLoading={pendingTx} success={pendingTxSuccess} />
           </LongButton>
         </FlexStyled>
       </ActionContainerBg>

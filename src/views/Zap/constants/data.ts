@@ -42,6 +42,7 @@ const _TokenALL = vaultsConfig.map(
         : symbol1.toLowerCase() === 'wbtc'
         ? 'btc'
         : symbol1.toLowerCase();
+
     return [
       [_v0, _v1],
       {
@@ -66,7 +67,10 @@ export const tokenAll: IToken[] =
         };
       })
     : [];
-export const lpTokenAll = [..._TokenALL.map((v: any[]) => v[1])].concat(tokenAll);
+
+export const lpTokenAll = [..._TokenALL.map((v: any[]) => v[1])]
+  .concat(tokenAll)
+  .filter((v) => v.symbol !== 'NIKA-WASTR LP');
 
 export const fromCurrency: IToken = localStorage.getItem(zapLocalFromCurrency)
   ? JSON.parse(localStorage.getItem(zapLocalFromCurrency))

@@ -1,6 +1,5 @@
-import { Button, Flex, useModal } from '@my/ui';
+import { AutoRenewIcon, Button, Flex, useModal } from '@my/ui';
 import BigNumber from 'bignumber.js';
-import Loading from 'components/TransactionConfirmationModal/Loading';
 import { FC } from 'react';
 import { IABIType } from 'state/vault/types';
 import styled from 'styled-components';
@@ -15,7 +14,6 @@ interface MobileActionProps {
   isApproved: boolean;
   handleApprove: any;
   requestedApproval: boolean;
-  requestedApprovalSuccess: boolean;
   account: string;
   pid: number;
   lpSymbol?: string;
@@ -42,7 +40,6 @@ const MobileAction: FC<MobileActionProps> = ({
   handleApprove,
   earnings,
   requestedApproval,
-  requestedApprovalSuccess,
   account,
   displayBalance,
   lpSymbol,
@@ -93,9 +90,9 @@ const MobileAction: FC<MobileActionProps> = ({
           onClick={handleApprove}
           isLoading={requestedApproval}
           variant="secondary"
+          endIcon={requestedApproval ? <AutoRenewIcon spin color="currentColor" /> : null}
         >
           {account ? 'Approve' : 'Connect Wallet'}
-          <Loading isLoading={requestedApproval} success={requestedApprovalSuccess} />
         </LongButton>
       )}
     </Container>

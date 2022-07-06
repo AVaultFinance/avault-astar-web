@@ -1,9 +1,8 @@
 import BigNumber from 'bignumber.js';
 import React, { useCallback, useMemo, useState } from 'react';
-import { Button, Modal, Text, useMatchBreakpoints } from '@my/ui';
+import { AutoRenewIcon, Button, Modal, Text, useMatchBreakpoints } from '@my/ui';
 import { getFullDisplayBalance } from 'utils/formatBalance';
 import styled from 'styled-components';
-import Loading from 'components/TransactionConfirmationModal/Loading';
 import { changeLoading, changeVaultItemLoading, fetchVaultFarmUserDataAsync } from 'state/vault';
 import { useAppDispatch } from 'state';
 import { useWeb3React } from '@web3-react/core';
@@ -71,7 +70,6 @@ const DepositModal: React.FC<DepositModalProps> = ({
   const { isMd, isXl, isLg } = useMatchBreakpoints();
   const isMobile = !(isMd || isXl || isLg);
   const [pendingTx, setPendingTx] = useState(false);
-  const [pendingTxSuccess, setPendingTxSuccess] = useState(true);
 
   const { account } = useWeb3React();
   const { data: vaults } = useVault();
@@ -88,24 +86,12 @@ const DepositModal: React.FC<DepositModalProps> = ({
         dispatch(changeVaultItemLoading({ index }));
         dispatch(fetchVaultFarmUserDataAsync({ account, vaults, index }));
         toastSuccess(`Deposit!`, `Your ${lpSymbol} deposit!`);
-        setTimeout(() => {
-          setPendingTxSuccess(true);
-        }, 10000);
       } else {
         const message = result ? result : `Your ${lpSymbol} deposit failed!`;
         toastError('Error', message);
-        setPendingTxSuccess(false);
-        setTimeout(() => {
-          setPendingTxSuccess(true);
-        }, 1500);
       }
     } catch (e: any) {
       toastError('Error', e.message ? e.message : `Your ${lpSymbol} deposit failed!`);
-      setPendingTxSuccess(false);
-      setTimeout(() => {
-        setPendingTxSuccess(true);
-      }, 1500);
-      // toastError('Error', `Your ${lpSymbol} deposit failed!`);
     } finally {
       setVal('');
       setPendingTx(false);
@@ -127,9 +113,9 @@ const DepositModal: React.FC<DepositModalProps> = ({
           isMobile={isMobile}
           disabled={pendingTx || !valNumber.isFinite() || valNumber.eq(0) || valNumber.gt(fullBalanceNumber)}
           onClick={handleDeposit}
+          endIcon={pendingTx ? <AutoRenewIcon spin color="currentColor" /> : null}
         >
           Deposit
-          <Loading isLoading={pendingTx} success={pendingTxSuccess} />
         </ButtonStyled>
       </ModalInputStyled>
     </Modal>

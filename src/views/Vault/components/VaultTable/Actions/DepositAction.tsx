@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import { Flex, Text } from '@my/ui';
+import { AutoRenewIcon, Flex, Text } from '@my/ui';
 import BigNumber from 'bignumber.js';
 import { useWeb3React } from '@web3-react/core';
 import { BIG_ZERO } from 'utils/bigNumber';
@@ -12,7 +12,6 @@ import { getFullDisplayBalance } from 'utils/formatBalance';
 import { useVault, useVaultFarmUser } from 'state/vault/hooks';
 import useVaultDeposit from 'views/Vault/hooks/useVaultDeposit';
 import { changeLoading, changeVaultItemLoading, fetchVaultFarmUserDataAsync } from 'state/vault';
-import Loading from 'components/TransactionConfirmationModal/Loading';
 import { ActionContainerBg, ActionContainerSize } from 'style/TableStyled';
 import { showDecimals } from 'views/Vault/utils';
 import { IABIType } from 'state/vault/types';
@@ -24,7 +23,6 @@ interface HarvestActionProps {
   isApproved: boolean;
   handleApprove: any;
   requestedApproval: boolean;
-  requestedApprovalSuccess: boolean;
   pid: number;
   name: string;
   displayEarningsBalance?: string;
@@ -54,7 +52,6 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
   displayBalance,
   contractAddress,
   lpAddressDecimals,
-  requestedApprovalSuccess,
   index,
   abiType,
 }) => {
@@ -62,7 +59,6 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
   const { data: vaults } = useVault();
 
   const [pendingTx, setPendingTx] = useState(false);
-  const [pendingTxSuccess, setPendingTxSuccess] = useState(true);
 
   const { account } = useWeb3React();
   const { onDeposit } = useVaultDeposit(abiType, account, contractAddress, lpAddressDecimals);
@@ -98,23 +94,12 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
         dispatch(changeVaultItemLoading({ index }));
         dispatch(fetchVaultFarmUserDataAsync({ account, vaults, index }));
         toastSuccess(`Deposit!`, `Your ${lpSymbol} deposit!`);
-        setTimeout(() => {
-          setPendingTxSuccess(true);
-        }, 10000);
       } else {
         const message = result ? result : `Your ${lpSymbol} deposit failed!`;
         toastError('Error', message);
-        setPendingTxSuccess(false);
-        setTimeout(() => {
-          setPendingTxSuccess(true);
-        }, 1500);
       }
     } catch (e: any) {
       toastError('Error', e.message ? e.message : `Your ${lpSymbol} deposit failed!`);
-      setPendingTxSuccess(false);
-      setTimeout(() => {
-        setPendingTxSuccess(true);
-      }, 1500);
       // toastError('Error', `Your ${lpSymbol} deposit failed!`);
     } finally {
       setVal('');
@@ -145,13 +130,16 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
                 isLoading={requestedApproval}
                 onClick={handleApprove}
                 variant="secondary"
+                endIcon={requestedApproval ? <AutoRenewIcon spin color="currentColor" /> : null}
               >
                 {account ? 'Approve' : 'Connect Wallet'}
-                <Loading isLoading={requestedApproval} success={requestedApprovalSuccess} />
               </HelfButton>
-              <HelfButton variant="primary" disabled={true}>
+              <HelfButton
+                variant="primary"
+                disabled={true}
+                endIcon={pendingTx ? <AutoRenewIcon spin color="currentColor" /> : null}
+              >
                 Deposit
-                <Loading isLoading={pendingTx} success={pendingTxSuccess} />
               </HelfButton>
             </Flex>
           ) : (
@@ -160,9 +148,9 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
               className={pendingTx ? 'loading' : ''}
               disabled={disabled}
               onClick={handleDeposit}
+              endIcon={pendingTx ? <AutoRenewIcon spin color="currentColor" /> : null}
             >
               Deposit
-              <Loading isLoading={pendingTx} success={pendingTxSuccess} />
             </LongButton>
           )}
         </FlexStyled>
