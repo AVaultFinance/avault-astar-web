@@ -25,11 +25,14 @@ import multicall from './multicall/reducer';
 
 const PERSISTED_KEYS: string[] = ['user', 'transactions', 'price', 'lists', 'vault'];
 // const PERSISTED_KEYS: string[] = ['user', 'transactions', 'lists'];
-for (let i = 0; i < PERSISTED_KEYS.length; i++) {
-  // DELET LOCAL
-  // redux_localstorage_simple
-  window.localStorage.removeItem(`redux_localstorage_simple_${PERSISTED_KEYS[i]}`);
+if (window.localStorage.getItem('redux_localstorage_simple_user')) {
+  for (let i = 0; i < PERSISTED_KEYS.length; i++) {
+    // DELET LOCAL
+    // redux_localstorage_simple
+    window.localStorage.removeItem(`redux_localstorage_simple_${PERSISTED_KEYS[i]}`);
+  }
 }
+
 const store = configureStore({
   devTools: process.env.NODE_ENV !== 'production',
   reducer: {

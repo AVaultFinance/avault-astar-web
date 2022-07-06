@@ -7,7 +7,7 @@ import { ThemeProvider } from 'styled-components';
 // import { useThemeManager } from 'state/user/hooks';
 import { getLibrary } from 'utils/web3React';
 import { LanguageProvider } from 'contexts/Localization';
-import { RefreshContextProvider } from 'contexts/RefreshContext';
+// import { RefreshContextProvider } from 'contexts/RefreshContext';
 import { ToastsProvider } from 'contexts/ToastsContext';
 import store from 'state';
 
