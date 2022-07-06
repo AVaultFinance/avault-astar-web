@@ -125,101 +125,102 @@ const Zap = () => {
       setPendingTx(false);
     }
   }, [account, fetchApprove, onPresentConnectModal, toastError, toastSuccess]);
-  return useMemo(() => {
-    return (
-      <PageLayout>
-        <BgGlobalStyle />
-        <PageContainerWrap>
-          <W480BorderPageLayout className="single">
-            <TableContent>
-              <TitleStyled>Zap</TitleStyled>
-              <TextStyled>Convert single tokens to LP tokens directly</TextStyled>
-              <InnerStyled>
-                <FromComp
-                  account={account}
-                  setVal={setVal}
-                  val={val}
-                  handleChange={handleChange}
-                  setFromCurrency={setFromCurrency}
-                  toCurrency={toCurrency}
-                  fromCurrency={fromCurrency}
-                  reNewBalanceTime={reNewBalanceTime}
-                  setMax={setMax}
-                  handleSelectMax={handleSelectMax}
-                />
-                <PaddingStyled>
-                  <TextCol>
-                    <BoldStyled>TO LP</BoldStyled>
-                    {/* <ZapBalance currency={toCurrency} /> */}
-                  </TextCol>
+  return useMemo(
+    () => {
+      return (
+        <PageLayout>
+          <BgGlobalStyle />
+          <PageContainerWrap>
+            <W480BorderPageLayout className="single">
+              <TableContent>
+                <TitleStyled>Zap</TitleStyled>
+                <TextStyled>Convert single tokens to LP tokens directly</TextStyled>
+                <InnerStyled>
+                  <FromComp
+                    account={account}
+                    setVal={setVal}
+                    val={val}
+                    handleChange={handleChange}
+                    setFromCurrency={setFromCurrency}
+                    toCurrency={toCurrency}
+                    fromCurrency={fromCurrency}
+                    reNewBalanceTime={reNewBalanceTime}
+                    setMax={setMax}
+                    handleSelectMax={handleSelectMax}
+                  />
+                  <PaddingStyled>
+                    <TextCol>
+                      <BoldStyled>TO LP</BoldStyled>
+                      {/* <ZapBalance currency={toCurrency} /> */}
+                    </TextCol>
 
-                  <TextCol>
-                    {toCurrency ? (
-                      <ZapCurrencyInputPanel
-                        currency={toCurrency}
-                        otherCurrency={fromCurrency}
-                        setCurrency={(currency: IToken) => {
-                          localStorage.setItem(zapLocalToCurrency, JSON.stringify(currency));
-                          setVal('');
-                          setToCurrency(currency);
-                        }}
-                        isTo={true}
-                      />
-                    ) : null}
-                    <HeadingStyled isSmall={EstimatedPrice === '0'} isLong={EstimatedPrice.length > 16}>
-                      {EstimatedPrice}
-                    </HeadingStyled>
-                  </TextCol>
-                </PaddingStyled>
-                <ArrowDown />
-              </InnerStyled>
-              <Button
-                isLoading={pendingTx}
-                disabled={
-                  account &&
-                  isApprove &&
-                  (pendingTx ||
-                    !new BigNumber(val).isFinite() ||
-                    new BigNumber(val).eq(0) ||
-                    new BigNumber(val).gt(fullBalance) ||
-                    fromCurrency.symbol === toCurrency.symbol)
-                }
-                width="100%"
-                padding="0"
-                onClick={() => {
-                  if (isApprove) {
-                    zapComfirm();
-                  } else {
-                    zapApprove();
+                    <TextCol>
+                      {toCurrency ? (
+                        <ZapCurrencyInputPanel
+                          currency={toCurrency}
+                          otherCurrency={fromCurrency}
+                          setCurrency={(currency: IToken) => {
+                            localStorage.setItem(zapLocalToCurrency, JSON.stringify(currency));
+                            setVal('');
+                            setToCurrency(currency);
+                          }}
+                          isTo={true}
+                        />
+                      ) : null}
+                      <HeadingStyled isSmall={EstimatedPrice === '0'} isLong={EstimatedPrice.length > 16}>
+                        {EstimatedPrice}
+                      </HeadingStyled>
+                    </TextCol>
+                  </PaddingStyled>
+                  <ArrowDown />
+                </InnerStyled>
+                <Button
+                  isLoading={pendingTx}
+                  disabled={
+                    account &&
+                    isApprove &&
+                    (pendingTx ||
+                      new BigNumber(val).eq(0) ||
+                      new BigNumber(val).gt(fullBalance) ||
+                      fromCurrency.symbol === toCurrency.symbol)
                   }
-                }}
-                endIcon={pendingTx ? <AutoRenewIcon spin color="currentColor" /> : null}
-              >
-                {!account ? 'Connect Wallet' : isApprove ? 'Confirm' : 'Approve'}
-              </Button>
-            </TableContent>
-            <ZapBgStyled>
-              <ZapBg />
-            </ZapBgStyled>
-          </W480BorderPageLayout>
-        </PageContainerWrap>
-      </PageLayout>
-    );
-  }, [
-    EstimatedPrice,
-    account,
-    fromCurrency,
-    fullBalance,
-    handleChange,
-    handleSelectMax,
-    isApprove,
-    pendingTx,
-    reNewBalanceTime,
-    toCurrency,
-    val,
-    zapApprove,
-    zapComfirm,
-  ]);
+                  width="100%"
+                  padding="0"
+                  onClick={() => {
+                    if (isApprove) {
+                      zapComfirm();
+                    } else {
+                      zapApprove();
+                    }
+                  }}
+                  endIcon={pendingTx ? <AutoRenewIcon spin color="currentColor" /> : null}
+                >
+                  {!account ? 'Connect Wallet' : isApprove ? 'Confirm' : 'Approve'}
+                </Button>
+              </TableContent>
+              <ZapBgStyled>
+                <ZapBg />
+              </ZapBgStyled>
+            </W480BorderPageLayout>
+          </PageContainerWrap>
+        </PageLayout>
+      );
+    },
+    // eslint-disable-next-line
+    [
+      EstimatedPrice,
+      account,
+      fromCurrency,
+      fullBalance,
+      handleChange,
+      handleSelectMax,
+      isApprove,
+      pendingTx,
+      reNewBalanceTime,
+      toCurrency,
+      val,
+    ],
+  );
 };
 
 const FromComp = ({

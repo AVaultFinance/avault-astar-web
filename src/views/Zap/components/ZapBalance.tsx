@@ -1,7 +1,8 @@
 import { ETHER, Token } from '@my/sdk';
 import { Flex, Skeleton } from '@my/ui';
+import BigNumber from 'bignumber.js';
 import { chainId } from 'config/constants/tokens';
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useCurrencyBalanceString } from 'state/wallet/hooks';
 import styled from 'styled-components';
 import { showDecimals } from 'views/Vault/utils';
@@ -17,16 +18,24 @@ const ZapBalance = ({
   setMax?: any;
   account: string;
 }) => {
-  // 1.689261AST
-  // 1.688755ASTR
-  // 1.688387
+  //
   const _currency =
     currency.address && currency.address[chainId]
       ? new Token(chainId, currency.address[chainId], currency.decimals ?? 18, currency.symbol, currency.name)
       : ETHER[chainId];
   const balance = useCurrencyBalanceString(account ?? undefined, _currency);
   const decimals = showDecimals(currency.symbol);
-
+  const [_balance, _setBalance] = useState('0');
+  useEffect(() => {
+    // balance, setMax, decimals
+    if (!balance || _balance === balance) {
+      return;
+    }
+    if (setMax && balance && Number(balance) > 0) {
+      setMax(new BigNumber(balance).toFixed(decimals, BigNumber.ROUND_DOWN));
+      _setBalance(balance);
+    }
+  }, [_balance, balance, setMax, decimals, reNewBalanceTime]);
   return useMemo(() => {
     return (
       <BalanceStyled>
