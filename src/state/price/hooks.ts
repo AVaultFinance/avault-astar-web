@@ -11,8 +11,9 @@ import DEFAULT_TOKEN_LIST from 'config/constants/tokenLists/pancake-default.toke
 import { useEffect } from 'react';
 import { useTradeExactIn } from 'hooks/Trades';
 import { chainKey } from 'config';
-export const usePollPrice = (_address: string, amount = '1') => {
+export const usePollPrice = (_address: string, _amount?: string) => {
   const address = _address.toLocaleLowerCase();
+  const amount = _amount ? _amount : address === '0xcdb32eed99aa19d39e5d6ec45ba74dc4afec549f' ? '100' : '1';
   const dispatch = useAppDispatch();
   const tokenArr = DEFAULT_TOKEN_LIST[chainKey].tokens.filter((v) => v.address.toLocaleLowerCase() === address);
   const token = tokenArr[0];
@@ -32,11 +33,16 @@ export const usePollPrice = (_address: string, amount = '1') => {
       }
     }
     if (bestTradeExactIn && bestTradeExactIn.executionPrice) {
-      dispatch(setPrice({ address: address, num: bestTradeExactIn.executionPrice.toFixed() }));
+      let _bigNum = bestTradeExactIn.executionPrice.toFixed();
+      // oru
+      if (address === '0xcdb32eed99aa19d39e5d6ec45ba74dc4afec549f') {
+        _bigNum = bestTradeExactIn.executionPrice.toSignificant();
+      }
+      dispatch(setPrice({ address: address, num: _bigNum }));
     } else {
       // console.log({ address, bestTradeExactIn });
     }
-  }, [dispatch, address, bestTradeExactIn, amount, bestTradeExactIn?.executionPrice, priceVsBusdMap]);
+  }, [dispatch, address, amount, bestTradeExactIn, bestTradeExactIn?.executionPrice, priceVsBusdMap]);
 };
 export const usePrice = () => {
   return useSelector((state: State) => state.price);

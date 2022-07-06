@@ -24,13 +24,11 @@ export const usePollVaultData = () => {
     if (vaults.length !== vaultsConfig.length) {
       _vaults = initialState.data;
     }
-    if (dispatch && currentBlock && priceVsBusdMap) {
-      console.log(1111);
-      // fetchVaultsV2(currentBlock, account, vaultsConfig, priceVsBusdMap, _vaults);
+    if (dispatch && priceVsBusdMap && Object.keys(priceVsBusdMap).length && currentBlock) {
       dispatch(fetchVaultsPublicDataAsync({ currentBlock, account, priceVsBusdMap, vaultsData: _vaults }));
     }
     // eslint-disable-next-line
-  }, [dispatch, priceVsBusdMap]);
+  }, [dispatch, priceVsBusdMap, currentBlock]);
 };
 export const useVaultUserData = (vaults: IVault[]) => {
   // const { data: vaults } = useVault();
