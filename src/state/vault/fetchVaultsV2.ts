@@ -55,7 +55,6 @@ const fetchVaultsV2 = async (
   let _total = BIG_ZERO;
   for (let i = 0; i < vaultsData.length; i++) {
     const item = vaultsData[i];
-
     const priceAddress =
       item.fromSource === IFarmProject.arthswap ? tokens[chainKey].arsw.address[chainId].toLowerCase() : '';
     const { kacRewardsApr, kacRewardApy } = getFarmApr(
@@ -67,16 +66,15 @@ const fetchVaultsV2 = async (
     );
     const feeApr: number = vault_fee_apr[`${item.lpDetail.symbol}`];
     const feeApy = aprToApy(feeApr);
-    _total = _total.plus(liquidity[i]);
     const _liquidity = new BigNumber(wantLockedTotal[i])
       .div(BIG_TEN.pow(new BigNumber(item.vault.decimals)))
       .times(Number(lpTokenPrice[i]))
       .toNumber();
+    _total = _total.plus(_liquidity);
     const _lpToCLpRate =
       wantLockedTotal[i] && vaultTotalSupply[i] && wantLockedTotal[i] > 0 && vaultTotalSupply[i] > 0
         ? (Number(wantLockedTotal[i]) / Number(vaultTotalSupply[i])).toFixed(18)
         : '1';
-    _total = _total.plus(_liquidity);
     obj[i] = {
       ...item,
       vault: {
