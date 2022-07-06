@@ -12,7 +12,7 @@ import { DesktopColumnSchema } from './components/types';
 import { OptionProps } from 'components/Select/Select';
 import { ISortDir } from 'components/SortIcon';
 import { RowProps } from './components/VaultTable/Row';
-import { useVault, useVaultUserData, usePollVaultData } from 'state/vault/hooks';
+import { useVault, useVaultUserData } from 'state/vault/hooks';
 import { IVault } from 'state/vault/types';
 import { usePrice } from 'state/price/hooks';
 import PageLoader from 'components/Loader/PageLoader';

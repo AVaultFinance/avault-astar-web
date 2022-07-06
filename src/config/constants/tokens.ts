@@ -47,7 +47,7 @@ export const tokens = {
         [ChainId.ASTR_MAINNET]: '0x29f6e49c6e3397c3a84f715885f9f233a441165c',
         [ChainId.ASTR_TESTNET]: '0x29f6e49c6e3397c3a84f715885f9f233a441165c',
       },
-      decimals: 6,
+      decimals: 18,
       projectLink: '',
     },
     bai: {
@@ -178,7 +178,7 @@ export const tokens = {
         [ChainId.ASTR_MAINNET]: '0x4Bf769b05E832FCdc9053fFFBC78Ca889aCb5E1E',
         [ChainId.ASTR_TESTNET]: '0x4Bf769b05E832FCdc9053fFFBC78Ca889aCb5E1E',
       },
-      decimals: 6,
+      decimals: 18,
       projectLink: 'https://bitcoin.org/',
     },
 

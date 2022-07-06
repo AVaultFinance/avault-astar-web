@@ -50,7 +50,7 @@
         "symbol": "OUSD",
         "address": "0x29f6e49c6e3397c3a84f715885f9f233a441165c",
         "chainId": 592,
-        "decimals": 6,
+        "decimals": 18,
         "logoURI": "/images/tokens/ASTR/0x29f6e49c6e3397c3a84f715885f9f233a441165c.svg"
       },
       {
@@ -110,14 +110,6 @@
         "logoURI": "/images/tokens/ASTR/0xAeaaf0e2c81Af264101B9129C00F4440cCF0F720.svg"
       },
       {
-        "name": "KAC",
-        "symbol": "KAC",
-        "address": "0x2bF9b864cdc97b08B6D79ad4663e71B8aB65c45c",
-        "chainId": 592,
-        "decimals": 18,
-        "logoURI": "https://kaco.finance//images/tokens/ASTR0x2bF9b864cdc97b08B6D79ad4663e71B8aB65c45c/.svg"
-      },
-      {
         "name": "USDT",
         "symbol": "USDT",
         "address": "0x3795C36e7D12A8c252A20C5a7B455f7c57b60283",
@@ -162,7 +154,7 @@
         "symbol": "BUSD",
         "address": "0x4Bf769b05E832FCdc9053fFFBC78Ca889aCb5E1E",
         "chainId": 592,
-        "decimals": 6,
+        "decimals": 18,
         "logoURI": "https://bitcoin.org//images/tokens/ASTR/0x4Bf769b05E832FCdc9053fFFBC78Ca889aCb5E1E.svg"
       },
       {
@@ -172,14 +164,6 @@
         "chainId": 592,
         "decimals": 8,
         "logoURI": "https://bitcoin.org//images/tokens/ASTR/0xad543f18cFf85c77E140E3E5E3c3392f6Ba9d5CA.svg"
-      },
-      {
-        "name": "PKEX",
-        "symbol": "PKEX",
-        "address": "0x1fE622E91e54D6AD00B01917351Ea6081426764A",
-        "chainId": 592,
-        "decimals": 18,
-        "logoURI": "/images/tokens/ASTR/0x1fE622E91e54D6AD00B01917351Ea6081426764A.svg"
       },
       {
         "name": "SDN",
@@ -196,22 +180,6 @@
         "chainId": 592,
         "decimals": 18,
         "logoURI": "/images/tokens/ASTR/0xdd90E5E87A2081Dcf0391920868eBc2FFB81a1aF.svg"
-      },
-      {
-        "name": "AAVE",
-        "symbol": "AAVE",
-        "address": "0xfcDe4A87b8b6FA58326BB462882f1778158B02F1",
-        "chainId": 592,
-        "decimals": 18,
-        "logoURI": "/images/tokens/ASTR/0xfcDe4A87b8b6FA58326BB462882f1778158B02F1.svg"
-      },
-      {
-        "name": "CRV",
-        "symbol": "CRV",
-        "address": "0x7756a83563f0f56937A6FdF668E7D9F387c0D199",
-        "chainId": 592,
-        "decimals": 18,
-        "logoURI": "/images/tokens/ASTR/0x7756a83563f0f56937A6FdF668E7D9F387c0D199.svg"
       }
     ]
   }

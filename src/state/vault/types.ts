@@ -34,24 +34,28 @@ export interface IVaultConfigItem {
     decimals: number;
   };
   farm?: IVaultFarm;
+  vault?: IVaultComp;
 }
 export interface IVaultFarm {
   // abi
   pid: number;
   lpSymbol: string;
   lpAddresses: string;
-  tokenAmountMc: string;
   token: string;
   quoteToken: string;
-  quoteTokenAmountMc: string;
-  tokenAmountTotal: string;
-  quoteTokenAmountTotal: string;
-  lpTotalInQuoteToken: string;
-  lpTotalSupply: string;
-  tokenPriceVsQuote: string;
-  poolWeight: string;
-  multiplier: string;
+  tokenDecimals: number;
   quoteTokenDecimals: number;
+  lpAddressDecimals: number;
+
+  tokenAmountMc?: string;
+  quoteTokenAmountMc?: string;
+  tokenAmountTotal?: string;
+  quoteTokenAmountTotal?: string;
+  lpTotalInQuoteToken?: string;
+  lpTotalSupply?: string;
+  tokenPriceVsQuote?: string;
+  poolWeight?: string;
+  multiplier?: string;
   // calculate
   apr?: string;
   apy?: string;
@@ -62,7 +66,6 @@ export interface IVaultFarm {
   lpRewardsApr?: string;
   liquidity?: string;
   lpTokenPrice?: string;
-  lpAddressDecimals: number;
   userData?: Record<string, IVaultUserData>;
 }
 export interface IVaultUserData {
@@ -88,8 +91,8 @@ export interface IVaultComp {
   fromSource: IFarmProject;
   wantAddress: string;
   earnedAddress: string;
-  wantLockedTotal: string;
-  totalSupply: string;
+  wantLockedTotal?: string;
+  totalSupply?: string;
   decimals: number;
   balance?: string;
   liquidity?: string;

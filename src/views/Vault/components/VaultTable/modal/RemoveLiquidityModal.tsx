@@ -31,11 +31,11 @@ import ZapBalance from 'views/Zap/components/ZapBalance';
 import ZapCurrencyLogo from 'views/Zap/components/ZapCurrencyLogo';
 import BigNumber from 'bignumber.js';
 import Loading from 'components/TransactionConfirmationModal/Loading';
-import vaultConfig from 'config/constants/vault';
 import { useVault } from 'state/vault/hooks';
 import { useAppDispatch } from 'state';
 import { fetchVaultFarmUserDataAsync } from 'state/vault';
 import useToast from 'hooks/useToast';
+import vaultsConfig from 'state/vault/vaultsConfig';
 
 interface RemoveLiquidityModalProps {
   vault: IVault;
@@ -45,7 +45,7 @@ interface RemoveLiquidityModalProps {
 const RemoveLiquidityModal: React.FC<RemoveLiquidityModalProps> = ({ vault, account, onDismiss }) => {
   const [fullBalance, setMax] = useState('0');
   const [val, setVal] = useState('');
-  const index = vaultConfig.map((v: IVaultConfigItem) => v.lpDetail.symbol).indexOf(vault.lpDetail.symbol);
+  const index = vaultsConfig.map((v: IVaultConfigItem) => v.lpDetail.symbol).indexOf(vault.lpDetail.symbol);
   const { data: vaults } = useVault();
   const { toastSuccess } = useToast();
 

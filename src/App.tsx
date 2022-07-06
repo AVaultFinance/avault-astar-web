@@ -13,6 +13,7 @@ import Unbind from 'views/Stake/Unbind';
 import { usePollBlockNumber } from 'state/block/hooks';
 import useEagerConnect from 'hooks/useEagerConnect';
 import { usePollVaultData } from 'state/vault/hooks';
+import { usePollCoreFarmData } from 'state/farms/hooks';
 
 const Vault = lazy(() => import('./views/Vault/index'));
 const Zap = lazy(() => import('./views/Zap/index'));
@@ -34,7 +35,7 @@ const App: React.FC = () => {
   usePollBlockNumber();
   useEagerConnect();
   // useFetchProfile();
-  // usePollCoreFarmData();
+  usePollCoreFarmData();
   usePollVaultData();
   return (
     <Router history={history}>

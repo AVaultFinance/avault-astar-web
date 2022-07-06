@@ -8,10 +8,11 @@ import { usePrice } from 'state/price/hooks';
 import { VaultState, State } from 'state/types';
 import { BIG_ZERO } from 'utils/bigNumber';
 import { fetchVaultsPublicDataAsync, fetchVaultFarmUserDataAsync, changeLoading, changeVaultLoading } from './index';
-import vaultsConfig from 'config/constants/vault';
 import { IVault } from './types';
 import { initialState } from 'state/vault/index';
 import { useBlock } from 'state/block/hooks';
+import vaultsConfig from 'state/vault/vaultsConfig';
+
 export const usePollVaultData = () => {
   const dispatch = useAppDispatch();
   const { priceVsBusdMap } = usePrice();
@@ -23,11 +24,13 @@ export const usePollVaultData = () => {
     if (vaults.length !== vaultsConfig.length) {
       _vaults = initialState.data;
     }
-    if (dispatch && currentBlock) {
+    if (dispatch && currentBlock && priceVsBusdMap) {
+      console.log(1111);
+      // fetchVaultsV2(currentBlock, account, vaultsConfig, priceVsBusdMap, _vaults);
       dispatch(fetchVaultsPublicDataAsync({ currentBlock, account, priceVsBusdMap, vaultsData: _vaults }));
     }
     // eslint-disable-next-line
-  }, [dispatch, priceVsBusdMap, currentBlock]);
+  }, [dispatch, priceVsBusdMap]);
 };
 export const useVaultUserData = (vaults: IVault[]) => {
   // const { data: vaults } = useVault();

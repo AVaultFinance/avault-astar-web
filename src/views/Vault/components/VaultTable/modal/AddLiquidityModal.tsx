@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import vaultConfig from 'config/constants/vault';
 import { BigNumber } from '@ethersproject/bignumber';
 import { TransactionResponse } from '@ethersproject/providers';
 import { Currency, ETHER, TokenAmount } from '@my/sdk';
@@ -31,6 +30,7 @@ import { fetchVaultFarmUserDataAsync } from 'state/vault';
 import { useAppDispatch } from 'state';
 import useToast from 'hooks/useToast';
 import { useVault } from 'state/vault/hooks';
+import vaultsConfig from 'state/vault/vaultsConfig';
 
 interface AddLiquidityModalProps {
   vault: IVault;
@@ -40,7 +40,7 @@ interface AddLiquidityModalProps {
 const AddLiquidityModal: React.FC<AddLiquidityModalProps> = ({ vault, account, onDismiss }) => {
   const { isMd, isXl, isLg } = useMatchBreakpoints();
   const isMobile = !(isMd || isXl || isLg);
-  const index = vaultConfig.map((v: IVaultConfigItem) => v.lpDetail.symbol).indexOf(vault.lpDetail.symbol);
+  const index = vaultsConfig.map((v: IVaultConfigItem) => v.lpDetail.symbol).indexOf(vault.lpDetail.symbol);
 
   const token = tokenIndex[index][0];
 

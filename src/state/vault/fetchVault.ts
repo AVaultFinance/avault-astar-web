@@ -63,6 +63,7 @@ const fetch = async (
     quoteTokenDecimals,
     liquidity,
     lpTokenPrice,
+    tokenDecimals,
     lpAddressDecimals,
   } = await fetchFarmDataABI(masterChef, lpAddressSymbol, lpAddresses, token0Address, token1Address, priceVsBusdMap);
   // console.log(vault.lpDetail.symbol, lpAddresses, lpAddressDecimals);
@@ -141,6 +142,7 @@ const fetch = async (
       tokenPriceVsQuote: tokenPriceVsQuote,
       poolWeight: poolWeight.toString(),
       multiplier: multiplier,
+      tokenDecimals: tokenDecimals,
       quoteTokenDecimals: quoteTokenDecimals,
       liquidity: liquidity,
       lpTokenPrice: lpTokenPrice,
@@ -420,6 +422,7 @@ const fetchFarmDataABI = async (
     liquidity: totalLiquidity,
     tokenPriceVsQuote: quoteTokenAmountTotal.div(tokenAmountTotal).toString(),
     lpSymbol: lpSymbol ? lpSymbol[0] : '',
+    tokenDecimals: tokenDecimals ? tokenDecimals[0] : 18,
     quoteTokenDecimals: quoteTokenDecimals ? quoteTokenDecimals[0] : 18,
     lpAddressDecimals: lpAddressDecimals ? lpAddressDecimals[0] : 18,
     lpTokenPrice: lpTokenPrice.toString(),

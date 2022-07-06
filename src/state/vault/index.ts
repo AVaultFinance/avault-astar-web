@@ -1,7 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { VaultState } from 'state/types';
-import vaultsConfig from 'config/constants/vault';
-import fetchVaults from './fetchVaults';
 import { IVault, IVaultConfigItem, IVaultUserData } from './types';
 import {
   fetchVaultsFarmEarnings,
@@ -12,31 +10,21 @@ import {
 } from './fetchVaultUser';
 import { haveNumber } from 'utils';
 import { chainId } from 'config/constants/tokens';
+import fetchVaultsV2 from './fetchVaultsV2';
+import vaultsConfig from 'state/vault/vaultsConfig';
+
 export const initialState: VaultState = {
   data: vaultsConfig.map((v: IVaultConfigItem) => {
     return {
       ...v,
       vault: {
-        symbol: '',
-        name: '',
-        masterChef: '',
-        AVAAddress: '',
-        token0Address: '',
-        token1Address: '',
-        fromSource: v.fromSource,
-        wantAddress: '',
-        earnedAddress: '',
+        ...v.vault,
         wantLockedTotal: '',
         totalSupply: '',
-        decimals: 18,
       },
       farm: {
-        pid: 0,
-        lpSymbol: '',
-        lpAddresses: '',
+        ...v.farm,
         tokenAmountMc: '',
-        token: '',
-        quoteToken: '',
         quoteTokenAmountMc: '',
         tokenAmountTotal: '',
         quoteTokenAmountTotal: '',
@@ -45,8 +33,6 @@ export const initialState: VaultState = {
         tokenPriceVsQuote: '',
         poolWeight: '',
         multiplier: '',
-        quoteTokenDecimals: 18,
-        lpAddressDecimals: 18,
       },
       isLoading: false,
     };
@@ -64,7 +50,8 @@ export const fetchVaultsPublicDataAsync = createAsyncThunk<
     vaultsData: IVault[];
   }
 >('vault/fetchVaultsPublicDataAsync', async ({ currentBlock, account, priceVsBusdMap, vaultsData }) => {
-  const vaults = await fetchVaults(currentBlock, account, vaultsConfig, priceVsBusdMap, vaultsData);
+  const vaults = await fetchVaultsV2(currentBlock, account, vaultsConfig, priceVsBusdMap, vaultsData);
+  // const vaults = await fetchVaults(currentBlock, account, vaultsConfig, priceVsBusdMap, vaultsData);
   return vaults;
 });
 export const fetchVaultFarmUserDataAsync = createAsyncThunk<
