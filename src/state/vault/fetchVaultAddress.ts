@@ -75,7 +75,6 @@ export const fetchVaultABIBase = async (vaultsData: IVault[]): Promise<Record<st
         obj[`${keyArr[i]}`] = result.slice(start, end).map((v) => v[0]);
     }
   }
-  console.log(obj);
   return obj;
 };
 

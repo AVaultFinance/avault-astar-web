@@ -12,7 +12,7 @@ import { BIG_ZERO } from 'utils/bigNumber';
 import { getBalanceNumber, getFullLocalDisplayBalance } from 'utils/formatBalance';
 import { useWeb3React } from '@web3-react/core';
 import MobileAction from './MobileAction';
-import { useERC20 } from 'hooks/useContract';
+import { useAVaultPCSContract, useERC20, usePairContract } from 'hooks/useContract';
 import { useAppDispatch } from 'state';
 import { IVault } from 'state/vault/types';
 import { useVault, useVaultFarmUser } from 'state/vault/hooks';
@@ -27,6 +27,9 @@ import { showDecimals } from 'views/Vault/utils';
 import AddLiquidityModal from '../modal/AddLiquidityModal';
 import RemoveLiquidityModal from '../modal/RemoveLiquidityModal';
 import { getBscScanLink } from 'utils';
+import { avaultApprove } from 'views/Vault/utils/getvrs';
+import useTransactionDeadline from 'hooks/useTransactionDeadline';
+import { Contract } from 'ethers';
 // import { registerToken } from 'utils/wallet';
 export interface ActionPanelProps {
   apr: AprProps;
@@ -165,9 +168,13 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
   const isMobile = !(isXl || isLg);
   const { t } = useTranslation();
   const lpAddress = getAddress(vault.farm.lpAddresses);
-  const { account } = useWeb3React();
+  const { account, library } = useWeb3React();
   const { avaultAddressBalance, allowance } = useVaultFarmUser(account, vault?.farm?.pid ?? 0);
   const isApproved = account && allowance && allowance.isGreaterThan(0);
+  // allowance handling
+  const [signatureData, setSignatureData] = useState<{ v: number; r: string; s: string; deadline: number } | null>(
+    null,
+  );
   // const isMetaMaskInScope = !!window.ethereum?.isMetaMask;
   // const stakingBigNumber = new BigNumber(vault.farm?.userData?.stakingTokenBalance??"0");
   let earnings = BIG_ZERO;
@@ -219,6 +226,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
     `onRemoveLiquidity${index}`,
   );
   const lpContract = useERC20(lpAddress);
+  const deadline = useTransactionDeadline();
   const [requestedApproval, setRequestedApproval] = useState(false);
   // const { onApprove } = useSpecialApproveFarm(lpContract, vault.vault.masterChef);
   const { onApprove } = useSpecialApproveFarm(lpContract, vault.contractAddress[chainId]);
@@ -227,15 +235,11 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
   const { toastSuccess, toastError } = useToast();
   const { login, logout } = useAuth();
   const { onPresentConnectModal } = useWalletModal(login, logout);
-  const handleApprove = useCallback(async () => {
+  const handleApproveV2 = useCallback(async () => {
     if (!account) {
       onPresentConnectModal();
       return;
     }
-    // setRequestedApproval(true);
-    // setTimeout(() => {
-    //   setRequestedApproval(false);
-    // }, 80000);
     try {
       setRequestedApproval(true);
       const result = await onApprove();
@@ -254,7 +258,37 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
       setRequestedApproval(false);
     }
   }, [onApprove, dispatch, onPresentConnectModal, index, account, vaults, toastError, toastSuccess]);
-
+  const contractAddressContract = useAVaultPCSContract(details.contractAddress[chainId], details.abiType);
+  const pairContract: Contract | null = usePairContract(details.lpDetail.address[chainId]);
+  const handleApprove = useCallback(async () => {
+    if (!account) {
+      onPresentConnectModal();
+      return;
+    }
+    if (deadline) {
+      try {
+        setRequestedApproval(true);
+        const signature = await avaultApprove({
+          pairContract: pairContract,
+          paitAddress: details.lpDetail.address[chainId],
+          vaultContractAddress: details.contractAddress[chainId],
+          library: library,
+          account,
+          deadline: deadline,
+        });
+        setSignatureData({
+          v: signature.v,
+          r: signature.r,
+          s: signature.s,
+          deadline: signature.deadline,
+        });
+      } catch (e) {
+        console.error(e);
+      } finally {
+        setRequestedApproval(false);
+      }
+    }
+  }, [deadline, account, details.contractAddress, library]);
   return (
     <Container expanded={expanded}>
       <InfoContainer>
@@ -368,7 +402,10 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
       ) : (
         <ActionContainer style={{ justifyContent: 'end' }}>
           <DepositAction
+            deadline={deadline}
+            setSignatureData={setSignatureData}
             abiType={vault.abiType}
+            signatureData={signatureData}
             contractAddress={vault.contractAddress[chainId]}
             lpAddressDecimals={vault.farm.lpAddressDecimals}
             requestedApproval={requestedApproval}

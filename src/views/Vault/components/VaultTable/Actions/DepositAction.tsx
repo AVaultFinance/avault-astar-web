@@ -17,6 +17,7 @@ import { showDecimals } from 'views/Vault/utils';
 import { IABIType } from 'state/vault/types';
 
 interface HarvestActionProps {
+  setSignatureData: any;
   userDataReady: boolean;
   displayBalance: string | JSX.Element;
   earnings: BigNumber;
@@ -31,6 +32,8 @@ interface HarvestActionProps {
   lpAddressDecimals: number;
   index: number;
   abiType: IABIType;
+  deadline: number;
+  signatureData: { v: number; r: string; s: string; deadline: number };
 }
 const FlexStyled = styled(Flex)`
   margin-top: 0;
@@ -54,6 +57,9 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
   lpAddressDecimals,
   index,
   abiType,
+  signatureData,
+  setSignatureData,
+  deadline,
 }) => {
   const { toastSuccess, toastError } = useToast();
   const { data: vaults } = useVault();
@@ -61,7 +67,7 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
   const [pendingTx, setPendingTx] = useState(false);
 
   const { account } = useWeb3React();
-  const { onDeposit } = useVaultDeposit(abiType, account, contractAddress, lpAddressDecimals);
+  const { onDeposit, onDepositWithPermit } = useVaultDeposit(abiType, account, contractAddress, lpAddressDecimals);
   const dispatch = useAppDispatch();
   const [val, setVal] = useState('');
   const { stakingTokenBalance } = useVaultFarmUser(account, pid ?? 0);
@@ -106,6 +112,39 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
       setPendingTx(false);
     }
   }, [val, account, vaults, index, dispatch, lpSymbol, onDeposit, toastError, toastSuccess]);
+  const depositWithVRS = async () => {
+    if (!signatureData) {
+      setSignatureData(null);
+    } else {
+      setPendingTx(true);
+      let result = null;
+
+      try {
+        result = await onDepositWithPermit(
+          val,
+          signatureData.deadline,
+          signatureData.v,
+          signatureData.r,
+          signatureData.s,
+        );
+        if (typeof result === 'boolean' && result) {
+          dispatch(changeLoading());
+          dispatch(changeVaultItemLoading({ index }));
+          dispatch(fetchVaultFarmUserDataAsync({ account, vaults, index }));
+          toastSuccess(`Deposit!`, `Your ${lpSymbol} deposit!`);
+        } else {
+          const message = result ? result : `Your ${lpSymbol} deposit failed!`;
+          toastError('Error', message);
+        }
+      } catch (e: any) {
+        toastError('Error', e.message ? e.message : `Your ${lpSymbol} deposit failed!`);
+        // toastError('Error', `Your ${lpSymbol} deposit failed!`);
+      } finally {
+        setVal('');
+        setPendingTx(false);
+      }
+    }
+  };
   const disabled =
     requestedApproval ||
     stakingTokenBalance.eq(BIG_ZERO) ||
@@ -126,7 +165,7 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
           {!isApproved ? (
             <Flex alignItems="center" justifyContent="space-between">
               <HelfButton
-                disabled={requestedApproval || !userDataReady}
+                disabled={requestedApproval || !deadline || !userDataReady || signatureData}
                 isLoading={requestedApproval}
                 onClick={handleApprove}
                 variant="secondary"
@@ -136,7 +175,9 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
               </HelfButton>
               <HelfButton
                 variant="primary"
-                disabled={true}
+                className={pendingTx ? 'loading' : ''}
+                disabled={!signatureData || pendingTx}
+                onClick={depositWithVRS}
                 endIcon={pendingTx ? <AutoRenewIcon spin color="currentColor" /> : null}
               >
                 Deposit

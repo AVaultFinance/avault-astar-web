@@ -29,7 +29,27 @@ const useVaultDeposit = (abiType: IABIType, account: string, contractAddress: st
     [contractAddressContract, account, decimal],
   );
 
-  return { onDeposit: handleDeposit };
+  const onDepositWithPermit = useCallback(
+    async (amount: string, deadline: number, v: number, r: string, s: string) => {
+      const value = new BigNumber(amount).times(BIG_TEN.pow(decimal)).toString();
+      const res = await callWithEstimateGas(
+        contractAddressContract,
+        'depositWithPermit',
+        [account, `${value}`, deadline, v, r, s],
+        {
+          gasLimit: DEFAULT_GAS_LIMIT,
+        },
+      );
+      if (res && res.isOk) {
+        return true;
+      } else {
+        return res.message;
+      }
+    },
+    [contractAddressContract, account, decimal],
+  );
+
+  return { onDeposit: handleDeposit, onDepositWithPermit };
 };
 
 export default useVaultDeposit;

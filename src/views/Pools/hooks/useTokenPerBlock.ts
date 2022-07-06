@@ -24,7 +24,6 @@ export const fetchTokenPerBlock = async () => {
   ]);
 
   const tokenPerBlock = new BigNumber(res.toString()).div(base);
-  console.log(tokenPerBlock.toNumber());
   return tokenPerBlock;
 };
 

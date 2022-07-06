@@ -61,6 +61,7 @@ export const InfoContainer = styled.div`
     margin-right: 10%;
   }
   ${({ theme }) => theme.mediaQueries.sm} {
+    padding-top: 20px;
     max-width: 200px;
     min-width: 80px;
   }

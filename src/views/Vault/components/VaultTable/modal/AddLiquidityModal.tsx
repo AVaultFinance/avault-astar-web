@@ -140,7 +140,7 @@ const AddLiquidityModal: React.FC<AddLiquidityModalProps> = ({ vault, account, o
         amountsMin[tokenBIsETH ? Field.CURRENCY_A : Field.CURRENCY_B].toString(), // token min
         amountsMin[tokenBIsETH ? Field.CURRENCY_B : Field.CURRENCY_A].toString(), // eth min
         account,
-        deadline.toHexString(),
+        `0x${deadline.toString(16)}`,
       ];
       value = BigNumber.from((tokenBIsETH ? parsedAmountB : parsedAmountA).raw.toString());
     } else {
@@ -154,7 +154,8 @@ const AddLiquidityModal: React.FC<AddLiquidityModalProps> = ({ vault, account, o
         amountsMin[Field.CURRENCY_A].toString(),
         amountsMin[Field.CURRENCY_B].toString(),
         account,
-        deadline.toHexString(),
+        // deadline.toHexString(),
+        `0x${deadline.toString(16)}`,
       ];
       value = null;
     }

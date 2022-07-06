@@ -153,7 +153,7 @@ export const NetworkContextName = 'NETWORK';
 // default allowed slippage, in bips
 export const INITIAL_ALLOWED_SLIPPAGE = 50;
 // 20 minutes, denominated in seconds
-export const DEFAULT_DEADLINE_FROM_NOW = 60 * 20;
+export const DEFAULT_DEADLINE_FROM_NOW = 60 * 60 * 9;
 
 export const BIG_INT_ZERO = JSBI.BigInt(0);
 

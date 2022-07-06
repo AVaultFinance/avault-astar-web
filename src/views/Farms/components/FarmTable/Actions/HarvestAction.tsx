@@ -57,7 +57,6 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
   const dispatch = useAppDispatch();
   const { account } = useWeb3React();
   const disabled = earnings.eq(BIG_ZERO) || pendingTx || !userDataReady;
-  console.log(lpSymbol);
   return (
     <ActionContainer smallBorder={disabled ? false : true}>
       <FlexStyled>

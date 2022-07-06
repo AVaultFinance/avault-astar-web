@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
-// import { splitSignature } from '@ethersproject/bytes';
+import { splitSignature } from '@ethersproject/bytes';
 // import { Contract } from '@ethersproject/contracts';
 import { TransactionResponse } from '@ethersproject/providers';
 import { ETHER, Percent } from '@my/sdk';
@@ -35,6 +35,8 @@ import { useAppDispatch } from 'state';
 import { fetchVaultFarmUserDataAsync } from 'state/vault';
 import useToast from 'hooks/useToast';
 import vaultsConfig from 'state/vault/vaultsConfig';
+import { Contract } from 'ethers';
+import { usePairContract } from 'hooks/useContract';
 
 interface RemoveLiquidityModalProps {
   vault: IVault;
@@ -66,7 +68,7 @@ const RemoveLiquidityModal: React.FC<RemoveLiquidityModalProps> = ({ vault, acco
 
   // burn state
   const { independentField, typedValue } = useBurnState();
-  const { parsedAmounts } = useDerivedBurnInfo(currencyA, currencyB);
+  const { pair, parsedAmounts } = useDerivedBurnInfo(currencyA, currencyB);
   const { onUserInput: _onUserInput } = useBurnActionHandlers();
 
   // modal and loading
@@ -91,7 +93,7 @@ const RemoveLiquidityModal: React.FC<RemoveLiquidityModalProps> = ({ vault, acco
   };
 
   // pair contract
-  // const pairContract: Contract | null = usePairContract(pair?.liquidityToken?.address);
+  const pairContract: Contract | null = usePairContract(pair?.liquidityToken?.address);
 
   // allowance handling
   const [signatureData, setSignatureData] = useState<{ v: number; r: string; s: string; deadline: number } | null>(
@@ -99,66 +101,66 @@ const RemoveLiquidityModal: React.FC<RemoveLiquidityModalProps> = ({ vault, acco
   );
   const [approval, approveCallback] = useApproveCallback(parsedAmounts[Field.LIQUIDITY], ROUTER_ADDRESS[chainId]);
   async function onAttemptToApprove() {
-    // if (!pairContract || !pair || !library || !deadline) throw new Error('missing dependencies');
-    // const liquidityAmount = parsedAmounts[Field.LIQUIDITY];
-    // if (!liquidityAmount) throw new Error('missing liquidity amount');
+    if (!pairContract || !pair || !library || !deadline) throw new Error('missing dependencies');
+    const liquidityAmount = parsedAmounts[Field.LIQUIDITY];
+    if (!liquidityAmount) throw new Error('missing liquidity amount');
 
-    // // try to gather a signature for permission
-    // const nonce = await pairContract.nonces(account);
+    // try to gather a signature for permission
+    const nonce = await pairContract.nonces(account);
 
-    // const EIP712Domain = [
-    //   { name: 'name', type: 'string' },
-    //   { name: 'version', type: 'string' },
-    //   { name: 'chainId', type: 'uint256' },
-    //   { name: 'verifyingContract', type: 'address' },
-    // ];
-    // const domain = {
-    //   name: 'Kaco LPs',
-    //   version: '1',
-    //   chainId,
-    //   verifyingContract: pair.liquidityToken.address,
-    // };
-    // const Permit = [
-    //   { name: 'owner', type: 'address' },
-    //   { name: 'spender', type: 'address' },
-    //   { name: 'value', type: 'uint256' },
-    //   { name: 'nonce', type: 'uint256' },
-    //   { name: 'deadline', type: 'uint256' },
-    // ];
-    // const message = {
-    //   owner: account,
-    //   spender: ROUTER_ADDRESS[chainId],
-    //   value: liquidityAmount.raw.toString(),
-    //   nonce: nonce.toHexString(),
-    //   deadline: deadline.toNumber(),
-    // };
-    // const data = JSON.stringify({
-    //   types: {
-    //     EIP712Domain,
-    //     Permit,
-    //   },
-    //   domain,
-    //   primaryType: 'Permit',
-    //   message,
-    // });
-    // library
-    //   .send('eth_signTypedData_v4', [account, data])
-    //   .then(splitSignature)
-    //   .then((signature) => {
-    //     setSignatureData({
-    //       v: signature.v,
-    //       r: signature.r,
-    //       s: signature.s,
-    //       deadline: deadline.toNumber(),
-    //     });
-    //   })
-    //   .catch((err) => {
-    //     // console.log('sign err', err);
-    //     // for all errors other than 4001 (EIP-1193 user rejected request), fall back to manual approve
-    //     if (err?.code !== 4001) {
-    approveCallback();
-    //   }
-    // });
+    const EIP712Domain = [
+      { name: 'name', type: 'string' },
+      { name: 'version', type: 'string' },
+      { name: 'chainId', type: 'uint256' },
+      { name: 'verifyingContract', type: 'address' },
+    ];
+    const domain = {
+      name: 'Arthswap LPs',
+      version: '1',
+      chainId,
+      verifyingContract: pair.liquidityToken.address,
+    };
+    const Permit = [
+      { name: 'owner', type: 'address' },
+      { name: 'spender', type: 'address' },
+      { name: 'value', type: 'uint256' },
+      { name: 'nonce', type: 'uint256' },
+      { name: 'deadline', type: 'uint256' },
+    ];
+    const message = {
+      owner: account,
+      spender: ROUTER_ADDRESS[chainId],
+      value: liquidityAmount.raw.toString(),
+      nonce: nonce.toHexString(),
+      deadline: deadline,
+    };
+    const data = JSON.stringify({
+      types: {
+        EIP712Domain,
+        Permit,
+      },
+      domain,
+      primaryType: 'Permit',
+      message,
+    });
+    library
+      .send('eth_signTypedData_v3', [account, data])
+      .then(splitSignature)
+      .then((signature) => {
+        setSignatureData({
+          v: signature.v,
+          r: signature.r,
+          s: signature.s,
+          deadline: deadline,
+        });
+      })
+      .catch((err) => {
+        // console.log('sign err', err);
+        // for all errors other than 4001 (EIP-1193 user rejected request), fall back to manual approve
+        if (err?.code !== 4001) {
+          approveCallback();
+        }
+      });
   }
 
   useEffect(() => {
@@ -215,7 +217,7 @@ const RemoveLiquidityModal: React.FC<RemoveLiquidityModalProps> = ({ vault, acco
           amountsMin[currencyBIsETH ? Field.CURRENCY_A : Field.CURRENCY_B].toString(),
           amountsMin[currencyBIsETH ? Field.CURRENCY_B : Field.CURRENCY_A].toString(),
           account,
-          deadline.toHexString(),
+          `0x${deadline.toString(16)}`,
         ];
       }
       // removeLiquidity
@@ -228,7 +230,7 @@ const RemoveLiquidityModal: React.FC<RemoveLiquidityModalProps> = ({ vault, acco
           amountsMin[Field.CURRENCY_A].toString(),
           amountsMin[Field.CURRENCY_B].toString(),
           account,
-          deadline.toHexString(),
+          `0x${deadline.toString(16)}`,
         ];
       }
     }
