@@ -24,9 +24,9 @@ const Providers: React.FC = ({ children }) => {
           <HelmetProvider>
             <ThemeProviderWrapper>
               <LanguageProvider>
-                <RefreshContextProvider>
-                  <ModalProvider>{children}</ModalProvider>
-                </RefreshContextProvider>
+                {/* <RefreshContextProvider> */}
+                <ModalProvider>{children}</ModalProvider>
+                {/* </RefreshContextProvider> */}
               </LanguageProvider>
             </ThemeProviderWrapper>
           </HelmetProvider>

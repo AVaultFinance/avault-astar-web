@@ -40,10 +40,10 @@ export default function Updater(): null {
       .then(blockNumberCallback)
       .catch((error) => console.error(`Failed to get block number for chainId: ${chainId}`, error));
 
-    // library.on('block', blockNumberCallback);
-    // return () => {
-    //   library.removeListener('block', blockNumberCallback);
-    // };
+    library.on('block', blockNumberCallback);
+    return () => {
+      library.removeListener('block', blockNumberCallback);
+    };
   }, [dispatch, chainId, library, blockNumberCallback, windowVisible]);
 
   const debouncedState = useDebounce(state, 100);

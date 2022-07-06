@@ -40,10 +40,10 @@ const Zap = () => {
   const { login, logout } = useAuth();
   const { onPresentConnectModal } = useWalletModal(login, logout);
   // useEffect(() => {
-  //   setTimeout(() => {
+  //   setInterval(() => {
   //     console.log(11222);
   //     setReNewBalanceTime(new Date().valueOf());
-  //   }, 10000);
+  //   }, 4000);
   // }, []);
   const handleChange = useCallback(
     (e: React.FormEvent<HTMLInputElement>) => {
@@ -180,6 +180,7 @@ const Zap = () => {
                     account &&
                     isApprove &&
                     (pendingTx ||
+                      !new BigNumber(val).isFinite() ||
                       new BigNumber(val).eq(0) ||
                       new BigNumber(val).gt(fullBalance) ||
                       fromCurrency.symbol === toCurrency.symbol)
