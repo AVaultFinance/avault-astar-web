@@ -1,5 +1,5 @@
 import React, { CSSProperties, MutableRefObject, useCallback, useMemo } from 'react';
-import { Currency, CurrencyAmount, currencyEquals, ETHER, Token } from '@my/sdk';
+import { Currency, currencyEquals, ETHER, Token } from '@my/sdk';
 import { Text } from '@my/ui';
 import styled from 'styled-components';
 import { FixedSizeList } from 'react-window';
@@ -9,7 +9,7 @@ import QuestionHelper from 'components/QuestionHelper';
 import { useTranslation } from 'contexts/Localization';
 import useActiveWeb3React from 'hooks/useActiveWeb3React';
 import { useCombinedActiveList } from 'state/lists/hooks';
-import { useCurrencyBalance } from 'state/wallet/hooks';
+import { useCurrencyBalanceString } from 'state/wallet/hooks';
 import { useIsUserAddedToken, useAllInactiveTokens } from 'hooks/Tokens';
 import Column from '../Layout/Column';
 import { RowFixed, RowBetween } from '../Layout/Row';
@@ -40,8 +40,12 @@ const FixedContentRow = styled.div`
   align-items: center;
 `;
 
-function Balance({ balance }: { balance: CurrencyAmount }) {
-  return <StyledBalanceText title={balance.toExact()}>{balance.toSignificant(4)}</StyledBalanceText>;
+function Balance({ balance }: { balance: string }) {
+  return (
+    <StyledBalanceText title={balance}>
+      {Number(balance).toLocaleString('en-US', { maximumFractionDigits: 2 })}
+    </StyledBalanceText>
+  );
 }
 
 const MenuItem = styled(RowBetween)<{ disabled: boolean; selected: boolean }>`
@@ -87,7 +91,7 @@ function CurrencyRow({
   const selectedTokenList = useCombinedActiveList();
   const isOnSelectedList = isTokenOnList(selectedTokenList, currency);
   const customAdded = useIsUserAddedToken(currency);
-  const balance = useCurrencyBalance(account ?? undefined, currency);
+  const balance = useCurrencyBalanceString(account ?? undefined, currency);
 
   // only show add or remove buttons if not on selected list
   return (

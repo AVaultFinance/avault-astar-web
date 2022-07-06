@@ -1,4 +1,4 @@
-import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 import { save, load } from 'redux-localstorage-simple';
 import { useDispatch } from 'react-redux';
 import farmsReducer from './farms';
@@ -25,7 +25,11 @@ import multicall from './multicall/reducer';
 
 const PERSISTED_KEYS: string[] = ['user', 'transactions', 'price', 'lists', 'vault'];
 // const PERSISTED_KEYS: string[] = ['user', 'transactions', 'lists'];
-
+for (let i = 0; i < PERSISTED_KEYS.length; i++) {
+  // DELET LOCAL
+  // redux_localstorage_simple
+  window.localStorage.removeItem(`redux_localstorage_simple_${PERSISTED_KEYS[i]}`);
+}
 const store = configureStore({
   devTools: process.env.NODE_ENV !== 'production',
   reducer: {
@@ -52,8 +56,10 @@ const store = configureStore({
     multicall,
     lists,
   },
-  middleware: [...getDefaultMiddleware({ thunk: true }), save({ states: PERSISTED_KEYS })],
-  preloadedState: load({ states: PERSISTED_KEYS }),
+  // middleware: [...getDefaultMiddleware({ thunk: true }), save({ states: PERSISTED_KEYS, namespace: 'v1' })],
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({ thunk: true }).concat(save({ states: PERSISTED_KEYS, namespace: 'v2' })),
+  preloadedState: load({ states: PERSISTED_KEYS, namespace: 'v2' }),
 });
 
 store.dispatch(updateVersion());

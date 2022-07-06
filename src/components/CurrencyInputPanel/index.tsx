@@ -4,7 +4,7 @@ import { Button, useModal, Flex } from '@my/ui';
 import styled from 'styled-components';
 import { useTranslation } from 'contexts/Localization';
 import useActiveWeb3React from 'hooks/useActiveWeb3React';
-import { useCurrencyBalance } from 'state/wallet/hooks';
+import { useCurrencyBalanceString } from 'state/wallet/hooks';
 import CurrencySearchModal from '../SearchModal/CurrencySearchModal';
 import { CurrencyLogo, DoubleCurrencyLogo } from '../Logo';
 import DropdownSvg from './dropdown.svg';
@@ -152,7 +152,7 @@ export default function CurrencyInputPanel({
   focused = false,
 }: CurrencyInputPanelProps) {
   const { account } = useActiveWeb3React();
-  const selectedCurrencyBalance = useCurrencyBalance(account ?? undefined, currency ?? undefined);
+  const selectedCurrencyBalance = useCurrencyBalanceString(account ?? undefined, currency ?? undefined);
   const { t } = useTranslation();
   const translatedLabel = label || t('Input');
 
@@ -206,7 +206,7 @@ export default function CurrencyInputPanel({
           <div className="label">
             <span>
               {account && !hideBalance && !!currency && selectedCurrencyBalance
-                ? t('Balance: %amount%', { amount: selectedCurrencyBalance?.toSignificant(6) ?? '' })
+                ? t('Balance: %amount%', { amount: selectedCurrencyBalance ?? '' })
                 : '--'}
             </span>
 

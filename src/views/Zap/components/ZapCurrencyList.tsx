@@ -1,12 +1,11 @@
 import { ETHER, Token } from '@my/sdk';
 import { Flex, Heading } from '@my/ui';
-import BigNumber from 'bignumber.js';
 import CircleLoader from 'components/Loader/CircleLoader';
 import { chainId } from 'config/constants/tokens';
 import useActiveWeb3React from 'hooks/useActiveWeb3React';
 import { CSSProperties, MutableRefObject, useCallback } from 'react';
 import { FixedSizeList } from 'react-window';
-import { useCurrencyBalance } from 'state/wallet/hooks';
+import { useCurrencyBalanceString } from 'state/wallet/hooks';
 import styled from 'styled-components';
 import { showDecimals } from 'views/Vault/utils';
 import { IToken } from '../utils/types';
@@ -87,7 +86,7 @@ function CurrencyRow({
     currency.address && currency.address[chainId]
       ? new Token(chainId, currency.address[chainId], currency.decimals ?? 18, currency.symbol, currency.name)
       : ETHER[chainId];
-  const balance = useCurrencyBalance(account ?? undefined, _currency);
+  const balance = useCurrencyBalanceString(account ?? undefined, _currency);
   const decimals = showDecimals(currency.symbol);
   return (
     <MenuItem
@@ -102,12 +101,9 @@ function CurrencyRow({
       </FlexCol>
       <HeadingStyled>
         {balance ? (
-          Number(new BigNumber(balance.toSignificant(18)).toFixed(decimals, BigNumber.ROUND_DOWN)).toLocaleString(
-            'en-US',
-            {
-              maximumFractionDigits: decimals,
-            },
-          )
+          Number(balance).toLocaleString('en-US', {
+            maximumFractionDigits: decimals,
+          })
         ) : account ? (
           <CircleLoader />
         ) : (

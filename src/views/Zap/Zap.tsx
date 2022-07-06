@@ -10,7 +10,7 @@ import {
   zapLocalFromCurrency,
   zapLocalToCurrency,
 } from './constants/data';
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import ZapCurrencyInputPanel from './components/ZapCurrencyInputPanel';
 import { IToken, ITokenType } from './utils/types';
 import ZapBalance from './components/ZapBalance';
@@ -30,6 +30,7 @@ const Zap = () => {
   const [fromCurrency, setFromCurrency] = useState(_fromCurrency);
   const [toCurrency, setToCurrency] = useState(_toCurrency);
   const [fullBalance, setMax] = useState('0');
+  const [reNewBalanceTime, setReNewBalanceTime] = useState(0);
   const [val, setVal] = useState('');
   const { handleZapClick } = useZapContract(zapAddress[chainId], fromCurrency, toCurrency);
   const [pendingTx, setPendingTx] = useState(false);
@@ -38,7 +39,12 @@ const Zap = () => {
 
   const { login, logout } = useAuth();
   const { onPresentConnectModal } = useWalletModal(login, logout);
-
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     console.log(11222);
+  //     setReNewBalanceTime(new Date().valueOf());
+  //   }, 10000);
+  // }, []);
   const handleChange = useCallback(
     (e: React.FormEvent<HTMLInputElement>) => {
       if (e.currentTarget.validity.valid) {
@@ -76,10 +82,13 @@ const Zap = () => {
       const result = await handleZapClick(val, account);
       // console.log(res);
       if (typeof result === 'boolean' && result) {
+        // console.log(9999999);
         toastSuccess(
           'Successfully claimed!',
           `Your ${fromCurrency.symbol} to ${toCurrency.symbol} Zap Successfully claimed!`,
         );
+        setReNewBalanceTime(new Date().valueOf());
+        // renew balance
       } else {
         const message = result ? result : `Your ${fromCurrency.symbol} to ${toCurrency.symbol} Zap failed!`;
         toastError('Error', message);
@@ -116,108 +125,165 @@ const Zap = () => {
       setPendingTx(false);
     }
   }, [account, fetchApprove, onPresentConnectModal, toastError, toastSuccess]);
-  return (
-    <PageLayout>
-      <BgGlobalStyle />
-      <PageContainerWrap>
-        <W480BorderPageLayout className="single">
-          <TableContent>
-            <TitleStyled>Zap</TitleStyled>
-            <TextStyled>Convert single tokens to LP tokens directly</TextStyled>
-            <InnerStyled>
-              <PaddingStyled>
-                <TextCol>
-                  <BoldStyled>From</BoldStyled>
+  return useMemo(() => {
+    return (
+      <PageLayout>
+        <BgGlobalStyle />
+        <PageContainerWrap>
+          <W480BorderPageLayout className="single">
+            <TableContent>
+              <TitleStyled>Zap</TitleStyled>
+              <TextStyled>Convert single tokens to LP tokens directly</TextStyled>
+              <InnerStyled>
+                <FromComp
+                  account={account}
+                  setVal={setVal}
+                  val={val}
+                  handleChange={handleChange}
+                  setFromCurrency={setFromCurrency}
+                  toCurrency={toCurrency}
+                  fromCurrency={fromCurrency}
+                  reNewBalanceTime={reNewBalanceTime}
+                  setMax={setMax}
+                  handleSelectMax={handleSelectMax}
+                />
+                <PaddingStyled>
                   <TextCol>
-                    <ZapBalance account={account} currency={fromCurrency} setMax={setMax} />
-                    <MaxButtonStyled variant="text" onClick={handleSelectMax}>
-                      Max
-                    </MaxButtonStyled>
+                    <BoldStyled>TO LP</BoldStyled>
+                    {/* <ZapBalance currency={toCurrency} /> */}
                   </TextCol>
-                </TextCol>
 
-                <TextCol>
-                  {fromCurrency ? (
-                    <ZapCurrencyInputPanel
-                      currency={fromCurrency}
-                      otherCurrency={toCurrency}
-                      setCurrency={(currency: IToken) => {
-                        localStorage.setItem(zapLocalFromCurrency, JSON.stringify(currency));
-                        setVal('');
-                        setFromCurrency(currency);
-                      }}
-                      isTo={false}
-                    />
-                  ) : null}
-                  <StyledInput
-                    pattern={`^[0-9]*[.,]?[0-9]{0,8}$`}
-                    inputMode="decimal"
-                    step="any"
-                    min="0"
-                    placeholder="0"
-                    value={val}
-                    onChange={handleChange}
-                  />
-                </TextCol>
-              </PaddingStyled>
-              <PaddingStyled>
-                <TextCol>
-                  <BoldStyled>TO LP</BoldStyled>
-                  {/* <ZapBalance currency={toCurrency} /> */}
-                </TextCol>
-
-                <TextCol>
-                  {toCurrency ? (
-                    <ZapCurrencyInputPanel
-                      currency={toCurrency}
-                      otherCurrency={fromCurrency}
-                      setCurrency={(currency: IToken) => {
-                        localStorage.setItem(zapLocalToCurrency, JSON.stringify(currency));
-                        setVal('');
-                        setToCurrency(currency);
-                      }}
-                      isTo={true}
-                    />
-                  ) : null}
-                  <HeadingStyled isSmall={EstimatedPrice === '0'} isLong={EstimatedPrice.length > 16}>
-                    {EstimatedPrice}
-                  </HeadingStyled>
-                </TextCol>
-              </PaddingStyled>
-              <ArrowDown />
-            </InnerStyled>
-            <Button
-              isLoading={pendingTx}
-              disabled={
-                account &&
-                isApprove &&
-                (pendingTx ||
-                  !valNumber.isFinite() ||
-                  valNumber.eq(0) ||
-                  valNumber.gt(fullBalance) ||
-                  fromCurrency.symbol === toCurrency.symbol)
-              }
-              width="100%"
-              padding="0"
-              onClick={() => {
-                if (isApprove) {
-                  zapComfirm();
-                } else {
-                  zapApprove();
+                  <TextCol>
+                    {toCurrency ? (
+                      <ZapCurrencyInputPanel
+                        currency={toCurrency}
+                        otherCurrency={fromCurrency}
+                        setCurrency={(currency: IToken) => {
+                          localStorage.setItem(zapLocalToCurrency, JSON.stringify(currency));
+                          setVal('');
+                          setToCurrency(currency);
+                        }}
+                        isTo={true}
+                      />
+                    ) : null}
+                    <HeadingStyled isSmall={EstimatedPrice === '0'} isLong={EstimatedPrice.length > 16}>
+                      {EstimatedPrice}
+                    </HeadingStyled>
+                  </TextCol>
+                </PaddingStyled>
+                <ArrowDown />
+              </InnerStyled>
+              <Button
+                isLoading={pendingTx}
+                disabled={
+                  account &&
+                  isApprove &&
+                  (pendingTx ||
+                    !new BigNumber(val).isFinite() ||
+                    new BigNumber(val).eq(0) ||
+                    new BigNumber(val).gt(fullBalance) ||
+                    fromCurrency.symbol === toCurrency.symbol)
                 }
+                width="100%"
+                padding="0"
+                onClick={() => {
+                  if (isApprove) {
+                    zapComfirm();
+                  } else {
+                    zapApprove();
+                  }
+                }}
+                endIcon={pendingTx ? <AutoRenewIcon spin color="currentColor" /> : null}
+              >
+                {!account ? 'Connect Wallet' : isApprove ? 'Confirm' : 'Approve'}
+              </Button>
+            </TableContent>
+            <ZapBgStyled>
+              <ZapBg />
+            </ZapBgStyled>
+          </W480BorderPageLayout>
+        </PageContainerWrap>
+      </PageLayout>
+    );
+  }, [
+    EstimatedPrice,
+    account,
+    fromCurrency,
+    fullBalance,
+    handleChange,
+    handleSelectMax,
+    isApprove,
+    pendingTx,
+    reNewBalanceTime,
+    toCurrency,
+    val,
+    zapApprove,
+    zapComfirm,
+  ]);
+};
+
+const FromComp = ({
+  account,
+  setVal,
+  val,
+  handleChange,
+  setFromCurrency,
+  toCurrency,
+  fromCurrency,
+  reNewBalanceTime,
+  setMax,
+  handleSelectMax,
+}) => {
+  return useMemo(() => {
+    return (
+      <PaddingStyled>
+        <TextCol>
+          <BoldStyled>From</BoldStyled>
+          <TextCol>
+            <ZapBalance account={account} currency={fromCurrency} reNewBalanceTime={reNewBalanceTime} setMax={setMax} />
+            <MaxButtonStyled variant="text" onClick={handleSelectMax}>
+              Max
+            </MaxButtonStyled>
+          </TextCol>
+        </TextCol>
+
+        <TextCol>
+          {fromCurrency ? (
+            <ZapCurrencyInputPanel
+              currency={fromCurrency}
+              otherCurrency={toCurrency}
+              setCurrency={(currency: IToken) => {
+                localStorage.setItem(zapLocalFromCurrency, JSON.stringify(currency));
+                setVal('');
+                setFromCurrency(currency);
               }}
-              endIcon={pendingTx ? <AutoRenewIcon spin color="currentColor" /> : null}
-            >
-              {!account ? 'Connect Wallet' : isApprove ? 'Confirm' : 'Approve'}
-            </Button>
-          </TableContent>
-          <ZapBgStyled>
-            <ZapBg />
-          </ZapBgStyled>
-        </W480BorderPageLayout>
-      </PageContainerWrap>
-    </PageLayout>
-  );
+              isTo={false}
+            />
+          ) : null}
+          <StyledInput
+            pattern={`^[0-9]*[.,]?[0-9]{0,8}$`}
+            inputMode="decimal"
+            step="any"
+            min="0"
+            placeholder="0"
+            value={val}
+            onChange={handleChange}
+          />
+        </TextCol>
+      </PaddingStyled>
+    );
+  }, [
+    account,
+    setVal,
+    val,
+    handleChange,
+    setFromCurrency,
+    toCurrency,
+    fromCurrency,
+    reNewBalanceTime,
+    setMax,
+    handleSelectMax,
+  ]);
 };
 const HeadingStyled = styled(Heading)<{ isSmall: boolean; isLong: boolean }>`
   font-size: ${({ isLong }) => (isLong ? '14px' : '18px')};

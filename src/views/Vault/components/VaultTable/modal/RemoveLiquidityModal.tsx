@@ -375,7 +375,7 @@ const RemoveLiquidityModal: React.FC<RemoveLiquidityModalProps> = ({ vault, acco
       </TitleStyled>
 
       <Flex alignItems="center" justifyContent="end" paddingY="4px">
-        <ZapBalance account={account} currency={token} setMax={setMax} />
+        <ZapBalance reNewBalanceTime={0} account={account} currency={token} setMax={setMax} />
         <MaxButtonStyled variant="text" onClick={handleSelectMax}>
           Max
         </MaxButtonStyled>

@@ -245,7 +245,7 @@ const AddLiquidityModal: React.FC<AddLiquidityModalProps> = ({ vault, account, o
             </FlexCol>
             <Flex alignItems="end" justifyContent="center" flexDirection="column">
               <Flex alignItems="center" justifyContent="center" paddingTop="4px">
-                <ZapBalance account={account} currency={fromCurrency} />
+                <ZapBalance reNewBalanceTime={0} account={account} currency={fromCurrency} />
                 <MaxButtonStyled
                   variant="text"
                   onClick={() => {
@@ -275,7 +275,7 @@ const AddLiquidityModal: React.FC<AddLiquidityModalProps> = ({ vault, account, o
             </FlexCol>
             <Flex alignItems="end" justifyContent="center" flexDirection="column">
               <Flex alignItems="center" justifyContent="center" paddingTop="4px">
-                <ZapBalance account={account} currency={toCurrency} />
+                <ZapBalance reNewBalanceTime={0} account={account} currency={toCurrency} />
                 <MaxButtonStyled
                   variant="text"
                   onClick={() => {

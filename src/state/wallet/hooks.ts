@@ -109,6 +109,8 @@ export function useCurrencyBalances(
     [currencies],
   );
   const ethBalance = useBNBBalances(containsBNB ? [account] : []);
+  // console.log('ethBalance:', ethBalance[account]?.toSignificant(10));
+  // console.log('tokenBalances:', tokenBalances[account]?..toSignificant(10));
 
   return useMemo(
     () =>
@@ -125,7 +127,9 @@ export function useCurrencyBalances(
 export function useCurrencyBalance(account?: string, currency?: Currency): CurrencyAmount | undefined {
   return useCurrencyBalances(account, [currency])[0];
 }
-
+export function useCurrencyBalanceString(account?: string, currency?: Currency): string | undefined {
+  return useCurrencyBalances(account, [currency])[0]?.toSignificant(10);
+}
 // mimics useAllBalances
 export function useAllTokenBalances(): { [tokenAddress: string]: TokenAmount | undefined } {
   const { account } = useWeb3React();
