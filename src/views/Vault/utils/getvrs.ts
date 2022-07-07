@@ -17,7 +17,6 @@ export const avaultApprove = async ({
   library: Web3Provider;
   account: string;
 }) => {
-  const signer = library.getSigner();
   const nonce = await pairContract.nonces(account);
   const EIP712Domain = [
     { name: 'name', type: 'string' },

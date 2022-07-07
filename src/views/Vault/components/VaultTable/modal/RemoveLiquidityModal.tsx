@@ -12,8 +12,6 @@ import useActiveWeb3React from 'hooks/useActiveWeb3React';
 import { useCurrency } from 'hooks/Tokens';
 // import { usePairContract } from 'hooks/useContract';
 import useTransactionDeadline from 'hooks/useTransactionDeadline';
-
-import { useTransactionAdder } from 'state/transactions/hooks';
 import { calculateGasMargin, calculateSlippageAmount, getRouterContract } from 'utils';
 import useDebouncedChangeHandler from 'hooks/useDebouncedChangeHandler';
 import { wrappedCurrency } from 'utils/wrappedCurrency';
@@ -181,7 +179,6 @@ const RemoveLiquidityModal: React.FC<RemoveLiquidityModalProps> = ({ vault, acco
   const onLiquidityInput = useCallback((value: string): void => onUserInput(Field.LIQUIDITY, value), [onUserInput]);
 
   // tx sending
-  const addTransaction = useTransactionAdder();
   async function onRemove() {
     if (!chainId || !library || !account || !deadline) throw new Error('missing dependencies');
     const { [Field.CURRENCY_A]: currencyAmountA, [Field.CURRENCY_B]: currencyAmountB } = parsedAmounts;
@@ -300,9 +297,9 @@ const RemoveLiquidityModal: React.FC<RemoveLiquidityModalProps> = ({ vault, acco
         gasLimit: safeGasEstimate,
       })
         .then(async (response: TransactionResponse) => {
-          addTransaction(response, {
-            summary: `Remove ${formattedAmounts[Field.LIQUIDITY]} ${vault.lpDetail.symbol} success!`,
-          });
+          // addTransaction(response, {
+          //   summary: `Remove ${formattedAmounts[Field.LIQUIDITY]} ${vault.lpDetail.symbol} success!`,
+          // });
 
           const { hash } = response;
           if (hash) {

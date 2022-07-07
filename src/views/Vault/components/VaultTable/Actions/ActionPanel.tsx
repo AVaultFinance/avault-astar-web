@@ -2,7 +2,6 @@ import React, { useCallback, useState } from 'react';
 import styled, { keyframes, css } from 'styled-components';
 import { useTranslation } from 'contexts/Localization';
 import { Flex, LinkExternal, useMatchBreakpoints, useModal, useWalletModal } from '@my/ui';
-import { getAddress } from 'utils/addressHelpers';
 import DepositAction from './DepositAction';
 import WithdrawAction from './WithdrawAction';
 import { AprProps } from '../Apr';
@@ -12,16 +11,12 @@ import { BIG_ZERO } from 'utils/bigNumber';
 import { getBalanceNumber, getFullLocalDisplayBalance } from 'utils/formatBalance';
 import { useWeb3React } from '@web3-react/core';
 import MobileAction from './MobileAction';
-import { useAVaultPCSContract, useERC20, usePairContract } from 'hooks/useContract';
-import { useAppDispatch } from 'state';
+import { usePairContract } from 'hooks/useContract';
 import { IVault } from 'state/vault/types';
-import { useVault, useVaultFarmUser } from 'state/vault/hooks';
+import { useVaultFarmUser } from 'state/vault/hooks';
 import useAuth from 'hooks/useAuth';
 import { chainId } from 'config/constants/tokens';
-import { changeLoading, changeVaultItemLoading, fetchVaultFarmUserDataAsync } from 'state/vault';
-import { useSpecialApproveFarm } from 'views/Vault/hooks/useApproveFarm';
 import { getDisplayApy } from 'views/Farms/Farms';
-import useToast from 'hooks/useToast';
 import { InfoContainer } from 'style/TableStyled';
 import { showDecimals } from 'views/Vault/utils';
 import AddLiquidityModal from '../modal/AddLiquidityModal';
@@ -167,7 +162,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
   const { isXl, isLg } = useMatchBreakpoints();
   const isMobile = !(isXl || isLg);
   const { t } = useTranslation();
-  const lpAddress = getAddress(vault.farm.lpAddresses);
+  // const lpAddress = getAddress(vault.farm.lpAddresses);
   const { account, library } = useWeb3React();
   const { avaultAddressBalance, allowance } = useVaultFarmUser(account, vault?.farm?.pid ?? 0);
   const isApproved = account && allowance && allowance.isGreaterThan(0);
@@ -225,40 +220,39 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
     false,
     `onRemoveLiquidity${index}`,
   );
-  const lpContract = useERC20(lpAddress);
+  // const lpContract = useERC20(lpAddress);
   const deadline = useTransactionDeadline();
   const [requestedApproval, setRequestedApproval] = useState(false);
   // const { onApprove } = useSpecialApproveFarm(lpContract, vault.vault.masterChef);
-  const { onApprove } = useSpecialApproveFarm(lpContract, vault.contractAddress[chainId]);
-  const dispatch = useAppDispatch();
-  const { data: vaults } = useVault();
-  const { toastSuccess, toastError } = useToast();
+  // const { onApprove } = useSpecialApproveFarm(lpContract, vault.contractAddress[chainId]);
+  // const dispatch = useAppDispatch();
+  // const { data: vaults } = useVault();
+  // const { toastSuccess, toastError } = useToast();
   const { login, logout } = useAuth();
   const { onPresentConnectModal } = useWalletModal(login, logout);
-  const handleApproveV2 = useCallback(async () => {
-    if (!account) {
-      onPresentConnectModal();
-      return;
-    }
-    try {
-      setRequestedApproval(true);
-      const result = await onApprove();
-      if (typeof result === 'boolean' && result) {
-        dispatch(changeLoading());
-        dispatch(changeVaultItemLoading({ index }));
-        dispatch(fetchVaultFarmUserDataAsync({ account, vaults, index }));
-        toastSuccess('Approve!', 'Your are Approved');
-      } else {
-        const message = result ? result : 'Your approved failed';
-        toastError('Approve Error!', message);
-      }
-    } catch (e) {
-      console.error(e);
-    } finally {
-      setRequestedApproval(false);
-    }
-  }, [onApprove, dispatch, onPresentConnectModal, index, account, vaults, toastError, toastSuccess]);
-  const contractAddressContract = useAVaultPCSContract(details.contractAddress[chainId], details.abiType);
+  // const handleApproveV0 = useCallback(async () => {
+  //   if (!account) {
+  //     onPresentConnectModal();
+  //     return;
+  //   }
+  //   try {
+  //     setRequestedApproval(true);
+  //     const result = await onApprove();
+  //     if (typeof result === 'boolean' && result) {
+  //       dispatch(changeLoading());
+  //       dispatch(changeVaultItemLoading({ index }));
+  //       dispatch(fetchVaultFarmUserDataAsync({ account, vaults, index }));
+  //       toastSuccess('Approve!', 'Your are Approved');
+  //     } else {
+  //       const message = result ? result : 'Your approved failed';
+  //       toastError('Approve Error!', message);
+  //     }
+  //   } catch (e) {
+  //     console.error(e);
+  //   } finally {
+  //     setRequestedApproval(false);
+  //   }
+  // }, [onApprove, dispatch, onPresentConnectModal, index, account, vaults, toastError, toastSuccess]);
   const pairContract: Contract | null = usePairContract(details.lpDetail.address[chainId]);
   const handleApprove = useCallback(async () => {
     if (!account) {
@@ -288,7 +282,15 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
         setRequestedApproval(false);
       }
     }
-  }, [deadline, account, details.contractAddress, library]);
+  }, [
+    details.lpDetail.address,
+    onPresentConnectModal,
+    pairContract,
+    deadline,
+    account,
+    details.contractAddress,
+    library,
+  ]);
   return (
     <Container expanded={expanded}>
       <InfoContainer>

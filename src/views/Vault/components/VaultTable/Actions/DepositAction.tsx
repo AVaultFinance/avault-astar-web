@@ -176,7 +176,7 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
               <HelfButton
                 variant="primary"
                 className={pendingTx ? 'loading' : ''}
-                disabled={!signatureData || pendingTx}
+                disabled={!signatureData || disabled}
                 onClick={depositWithVRS}
                 endIcon={pendingTx ? <AutoRenewIcon spin color="currentColor" /> : null}
               >
