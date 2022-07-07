@@ -15,7 +15,6 @@ import { changeLoading, changeVaultItemLoading, fetchVaultFarmUserDataAsync } fr
 import { ActionContainerBg, ActionContainerSize } from 'style/TableStyled';
 import { showDecimals } from 'views/Vault/utils';
 import { IABIType } from 'state/vault/types';
-const _rate = 1;
 
 interface WithdrawActionProps {
   abiType: IABIType;
@@ -23,9 +22,7 @@ interface WithdrawActionProps {
   displayBalance: string | JSX.Element;
   earnings: BigNumber;
   isApproved: boolean;
-  handleApprove: any;
   requestedApproval: boolean;
-  pid: number;
   name: string;
   displayEarningsBalance?: string;
   lpSymbol: string;
@@ -44,7 +41,6 @@ const FlexStyled = styled(Flex)`
 `;
 
 const WithdrawAction: React.FunctionComponent<WithdrawActionProps> = ({
-  pid,
   abiType,
   earnings,
   userDataReady,
@@ -87,7 +83,7 @@ const WithdrawAction: React.FunctionComponent<WithdrawActionProps> = ({
     setPendingTx(true);
     let result = null;
     try {
-      let _amount = new BigNumber(val).div(new BigNumber(lpToCLpRate)).times(_rate).times(0.99999).toString();
+      let _amount = new BigNumber(val).div(new BigNumber(lpToCLpRate)).times(0.99999).toFixed(18);
 
       if (Number(_amount) > Number(val)) {
         _amount = val;

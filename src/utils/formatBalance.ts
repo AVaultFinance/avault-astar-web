@@ -22,7 +22,7 @@ export const getBalanceNumber = (balance: BigNumber, decimals = 18) => {
   return getBalanceAmount(balance, decimals).toNumber();
 };
 export const getFullDisplayBalance = (balance: BigNumber, decimals = 18, displayDecimals?: number) => {
-  return getBalanceAmount(balance, decimals).toFixed(displayDecimals, BigNumber.ROUND_DOWN);
+  return getBalanceAmount(balance, decimals).toFixed(displayDecimals ?? 8, BigNumber.ROUND_DOWN);
 };
 
 export const getFullLocalDisplayBalance = (balance: BigNumber, decimals = 18, displayDecimals?: number) => {

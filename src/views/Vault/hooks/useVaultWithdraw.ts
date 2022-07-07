@@ -16,8 +16,7 @@ const useVaultWithdraw = (abiType: IABIType, account: string, contractAddress: s
         // const tx = await contract.withdraw(account, `${value}`, options);
         // const receipt = await tx.wait();
         // return receipt.status;
-
-        const value = parseInt(new BigNumber(amount).times(BIG_TEN.pow(decimal)).toString());
+        const value = new BigNumber(amount).times(BIG_TEN.pow(decimal)).toFixed(0);
         // const tx = await contract.withdraw(account, `${value}`, options);
         const res = await callWithEstimateGas(contractAddressContract, 'withdraw', [account, `${value}`], {
           gasLimit: DEFAULT_GAS_LIMIT,

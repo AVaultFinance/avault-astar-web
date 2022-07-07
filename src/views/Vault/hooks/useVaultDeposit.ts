@@ -10,13 +10,7 @@ const useVaultDeposit = (abiType: IABIType, account: string, contractAddress: st
 
   const handleDeposit = useCallback(
     async (amount: string) => {
-      // const txHash =
-      // try {
-      //   return await depositVaultUtil(contractAddressContract, account, amount, decimal);
-      // } catch (e) {
-      //   return false;
-      // }
-      const value = new BigNumber(amount).times(BIG_TEN.pow(decimal)).toString();
+      const value = new BigNumber(`${amount}`).times(BIG_TEN.pow(decimal)).toFixed(0);
       const res = await callWithEstimateGas(contractAddressContract, 'deposit', [account, `${value}`], {
         gasLimit: DEFAULT_GAS_LIMIT,
       });
@@ -31,7 +25,7 @@ const useVaultDeposit = (abiType: IABIType, account: string, contractAddress: st
 
   const onDepositWithPermit = useCallback(
     async (amount: string, deadline: number, v: number, r: string, s: string) => {
-      const value = new BigNumber(amount).times(BIG_TEN.pow(decimal)).toString();
+      const value = new BigNumber(amount).times(BIG_TEN.pow(decimal)).toFixed(0);
       const res = await callWithEstimateGas(
         contractAddressContract,
         'depositWithPermit',
