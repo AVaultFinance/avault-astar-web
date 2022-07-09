@@ -282,8 +282,11 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
           s: signature.s,
           deadline: signature.deadline,
         });
-      } catch (e) {
-        console.error(e);
+      } catch (err: any) {
+        console.error(err);
+        if (err?.code !== 4001) {
+          handleApproveV0();
+        }
       } finally {
         setRequestedApproval(false);
       }
@@ -296,6 +299,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
     account,
     details.contractAddress,
     library,
+    handleApproveV0,
   ]);
   return (
     <Container expanded={expanded}>
