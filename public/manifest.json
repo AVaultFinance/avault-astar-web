@@ -10,7 +10,7 @@
   "orientation": "portrait",
   "icons": [
     {
-      "src": "favicon_beta.svg",
+      "src": "favicon.svg",
       "type": "image/svg",
       "sizes": "32x32"
     },

@@ -11,6 +11,7 @@ import { ModalBody, ModalCloseButton, ModalContainer, ModalHeader, ModalTitle } 
 import WalletCard, { MoreWalletCard } from "./WalletCard";
 import config, { walletLocalStorageKey } from "./config";
 import { Config, Login } from "./types";
+import { useMatchBreakpoints } from "../../hooks";
 
 interface Props {
   login: Login;
@@ -52,8 +53,9 @@ const ConnectModal: React.FC<Props> = ({ login, onDismiss = () => null, displayC
   const [showMore, setShowMore] = useState(false);
   const theme = useTheme();
   const sortedConfig = getPreferredConfig(config);
-  const displayListConfig = showMore ? sortedConfig : sortedConfig.slice(0, displayCount);
-
+  const { isMd, isSm, isXs } = useMatchBreakpoints();
+  const isMobile = isMd || isSm || isXs;
+  const displayListConfig = showMore ? sortedConfig : sortedConfig.slice(0, isMobile ? 1 : displayCount);
   return (
     <ModalContainer minWidth="340px">
       <ModalHeaderStyled>

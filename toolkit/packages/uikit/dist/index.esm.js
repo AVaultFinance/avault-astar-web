@@ -4770,14 +4770,13 @@ var WalletCard = function (_a) {
     var title = walletConfig.title, Icon = walletConfig.icon;
     return (React.createElement(WalletButton, { variant: "tertiary", onClick: function () {
             // const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-            var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+            // const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
             // Since iOS does not support Trust Wallet we fall back to WalletConnect
-            if (walletConfig.title === "Trust Wallet" && isIOS) {
-                login(ConnectorNames.WalletConnect);
-            }
-            else {
-                login(walletConfig.connectorId);
-            }
+            // if (walletConfig.title === "Trust Wallet" && isIOS) {
+            //   login(ConnectorNames.WalletConnect);
+            // } else {
+            login(walletConfig.connectorId);
+            // }
             localStorage.setItem(walletLocalStorageKey, walletConfig.title);
             localStorage.setItem(connectorLocalStorageKey, walletConfig.connectorId);
             onDismiss();
@@ -4816,7 +4815,9 @@ var ConnectModal = function (_a) {
     var _d = useState(false), showMore = _d[0]; _d[1];
     useTheme();
     var sortedConfig = getPreferredConfig(connectors);
-    var displayListConfig = showMore ? sortedConfig : sortedConfig.slice(0, displayCount);
+    var _e = useMatchBreakpoints(), isMd = _e.isMd, isSm = _e.isSm, isXs = _e.isXs;
+    var isMobile = isMd || isSm || isXs;
+    var displayListConfig = showMore ? sortedConfig : sortedConfig.slice(0, isMobile ? 1 : displayCount);
     return (React.createElement(ModalContainer, { minWidth: "340px" },
         React.createElement(ModalHeaderStyled, null,
             React.createElement(ModalTitle, null,
@@ -4893,7 +4894,7 @@ var AccountModal = function (_a) {
                 } }, "Logout"))));
 };
 
-var useWalletModal = function (login, logout, account) {
+var useWalletModal = function (login, logout, account, displayCount) {
     var onPresentConnectModal = useModal(React.createElement(ConnectModal, { login: login }))[0];
     var onPresentAccountModal = useModal(React.createElement(AccountModal, { account: account || "", logout: logout }))[0];
     return { onPresentConnectModal: onPresentConnectModal, onPresentAccountModal: onPresentAccountModal };

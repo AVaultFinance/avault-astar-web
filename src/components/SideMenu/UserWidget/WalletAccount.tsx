@@ -1,14 +1,13 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
-import { connectorLocalStorageKey, Flex, useTooltip } from '@my/ui';
 import ConnectWalletButton from '../../ConnectWalletButton';
 import PolkadotAccounts from './WalletAccountInfo/PolkadotAccounts';
 import BscAccountInfo from './WalletAccountInfo/BscAccountInfo';
 import { useWeb3React } from '@web3-react/core';
 import { chainKey } from 'config';
 import useAuth from 'hooks/useAuth';
-import { ConnectorNames } from '@my/ui';
 import useAccount from 'hooks/useAccount';
+import { Flex, useTooltip } from '@my/ui';
 const WalletAccountInfo = () => {
   const { account } = useWeb3React();
   const [address, setAddress] = useState<string>(account);
@@ -24,9 +23,6 @@ const WalletAccountInfo = () => {
     },
   );
 
-  const getLabel = useCallback((): string => {
-    return localStorage?.getItem(connectorLocalStorageKey) === ConnectorNames.UAuthMoralis ? 'Domain-' : '';
-  }, []);
   useEffect(() => {
     callAccount()
       .then((result) => {
@@ -43,7 +39,6 @@ const WalletAccountInfo = () => {
         {tooltipVisible_P && tooltip_P}
         {account ? (
           <WalletAccount onClick={logout}>
-            {getLabel()}
             {address}
             {/* {account ? `${account.substring(0, 5)}...${account.substring(account.length - 4)}` : ''} */}
           </WalletAccount>
@@ -52,7 +47,7 @@ const WalletAccountInfo = () => {
         )}
       </>
     );
-  }, [account, address, getLabel, logout, tooltipVisible_P, tooltip_P]);
+  }, [account, address, logout, tooltipVisible_P, tooltip_P]);
 };
 const WalletAccount = styled(Flex)`
   align-items: center;
