@@ -52,6 +52,7 @@ const Page: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({ children, ...pro
   return (
     <>
       <PageMeta />
+      {/* @ts-ignore */}
       <StyledPage {...props}>{children}</StyledPage>
     </>
   );

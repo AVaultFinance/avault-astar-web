@@ -22,6 +22,12 @@ const WalletButton = styled(Button).attrs({ width: "100%", variant: "text", padd
   margin-right: auto;
   background-color: #ffa14e;
   height: 60px;
+  &.wallet-connect-unstoppabledomains {
+    background-color: #6966db;
+    // div {
+    //   color: #151433;
+    // }
+  }
 `;
 
 export const MoreWalletCard: React.FC<ButtonProps> = (props) => {
@@ -41,19 +47,20 @@ const WalletCard: React.FC<Props> = ({ login, walletConfig, onDismiss }) => {
       variant="tertiary"
       onClick={() => {
         // const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+        // const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
 
         // Since iOS does not support Trust Wallet we fall back to WalletConnect
-        if (walletConfig.title === "Trust Wallet" && isIOS) {
-          login(ConnectorNames.WalletConnect);
-        } else {
-          login(walletConfig.connectorId);
-        }
+        // if (walletConfig.title === "Trust Wallet" && isIOS) {
+        //   login(ConnectorNames.WalletConnect);
+        // } else {
+        login(walletConfig.connectorId);
+        // }
 
         localStorage.setItem(walletLocalStorageKey, walletConfig.title);
         localStorage.setItem(connectorLocalStorageKey, walletConfig.connectorId);
         onDismiss();
       }}
+      className={`wallet-connect-${title.toLocaleLowerCase()}`}
       id={`wallet-connect-${title.toLocaleLowerCase()}`}
     >
       <Icon width="40px" />

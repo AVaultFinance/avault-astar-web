@@ -2,6 +2,7 @@ import { FC } from "react";
 import { SvgProps } from "../../components/Svg/types";
 export declare enum ConnectorNames {
     Injected = "injected",
+    UAuthMoralis = "UAuthMoralis",
     WalletConnect = "walletconnect",
     BSC = "bsc"
 }

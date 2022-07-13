@@ -51,7 +51,7 @@ const getPreferredConfig = (walletConfig: Config[]) => {
 const ConnectModal: React.FC<Props> = ({ login, onDismiss = () => null, displayCount = 3 }) => {
   const [showMore, setShowMore] = useState(false);
   const theme = useTheme();
-  const sortedConfig = getPreferredConfig(config).filter((c) => c.title === "Metamask");
+  const sortedConfig = getPreferredConfig(config);
   const displayListConfig = showMore ? sortedConfig : sortedConfig.slice(0, displayCount);
 
   return (
@@ -63,9 +63,9 @@ const ConnectModal: React.FC<Props> = ({ login, onDismiss = () => null, displayC
         <ModalCloseButton onDismiss={onDismiss} />
       </ModalHeaderStyled>
       <ModalBody width={["340px", null, "480px"]}>
-        <WalletWrapper paddingBottom="24px" maxHeight="453px" overflowY="auto">
+        <WalletWrapper maxHeight="453px" overflowY="auto">
           {displayListConfig.map((wallet) => (
-            <Box key={wallet.title}>
+            <Box key={wallet.title} paddingBottom="12px">
               <WalletCard walletConfig={wallet} login={login} onDismiss={onDismiss} />
             </Box>
           ))}

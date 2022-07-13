@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Flex, Heading, IconButton, Text, NotificationDot } from '@my/ui';
-import { Link } from 'react-router-dom';
+import { Flex, Heading, Text, NotificationDot } from '@my/ui';
 import { useExpertModeManager } from 'state/user/hooks';
 import GlobalSettings from 'components/Menu/GlobalSettings';
 import Transactions from './Transactions';
@@ -30,11 +29,11 @@ const AppHeader: React.FC<Props> = ({ title, subtitle, helper, backTo, noConfig 
   if (backTo) {
     return (
       <AppHeaderContainer style={style}>
-        {backTo && (
-          <IconButton style={{ whiteSpace: 'nowrap' }} as={Link} to={backTo}>
+        {/* {backTo && (
+          <IconButton style={{ whiteSpace: 'nowrap' }} as={'a'} to={backTo}>
             &lt; Back
           </IconButton>
-        )}
+        )} */}
         <Heading as="h2" mb="8px" marginBottom="0px">
           {title}
         </Heading>

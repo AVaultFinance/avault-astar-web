@@ -16,7 +16,6 @@ import useToast from 'hooks/useToast';
 import { profileClear } from 'state/profile';
 import { useAppDispatch } from 'state';
 import { useTranslation } from 'contexts/Localization';
-
 const useAuth = () => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
@@ -51,6 +50,7 @@ const useAuth = () => {
             }
           }
         });
+        // }
       } else {
         toastError(t('Unable to find connector'), t('The connector config is wrong'));
       }

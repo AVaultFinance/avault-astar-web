@@ -4748,9 +4748,15 @@ var ToastContainer = function (_a) {
 };
 var templateObject_1$4;
 
+var UnstoppableDomains = function (props) {
+    return (React__default['default'].createElement(Svg, __assign({ viewBox: "0 0 40 40" }, props, { style: { borderRadius: "6px" } }),
+        React__default['default'].createElement("image", { width: "100%", id: "image0", x: "0", y: "0", href: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAMAAACahl6sAAAABGdBTUEAALGPC/xhBQAAACBjSFJN\n    AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAABI1BMVEX///////3+//r///b/\n    /P/o5vr9//35+f6koOlbUtK1s+T8///0///Y1fdgXr1NSe5KROy3s+9nZ9hMR/nW9fXH8fGNieJE\n    POBMSPdORvpISvWo9/hL2+Cs6+9UTeFMSPXj//+B4u4s7PAx5/S06fHy8/pSRM3N/P5c5uxF4/Uz\n    5/9nYN1PRf0s6/1gYM+D6/Ew6f5wbdXF/f1c4/CaleVDPNjs//9Q5O043Pxz6esn6/jExPHe3fbr\n    7/xU5uZZVN/OzfNER/WAfeGAf8BkXuGu9vszSOauuOyBt/c+pPVSRfd8fcxva76no+COkNRk0uxA\n    Yeo7ZelC1/xDRNOZ5u1y6vWpsfJKW+vIxPgxfO3Z3Ow8kOx6dtRJrfNKxfZ35fi+utsYLqBkAAAA\n    AWJLR0QAiAUdSAAAAAd0SU1FB+YHDQIyIJkZ9iUAAA5aSURBVHja7Z0NWxs3EoAlrSwHZJ8W1MLu\n    0lpOXAe89iYGakiMHSBH0ouvoUlJ+nW96/3/X3EzWkggsb3r73XO8xCSPI8xej0fGmlGWkJWspKV\n    rGQlK1nJSlaykpWsZDpCFz2AKVFQ9mWQxDRfgIA+qLPoQUxBqONwsuwgFE2K0VyOD3vRokc5XBgT\n    hDgO4Xlyb2196AsJl4VFD3eQUCuMcyaLf1PuxrDXSkokT/vG8wexfxxS3FRKJ4J89fWiBzyEhDkO\n    y21te36g1TAQLgo733y76PEOFofx/FbJuIFRw0FE+f6DyneLHu5dsQYV/8VYdeOhAbPSvuv3Ny14\n    GSOysLtXCysZ0whOfUyA70LEWq+7xkNp9PURyokkgjG5U4uizIGgNhj+I1985Da0MgNBKBcghJQf\n    V5oZBLFDBJLcfkkHyvO1pwdpBLQBOjk4DKNMgoDZ50nu+xZ4eGDMMNOSBc6Pdo7DJ1GUNRCKDgIf\n    89aaq7XxfN8fABKnJJKUn9aa7XYYZgqEoQhOqicPXaM12BRKXxCYxaUUDMyqGYJZNTNmWpCoc0FO\n    6m48+lvyGYikQvDCznHzWrIFwrmQnc2WCnDsehgIZIgCoxV4eRZBGOvuK20CLzCDNWK9Q0ieP3hW\n    icIwYxqJfbd7r9UIlPaN0QmmZc0qiqJmhkyLci7jOfreqYsMxvvMRW6DwMzPKUSryrWPZwfErjkY\n    Ozs99wbKRxD0DsitDivNO5IBEAKpOiVndeWqNCBEQh6GZhVmDQQmQNJ5vu37QeD1MapPQeDlNlo1\n    m+0oWyCE5v9+YQLTaASpNFLYPW7j0CtR1jQiqo+073sq0AMV4mmF6xEqqCy8OMZh48jDzIFceMYb\n    LoHbQBBGjyC36icZATFJIL7xX/4A+cvuXjNabpDAhzV7YacW9udYJhB3AybBMGwvvUbMP2Al+KAd\n    Lr1Gzl+FYfPTeXAJQXoA0hwsK5AVyAQgzRXICmQFsgKZLQhNU2tdChAmkuvGSwBCU3WQZB6EU+bA\n    VzJu1kEIEYWucHiSSjINEtczq//8Mb+kphV3jQjKCHeqGy1VzycHrkyC4LgccHGaJ69PPWOWGYRw\n    cHBerPeM8pYahDqMdDYVVvmXG4SI7pZrsByr/SUEYQx8HKyKkvxWyQVl+L5nllEjlMDsxzmzBVlz\n    XYrVCJL8o5kCAQrsdFs/dYOPg1pGECEc7B1paVvgvx7XMoLAeHL7qqe9wMNoFQ9sBBAvAyCCWoyt\n    ltEQrHwfQYLUINiVVb3QiwcRWAOU5HJNNbDIcadWkwiCtVwpneqFHywUBEIrx6Js9WRNQbz9zNCT\n    QOJ+K5Y/uvAX7COYVTG6ftEDg8JWnhFB0Cw5FQc/vWks2tmpxN4RowPlumZ0ECk4L784fvJ20SCU\n    dH8smQAjlfYbI5nWx36rSvjzW71gHyH3rlTgDZwEhoDc6reKwidvJveRsBlNAJK7AscYHDqHgXzs\n    t0IQPSlIpQJ/xjetTssfE+RWv1VlGiDtdnMSH8lte2rIEPqD3Oq3ake2GXEKIM2oXTv8agIQrcbT\n    yK1+q6n4SFh7+m15bA4A8dVnQTcJ5JN+q/FAbF3UFqqxLyU8fLd7hAcWJgHRI4J81m81rmkBCjgG\n    uEbl8N1RQUp467mCfNZvNRaIbalBjdZqTw8KjEEsH9+wxgP5rN9qPBB07yisPdspc+mISc/yjKWR\n    T/ut0oPcqepGUe0bUAYeV4A19txAUPEUfmWffqsRQELrGrFGwDPKUliD4oSJeFk0DxDMSfr2W42q\n    kQhDVu39wZGcUA1jgXBYejDZt98qLUjwKmxjyA2jyvG7MiQGExvUWCAClx59+61G0QiGKvCMsixA\n    rjbFc4cjODssPSREqz79VqP4SPvB3mOY+nC3H2WuINQmV1xSebBX69dvlQpEW9OynsEFE5IxQeX0\n    nCSVRuzSA7x8p9bs22+VDsRtnL8Cz4AMJ/7VYqrHc1NpBGZy8I/y4/7doSlBPOV7vxQK8voc2bQl\n    lUZ4AWat3cN2c1B/aCqNYAMzegW9lYpMTyWpQITIQ27VHtTDl9LZlQ5+iE8hL0IjAZqWQLO6fdRj\n    PI00vA1w8QWBeBdVyiSevEE/b4aTaMQ3G3YjbRYcSSC+ruc55FbRsB6+dCCNpGPgs9WI2cxbs1p2\n    EN/btNEKlw5LDdLrva1htBri6csAoj3jvXnSbkYD3XxJQNC23j4Z6h5LBRJ9KSBfjEb+P0Dslmkz\n    xU5jZkGQIIxsJlmp/fTG7y0rCMwt7XYbN6eOn+52L1RSxSq7IHaajCrP3h0RmaJhILMglTZkLaCM\n    goC1d/XCT+oYyCwI2BTuFBZwC4Gm6EXJGggWAtqYRtYe7x7BypVKwlM11WQMxCZdYbNy/G63wEkh\n    3mBbLpAwtqdmGEYPnu4eCVAGJXIJQW4iVe0QbEoKgTegXO8UpmpzWvB65C5IGB2/PzjK40F8Thn2\n    BX0ASTw9PXMQrYYFTo0g1p5wD/3w/m4Bb6IB95ZCEn5LIyn2fmcJQkEjQz9L/y2kIXZnLqrsvRhU\n    0GDVemJTDa7TFgjSQBD4qhxjkUwMqFey6kUiiPF0b3200Y0iADIs3hg0LbCpZy+OOB1YdaU0hWmZ\n    mWskCQTykANJnQKaVf96BiXd08RWwNmB2I7MPIAMs63Grz+9KAuJZRki6ADToiRXSgRBOZkFhy16\n    cLJt9LB8Twc5h8fMg7c6pSz2EsOvVkGvOBMQiJqMk5YKzJCmmsD9zUncrBXitVFJ2S82G3ZmARL3\n    W737dfjE7qrnyUeTBD0NlO8liSp1pryBfd2NiP1W0e+mMSRyaqNa+cTDYuSP7SBIAjGN4LQ7i2IV\n    9lvVoua/lB5i3gaGd5lcCPhTJysEQOrVKYPYfitu+62if6vB8UZ7gQr8ehd+QgyY06kDqSMEX5WY\n    /XpeUJ/yNbi3+63a/3nZGDqRGH97A7Jcp3/ghWUuBLUtBdaZpBIdBPvOlO/zjfutmrYn5udfh4H4\n    2jT8qw7E3gEziAPqXW81tPGTQdTrKYPc9Fvhfk705O3wqV1BcK53nYE9Co7ormnfvizBR7zWH2zK\n    Grnut4qLN78P21kzAXxpb3+gv3NG1lz4JHSij5x7LTJxexmKsJOzwKt1434rvDwUlnyvzrU3OG7p\n    +AjDfp7FR6k/qjWe651uHVg9v5GcNJr96RRCBTi5xFOfH/qtbH9o++eXKSKnu1+FVaHAbIsyijVm\n    gXVmRjt1kzwTxuL+RpNnpBSCd1pCEMV+KyvWrsJm7a964hACX6u1s7w9bcKva/6cOUzmT64SJ8Ib\n    8Uu56TRvfNpvFdpV3+ODo3tJeavNKo3az+EJdxBOrE4IKW66Hlhe4iZjDFKvkulELcm4vHO/VWXv\n    XVk4hZwaSoEgHh7MMK3nna60n6oAmu7ZZgsPz0ByogffBXhLLj/0BY0vNAaRB3u4Ao+3RbBzihUk\n    E9VNzwx31QBPNODhjO3T+tb6WbF4tv68XnJ7XuB6jeR4FceS7RzM6xOS2KVHgcRX0tpKc4Tbtrj9\n    wYlDL/Em9OH2ER8Uxat7jetuu258ma+XuAi5Nk0FlrkJv2nCNhQpqe23el/DGRCmD9ycYsLehk45\n    o/lWGsuYQND01AmqY0KNxP1We3hdc9iuHN4vFyDk2JwDNwsp+d5TKXZzbmxkdDEQES66mKlO+NgO\n    IfJyx+YkUe39i7IUEHQ4v1m/UtY5NWMOMbWoS4wSk8RfHKqM2/iiyuHj3YLAuUx+OOCAby/3tZqh\n    daGPXOXpZP1ynDHJj3b/qsTKKGDiS3Beu/E720Ba3PbiuDUrvfTukck4BON5efTisN0+vH9QGNRn\n    S8mffoogOrYY/7Q7cXbCBESryrOdMu4+D+izZSxXSu4SnQCkd+lM1MGPEwU+ReLpQQGsSeDCcIDe\n    yJ+9WYKckkkfYUXld/d3ynnwCHvwZ4B+8SDCw9lxeKoIGetkIIWvvy7Ez/shmOcNMC1BKC/i0zUS\n    l3mjKwOSMYOrmQlNK63iGMnvKzMLhz836mGe0AkVkh6E5iUsvX01+cjvKsRr+K0iOOGcHlJFGUz2\n    RdVI3MAdTeDdlO5tYdl0bk/bwsT08mWKDdwRUYKXm2RWXeR9KPAbhOctL770YUpWpeOpMN46mReL\n    pcnv40XjKRPhJIFVcGD0VWcK68LRBCKzU32kgWQ6wUs34L1KRVgoTPFsWyoQSR3RrZ8n3nmQUsDd\n    9NVrWBaSOYNgpOe0umaCdLsiiaJcdWLXPHOaQz4IXsjIeLceTMdHzPnVOrWP5pozx/Uz/0h33zMN\n    b6KlibEFoqszTIvmGK7ushAByUrg42MSxhWtlW/UWlHE9roQwWcXOvyXbR1cbwCNBQKrtN5+l4Gf\n    LwzEHoGihfWSN3LsurVUDjy1hbuRJMX1oTPTCLX3NOb2W+NHYch3z/BUmJRzzLE+14mQ8Fkycq/k\n    Gj9e/6azL7RFfJSYp9Rm3oG3EFIszLJu9ILf8N4wvGwrFUZcK8LHoQXu2tmcZ8AEEeTkkYIwGqSd\n    V+CFWrunKcry8xW8Puysvu3B0igVhw+Tj7p63Z1f0p6KAhMLKgVZ31RGpVKJcs3ppWTZMiv8SCHm\n    oMvKDviKuY6s148ExP+bGwe/CVXbm2dVfBLwwCaJBeJcV275681T15ggOMeqiAlwl8Jgd4e9XxOh\n    3FJ9K0dk/AMZMqxPgRySO/u+tO1azWi8/hDvR/O1jc7uduv5b528g7lhdhli4XhxLsn9d6t+cVFS\n    bs+1YlTp9OLi+fofEOGcafc0zEQoh3TcDlRWu7lO5+xkY2Pj5KTTyXWrtsufCzqVnoaZQpCbvAU5\n    bG3a3j1HJaLdXPNIyJx2EicUmzLZ55pi1wOuMXD07IPYPp1lAFnJSlaykpWsZCUrWclKVrKSlSyp\n    /A+SCV1d/Yzc2gAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMi0wNy0xM1QwMjo1MDozMiswMDowMM6H\n    VEsAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjItMDctMTNUMDI6NTA6MzIrMDA6MDC/2uz3AAAAAElF\n    TkSuQmCC" })));
+};
+
 exports.ConnectorNames = void 0;
 (function (ConnectorNames) {
     ConnectorNames["Injected"] = "injected";
+    ConnectorNames["UAuthMoralis"] = "UAuthMoralis";
     ConnectorNames["WalletConnect"] = "walletconnect";
     ConnectorNames["BSC"] = "bsc";
 })(exports.ConnectorNames || (exports.ConnectorNames = {}));
@@ -4763,52 +4769,16 @@ var connectors = [
         priority: 1,
     },
     {
-        title: "WalletConnect",
-        icon: Icon$m,
-        connectorId: exports.ConnectorNames.WalletConnect,
+        title: "UnstoppableDomains",
+        icon: UnstoppableDomains,
+        connectorId: exports.ConnectorNames.UAuthMoralis,
         priority: 2,
-    },
-    {
-        title: "Trust Wallet",
-        icon: Icon$u,
-        connectorId: exports.ConnectorNames.Injected,
-        priority: 3,
-    },
-    {
-        title: "MathWallet",
-        icon: Icon$1a,
-        connectorId: exports.ConnectorNames.Injected,
-        priority: 999,
-    },
-    {
-        title: "TokenPocket",
-        icon: Icon$w,
-        connectorId: exports.ConnectorNames.Injected,
-        priority: 999,
-    },
-    {
-        title: "Binance Chain",
-        icon: Icon$1G,
-        connectorId: exports.ConnectorNames.BSC,
-        priority: 999,
-    },
-    {
-        title: "SafePal",
-        icon: Icon$K,
-        connectorId: exports.ConnectorNames.Injected,
-        priority: 999,
-    },
-    {
-        title: "Coin98",
-        icon: Icon$1p,
-        connectorId: exports.ConnectorNames.Injected,
-        priority: 999,
     },
 ];
 var connectorLocalStorageKey = "connectorIdv2";
 var walletLocalStorageKey = "wallet";
 
-var WalletButton = styled__default['default'](Button).attrs({ width: "100%", variant: "text", padding: "10px 20px" })(templateObject_1$3 || (templateObject_1$3 = __makeTemplateObject(["\n  align-items: center;\n  display: flex;\n  height: auto;\n  justify-content: space-between;\n  margin-left: auto;\n  margin-right: auto;\n  background-color: #ffa14e;\n  height: 60px;\n"], ["\n  align-items: center;\n  display: flex;\n  height: auto;\n  justify-content: space-between;\n  margin-left: auto;\n  margin-right: auto;\n  background-color: #ffa14e;\n  height: 60px;\n"])));
+var WalletButton = styled__default['default'](Button).attrs({ width: "100%", variant: "text", padding: "10px 20px" })(templateObject_1$3 || (templateObject_1$3 = __makeTemplateObject(["\n  align-items: center;\n  display: flex;\n  height: auto;\n  justify-content: space-between;\n  margin-left: auto;\n  margin-right: auto;\n  background-color: #ffa14e;\n  height: 60px;\n  &.wallet-connect-unstoppabledomains {\n    background-color: #6966db;\n    // div {\n    //   color: #151433;\n    // }\n  }\n"], ["\n  align-items: center;\n  display: flex;\n  height: auto;\n  justify-content: space-between;\n  margin-left: auto;\n  margin-right: auto;\n  background-color: #ffa14e;\n  height: 60px;\n  &.wallet-connect-unstoppabledomains {\n    background-color: #6966db;\n    // div {\n    //   color: #151433;\n    // }\n  }\n"])));
 var WalletCard = function (_a) {
     var login = _a.login, walletConfig = _a.walletConfig, onDismiss = _a.onDismiss;
     var title = walletConfig.title, Icon = walletConfig.icon;
@@ -4825,7 +4795,7 @@ var WalletCard = function (_a) {
             localStorage.setItem(walletLocalStorageKey, walletConfig.title);
             localStorage.setItem(connectorLocalStorageKey, walletConfig.connectorId);
             onDismiss();
-        }, id: "wallet-connect-" + title.toLocaleLowerCase() },
+        }, className: "wallet-connect-" + title.toLocaleLowerCase(), id: "wallet-connect-" + title.toLocaleLowerCase() },
         React__default['default'].createElement(Icon, { width: "40px" }),
         React__default['default'].createElement(Text, { fontSize: "15px", fontWeight: "bold" }, title)));
 };
@@ -4859,7 +4829,7 @@ var ConnectModal = function (_a) {
     var login = _a.login, _b = _a.onDismiss, onDismiss = _b === void 0 ? function () { return null; } : _b, _c = _a.displayCount, displayCount = _c === void 0 ? 3 : _c;
     var _d = React.useState(false), showMore = _d[0]; _d[1];
     styled.useTheme();
-    var sortedConfig = getPreferredConfig(connectors).filter(function (c) { return c.title === "Metamask"; });
+    var sortedConfig = getPreferredConfig(connectors);
     var displayListConfig = showMore ? sortedConfig : sortedConfig.slice(0, displayCount);
     return (React__default['default'].createElement(ModalContainer, { minWidth: "340px" },
         React__default['default'].createElement(ModalHeaderStyled, null,
@@ -4867,7 +4837,7 @@ var ConnectModal = function (_a) {
                 React__default['default'].createElement(Heading, null, "Connect Wallet")),
             React__default['default'].createElement(ModalCloseButton, { onDismiss: onDismiss })),
         React__default['default'].createElement(ModalBody, { width: ["340px", null, "480px"] },
-            React__default['default'].createElement(WalletWrapper, { paddingBottom: "24px", maxHeight: "453px", overflowY: "auto" }, displayListConfig.map(function (wallet) { return (React__default['default'].createElement(Box, { key: wallet.title },
+            React__default['default'].createElement(WalletWrapper, { maxHeight: "453px", overflowY: "auto" }, displayListConfig.map(function (wallet) { return (React__default['default'].createElement(Box, { key: wallet.title, paddingBottom: "12px" },
                 React__default['default'].createElement(WalletCard, { walletConfig: wallet, login: login, onDismiss: onDismiss }))); })))));
 };
 var ModalHeaderStyled = styled__default['default'](ModalHeader)(templateObject_2$1 || (templateObject_2$1 = __makeTemplateObject(["\n  padding: 30px 16px 14px;\n  ", " {\n    padding: 20px 30px 14px;\n  }\n"], ["\n  padding: 30px 16px 14px;\n  ", " {\n    padding: 20px 30px 14px;\n  }\n"])), function (_a) {

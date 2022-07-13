@@ -5,6 +5,7 @@ import { ConnectorNames } from '@my/ui';
 import { ethers } from 'ethers';
 import getNodeUrl from './getRpcUrl';
 import { chainId } from 'config/constants/tokens';
+import { UAuthConnector } from '@uauth/web3-react';
 
 const POLLING_INTERVAL = 12000;
 const rpcUrl = getNodeUrl();
@@ -19,10 +20,18 @@ const walletconnect = new WalletConnectConnector({
   pollingInterval: POLLING_INTERVAL,
 });
 
+const UAuthMoralis = new UAuthConnector({
+  clientID: '5eb44fe6-f9be-41af-85f8-e730c45a18ca',
+  redirectUri: `${window.location.origin}${window.location.pathname}`,
+  scope: 'openid wallet',
+  postLogoutRedirectUri: 'https://www.avault.network',
+  connectors: { injected, walletconnect },
+});
 const bscConnector = new BscConnector({ supportedChainIds: [chainId] });
 
 export const connectorsByName: { [connectorName in ConnectorNames]: any } = {
   [ConnectorNames.Injected]: injected,
+  [ConnectorNames.UAuthMoralis]: UAuthMoralis,
   [ConnectorNames.WalletConnect]: walletconnect,
   [ConnectorNames.BSC]: bscConnector,
 };
