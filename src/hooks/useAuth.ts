@@ -17,6 +17,7 @@ import { profileClear } from 'state/profile';
 import { useAppDispatch } from 'state';
 import { useTranslation } from 'contexts/Localization';
 import { chainId as myChainId } from 'config/constants/tokens';
+import { UAuthConnector } from '@uauth/web3-react';
 const useAuth = () => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
@@ -25,37 +26,45 @@ const useAuth = () => {
 
   const login = useCallback(
     (connectorID: ConnectorNames) => {
-      const chainId = window.ethereum.networkVersion;
-      if (chainId && Number(chainId) !== myChainId) {
-        toastError('Wrong Network', 'Please change to Astar Network');
-        return;
-      }
       const connector = connectorsByName[connectorID];
+
       if (connector) {
-        activate(connector, async (error: Error) => {
-          if (error instanceof UnsupportedChainIdError) {
-            const hasSetup = await setupNetwork();
-            if (hasSetup) {
-              activate(connector);
-            }
-          } else {
-            window.localStorage.removeItem(connectorLocalStorageKey);
-            if (error instanceof NoEthereumProviderError || error instanceof NoBscProviderError) {
-              toastError(t('Provider Error'), t('No provider was found'));
-            } else if (
-              error instanceof UserRejectedRequestErrorInjected ||
-              error instanceof UserRejectedRequestErrorWalletConnect
-            ) {
-              if (connector instanceof WalletConnectConnector) {
-                const walletConnector = connector as WalletConnectConnector;
-                walletConnector.walletConnectProvider = null;
+        (async () => {
+          const chainId = window.ethereum.networkVersion;
+          if (connector instanceof UAuthConnector) {
+            if (chainId && Number(chainId) !== myChainId) {
+              const hasSetup = await setupNetwork();
+              if (hasSetup && Number(chainId) === myChainId) {
+              } else {
+                return;
               }
-              toastError(t('Authorization Error'), t('Please authorize to access your account'));
-            } else {
-              toastError(error.name, error.message);
             }
           }
-        });
+          activate(connector, async (error: Error) => {
+            if (error instanceof UnsupportedChainIdError) {
+              const hasSetup = await setupNetwork();
+              if (hasSetup) {
+                activate(connector);
+              }
+            } else {
+              window.localStorage.removeItem(connectorLocalStorageKey);
+              if (error instanceof NoEthereumProviderError || error instanceof NoBscProviderError) {
+                toastError(t('Provider Error'), t('No provider was found'));
+              } else if (
+                error instanceof UserRejectedRequestErrorInjected ||
+                error instanceof UserRejectedRequestErrorWalletConnect
+              ) {
+                if (connector instanceof WalletConnectConnector) {
+                  const walletConnector = connector as WalletConnectConnector;
+                  walletConnector.walletConnectProvider = null;
+                }
+                toastError(t('Authorization Error'), t('Please authorize to access your account'));
+              } else {
+                toastError(error.name, error.message);
+              }
+            }
+          });
+        })();
         // }
       } else {
         toastError(t('Unable to find connector'), t('The connector config is wrong'));
@@ -66,7 +75,6 @@ const useAuth = () => {
   );
 
   const logout = useCallback(() => {
-    console.log('logout');
     dispatch(profileClear());
     deactivate();
     // This localStorage key is set by @web3-react/walletconnect-connector
