@@ -16,6 +16,7 @@ import useToast from 'hooks/useToast';
 import { profileClear } from 'state/profile';
 import { useAppDispatch } from 'state';
 import { useTranslation } from 'contexts/Localization';
+import { chainId as myChainId } from 'config/constants/tokens';
 const useAuth = () => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
@@ -24,6 +25,11 @@ const useAuth = () => {
 
   const login = useCallback(
     (connectorID: ConnectorNames) => {
+      const chainId = window.ethereum.networkVersion;
+      if (chainId && Number(chainId) !== myChainId) {
+        toastError('Wrong Network', 'Please change to Astar Network');
+        return;
+      }
       const connector = connectorsByName[connectorID];
       if (connector) {
         activate(connector, async (error: Error) => {
@@ -55,7 +61,8 @@ const useAuth = () => {
         toastError(t('Unable to find connector'), t('The connector config is wrong'));
       }
     },
-    [t, activate, toastError],
+    // eslint-disable-next-line
+    [t, activate, window.ethereum.networkVersion],
   );
 
   const logout = useCallback(() => {

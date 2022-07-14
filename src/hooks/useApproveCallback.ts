@@ -9,7 +9,7 @@ import { Field } from '../state/swap/actions';
 import { useTransactionAdder, useHasPendingApproval } from '../state/transactions/hooks';
 import { computeSlippageAdjustedAmounts } from '../utils/prices';
 import { useTokenContract } from './useContract';
-import { chainId, chainId as myChainId } from 'config/constants/tokens';
+import { chainId as myChainId } from 'config/constants/tokens';
 import { DEFAULT_GAS_LIMIT_40w, DEFAULT_GAS_PRICE } from 'config';
 
 export enum ApprovalState {
@@ -31,7 +31,7 @@ export function useApproveCallback(
   // check the current approval status
   const approvalState: ApprovalState = useMemo(() => {
     if (!amountToApprove || !spender) return ApprovalState.UNKNOWN;
-    if (amountToApprove.currency === ETHER[chainId]) return ApprovalState.APPROVED;
+    if (amountToApprove.currency === ETHER[myChainId]) return ApprovalState.APPROVED;
     // we might not have enough data to know whether or not we need to approve
     if (!currentAllowance) return ApprovalState.UNKNOWN;
 
