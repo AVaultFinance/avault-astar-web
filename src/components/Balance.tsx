@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import CountUp from 'react-countup';
 import { Text, TextProps } from '@my/ui';
-import BigNumber from 'bignumber.js';
 
 interface BalanceProps extends TextProps {
   value: number;
@@ -43,7 +42,7 @@ const Balance: React.FC<BalanceProps> = ({
         prefix={prefix}
         suffix={unit}
         decimals={decimals}
-        duration={2}
+        duration={4}
         separator=","
       />
     </Text>
