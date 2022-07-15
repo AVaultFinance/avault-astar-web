@@ -30,7 +30,8 @@ const useZapContract = (zapAddress: string, fromCurrency: IToken, toCurrency: IT
     async (val: string, account: string) => {
       let res = null;
       try {
-        const value = parseInt(new BigNumber(val).times(BIG_TEN.pow(fromCurrency.decimals)).toString());
+        // const value = new BigNumber(amount).times(BIG_TEN.pow(decimal)).toFixed(0);
+        const value = new BigNumber(val).times(BIG_TEN.pow(fromCurrency.decimals)).toFixed(0);
         if (
           fromCurrency.type === ITokenType.TOKEN &&
           (toCurrency.type === ITokenType.LP || toCurrency.type === ITokenType.TOKEN)
