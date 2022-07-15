@@ -31,13 +31,13 @@ const Balance: React.FC<BalanceProps> = ({
     <Text color={isDisabled ? 'textDisabled' : color} onClick={onClick} {...props}>
       <CountUp
         useEasing={true}
-        formattingFn={(d: number) =>
-          `${Number(
-            `${new BigNumber(`${previousValue.current}`).toFixed(decimals, BigNumber.ROUND_DOWN)}`,
-          ).toLocaleString('en-US', {
-            maximumFractionDigits: decimals,
-          })}`
-        }
+        // formattingFn={(d: number) =>
+        //   `${Number(
+        //     `${new BigNumber(`${previousValue.current}`).toFixed(decimals, BigNumber.ROUND_DOWN)}`,
+        //   ).toLocaleString('en-US', {
+        //     maximumFractionDigits: decimals,
+        //   })}`
+        // }
         start={previousValue.current}
         end={value === null ? 0 : value}
         prefix={prefix}
