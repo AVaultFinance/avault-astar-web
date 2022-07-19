@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 import { useWeb3React, UnsupportedChainIdError } from '@web3-react/core';
 import { NoBscProviderError } from '@binance-chain/bsc-connector';
 import {
+  InjectedConnector,
   NoEthereumProviderError,
   UserRejectedRequestError as UserRejectedRequestErrorInjected,
 } from '@web3-react/injected-connector';
@@ -18,6 +19,8 @@ import { useAppDispatch } from 'state';
 import { useTranslation } from 'contexts/Localization';
 import { chainId as myChainId } from 'config/constants/tokens';
 import { UAuthConnector } from '@uauth/web3-react';
+import { SubWalletConnector } from '@subwallet/web3-react-subwallet-connector-v6';
+import { wait } from 'state/multicall/retry';
 const useAuth = () => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
@@ -25,22 +28,52 @@ const useAuth = () => {
   const { toastError } = useToast();
 
   const login = useCallback(
-    (connectorID: ConnectorNames) => {
-      if (!window?.ethereum?.networkVersion) {
-        return;
-      }
+    (connectorID: ConnectorNames, clickBtn: boolean) => {
       const connector = connectorsByName[connectorID];
 
       if (connector) {
         (async () => {
           const chainId = window?.ethereum?.networkVersion ?? '';
+          if (connector instanceof InjectedConnector) {
+            if (!window?.ethereum?.networkVersion) {
+              if (clickBtn) {
+                window.open('https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn');
+              }
+              return;
+            }
+          }
           if (connector instanceof UAuthConnector) {
+            if (!window?.ethereum?.networkVersion) {
+              if (clickBtn) {
+                window.open('https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn');
+              }
+              return;
+            }
             if (chainId && Number(chainId) !== myChainId) {
               const hasSetup = await setupNetwork();
               if (hasSetup && Number(chainId) === myChainId) {
               } else {
                 return;
               }
+            }
+          }
+          if (connector instanceof SubWalletConnector) {
+            if (window?.injectedWeb3 && window.injectedWeb3['subwallet-js']) {
+            } else {
+              if (clickBtn) {
+                window.open(
+                  'https://chrome.google.com/webstore/detail/subwallet-polkadot-extens/onhogfjeacnfoofkfgppdlbmlmnplgbn',
+                );
+              }
+              return;
+            }
+            const activate = await connector.activate();
+            if (!activate) {
+              await wait(5000);
+            }
+            const isAuthorized = await connector.isAuthorized();
+            if (!isAuthorized) {
+              await wait(5000);
             }
           }
           activate(connector, async (error: Error) => {

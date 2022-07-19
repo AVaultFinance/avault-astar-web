@@ -7,7 +7,7 @@ import Metamask from "../../components/Svg/Icons/Metamask";
 // import SafePal from "../../components/Svg/Icons/SafePal";
 // import Coin98 from "../../components/Svg/Icons/Coin98";
 import UnstoppableDomains from "../../components/Svg/Icons/UnstoppableDomains";
-
+import SubWallet from "../../components/Svg/Icons/SubWallet";
 import { Config, ConnectorNames } from "./types";
 
 const connectors: Config[] = [
@@ -16,12 +16,23 @@ const connectors: Config[] = [
     icon: Metamask,
     connectorId: ConnectorNames.Injected,
     priority: 1,
+    // @ts-ignore
+    showInstall: !window?.ethereum,
   },
   {
     title: "UnstoppableDomains",
     icon: UnstoppableDomains,
     connectorId: ConnectorNames.UAuthMoralis,
     priority: 2,
+    showInstall: false,
+  },
+  {
+    title: "SubWallet",
+    icon: SubWallet,
+    connectorId: ConnectorNames.SubWallet,
+    priority: 3,
+    // @ts-ignore
+    showInstall: window?.injectedWeb3 && window.injectedWeb3["subwallet-js"] ? false : true,
   },
 ];
 

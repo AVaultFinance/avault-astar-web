@@ -11,6 +11,7 @@ interface Props {
   walletConfig: Config;
   login: Login;
   onDismiss: () => void;
+  showInstall: boolean;
 }
 
 const WalletButton = styled(Button).attrs({ width: "100%", variant: "text", padding: "10px 20px" })`
@@ -24,9 +25,19 @@ const WalletButton = styled(Button).attrs({ width: "100%", variant: "text", padd
   height: 60px;
   &.wallet-connect-unstoppabledomains {
     background-color: #6966db;
-    // div {
-    //   color: #151433;
-    // }
+  }
+  &.wallet-connect-subwallet {
+    background-color: #46a8b4;
+  }
+  .smallText {
+    font-size: 12px;
+    font-weight: bold;
+    color: #490000;
+    font-style: normal;
+    padding: 0 10px;
+    border-radius: 10px;
+    border: 1px solid #490000;
+    margin-left: 10px;
   }
 `;
 
@@ -39,7 +50,7 @@ export const MoreWalletCard: React.FC<ButtonProps> = (props) => {
   );
 };
 
-const WalletCard: React.FC<Props> = ({ login, walletConfig, onDismiss }) => {
+const WalletCard: React.FC<Props> = ({ login, walletConfig, onDismiss, showInstall }) => {
   const { title, icon: Icon } = walletConfig;
 
   return (
@@ -53,7 +64,7 @@ const WalletCard: React.FC<Props> = ({ login, walletConfig, onDismiss }) => {
         // if (walletConfig.title === "Trust Wallet" && isIOS) {
         //   login(ConnectorNames.WalletConnect);
         // } else {
-        login(walletConfig.connectorId);
+        login(walletConfig.connectorId, true);
         // }
 
         localStorage.setItem(walletLocalStorageKey, walletConfig.title);
@@ -66,6 +77,7 @@ const WalletCard: React.FC<Props> = ({ login, walletConfig, onDismiss }) => {
       <Icon width="40px" />
       <Text fontSize="15px" fontWeight="bold">
         {title}
+        {showInstall ? <i className="smallText">Install</i> : null}
       </Text>
     </WalletButton>
   );

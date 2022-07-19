@@ -47,6 +47,7 @@
     "@types/react-window": "^1.8.3",
     "@types/styled-components": "^5.1.7",
     "@types/styled-system": "^5.1.10",
+    "@subwallet/web3-react-subwallet-connector-v6": "0.0.6",
     "@uauth/web3-react": "^2.0.0",
     "@uniswap/token-lists": "^1.0.0-beta.19",
     "@uniswap/v2-core": "^1.0.0",

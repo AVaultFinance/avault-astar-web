@@ -8,7 +8,7 @@ import Text from "../../components/Text/Text";
 import Heading from "../../components/Heading/Heading";
 import { Button } from "../../components/Button";
 import { ModalBody, ModalCloseButton, ModalContainer, ModalHeader, ModalTitle } from "../Modal";
-import WalletCard, { MoreWalletCard } from "./WalletCard";
+import WalletCard from "./WalletCard";
 import config, { walletLocalStorageKey } from "./config";
 import { Config, Login } from "./types";
 import { useMatchBreakpoints } from "../../hooks";
@@ -68,7 +68,7 @@ const ConnectModal: React.FC<Props> = ({ login, onDismiss = () => null, displayC
         <WalletWrapper maxHeight="453px" overflowY="auto">
           {displayListConfig.map((wallet) => (
             <Box key={wallet.title} paddingBottom="12px">
-              <WalletCard walletConfig={wallet} login={login} onDismiss={onDismiss} />
+              <WalletCard walletConfig={wallet} showInstall={wallet.showInstall} login={login} onDismiss={onDismiss} />
             </Box>
           ))}
           {/* {!showMore && <MoreWalletCard onClick={() => setShowMore(true)} />} */}

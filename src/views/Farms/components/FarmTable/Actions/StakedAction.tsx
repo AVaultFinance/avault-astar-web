@@ -102,7 +102,7 @@ const Staked: React.FunctionComponent<StackedActionProps> = ({ farm, userDataRea
   const handleApprove = useCallback(async () => {
     if (!account) {
       const connectorId = (window.localStorage.getItem(connectorLocalStorageKey) ?? 'injected') as ConnectorNames;
-      login(connectorId);
+      login(connectorId, false);
       return;
     }
     try {
@@ -173,7 +173,7 @@ const Staked: React.FunctionComponent<StackedActionProps> = ({ farm, userDataRea
           } else {
             const connectorId = window.localStorage.getItem(connectorLocalStorageKey) as ConnectorNames;
             if (connectorId) {
-              login(connectorId);
+              login(connectorId, false);
             }
           }
         }}

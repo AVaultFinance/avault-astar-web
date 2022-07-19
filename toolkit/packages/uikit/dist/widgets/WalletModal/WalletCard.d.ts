@@ -5,6 +5,7 @@ interface Props {
     walletConfig: Config;
     login: Login;
     onDismiss: () => void;
+    showInstall: boolean;
 }
 export declare const MoreWalletCard: React.FC<ButtonProps>;
 declare const WalletCard: React.FC<Props>;
