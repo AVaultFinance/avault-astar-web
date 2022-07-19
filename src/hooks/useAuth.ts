@@ -26,11 +26,14 @@ const useAuth = () => {
 
   const login = useCallback(
     (connectorID: ConnectorNames) => {
+      if (!window?.ethereum?.networkVersion) {
+        return;
+      }
       const connector = connectorsByName[connectorID];
 
       if (connector) {
         (async () => {
-          const chainId = window.ethereum.networkVersion;
+          const chainId = window?.ethereum?.networkVersion ?? '';
           if (connector instanceof UAuthConnector) {
             if (chainId && Number(chainId) !== myChainId) {
               const hasSetup = await setupNetwork();
@@ -71,7 +74,7 @@ const useAuth = () => {
       }
     },
     // eslint-disable-next-line
-    [t, activate, window.ethereum.networkVersion],
+    [t, activate, window?.ethereum?.networkVersion],
   );
 
   const logout = useCallback(() => {
