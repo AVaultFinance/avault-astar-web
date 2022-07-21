@@ -39,7 +39,7 @@ import Page from '../Page';
 import WarningSvg from './imgs/warning.svg';
 
 import JSBI from 'jsbi';
-import { chainKey } from 'config';
+import { chainKey, DEFAULT_GAS_PRICE } from 'config';
 import { chainId as myChainId } from 'config/constants/tokens';
 
 export default function AddLiquidity({
@@ -189,6 +189,7 @@ export default function AddLiquidity({
         method(...args, {
           ...(value ? { value } : {}),
           gasLimit: calculateGasMargin(estimatedGasLimit),
+          gasPrice: DEFAULT_GAS_PRICE,
         }).then((response) => {
           setAttemptingTxn(false);
 

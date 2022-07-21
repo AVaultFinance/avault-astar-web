@@ -16,7 +16,7 @@ import { calculateGasMargin, calculateSlippageAmount, getRouterContract } from '
 import { maxAmountSpend } from 'utils/maxAmountSpend';
 import { wrappedCurrency } from 'utils/wrappedCurrency';
 import JSBI from 'jsbi';
-import { chainKey } from 'config';
+import { chainKey, DEFAULT_GAS_PRICE } from 'config';
 import tokens, { chainId } from 'config/constants/tokens';
 import { IVault, IVaultConfigItem } from 'state/vault/types';
 import styled from 'styled-components';
@@ -169,6 +169,7 @@ const AddLiquidityModal: React.FC<AddLiquidityModalProps> = ({ vault, account, o
         method(...args, {
           ...(value ? { value } : {}),
           gasLimit: calculateGasMargin(estimatedGasLimit),
+          gasPrice: DEFAULT_GAS_PRICE,
         }).then(async (response) => {
           const { hash } = response;
           if (hash) {

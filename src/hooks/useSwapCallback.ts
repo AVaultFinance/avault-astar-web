@@ -9,6 +9,7 @@ import { calculateGasMargin, getRouterContract, isAddress, shortenAddress } from
 import isZero from '../utils/isZero';
 import useTransactionDeadline from './useTransactionDeadline';
 import useENS from './ENS/useENS';
+import { DEFAULT_GAS_PRICE } from 'config';
 
 export enum SwapCallbackState {
   INVALID,
@@ -179,8 +180,9 @@ export function useSwapCallback(
         } = successfulEstimation;
 
         return contract[methodName](...args, {
-          gasLimit: calculateGasMargin(gasEstimate),
           ...(value && !isZero(value) ? { value, from: account } : { from: account }),
+          gasLimit: calculateGasMargin(gasEstimate),
+          gasPrice: DEFAULT_GAS_PRICE,
         })
           .then((response: any) => {
             const inputSymbol = trade.inputAmount.currency.symbol;
