@@ -7,6 +7,7 @@ import getNodeUrl from './getRpcUrl';
 import { chainId } from 'config/constants/tokens';
 import { UAuthConnector } from '@uauth/web3-react';
 import { SubWalletConnector } from '@subwallet/web3-react-subwallet-connector-v6';
+import { TalismanConnector } from '@talismn/web3react-v6-connector';
 
 const POLLING_INTERVAL = 12000;
 const rpcUrl = getNodeUrl();
@@ -31,12 +32,14 @@ const UAuthMoralis = new UAuthConnector({
 const bscConnector = new BscConnector({ supportedChainIds: [chainId] });
 //  const subWallet = new SubWalletConnector({ supportedChainIds: [1, 1287, 1284, 1285, 592, 336] })
 const subWallet = new SubWalletConnector({ supportedChainIds: [chainId] });
+const talisman = new TalismanConnector({ supportedChainIds: [chainId] });
 export const connectorsByName: { [connectorName in ConnectorNames]: any } = {
   [ConnectorNames.Injected]: injected,
   [ConnectorNames.UAuthMoralis]: UAuthMoralis,
   [ConnectorNames.WalletConnect]: walletconnect,
   [ConnectorNames.BSC]: bscConnector,
   [ConnectorNames.SubWallet]: subWallet,
+  [ConnectorNames.Talisman]: talisman,
 };
 
 export const getLibrary = (provider): ethers.providers.Web3Provider => {

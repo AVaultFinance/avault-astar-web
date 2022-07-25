@@ -80,25 +80,24 @@ const wallet_config = {
   },
 };
 
-export const setupNetwork = async () => {
-  const provider = window.ethereum;
-  if (provider) {
-    try {
+export const setupNetwork = async (connector: any) => {
+  try {
+    const provider = await connector.getProvider();
+    if (provider) {
       await provider.request({
         method: 'wallet_addEthereumChain',
         params: [wallet_config[chainId]],
       });
       return true;
-    } catch (error) {
-      console.error('Failed to setup the network in Metamask:', error);
+    } else {
+      console.error("Can't setup the network in wallet because provider is undefined");
       return false;
     }
-  } else {
-    console.error("Can't setup the BSC network on metamask because window.ethereum is undefined");
+  } catch (err) {
+    console.error('Failed to setup network in wallet:', err);
     return false;
   }
 };
-
 /**
  * Prompt the user to add a custom token to metamask
  * @param tokenAddress
@@ -106,8 +105,13 @@ export const setupNetwork = async () => {
  * @param tokenDecimals
  * @returns {boolean} true if the token has been added, false otherwise
  */
-export const registerToken = async (tokenAddress: string, tokenSymbol: string, tokenDecimals: number) => {
-  const tokenAdded = await window.ethereum.request({
+export const registerToken = async (
+  tokenAddress: string,
+  tokenSymbol: string,
+  tokenDecimals: number,
+  provider: Window['ethereum'],
+) => {
+  const tokenAdded = await provider.request({
     method: 'wallet_watchAsset',
     params: {
       type: 'ERC20',

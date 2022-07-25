@@ -10,6 +10,10 @@ import {
   UserRejectedRequestError as UserRejectedRequestErrorWalletConnect,
   WalletConnectConnector,
 } from '@web3-react/walletconnect-connector';
+import {
+  NoEthereumProviderError as NoTalismanProviderError,
+  UserRejectedRequestError as UserRejectedRequestErrorTalisman,
+} from '@talismn/web3react-v6-connector';
 import { ConnectorNames, connectorLocalStorageKey } from '@my/ui';
 import { connectorsByName } from 'utils/web3React';
 import { setupNetwork } from 'utils/wallet';
@@ -50,7 +54,7 @@ const useAuth = () => {
               return;
             }
             if (chainId && Number(chainId) !== myChainId) {
-              const hasSetup = await setupNetwork();
+              const hasSetup = await setupNetwork(connector);
               if (hasSetup && Number(chainId) === myChainId) {
               } else {
                 return;
@@ -78,16 +82,26 @@ const useAuth = () => {
           }
           activate(connector, async (error: Error) => {
             if (error instanceof UnsupportedChainIdError) {
-              const hasSetup = await setupNetwork();
+              const hasSetup = await setupNetwork(connector);
               if (hasSetup) {
                 activate(connector);
               }
             } else {
               window.localStorage.removeItem(connectorLocalStorageKey);
-              if (error instanceof NoEthereumProviderError || error instanceof NoBscProviderError) {
+              if (
+                error instanceof NoEthereumProviderError ||
+                error instanceof NoTalismanProviderError ||
+                error instanceof NoBscProviderError
+              ) {
+                if (error instanceof NoTalismanProviderError) {
+                  window.open(
+                    'https://chrome.google.com/webstore/detail/talisman-wallet/fijngjgcjhjmmpcmkeiomlglpeiijkld',
+                  );
+                }
                 toastError(t('Provider Error'), t('No provider was found'));
               } else if (
                 error instanceof UserRejectedRequestErrorInjected ||
+                error instanceof UserRejectedRequestErrorTalisman ||
                 error instanceof UserRejectedRequestErrorWalletConnect
               ) {
                 if (connector instanceof WalletConnectConnector) {

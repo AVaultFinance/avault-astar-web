@@ -25,9 +25,9 @@ import { getBalanceNumber, getFullDisplayBalance } from 'utils/formatBalance';
 import { getPoolBlockInfo } from 'views/Pools/helpers';
 import HarvestAction from './HarvestAction';
 import StakedAction from './StakedAction';
-import { registerToken } from 'utils/wallet';
 import Apr from '../Apr';
 import { InfoContainer } from 'style/TableStyled';
+import { useRegisterToken } from 'hooks/useRegisterToken';
 
 const expandAnimation = keyframes`
   from {
@@ -190,8 +190,12 @@ const ActionPanel: React.FC<ActionPanelProps> = ({
   } = useTooltip(t('Total amount of %symbol% staked in this pool', { symbol: stakingToken.symbol }), {
     placement: 'bottom',
   });
-  const isMetaMaskInScope = !!window.ethereum?.isMetaMask;
   const tokenAddress = earningToken.address ? getAddress(earningToken.address) : '';
+  const { canRegisterToken, registerToken } = useRegisterToken(
+    tokenAddress,
+    earningToken?.symbol,
+    earningToken?.decimals,
+  );
 
   const blocksRow =
     blocksRemaining || blocksUntilStart ? (
@@ -228,21 +232,14 @@ const ActionPanel: React.FC<ActionPanelProps> = ({
             </StyledLinkExternal>
           </StakeContainer>
         )}
-        {account && isMetaMaskInScope && tokenAddress && (
+        {canRegisterToken && (
           <StakeContainer>
-            {account && isMetaMaskInScope && tokenAddress && (
-              <Flex mb="8px" justifyContent={['flex-end', 'flex-end', 'flex-start']}>
-                <Button
-                  variant="text"
-                  p="0"
-                  height="auto"
-                  onClick={() => registerToken(tokenAddress, earningToken.symbol, earningToken.decimals)}
-                >
-                  <Text color="primary">{t('Add to Metamask')}</Text>
-                  <MetamaskIcon ml="4px" />
-                </Button>
-              </Flex>
-            )}
+            <Flex mb="8px" justifyContent={['flex-end', 'flex-end', 'flex-start']}>
+              <Button variant="text" p="0" height="auto" onClick={registerToken}>
+                <Text color="primary">{t('Add to Metamask')}</Text>
+                <MetamaskIcon ml="4px" />
+              </Button>
+            </Flex>
           </StakeContainer>
         )}
         {/* <Flex mb="8px" justifyContent={['flex-end', 'flex-end', 'flex-start']}>

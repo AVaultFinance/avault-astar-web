@@ -2,7 +2,6 @@ import React, { useCallback } from 'react';
 import { Currency, Token, ChainId } from '@my/sdk';
 import styled from 'styled-components';
 import { Button, Text, ErrorIcon, Flex, Box, Modal, InjectedModalProps, MetamaskIcon } from '@my/ui';
-import { registerToken } from 'utils/wallet';
 import { useTranslation } from 'contexts/Localization';
 import useActiveWeb3React from 'hooks/useActiveWeb3React';
 import { AutoColumn, ColumnCenter } from '../Layout/Column';
@@ -10,7 +9,7 @@ import { RowFixed } from '../Layout/Row';
 import PageLoading from './PageLoading';
 import IconSvg from '../svg/icon.svg';
 import { wrappedCurrency } from 'utils/wrappedCurrency';
-
+import { useRegisterToken } from 'hooks/useRegisterToken';
 const Wrapper = styled.div`
   width: 100%;
 `;
@@ -67,8 +66,8 @@ function TransactionSubmittedContent({
   currencyToAdd?: Currency | undefined;
 }) {
   const { t } = useTranslation();
-  const { library } = useActiveWeb3React();
   const token: Token | undefined = wrappedCurrency(currencyToAdd, chainId);
+  const { canRegisterToken, registerToken } = useRegisterToken(token?.address, token?.symbol, token?.decimals);
 
   return (
     <Wrapper>
@@ -82,13 +81,8 @@ function TransactionSubmittedContent({
             View on Block browser
           </Link>
         )} */}
-        {currencyToAdd && library?.provider?.isMetaMask && (
-          <Button
-            variant="tertiary"
-            mt="12px"
-            width="fit-content"
-            onClick={() => registerToken(token.address, token.symbol, token.decimals)}
-          >
+        {canRegisterToken && (
+          <Button variant="tertiary" mt="12px" width="fit-content" onClick={registerToken}>
             <RowFixed>
               {t('Add %asset% to Metamask', { asset: currencyToAdd.symbol })}
               <MetamaskIcon width="16px" ml="6px" />

@@ -2,19 +2,26 @@ import { useEffect } from 'react';
 import { connectorLocalStorageKey, ConnectorNames } from '@my/ui';
 import useAuth from 'hooks/useAuth';
 
-const _binanceChainListener = async () =>
-  new Promise<void>((resolve) =>
-    Object.defineProperty(window, 'BinanceChain', {
-      get() {
-        return this.bsc;
-      },
-      set(bsc) {
-        this.bsc = bsc;
+const waitWalletInjected = (property: string, timeout = 1000) =>
+  new Promise<void>((resolve) => {
+    // if property is already defined, exit
+    if (Reflect.has(window, property)) resolve();
+    else {
+      // if not defined, wait for value to be injected
+      Object.defineProperty(window, property, {
+        set(value) {
+          // replace the property with the provided value, then resolve the promise
+          Object.defineProperty(window, property, { value, configurable: true, writable: true });
+          resolve();
+        },
+        // allows property to be reinjected
+        configurable: true,
+      });
+    }
 
-        resolve();
-      },
-    }),
-  );
+    // exit after 1 second, browser extension may have been deactivated by the user
+    setTimeout(resolve, timeout);
+  });
 
 const useEagerConnect = () => {
   const { login } = useAuth();
@@ -23,18 +30,15 @@ const useEagerConnect = () => {
     const connectorId = window.localStorage.getItem(connectorLocalStorageKey) as ConnectorNames;
 
     if (connectorId) {
-      const isConnectorBinanceChain = connectorId === ConnectorNames.BSC;
-      const isBinanceChainDefined = Reflect.has(window, 'BinanceChain');
-
-      // Currently BSC extension doesn't always inject in time.
-      // We must check to see if it exists, and if not, wait for it before proceeding.
-      if (isConnectorBinanceChain && !isBinanceChainDefined) {
-        _binanceChainListener().then(() => login(connectorId, false));
-
-        return;
+      // Currently BSC & Talisman extensions don't always inject in time.
+      // We must check to see if provider exists, and if not, wait for it before proceeding.
+      if (connectorId === ConnectorNames.BSC) {
+        waitWalletInjected('BinanceChain').then(() => login(connectorId, false));
+      } else if (connectorId === ConnectorNames.Talisman) {
+        waitWalletInjected('talismanEth').then(() => login(connectorId, false));
+      } else {
+        login(connectorId, false);
       }
-
-      login(connectorId, false);
     }
   }, [login]);
 };

@@ -21,10 +21,10 @@ import { useBlock } from 'state/block/hooks';
 import { useCakeVault } from 'state/pools/hooks';
 import { Pool } from 'state/types';
 import { getAddress, getCakeVaultAddress } from 'utils/addressHelpers';
-import { registerToken } from 'utils/wallet';
 import { getBscScanLink } from 'utils';
 import Balance from 'components/Balance';
 import { getPoolBlockInfo } from 'views/Pools/helpers';
+import { useRegisterToken } from 'hooks/useRegisterToken';
 
 interface ExpandedFooterProps {
   pool: Pool;
@@ -64,7 +64,11 @@ const ExpandedFooter: React.FC<ExpandedFooterProps> = ({ pool, account }) => {
   const tokenAddress = earningToken.address ? getAddress(earningToken.address) : '';
   const poolContractAddress = getAddress(contractAddress);
   const cakeVaultContractAddress = getCakeVaultAddress();
-  const isMetaMaskInScope = !!window.ethereum?.isMetaMask;
+  const { canRegisterToken, registerToken } = useRegisterToken(
+    tokenAddress,
+    earningToken?.symbol,
+    earningToken?.decimals,
+  );
   const isManualCakePool = sousId === 0;
 
   const { shouldShowBlockCountdown, blocksUntilStart, blocksRemaining, hasPoolStarted, blocksToDisplay } =
@@ -170,14 +174,9 @@ const ExpandedFooter: React.FC<ExpandedFooterProps> = ({ pool, account }) => {
           </LinkExternal>
         </Flex>
       )}
-      {account && isMetaMaskInScope && tokenAddress && (
+      {canRegisterToken && (
         <Flex justifyContent="flex-end">
-          <Button
-            variant="text"
-            p="0"
-            height="auto"
-            onClick={() => registerToken(tokenAddress, earningToken.symbol, earningToken.decimals)}
-          >
+          <Button variant="text" p="0" height="auto" onClick={registerToken}>
             <Text color="primary" fontSize="14px">
               {t('Add to Metamask')}
             </Text>

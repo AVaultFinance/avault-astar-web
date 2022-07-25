@@ -8,6 +8,7 @@ import Metamask from "../../components/Svg/Icons/Metamask";
 // import Coin98 from "../../components/Svg/Icons/Coin98";
 import UnstoppableDomains from "../../components/Svg/Icons/UnstoppableDomains";
 import SubWallet from "../../components/Svg/Icons/SubWallet";
+import Talisman from "../../components/Svg/Icons/Talisman";
 import { Config, ConnectorNames } from "./types";
 
 const connectors: Config[] = [
@@ -33,6 +34,14 @@ const connectors: Config[] = [
     priority: 3,
     // @ts-ignore
     showInstall: window?.injectedWeb3 && window.injectedWeb3["subwallet-js"] ? false : true,
+  },
+  {
+    title: "Talisman",
+    icon: Talisman,
+    connectorId: ConnectorNames.Talisman,
+    priority: 4,
+    // @ts-ignore
+    showInstall: !window?.talismanEth,
   },
 ];
 

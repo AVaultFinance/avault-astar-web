@@ -29,6 +29,9 @@ const WalletButton = styled(Button).attrs({ width: "100%", variant: "text", padd
   &.wallet-connect-subwallet {
     background-color: #46a8b4;
   }
+  &.wallet-connect-talisman {
+    background-color: #89a143;
+  }
   .smallText {
     font-size: 12px;
     font-weight: bold;
@@ -64,7 +67,8 @@ const WalletCard: React.FC<Props> = ({ login, walletConfig, onDismiss, showInsta
         // if (walletConfig.title === "Trust Wallet" && isIOS) {
         //   login(ConnectorNames.WalletConnect);
         // } else {
-        login(walletConfig.connectorId, true);
+        login(walletConfig.connectorId, true, walletConfig.installUrl);
+        // login(walletConfig.connectorId, true);
         // }
 
         localStorage.setItem(walletLocalStorageKey, walletConfig.title);

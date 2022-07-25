@@ -3,6 +3,7 @@
 interface Window {
   ethereum?: {
     isMetaMask?: true;
+    isTalisman?: false;
     networkVersion?: string;
     request?: (...args: any[]) => Promise<void>;
   };

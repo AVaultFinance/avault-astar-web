@@ -7,9 +7,10 @@ export enum ConnectorNames {
   SubWallet = "SubWallet",
   WalletConnect = "walletconnect",
   BSC = "bsc",
+  Talisman = "talismanEth",
 }
 
-export type Login = (connectorId: ConnectorNames, clickBtn: boolean) => void;
+export type Login = (connectorId: ConnectorNames, clickBtn: boolean, installUrl?: string) => void;
 
 export interface Config {
   title: string;
@@ -17,4 +18,5 @@ export interface Config {
   connectorId: ConnectorNames;
   priority: number;
   showInstall: boolean;
+  installUrl?: string;
 }
