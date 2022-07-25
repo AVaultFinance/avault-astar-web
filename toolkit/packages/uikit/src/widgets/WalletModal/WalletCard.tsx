@@ -30,7 +30,7 @@ const WalletButton = styled(Button).attrs({ width: "100%", variant: "text", padd
     background-color: #46a8b4;
   }
   &.wallet-connect-talisman {
-    background-color: #89a143;
+    background-color: #9797a3;
   }
   .smallText {
     font-size: 12px;

@@ -4766,8 +4766,7 @@ var connectors = [
         icon: Icon$13,
         connectorId: ConnectorNames.Injected,
         priority: 1,
-        // @ts-ignore
-        showInstall: !(window === null || window === void 0 ? void 0 : window.ethereum),
+        showInstall: false,
     },
     {
         title: "UnstoppableDomains",
@@ -4781,22 +4780,20 @@ var connectors = [
         icon: SubWallet,
         connectorId: ConnectorNames.SubWallet,
         priority: 3,
-        // @ts-ignore
-        showInstall: (window === null || window === void 0 ? void 0 : window.injectedWeb3) && window.injectedWeb3["subwallet-js"] ? false : true,
+        showInstall: false,
     },
     {
         title: "Talisman",
         icon: Talisman,
         connectorId: ConnectorNames.Talisman,
         priority: 4,
-        // @ts-ignore
-        showInstall: !(window === null || window === void 0 ? void 0 : window.talismanEth),
+        showInstall: false,
     },
 ];
 var connectorLocalStorageKey = "connectorIdv2";
 var walletLocalStorageKey = "wallet";
 
-var WalletButton = styled(Button).attrs({ width: "100%", variant: "text", padding: "10px 20px" })(templateObject_1$3 || (templateObject_1$3 = __makeTemplateObject(["\n  align-items: center;\n  display: flex;\n  height: auto;\n  justify-content: space-between;\n  margin-left: auto;\n  margin-right: auto;\n  background-color: #ffa14e;\n  height: 60px;\n  &.wallet-connect-unstoppabledomains {\n    background-color: #6966db;\n  }\n  &.wallet-connect-subwallet {\n    background-color: #46a8b4;\n  }\n  &.wallet-connect-talisman {\n    background-color: #89a143;\n  }\n  .smallText {\n    font-size: 12px;\n    font-weight: bold;\n    color: #490000;\n    font-style: normal;\n    padding: 0 10px;\n    border-radius: 10px;\n    border: 1px solid #490000;\n    margin-left: 10px;\n  }\n"], ["\n  align-items: center;\n  display: flex;\n  height: auto;\n  justify-content: space-between;\n  margin-left: auto;\n  margin-right: auto;\n  background-color: #ffa14e;\n  height: 60px;\n  &.wallet-connect-unstoppabledomains {\n    background-color: #6966db;\n  }\n  &.wallet-connect-subwallet {\n    background-color: #46a8b4;\n  }\n  &.wallet-connect-talisman {\n    background-color: #89a143;\n  }\n  .smallText {\n    font-size: 12px;\n    font-weight: bold;\n    color: #490000;\n    font-style: normal;\n    padding: 0 10px;\n    border-radius: 10px;\n    border: 1px solid #490000;\n    margin-left: 10px;\n  }\n"])));
+var WalletButton = styled(Button).attrs({ width: "100%", variant: "text", padding: "10px 20px" })(templateObject_1$3 || (templateObject_1$3 = __makeTemplateObject(["\n  align-items: center;\n  display: flex;\n  height: auto;\n  justify-content: space-between;\n  margin-left: auto;\n  margin-right: auto;\n  background-color: #ffa14e;\n  height: 60px;\n  &.wallet-connect-unstoppabledomains {\n    background-color: #6966db;\n  }\n  &.wallet-connect-subwallet {\n    background-color: #46a8b4;\n  }\n  &.wallet-connect-talisman {\n    background-color: #9797a3;\n  }\n  .smallText {\n    font-size: 12px;\n    font-weight: bold;\n    color: #490000;\n    font-style: normal;\n    padding: 0 10px;\n    border-radius: 10px;\n    border: 1px solid #490000;\n    margin-left: 10px;\n  }\n"], ["\n  align-items: center;\n  display: flex;\n  height: auto;\n  justify-content: space-between;\n  margin-left: auto;\n  margin-right: auto;\n  background-color: #ffa14e;\n  height: 60px;\n  &.wallet-connect-unstoppabledomains {\n    background-color: #6966db;\n  }\n  &.wallet-connect-subwallet {\n    background-color: #46a8b4;\n  }\n  &.wallet-connect-talisman {\n    background-color: #9797a3;\n  }\n  .smallText {\n    font-size: 12px;\n    font-weight: bold;\n    color: #490000;\n    font-style: normal;\n    padding: 0 10px;\n    border-radius: 10px;\n    border: 1px solid #490000;\n    margin-left: 10px;\n  }\n"])));
 var WalletCard = function (_a) {
     var login = _a.login, walletConfig = _a.walletConfig, onDismiss = _a.onDismiss, showInstall = _a.showInstall;
     var title = walletConfig.title, Icon = walletConfig.icon;
@@ -4850,9 +4847,8 @@ var ConnectModal = function (_a) {
     var _d = useState(false), showMore = _d[0]; _d[1];
     useTheme();
     var sortedConfig = getPreferredConfig(connectors);
-    var _e = useMatchBreakpoints(), isMd = _e.isMd, isSm = _e.isSm, isXs = _e.isXs;
-    var isMobile = isMd || isSm || isXs;
-    var displayListConfig = showMore ? sortedConfig : sortedConfig.slice(0, isMobile ? 1 : displayCount);
+    var _e = useMatchBreakpoints(); _e.isMd; _e.isSm; _e.isXs;
+    var displayListConfig = showMore ? sortedConfig : sortedConfig.slice(0, displayCount);
     return (React.createElement(ModalContainer, { minWidth: "340px" },
         React.createElement(ModalHeaderStyled, null,
             React.createElement(ModalTitle, null,

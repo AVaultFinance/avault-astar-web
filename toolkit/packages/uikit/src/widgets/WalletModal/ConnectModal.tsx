@@ -55,7 +55,7 @@ const ConnectModal: React.FC<Props> = ({ login, onDismiss = () => null, displayC
   const sortedConfig = getPreferredConfig(config);
   const { isMd, isSm, isXs } = useMatchBreakpoints();
   const isMobile = isMd || isSm || isXs;
-  const displayListConfig = showMore ? sortedConfig : sortedConfig.slice(0, isMobile ? 1 : displayCount);
+  const displayListConfig = showMore ? sortedConfig : sortedConfig.slice(0, displayCount);
   return (
     <ModalContainer minWidth="340px">
       <ModalHeaderStyled>

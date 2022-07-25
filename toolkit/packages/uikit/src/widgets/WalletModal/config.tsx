@@ -17,8 +17,7 @@ const connectors: Config[] = [
     icon: Metamask,
     connectorId: ConnectorNames.Injected,
     priority: 1,
-    // @ts-ignore
-    showInstall: !window?.ethereum,
+    showInstall: false,
   },
   {
     title: "UnstoppableDomains",
@@ -32,16 +31,14 @@ const connectors: Config[] = [
     icon: SubWallet,
     connectorId: ConnectorNames.SubWallet,
     priority: 3,
-    // @ts-ignore
-    showInstall: window?.injectedWeb3 && window.injectedWeb3["subwallet-js"] ? false : true,
+    showInstall: false,
   },
   {
     title: "Talisman",
     icon: Talisman,
     connectorId: ConnectorNames.Talisman,
     priority: 4,
-    // @ts-ignore
-    showInstall: !window?.talismanEth,
+    showInstall: false,
   },
 ];
 
