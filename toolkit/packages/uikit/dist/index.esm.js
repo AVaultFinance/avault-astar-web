@@ -4762,6 +4762,13 @@ var ConnectorNames;
 
 var connectors = [
     {
+        title: "Talisman",
+        icon: Talisman,
+        connectorId: ConnectorNames.Talisman,
+        priority: 4,
+        showInstall: false,
+    },
+    {
         title: "Metamask",
         icon: Icon$13,
         connectorId: ConnectorNames.Injected,
@@ -4780,13 +4787,6 @@ var connectors = [
         icon: SubWallet,
         connectorId: ConnectorNames.SubWallet,
         priority: 3,
-        showInstall: false,
-    },
-    {
-        title: "Talisman",
-        icon: Talisman,
-        connectorId: ConnectorNames.Talisman,
-        priority: 4,
         showInstall: false,
     },
 ];
