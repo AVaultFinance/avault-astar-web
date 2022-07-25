@@ -38,6 +38,7 @@
     "@polkadot/extension-dapp": "0.40.3",
     "@polkadot/types": "6.0.5",
     "@reduxjs/toolkit": "^1.5.0",
+    "@talismn/web3react-v6-connector": "^6.0.1",
     "@types/multicodec": "^1.0.0",
     "@types/node": "^13.13.5",
     "@types/qs": "^6.9.6",

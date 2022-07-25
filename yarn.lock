@@ -1937,6 +1937,23 @@
   resolved "https://registry.npmjs.org/@multiformats/base-x/-/base-x-4.0.1.tgz"
   integrity sha512-eMk0b9ReBbV23xXU693TAIrLyeO5iTgBZGSJfpqriG8UkYvr/hC9u9pyMlAakDNHWmbhMZCDs6KQO0jzKD8OTw==
 
+"@my/sdk@./toolkit/packages/swap-sdk":
+  version "0.0.2"
+  dependencies:
+    big.js "^5.2.2"
+    decimal.js-light "^2.5.0"
+    jsbi "^3.1.1"
+    tiny-invariant "^1.1.0"
+    tiny-warning "^1.0.3"
+    toformat "^2.0.0"
+
+"@my/ui@./toolkit/packages/uikit":
+  version "0.0.2"
+  dependencies:
+    "@popperjs/core" "^2.9.2"
+    "@types/lodash" "^4.14.168"
+    react-popper "^2.2.5"
+
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
   resolved "https://registry.npmjs.org/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz"
@@ -2796,6 +2813,14 @@
     "@svgr/plugin-jsx" "^5.5.0"
     "@svgr/plugin-svgo" "^5.5.0"
     loader-utils "^2.0.0"
+
+"@talismn/web3react-v6-connector@^6.0.1":
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/@talismn/web3react-v6-connector/-/web3react-v6-connector-6.0.1.tgz#a01bea66cd653f47dd6c400a508d84b3aa388a6b"
+  integrity sha512-vcrpdjhNPYyC6XDGvZh5cXgYm34DbeA5VH7Kj14puxRAqxVzTGKUXBdAgG/2j3aBYKHmMm98qhmP5fgcrJO/ng==
+  dependencies:
+    "@web3-react/abstract-connector" "^6.0.7"
+    "@web3-react/types" "^6.0.7"
 
 "@tootallnate/once@1":
   version "1.1.2"

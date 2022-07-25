@@ -6,13 +6,15 @@ export enum ConnectorNames {
   UAuthMoralis = "UAuthMoralis",
   WalletConnect = "walletconnect",
   BSC = "bsc",
+  Talisman = "talismanEth",
 }
 
-export type Login = (connectorId: ConnectorNames) => void;
+export type Login = (connectorId: ConnectorNames, installUrl?: string) => void;
 
 export interface Config {
   title: string;
   icon: FC<SvgProps>;
   connectorId: ConnectorNames;
   priority: number;
+  installUrl?: string;
 }
