@@ -10,6 +10,7 @@ import { fetchMasterChefABI } from './fetchMasterChefAddress';
 import { fetchFarmDataABICalc } from './fetchFarmAddress';
 import { BIG_TEN, BIG_ZERO } from 'utils/bigNumber';
 import { isNaNString } from 'views/Vault/utils';
+import { fetchApy, INetValueKeyItemItem, nowDate } from './fetchApy';
 
 const fetchVaultsV2 = async (
   currentBlock: number,
@@ -53,19 +54,23 @@ const fetchVaultsV2 = async (
   } = await fetchFarmDataABICalc(vaultsData, priceVsBusdMap);
   // calc amount cant stable
   let _total = BIG_ZERO;
+  const apyArr = await fetchApy();
+  const time = nowDate();
   for (let i = 0; i < vaultsData.length; i++) {
     const item = vaultsData[i];
+    const _apyItem: INetValueKeyItemItem = apyArr[item.contractAddress[chainId].toLowerCase()][time];
+
     const priceAddress =
       item.fromSource === IFarmProject.arthswap ? tokens[chainKey].arsw.address[chainId].toLowerCase() : '';
-    const { kacRewardsApr, kacRewardApy } = getFarmApr(
-      new BigNumber(perBlock[i]),
-      new BigNumber(poolWeight[i]),
-      new BigNumber(priceVsBusdMap[priceAddress] ?? '1'),
-      new BigNumber(liquidity[i]),
-      item.lpDetail.address[chainId],
-    );
-    const feeApr: number = vault_fee_apr[`${item.lpDetail.symbol}`];
-    const feeApy = aprToApy(feeApr);
+    // const { kacRewardsApr, kacRewardApy } = getFarmApr(
+    //   new BigNumber(perBlock[i]),
+    //   new BigNumber(poolWeight[i]),
+    //   new BigNumber(priceVsBusdMap[priceAddress] ?? '1'),
+    //   new BigNumber(liquidity[i]),
+    //   item.lpDetail.address[chainId],
+    // );
+    // const feeApr: number = vault_fee_apr[`${item.lpDetail.symbol}`];
+    // const feeApy = aprToApy(feeApr);
     const _liquidity = new BigNumber(wantLockedTotal[i])
       .div(BIG_TEN.pow(new BigNumber(item.vault.decimals)))
       .times(Number(lpTokenPrice[i]))
@@ -90,12 +95,12 @@ const fetchVaultsV2 = async (
         ...item.farm,
         poolWeight: poolWeight[i],
         multiplier: multiplier[i],
-        apr: `${(kacRewardsApr + feeApr).toFixed(2)}`,
-        apy: `${(kacRewardApy + feeApy).toFixed(2)}`,
-        farmApr: `${kacRewardsApr.toFixed(2)}`,
-        farmApy: `${kacRewardApy.toFixed(2)}`,
-        feeApr: `${feeApr}`,
-        feeApy: `${feeApy.toFixed(2)}`,
+        apr: _apyItem.apr,
+        apy: _apyItem.apy,
+        farmApr: _apyItem.apr,
+        farmApy: _apyItem.apy,
+        feeApr: _apyItem.aprFee,
+        feeApy: _apyItem.apyFee,
         tokenAmountMc: tokenAmountMc[i],
         tokenAmountTotal: tokenAmountTotal[i],
         quoteTokenAmountMc: quoteTokenAmountMc[i],
