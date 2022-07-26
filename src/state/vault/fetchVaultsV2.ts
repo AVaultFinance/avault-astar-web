@@ -1,11 +1,7 @@
-import { IFarmProject, IVault, IVaultConfigItem } from './types';
+import { IVault, IVaultConfigItem } from './types';
 import BigNumber from 'bignumber.js';
-import tokens, { chainId } from 'config/constants/tokens';
+import { chainId } from 'config/constants/tokens';
 import { fetchVaultABIAmount } from './fetchVaultAddress';
-import vault_fee_apr from './vault_fee_apr.json';
-import { chainKey } from 'config';
-import { getFarmApr } from 'utils/apr';
-import { aprToApy } from 'apr-tools';
 import { fetchMasterChefABI } from './fetchMasterChefAddress';
 import { fetchFarmDataABICalc } from './fetchFarmAddress';
 import { BIG_TEN, BIG_ZERO } from 'utils/bigNumber';
@@ -38,7 +34,7 @@ const fetchVaultsV2 = async (
   const { wantLockedTotal, vaultTotalSupply } = await fetchVaultABIAmount(vaultsData);
   // ----------------AVVATADDRESS  end----------
   // -------------MASTRETADDRESS--------
-  const { poolWeight, multiplier, perBlock } = await fetchMasterChefABI(currentBlock, vaultsData);
+  const { poolWeight, multiplier } = await fetchMasterChefABI(currentBlock, vaultsData);
   //-----------------Farm----------
   // const { lpAddressDecimals, tokenDecimals, quoteTokenDecimals, lpSymbol } = await fetchFarmDataABIBase(vaultsData);
   const {
@@ -60,8 +56,8 @@ const fetchVaultsV2 = async (
     const item = vaultsData[i];
     const _apyItem: INetValueKeyItemItem = apyArr[item.contractAddress[chainId].toLowerCase()][time];
 
-    const priceAddress =
-      item.fromSource === IFarmProject.arthswap ? tokens[chainKey].arsw.address[chainId].toLowerCase() : '';
+    // const priceAddress =
+    //   item.fromSource === IFarmProject.arthswap ? tokens[chainKey].arsw.address[chainId].toLowerCase() : '';
     // const { kacRewardsApr, kacRewardApy } = getFarmApr(
     //   new BigNumber(perBlock[i]),
     //   new BigNumber(poolWeight[i]),
@@ -80,6 +76,7 @@ const fetchVaultsV2 = async (
       wantLockedTotal[i] && vaultTotalSupply[i] && wantLockedTotal[i] > 0 && vaultTotalSupply[i] > 0
         ? (Number(wantLockedTotal[i]) / Number(vaultTotalSupply[i])).toFixed(18)
         : '1';
+    console.log(_apyItem.apr);
     obj[i] = {
       ...item,
       vault: {

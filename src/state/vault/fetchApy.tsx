@@ -12,7 +12,6 @@ export const fetchApy = async () => {
 export const nowDate = () => {
   const dateNow = new Date().valueOf();
   const date = new Date(dateNow);
-  const currentSeconds = Math.floor(dateNow / 1000);
   const year = date.getUTCFullYear();
   const month = date.getUTCMonth();
   const day = date.getUTCDate();
