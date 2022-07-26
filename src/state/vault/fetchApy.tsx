@@ -2,11 +2,15 @@ import { chainId } from 'config/constants/tokens';
 import vaultsConfig from './vaultsConfig';
 
 export const fetchApy = async () => {
-  const contractStr = vaultsConfig.map((v) => v.contractAddress[chainId].toLowerCase()).join(',');
-  const apiUrl = `https://www.avault.network/api/v0/update/netValue?contract=${contractStr}`;
-  const r = await fetch(apiUrl);
-  const body = await r.json();
-  return body;
+  try {
+    const contractStr = vaultsConfig.map((v) => v.contractAddress[chainId].toLowerCase()).join(',');
+    const apiUrl = `https://www.avault.network/api/v0/update/netValue?contract=${contractStr}`;
+    const r = await fetch(apiUrl);
+    const body = await r.json();
+    return body.data;
+  } catch (e: any) {
+    return {};
+  }
 };
 
 export const nowDate = () => {
