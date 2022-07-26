@@ -76,7 +76,6 @@ const fetchVaultsV2 = async (
       wantLockedTotal[i] && vaultTotalSupply[i] && wantLockedTotal[i] > 0 && vaultTotalSupply[i] > 0
         ? (Number(wantLockedTotal[i]) / Number(vaultTotalSupply[i])).toFixed(18)
         : '1';
-    console.log(_apyItem.apr);
     obj[i] = {
       ...item,
       vault: {
@@ -92,8 +91,8 @@ const fetchVaultsV2 = async (
         ...item.farm,
         poolWeight: poolWeight[i],
         multiplier: multiplier[i],
-        apr: _apyItem.apr,
-        apy: _apyItem.apy,
+        apr: (Number(_apyItem.apr) + Number(_apyItem.aprFee)).toFixed(2),
+        apy: (Number(_apyItem.apy) + Number(_apyItem.apyFee)).toFixed(2),
         farmApr: _apyItem.apr,
         farmApy: _apyItem.apy,
         feeApr: _apyItem.aprFee,
