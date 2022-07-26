@@ -4762,13 +4762,6 @@ var ConnectorNames;
 
 var connectors = [
     {
-        title: "Talisman",
-        icon: Talisman,
-        connectorId: ConnectorNames.Talisman,
-        priority: 4,
-        showInstall: false,
-    },
-    {
         title: "Metamask",
         icon: Icon$13,
         connectorId: ConnectorNames.Injected,
@@ -4787,6 +4780,13 @@ var connectors = [
         icon: SubWallet,
         connectorId: ConnectorNames.SubWallet,
         priority: 3,
+        showInstall: false,
+    },
+    {
+        title: "Talisman",
+        icon: Talisman,
+        connectorId: ConnectorNames.Talisman,
+        priority: 4,
         showInstall: false,
     },
 ];
@@ -4843,7 +4843,7 @@ var getPreferredConfig = function (walletConfig) {
     ], sortedConfig.filter(function (sortedWalletConfig) { return sortedWalletConfig.title !== preferredWalletName; }));
 };
 var ConnectModal = function (_a) {
-    var login = _a.login, _b = _a.onDismiss, onDismiss = _b === void 0 ? function () { return null; } : _b, _c = _a.displayCount, displayCount = _c === void 0 ? 4 : _c;
+    var login = _a.login, _b = _a.onDismiss, onDismiss = _b === void 0 ? function () { return null; } : _b, _c = _a.displayCount, displayCount = _c === void 0 ? 3 : _c;
     var _d = useState(false), showMore = _d[0]; _d[1];
     useTheme();
     var sortedConfig = getPreferredConfig(connectors);

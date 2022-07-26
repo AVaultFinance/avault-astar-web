@@ -13,13 +13,6 @@ import { Config, ConnectorNames } from "./types";
 
 const connectors: Config[] = [
   {
-    title: "Talisman",
-    icon: Talisman,
-    connectorId: ConnectorNames.Talisman,
-    priority: 4,
-    showInstall: false,
-  },
-  {
     title: "Metamask",
     icon: Metamask,
     connectorId: ConnectorNames.Injected,
@@ -38,6 +31,13 @@ const connectors: Config[] = [
     icon: SubWallet,
     connectorId: ConnectorNames.SubWallet,
     priority: 3,
+    showInstall: false,
+  },
+  {
+    title: "Talisman",
+    icon: Talisman,
+    connectorId: ConnectorNames.Talisman,
+    priority: 4,
     showInstall: false,
   },
 ];
