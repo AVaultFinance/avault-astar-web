@@ -4,7 +4,7 @@ import vaultsConfig from './vaultsConfig';
 export const fetchApy = async () => {
   try {
     const contractStr = vaultsConfig.map((v) => v.contractAddress[chainId].toLowerCase()).join(',');
-    const apiUrl = `https://www.avault.network/api/v0/update/netValue?contract=${contractStr}`;
+    const apiUrl = `https://www.avault.network/api/v0/update/netValue?data=6&&contract=${contractStr}`;
     const r = await fetch(apiUrl);
     const body = await r.json();
     return body.data;
