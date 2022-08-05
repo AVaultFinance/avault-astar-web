@@ -18,7 +18,7 @@ import useAuth from 'hooks/useAuth';
 import { chainId } from 'config/constants/tokens';
 import { getDisplayApy } from 'views/Farms/Farms';
 import { InfoContainer } from 'style/TableStyled';
-import { showDecimals } from 'views/Vault/utils';
+import { showDecimals, showDecimalsWithType } from 'views/Vault/utils';
 import AddLiquidityModal from '../modal/AddLiquidityModal';
 import RemoveLiquidityModal from '../modal/RemoveLiquidityModal';
 import { getBscScanLink } from 'utils';
@@ -168,7 +168,8 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
   const isMobile = !(isXl || isLg);
   const { t } = useTranslation();
   const { account, library } = useWeb3React();
-  const { avaultAddressBalance, allowance } = useVaultFarmUser(account, vault?.farm?.pid ?? 0);
+  const { avaultAddressBalance, allowance } = useVaultFarmUser(account, vault.contractAddress[chainId]);
+
   const isApproved = account && allowance && allowance.isGreaterThan(0);
   // allowance handling
   const [signatureData, setSignatureData] = useState<{ v: number; r: string; s: string; deadline: number } | null>(
@@ -200,6 +201,8 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
     // _wantLockedTotal： 284598115334499
     // console.log('earnings: ', _wantLockedTotal.toString(), _totalSupply.toString(), avaultAddressBalance.toString());
     if (avaultAddressBalance.toNumber() > 0 && _totalSupply.toNumber() > 0) {
+      // const scale = vault.type === 0 ? 1 : vault.vault?.scale ?? '1';
+      // console.log({scale})
       earnings = _wantLockedTotal.dividedBy(_totalSupply).times(avaultAddressBalance);
       // console.log('earnings: ', earnings);
       // earnings = getBalanceAmount(_value, vault.farm.lpAddressDecimals);
@@ -362,7 +365,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
           <em>
             <i>
               {getBalanceNumber(new BigNumber(_userData.avaultAddressBalance)).toLocaleString('en-US', {
-                maximumFractionDigits: showDecimals(vault.lpDetail.symbol),
+                maximumFractionDigits: showDecimalsWithType(vault.lpDetail.symbol, vault.type),
               })}{' '}
               {vault?.vault.symbol}
             </i>
@@ -370,7 +373,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
               {getFullLocalDisplayBalance(
                 new BigNumber(_userData.stakingTokenBalance),
                 vault.farm.lpAddressDecimals,
-                showDecimals(vault.lpDetail.symbol),
+                showDecimalsWithType(vault.lpDetail.symbol, vault.type),
               )}{' '}
               {vault.lpDetail.symbol}
             </i>

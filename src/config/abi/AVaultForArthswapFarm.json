@@ -50,6 +50,11 @@
         "internalType": "string",
         "name": "_tokenSymbol",
         "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_scale",
+        "type": "uint256"
       }
     ],
     "stateMutability": "nonpayable",
@@ -795,6 +800,19 @@
     "name": "renounceOwnership",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "scale",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {

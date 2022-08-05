@@ -57,3 +57,10 @@ export const showDecimals = (lpSymbol: string): number => {
     return 6;
   }
 };
+export const showDecimalsWithType = (lpSymbol: string, type: number): number => {
+  if (type) {
+    return 2;
+  } else {
+    return showDecimals(lpSymbol);
+  }
+};

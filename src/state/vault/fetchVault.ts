@@ -44,6 +44,7 @@ const fetch = async (
     earnedAddress,
     AVAAddress,
     wantLockedTotal,
+    scale,
     vaultTotalSupply,
     vaultDecimals,
   } = await fetchVaultABI(AVaultPCSAddress);
@@ -69,7 +70,7 @@ const fetch = async (
   // console.log(vault.lpDetail.symbol, lpAddresses, lpAddressDecimals);
   const lpToCLpRate =
     wantLockedTotal && vaultTotalSupply && wantLockedTotal > 0 && vaultTotalSupply > 0
-      ? (Number(wantLockedTotal) / Number(vaultTotalSupply)).toFixed(18)
+      ? ((Number(wantLockedTotal) * Number(scale)) / Number(vaultTotalSupply)).toFixed(18)
       : '1';
 
   // const currentSeconds = Math.floor(Date.now() / 1000);
@@ -122,6 +123,7 @@ const fetch = async (
       wantAddress: wantAddress,
       earnedAddress: earnedAddress,
       wantLockedTotal: wantLockedTotal,
+      scale: scale,
       totalSupply: vaultTotalSupply,
       AVAAddress: AVAAddress,
       decimals: vaultDecimals,
@@ -224,6 +226,10 @@ const fetchVaultABI = async (AVaultPCSAddress: string) => {
       address: AVaultPCSAddress,
       name: 'decimals',
     },
+    {
+      address: AVaultPCSAddress,
+      name: 'scale',
+    },
   ];
   const [
     _masterChef,
@@ -238,6 +244,7 @@ const fetchVaultABI = async (AVaultPCSAddress: string) => {
     _wantLockedTotal,
     _vaultTotalSupply,
     _vaultDecimals,
+    _scale,
   ] = await multicall(AVaultPCS, calls);
   return {
     masterChef: _masterChef ? _masterChef[0] : null,
@@ -252,6 +259,7 @@ const fetchVaultABI = async (AVaultPCSAddress: string) => {
     wantLockedTotal: _wantLockedTotal ? _wantLockedTotal[0].toString() : null,
     vaultTotalSupply: _vaultTotalSupply ? _vaultTotalSupply[0].toString() : null,
     vaultDecimals: _vaultDecimals ? _vaultDecimals[0].toString() : null,
+    scale: _scale ? _scale[0].toString() : null,
   };
 };
 const fetchMasterChefABI = async (currentBlock: number, masterChefAddress: string, pid: number, vaultData: IVault) => {

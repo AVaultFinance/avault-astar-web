@@ -69,6 +69,7 @@ export const fetchVaultFarmUserDataAsync = createAsyncThunk<
   const [userVaultUsers, userVaultSupply, vaultWantLockedTotal] = await fetchVaultsUsers(account, vaults, index);
   return userVaultsFarmAllowances.map((farmAllowance, _index) => {
     return {
+      vaultAccount: vaults[_index].contractAddress[chainId],
       index: index,
       account: account,
       pid: vaults[_index].farm.pid,
@@ -129,17 +130,23 @@ export const vaultSlice = createSlice({
     });
     builder.addCase(fetchVaultFarmUserDataAsync.fulfilled, (state, action) => {
       action.payload.forEach((userDataEl) => {
-        const { pid, index: _index, account } = userDataEl;
-        const index = haveNumber(_index) ? _index : state.data.findIndex((vault: IVault) => vault.farm.pid === pid);
+        const { vaultAccount, index: _index, account } = userDataEl;
+        const index = haveNumber(_index)
+          ? _index
+          : state.data.findIndex(
+              (vault: IVault) => vault.contractAddress[chainId].toLowerCase() === vaultAccount.toLowerCase(),
+            );
         const vaultWantLockedTotal = userDataEl.vaultWantLockedTotal
           ? userDataEl.vaultWantLockedTotal
           : state.data[index]?.vault?.wantLockedTotal;
+
+        const scale = state.data[index]?.vault?.scale ?? '1';
         const userVaultSupply = userDataEl.userVaultSupply
           ? userDataEl.userVaultSupply
           : state.data[index]?.vault?.totalSupply;
         const lpToCLpRate =
           vaultWantLockedTotal && userVaultSupply && Number(vaultWantLockedTotal) > 0 && Number(userVaultSupply) > 0
-            ? (Number(vaultWantLockedTotal) / Number(userVaultSupply)).toFixed(18)
+            ? ((Number(vaultWantLockedTotal) * Number(scale)) / Number(userVaultSupply)).toFixed(18)
             : '1';
         // const currentSeconds = Math.floor(Date.now() / 1000);
         // 86400s/day

@@ -64,12 +64,12 @@ const avaultMenuItems: IMenu[] = [
     text: 'Zap',
     link: '/zap',
   },
-  {
-    text: 'aLP/aToken',
-    collapsed: true,
-    link: '#',
-    children: ALPPathConfig,
-  },
+  // {
+  //   text: 'aLP/aToken',
+  //   collapsed: true,
+  //   link: '#',
+  //   children: ALPPathConfig,
+  // },
   // {
   //   text: 'NFT',
   //   link: '/zap',

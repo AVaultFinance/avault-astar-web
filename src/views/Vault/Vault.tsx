@@ -13,15 +13,11 @@ import { OptionProps } from 'components/Select/Select';
 import { ISortDir } from 'components/SortIcon';
 import { RowProps } from './components/VaultTable/Row';
 import { useVault, useVaultUserData } from 'state/vault/hooks';
-import { IVault } from 'state/vault/types';
+import { IVault, VaultType } from 'state/vault/types';
 import { usePrice } from 'state/price/hooks';
 import PageLoader from 'components/Loader/PageLoader';
 import { chainId } from 'config/constants/tokens';
-// const StyledImage = styled(Image)`
-//   margin-left: auto;
-//   margin-right: auto;
-//   margin-top: 58px;
-// `;
+import styled from 'styled-components';
 
 export const getDisplayApy = (cakeRewardsApy?: number): string => {
   if (cakeRewardsApy) {
@@ -42,13 +38,16 @@ const Vaults: React.FC = () => {
   const [sortKey, setSortKey] = useState('hot');
   const [sortDir, setSortDir] = useState(ISortDir.default);
   const chosenFarmsLength = useRef(0);
-
+  const [type, setType] = useState(0);
   const { priceVsBusdMap } = usePrice();
   const { data: vaults } = useVault();
   const userDataReady = !account || (!!account && userDataLoaded);
   useVaultUserData(vaults);
   // Users with no wallet connected should see 0 as Earned amount
   // Connected users should see loading indicator until first userData has loaded
+  const changeType = useCallback((_type: number) => {
+    setType(_type);
+  }, []);
   const vaultsList = useCallback(
     (vaultsToDisplay: IVault[]): IVault[] => {
       const vaultsToDisplayWithAPR: IVault[] = vaultsToDisplay.map((vault) => {
@@ -82,10 +81,12 @@ const Vaults: React.FC = () => {
           },
         };
       });
-
+      if (type) {
+        return vaultsToDisplayWithAPR.filter((v) => v.type === type);
+      }
       return vaultsToDisplayWithAPR;
     },
-    [priceVsBusdMap],
+    [priceVsBusdMap, type],
   );
 
   const chosenFarmsMemoized = useMemo(() => {
@@ -224,11 +225,57 @@ const Vaults: React.FC = () => {
   return (
     <Page>
       <VaultBanner />
+      <TypeList>
+        {VaultType.map((v: string, index: number) => (
+          <li key={v} onClick={() => changeType(index)} className={type === index ? 'on' : ''}>
+            {v}
+          </li>
+        ))}
+      </TypeList>
       {renderContent()}
       {/* <PageLoader /> */}
       {!rowData.length ? <PageLoader /> : null}
     </Page>
   );
 };
-
+const TypeList = styled.ul`
+  padding-top: 16px;
+  ${({ theme }) => theme.mediaQueries.md} {
+    padding-top: 36px;
+  }
+  li {
+    background-color: #181733;
+    border: 1px solid #2e2d5b;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    font-weight: 500;
+    height: 38px;
+    line-height: 38px;
+    padding: 0 28px;
+    margin-right: 20px;
+    display: inline-block;
+    vertical-align: middle;
+    cursor: pointer;
+    ${({ theme }) => theme.mediaQueries.md} {
+      font-size: 18px;
+      height: 48px;
+      line-height: 48px;
+    }
+    &.on {
+      background-color: #1476ff;
+      border: 1px solid #1476ff;
+      &:hover {
+        color: #fff;
+        background-color: #1476ff;
+        border: 1px solid #1476ff;
+      }
+    }
+    &:hover {
+      background-color: #181733;
+      color: #1476ff;
+      border: 1px solid #1476ff;
+    }
+  }
+`;
 export default Vaults;

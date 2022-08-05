@@ -92,7 +92,7 @@ const NavWrap = styled(Flex)`
     color: ${({ theme }) => theme.colors.text};
     svg {
       fill: ${({ theme }) => theme.colors.text};
-      transform: rotateZ(180deg);
+      // transform: rotateZ(180deg);
     }
   }
 `;
@@ -129,7 +129,7 @@ const NavLinkA = styled.a`
     color: ${({ theme }) => theme.colors.text};
     svg {
       fill: ${({ theme }) => theme.colors.text};
-      transform: rotateZ(180deg);
+      // transform: rotateZ(180deg);
       path {
         stroke: #fff;
       }
