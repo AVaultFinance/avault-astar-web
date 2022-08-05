@@ -12,11 +12,11 @@ import useTransactionDeadline from 'hooks/useTransactionDeadline';
 import { Field } from 'state/mint/actions';
 import { useDerivedMintInfo, useMintActionHandlers, useMintState } from 'state/mint/hooks';
 import { useUserSlippageTolerance } from 'state/user/hooks';
-import { calculateGasMargin, calculateSlippageAmount, getRouterContract } from 'utils';
+import { calculateSlippageAmount, getRouterContract } from 'utils';
 import { maxAmountSpend } from 'utils/maxAmountSpend';
 import { wrappedCurrency } from 'utils/wrappedCurrency';
 import JSBI from 'jsbi';
-import { chainKey, DEFAULT_GAS_PRICE } from 'config';
+import { chainKey } from 'config';
 import tokens, { chainId } from 'config/constants/tokens';
 import { IVault, IVaultConfigItem } from 'state/vault/types';
 import styled from 'styled-components';
@@ -168,8 +168,6 @@ const AddLiquidityModal: React.FC<AddLiquidityModalProps> = ({ vault, account, o
       .then((estimatedGasLimit) =>
         method(...args, {
           ...(value ? { value } : {}),
-          gasLimit: calculateGasMargin(estimatedGasLimit),
-          gasPrice: DEFAULT_GAS_PRICE,
         }).then(async (response) => {
           const { hash } = response;
           if (hash) {

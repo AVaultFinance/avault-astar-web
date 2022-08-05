@@ -179,8 +179,6 @@ export function useSwapCallback(
 
         return contract[methodName](...args, {
           ...(value && !isZero(value) ? { value, from: account } : { from: account }),
-          // gasLimit: calculateGasMargin(gasEstimate),
-          // gasPrice: DEFAULT_GAS_PRICE,
         })
           .then((response: any) => {
             const inputSymbol = trade.inputAmount.currency.symbol;
