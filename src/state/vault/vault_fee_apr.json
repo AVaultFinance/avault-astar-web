@@ -20,5 +20,9 @@
   "WETH-WASTR LP": 4,
   "DAI-USDC LP": 0,
   "BUSD-USDC LP": 0,
-  "USDT-USDC LP": 0
+  "USDT-USDC LP": 0,
+  "ARSW-USDC LP": 1,
+  "ARSW-USDT LP": 2,
+  "ARSW-BAI LP": 1,
+  "ACA-ASTR LP": 16
 }

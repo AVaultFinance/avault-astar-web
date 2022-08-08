@@ -1,175 +1,345 @@
 import { ChainId } from '@my/sdk';
 import { IFarmProject, IABIType, IVaultConfigItem } from 'state/vault/types';
 const vaultsConfig: IVaultConfigItem[] = [
+  // add
+  // aArswUsdc
+  {
+    type: 2,
+    contractAddress: {
+      [ChainId.ASTR_MAINNET]: '0x58AD25Aa6B14c3Fd5921EA5BB731C3b2ADE0a099',
+      [ChainId.ASTR_TESTNET]: '0x58AD25Aa6B14c3Fd5921EA5BB731C3b2ADE0a099',
+    },
+    fromSource: IFarmProject.arthswap,
+    abiType: IABIType.AVaultForArthswapFarm,
+    swapLink: 'https://app.arthswap.org/#/add/',
+    online_at: 1656525599,
+    lpDetail: {
+      symbol: 'ARSW-USDC LP',
+      address: {
+        [ChainId.ASTR_MAINNET]: '0xBD13Fd873d36f7D2A349b35E6854E3183ede18ab',
+        [ChainId.ASTR_TESTNET]: '0xBD13Fd873d36f7D2A349b35E6854E3183ede18ab',
+      },
+      decimals: 18,
+    },
+    vault: {
+      fromSource: IFarmProject.arthswap,
+      symbol: 'aArswUsdc',
+      name: 'avault Arthswap ARSW-USDC LP',
+      masterChef: '0xc5b016c5597D298Fe9eD22922CE290A048aA5B75',
+      token0Address: '0xDe2578Edec4669BA7F41c5d5D2386300bcEA4678',
+      token1Address: '0x6a2d262D56735DbA19Dd70682B39F6bE9a931D98',
+      wantAddress: '0xBD13Fd873d36f7D2A349b35E6854E3183ede18ab',
+      earnedAddress: '0xDe2578Edec4669BA7F41c5d5D2386300bcEA4678',
+      AVAAddress: '0x03065E84748a9e4a1AEbef15AC89da1Cdf18B202',
+      decimals: 18,
+    },
+    farm: {
+      pid: 22,
+      lpSymbol: 'ARSW-LP',
+      lpAddresses: '0xBD13Fd873d36f7D2A349b35E6854E3183ede18ab',
+      tokenDecimals: 18,
+      token: '0xDe2578Edec4669BA7F41c5d5D2386300bcEA4678',
+      quoteTokenDecimals: 6,
+      quoteToken: '0x6a2d262D56735DbA19Dd70682B39F6bE9a931D98',
+      lpAddressDecimals: 18,
+    },
+  },
+  // aArswUsdt
+  {
+    type: 2,
+    contractAddress: {
+      [ChainId.ASTR_MAINNET]: '0x46C3773Bd40bA20Bd77c3B246783CE941f3dB574',
+      [ChainId.ASTR_TESTNET]: '0x46C3773Bd40bA20Bd77c3B246783CE941f3dB574',
+    },
+    fromSource: IFarmProject.arthswap,
+    abiType: IABIType.AVaultForArthswapFarm,
+    swapLink: 'https://app.arthswap.org/#/add/',
+    online_at: 1656525599,
+    lpDetail: {
+      symbol: 'ARSW-USDT LP',
+      address: {
+        [ChainId.ASTR_MAINNET]: '0x7843ecd6F3234D72D0b7034DD9894b77c416c6EF',
+        [ChainId.ASTR_TESTNET]: '0x7843ecd6F3234D72D0b7034DD9894b77c416c6EF',
+      },
+      decimals: 18,
+    },
+    vault: {
+      fromSource: IFarmProject.arthswap,
+      symbol: 'aArswUsdt',
+      name: 'avault Arthswap ARSW-USDT LP',
+      masterChef: '0xc5b016c5597D298Fe9eD22922CE290A048aA5B75',
+      token0Address: '0xDe2578Edec4669BA7F41c5d5D2386300bcEA4678',
+      token1Address: '0x3795C36e7D12A8c252A20C5a7B455f7c57b60283',
+      wantAddress: '0x7843ecd6F3234D72D0b7034DD9894b77c416c6EF',
+      earnedAddress: '0xDe2578Edec4669BA7F41c5d5D2386300bcEA4678',
+      AVAAddress: '0x03065E84748a9e4a1AEbef15AC89da1Cdf18B202',
+      decimals: 18,
+    },
+    farm: {
+      pid: 23,
+      lpSymbol: 'ARSW-LP',
+      lpAddresses: '0x7843ecd6F3234D72D0b7034DD9894b77c416c6EF',
+      tokenDecimals: 18,
+      token: '0xDe2578Edec4669BA7F41c5d5D2386300bcEA4678',
+      quoteTokenDecimals: 6,
+      quoteToken: '0x3795C36e7D12A8c252A20C5a7B455f7c57b60283',
+      lpAddressDecimals: 18,
+    },
+  },
+  // aArswUsdt
+  {
+    type: 2,
+    contractAddress: {
+      [ChainId.ASTR_MAINNET]: '0xc365A369EA3eDC896Ba163043603780C7E5A7780',
+      [ChainId.ASTR_TESTNET]: '0xc365A369EA3eDC896Ba163043603780C7E5A7780',
+    },
+    fromSource: IFarmProject.arthswap,
+    abiType: IABIType.AVaultForArthswapFarm,
+    swapLink: 'https://app.arthswap.org/#/add/',
+    online_at: 1656525599,
+    lpDetail: {
+      symbol: 'ARSW-BAI LP',
+      address: {
+        [ChainId.ASTR_MAINNET]: '0x8897D79334c2D517b83E7846da4B922E68fdA61B',
+        [ChainId.ASTR_TESTNET]: '0x8897D79334c2D517b83E7846da4B922E68fdA61B',
+      },
+      decimals: 18,
+    },
+    vault: {
+      fromSource: IFarmProject.arthswap,
+      symbol: 'aArswBai',
+      name: 'avault Arthswap ARSW-BAI LP',
+      masterChef: '0xc5b016c5597D298Fe9eD22922CE290A048aA5B75',
+      token0Address: '0xDe2578Edec4669BA7F41c5d5D2386300bcEA4678',
+      token1Address: '0x733ebcC6DF85f8266349DEFD0980f8Ced9B45f35',
+      wantAddress: '0x8897D79334c2D517b83E7846da4B922E68fdA61B',
+      earnedAddress: '0xDe2578Edec4669BA7F41c5d5D2386300bcEA4678',
+      AVAAddress: '0x03065E84748a9e4a1AEbef15AC89da1Cdf18B202',
+      decimals: 18,
+    },
+    farm: {
+      pid: 24,
+      lpSymbol: 'ARSW-LP',
+      lpAddresses: '0x8897D79334c2D517b83E7846da4B922E68fdA61B',
+      tokenDecimals: 18,
+      token: '0xDe2578Edec4669BA7F41c5d5D2386300bcEA4678',
+      quoteTokenDecimals: 18,
+      quoteToken: '0x733ebcC6DF85f8266349DEFD0980f8Ced9B45f35',
+      lpAddressDecimals: 18,
+    },
+  },
+  // aAcaAstr
+  {
+    type: 2,
+    contractAddress: {
+      [ChainId.ASTR_MAINNET]: '0x360d125366C60Ba20Dc11ebb7120BdEaA0Cc007C',
+      [ChainId.ASTR_TESTNET]: '0x360d125366C60Ba20Dc11ebb7120BdEaA0Cc007C',
+    },
+    fromSource: IFarmProject.arthswap,
+    abiType: IABIType.AVaultForArthswapFarm,
+    swapLink: 'https://app.arthswap.org/#/add/',
+    online_at: 1656525599,
+    lpDetail: {
+      symbol: 'ACA-ASTR LP',
+      address: {
+        [ChainId.ASTR_MAINNET]: '0x49d1DB92A8a1511A6eeb867221d801bC974A3073',
+        [ChainId.ASTR_TESTNET]: '0x49d1DB92A8a1511A6eeb867221d801bC974A3073',
+      },
+      decimals: 18,
+    },
+    vault: {
+      fromSource: IFarmProject.arthswap,
+      symbol: 'aAcaAstr',
+      name: 'avault Arthswap ACA-wASTR LP',
+      masterChef: '0xc5b016c5597D298Fe9eD22922CE290A048aA5B75',
+      token0Address: '0xfFFfFFfF00000000000000010000000000000000',
+      token1Address: '0xAeaaf0e2c81Af264101B9129C00F4440cCF0F720',
+      wantAddress: '0x49d1DB92A8a1511A6eeb867221d801bC974A3073',
+      earnedAddress: '0xDe2578Edec4669BA7F41c5d5D2386300bcEA4678',
+      AVAAddress: '0x03065E84748a9e4a1AEbef15AC89da1Cdf18B202',
+      decimals: 18,
+    },
+    farm: {
+      pid: 25,
+      lpSymbol: 'ARSW-LP',
+      lpAddresses: '0x49d1DB92A8a1511A6eeb867221d801bC974A3073',
+      tokenDecimals: 12,
+      token: '0xfFFfFFfF00000000000000010000000000000000',
+      quoteTokenDecimals: 18,
+      quoteToken: '0xAeaaf0e2c81Af264101B9129C00F4440cCF0F720',
+      lpAddressDecimals: 18,
+    },
+  },
+
   // active
-  //aBaiUsdc
-  {
-    type: 1,
-    contractAddress: {
-      [ChainId.ASTR_MAINNET]: '0xDBd71969aC2583A9A20Af3FB81FE9C20547f30F3',
-      [ChainId.ASTR_TESTNET]: '0xDBd71969aC2583A9A20Af3FB81FE9C20547f30F3',
-    },
-    fromSource: IFarmProject.arthswap,
-    abiType: IABIType.AVaultForArthswapFarm,
-    swapLink: 'https://app.arthswap.org/#/add/',
-    online_at: 1656525599,
-    lpDetail: {
-      symbol: 'BAI-USDC LP',
-      address: {
-        [ChainId.ASTR_MAINNET]: '0x7644Bf8086d40eD430D5096305830aA97Be77268',
-        [ChainId.ASTR_TESTNET]: '0x7644Bf8086d40eD430D5096305830aA97Be77268',
-      },
-      decimals: 18,
-    },
-    vault: {
-      fromSource: IFarmProject.arthswap,
-      symbol: 'aBaiUsdc',
-      name: 'avault Arthswap BAI-USDC LP',
-      masterChef: '0xc5b016c5597D298Fe9eD22922CE290A048aA5B75',
-      token0Address: '0x733ebcC6DF85f8266349DEFD0980f8Ced9B45f35',
-      token1Address: '0x6a2d262D56735DbA19Dd70682B39F6bE9a931D98',
-      wantAddress: '0x7644Bf8086d40eD430D5096305830aA97Be77268',
-      earnedAddress: '0xDe2578Edec4669BA7F41c5d5D2386300bcEA4678',
-      AVAAddress: '0x03065E84748a9e4a1AEbef15AC89da1Cdf18B202',
-      decimals: 18,
-    },
-    farm: {
-      pid: 14,
-      lpSymbol: 'ARSW-LP',
-      lpAddresses: '0x7644Bf8086d40eD430D5096305830aA97Be77268',
-      tokenDecimals: 18,
-      token: '0x733ebcC6DF85f8266349DEFD0980f8Ced9B45f35',
-      quoteTokenDecimals: 6,
-      quoteToken: '0x6a2d262D56735DbA19Dd70682B39F6bE9a931D98',
-      lpAddressDecimals: 18,
-    },
-  },
-  // aDaiUsdc
-  {
-    type: 1,
-    contractAddress: {
-      [ChainId.ASTR_MAINNET]: '0x9914Bff0437f914549c673B34808aF6020e2B453',
-      [ChainId.ASTR_TESTNET]: '0x9914Bff0437f914549c673B34808aF6020e2B453',
-    },
-    fromSource: IFarmProject.arthswap,
-    abiType: IABIType.AVaultForArthswapFarm,
-    swapLink: 'https://app.arthswap.org/#/add/',
-    online_at: 1656525599,
-    lpDetail: {
-      symbol: 'DAI-USDC LP',
-      address: {
-        [ChainId.ASTR_MAINNET]: '0x996D73aC8F97cf15BD476b77CB92ce47cA0E71Fe',
-        [ChainId.ASTR_TESTNET]: '0x996D73aC8F97cf15BD476b77CB92ce47cA0E71Fe',
-      },
-      decimals: 18,
-    },
-    vault: {
-      fromSource: IFarmProject.arthswap,
-      symbol: 'aDaiUsdc',
-      name: 'avault Arthswap DAI-USDC LP',
-      masterChef: '0xc5b016c5597D298Fe9eD22922CE290A048aA5B75',
-      token0Address: '0x6De33698e9e9b787e09d3Bd7771ef63557E148bb',
-      token1Address: '0x6a2d262D56735DbA19Dd70682B39F6bE9a931D98',
-      wantAddress: '0x996D73aC8F97cf15BD476b77CB92ce47cA0E71Fe',
-      earnedAddress: '0xDe2578Edec4669BA7F41c5d5D2386300bcEA4678',
-      AVAAddress: '0x03065E84748a9e4a1AEbef15AC89da1Cdf18B202',
-      decimals: 18,
-    },
-    farm: {
-      pid: 2,
-      lpSymbol: 'ARSW-LP',
-      lpAddresses: '0x996D73aC8F97cf15BD476b77CB92ce47cA0E71Fe',
-      tokenDecimals: 18,
-      token: '0x6De33698e9e9b787e09d3Bd7771ef63557E148bb',
-      quoteTokenDecimals: 6,
-      quoteToken: '0x6a2d262D56735DbA19Dd70682B39F6bE9a931D98',
-      lpAddressDecimals: 18,
-    },
-  },
-  // aBusdUsdc
-  {
-    type: 1,
-    contractAddress: {
-      [ChainId.ASTR_MAINNET]: '0x347e53263F8fb843EC605A1577eC7C8c0cAC7a58',
-      [ChainId.ASTR_TESTNET]: '0x347e53263F8fb843EC605A1577eC7C8c0cAC7a58',
-    },
-    fromSource: IFarmProject.arthswap,
-    abiType: IABIType.AVaultForArthswapFarm,
-    swapLink: 'https://app.arthswap.org/#/add/',
-    online_at: 1656525599,
-    lpDetail: {
-      symbol: 'BUSD-USDC LP',
-      address: {
-        [ChainId.ASTR_MAINNET]: '0xeee106Aa8a0DE519E8Eb21C66A5c2275b46b3F4d',
-        [ChainId.ASTR_TESTNET]: '0xeee106Aa8a0DE519E8Eb21C66A5c2275b46b3F4d',
-      },
-      decimals: 18,
-    },
-    vault: {
-      fromSource: IFarmProject.arthswap,
-      symbol: 'aBusdUsdc',
-      name: 'avault Arthswap BUSD-USDC LP',
-      masterChef: '0xc5b016c5597D298Fe9eD22922CE290A048aA5B75',
-      token0Address: '0x4Bf769b05E832FCdc9053fFFBC78Ca889aCb5E1E',
-      token1Address: '0x6a2d262D56735DbA19Dd70682B39F6bE9a931D98',
-      wantAddress: '0xeee106Aa8a0DE519E8Eb21C66A5c2275b46b3F4d',
-      earnedAddress: '0xDe2578Edec4669BA7F41c5d5D2386300bcEA4678',
-      AVAAddress: '0x03065E84748a9e4a1AEbef15AC89da1Cdf18B202',
-      decimals: 18,
-    },
-    farm: {
-      pid: 1,
-      lpSymbol: 'ARSW-LP',
-      lpAddresses: '0xeee106Aa8a0DE519E8Eb21C66A5c2275b46b3F4d',
-      tokenDecimals: 18,
-      token: '0x4Bf769b05E832FCdc9053fFFBC78Ca889aCb5E1E',
-      quoteTokenDecimals: 6,
-      quoteToken: '0x6a2d262D56735DbA19Dd70682B39F6bE9a931D98',
-      lpAddressDecimals: 18,
-    },
-  },
-  // aUsdtUsdc
-  {
-    type: 1,
-    contractAddress: {
-      [ChainId.ASTR_MAINNET]: '0x02Dac4898B2c2cA9D50fF8D6a7726166CF7bCFD0',
-      [ChainId.ASTR_TESTNET]: '0x02Dac4898B2c2cA9D50fF8D6a7726166CF7bCFD0',
-    },
-    fromSource: IFarmProject.arthswap,
-    abiType: IABIType.AVaultForArthswapFarm,
-    swapLink: 'https://app.arthswap.org/#/add/',
-    online_at: 1656525599,
-    lpDetail: {
-      symbol: 'USDT-USDC LP',
-      address: {
-        [ChainId.ASTR_MAINNET]: '0xD72A602C714ae36D990dc835eA5F96Ef87657D5e',
-        [ChainId.ASTR_TESTNET]: '0xD72A602C714ae36D990dc835eA5F96Ef87657D5e',
-      },
-      decimals: 18,
-    },
-    vault: {
-      fromSource: IFarmProject.arthswap,
-      symbol: 'aUsdtUsdc',
-      name: 'avault Arthswap USDT-USDC LP',
-      masterChef: '0xc5b016c5597D298Fe9eD22922CE290A048aA5B75',
-      token0Address: '0x3795C36e7D12A8c252A20C5a7B455f7c57b60283',
-      token1Address: '0x6a2d262D56735DbA19Dd70682B39F6bE9a931D98',
-      wantAddress: '0xD72A602C714ae36D990dc835eA5F96Ef87657D5e',
-      earnedAddress: '0xDe2578Edec4669BA7F41c5d5D2386300bcEA4678',
-      AVAAddress: '0x03065E84748a9e4a1AEbef15AC89da1Cdf18B202',
-      decimals: 18,
-    },
-    farm: {
-      pid: 0,
-      lpSymbol: 'ARSW-LP',
-      lpAddresses: '0xD72A602C714ae36D990dc835eA5F96Ef87657D5e',
-      tokenDecimals: 6,
-      token: '0x3795C36e7D12A8c252A20C5a7B455f7c57b60283',
-      quoteTokenDecimals: 6,
-      quoteToken: '0x6a2d262D56735DbA19Dd70682B39F6bE9a931D98',
-      lpAddressDecimals: 18,
-    },
-  },
+  // //aBaiUsdc
+  // {
+  //   type: 1,
+  //   contractAddress: {
+  //     [ChainId.ASTR_MAINNET]: '0xDBd71969aC2583A9A20Af3FB81FE9C20547f30F3',
+  //     [ChainId.ASTR_TESTNET]: '0xDBd71969aC2583A9A20Af3FB81FE9C20547f30F3',
+  //   },
+  //   fromSource: IFarmProject.arthswap,
+  //   abiType: IABIType.AVaultForArthswapFarm,
+  //   swapLink: 'https://app.arthswap.org/#/add/',
+  //   online_at: 1656525599,
+  //   lpDetail: {
+  //     symbol: 'BAI-USDC LP',
+  //     address: {
+  //       [ChainId.ASTR_MAINNET]: '0x7644Bf8086d40eD430D5096305830aA97Be77268',
+  //       [ChainId.ASTR_TESTNET]: '0x7644Bf8086d40eD430D5096305830aA97Be77268',
+  //     },
+  //     decimals: 18,
+  //   },
+  //   vault: {
+  //     fromSource: IFarmProject.arthswap,
+  //     symbol: 'aBaiUsdc',
+  //     name: 'avault Arthswap BAI-USDC LP',
+  //     masterChef: '0xc5b016c5597D298Fe9eD22922CE290A048aA5B75',
+  //     token0Address: '0x733ebcC6DF85f8266349DEFD0980f8Ced9B45f35',
+  //     token1Address: '0x6a2d262D56735DbA19Dd70682B39F6bE9a931D98',
+  //     wantAddress: '0x7644Bf8086d40eD430D5096305830aA97Be77268',
+  //     earnedAddress: '0xDe2578Edec4669BA7F41c5d5D2386300bcEA4678',
+  //     AVAAddress: '0x03065E84748a9e4a1AEbef15AC89da1Cdf18B202',
+  //     decimals: 18,
+  //   },
+  //   farm: {
+  //     pid: 14,
+  //     lpSymbol: 'ARSW-LP',
+  //     lpAddresses: '0x7644Bf8086d40eD430D5096305830aA97Be77268',
+  //     tokenDecimals: 18,
+  //     token: '0x733ebcC6DF85f8266349DEFD0980f8Ced9B45f35',
+  //     quoteTokenDecimals: 6,
+  //     quoteToken: '0x6a2d262D56735DbA19Dd70682B39F6bE9a931D98',
+  //     lpAddressDecimals: 18,
+  //   },
+  // },
+  // // aDaiUsdc
+  // {
+  //   type: 1,
+  //   contractAddress: {
+  //     [ChainId.ASTR_MAINNET]: '0x9914Bff0437f914549c673B34808aF6020e2B453',
+  //     [ChainId.ASTR_TESTNET]: '0x9914Bff0437f914549c673B34808aF6020e2B453',
+  //   },
+  //   fromSource: IFarmProject.arthswap,
+  //   abiType: IABIType.AVaultForArthswapFarm,
+  //   swapLink: 'https://app.arthswap.org/#/add/',
+  //   online_at: 1656525599,
+  //   lpDetail: {
+  //     symbol: 'DAI-USDC LP',
+  //     address: {
+  //       [ChainId.ASTR_MAINNET]: '0x996D73aC8F97cf15BD476b77CB92ce47cA0E71Fe',
+  //       [ChainId.ASTR_TESTNET]: '0x996D73aC8F97cf15BD476b77CB92ce47cA0E71Fe',
+  //     },
+  //     decimals: 18,
+  //   },
+  //   vault: {
+  //     fromSource: IFarmProject.arthswap,
+  //     symbol: 'aDaiUsdc',
+  //     name: 'avault Arthswap DAI-USDC LP',
+  //     masterChef: '0xc5b016c5597D298Fe9eD22922CE290A048aA5B75',
+  //     token0Address: '0x6De33698e9e9b787e09d3Bd7771ef63557E148bb',
+  //     token1Address: '0x6a2d262D56735DbA19Dd70682B39F6bE9a931D98',
+  //     wantAddress: '0x996D73aC8F97cf15BD476b77CB92ce47cA0E71Fe',
+  //     earnedAddress: '0xDe2578Edec4669BA7F41c5d5D2386300bcEA4678',
+  //     AVAAddress: '0x03065E84748a9e4a1AEbef15AC89da1Cdf18B202',
+  //     decimals: 18,
+  //   },
+  //   farm: {
+  //     pid: 2,
+  //     lpSymbol: 'ARSW-LP',
+  //     lpAddresses: '0x996D73aC8F97cf15BD476b77CB92ce47cA0E71Fe',
+  //     tokenDecimals: 18,
+  //     token: '0x6De33698e9e9b787e09d3Bd7771ef63557E148bb',
+  //     quoteTokenDecimals: 6,
+  //     quoteToken: '0x6a2d262D56735DbA19Dd70682B39F6bE9a931D98',
+  //     lpAddressDecimals: 18,
+  //   },
+  // },
+  // // aBusdUsdc
+  // {
+  //   type: 1,
+  //   contractAddress: {
+  //     [ChainId.ASTR_MAINNET]: '0x347e53263F8fb843EC605A1577eC7C8c0cAC7a58',
+  //     [ChainId.ASTR_TESTNET]: '0x347e53263F8fb843EC605A1577eC7C8c0cAC7a58',
+  //   },
+  //   fromSource: IFarmProject.arthswap,
+  //   abiType: IABIType.AVaultForArthswapFarm,
+  //   swapLink: 'https://app.arthswap.org/#/add/',
+  //   online_at: 1656525599,
+  //   lpDetail: {
+  //     symbol: 'BUSD-USDC LP',
+  //     address: {
+  //       [ChainId.ASTR_MAINNET]: '0xeee106Aa8a0DE519E8Eb21C66A5c2275b46b3F4d',
+  //       [ChainId.ASTR_TESTNET]: '0xeee106Aa8a0DE519E8Eb21C66A5c2275b46b3F4d',
+  //     },
+  //     decimals: 18,
+  //   },
+  //   vault: {
+  //     fromSource: IFarmProject.arthswap,
+  //     symbol: 'aBusdUsdc',
+  //     name: 'avault Arthswap BUSD-USDC LP',
+  //     masterChef: '0xc5b016c5597D298Fe9eD22922CE290A048aA5B75',
+  //     token0Address: '0x4Bf769b05E832FCdc9053fFFBC78Ca889aCb5E1E',
+  //     token1Address: '0x6a2d262D56735DbA19Dd70682B39F6bE9a931D98',
+  //     wantAddress: '0xeee106Aa8a0DE519E8Eb21C66A5c2275b46b3F4d',
+  //     earnedAddress: '0xDe2578Edec4669BA7F41c5d5D2386300bcEA4678',
+  //     AVAAddress: '0x03065E84748a9e4a1AEbef15AC89da1Cdf18B202',
+  //     decimals: 18,
+  //   },
+  //   farm: {
+  //     pid: 1,
+  //     lpSymbol: 'ARSW-LP',
+  //     lpAddresses: '0xeee106Aa8a0DE519E8Eb21C66A5c2275b46b3F4d',
+  //     tokenDecimals: 18,
+  //     token: '0x4Bf769b05E832FCdc9053fFFBC78Ca889aCb5E1E',
+  //     quoteTokenDecimals: 6,
+  //     quoteToken: '0x6a2d262D56735DbA19Dd70682B39F6bE9a931D98',
+  //     lpAddressDecimals: 18,
+  //   },
+  // },
+  // // aUsdtUsdc
+  // {
+  //   type: 1,
+  //   contractAddress: {
+  //     [ChainId.ASTR_MAINNET]: '0x02Dac4898B2c2cA9D50fF8D6a7726166CF7bCFD0',
+  //     [ChainId.ASTR_TESTNET]: '0x02Dac4898B2c2cA9D50fF8D6a7726166CF7bCFD0',
+  //   },
+  //   fromSource: IFarmProject.arthswap,
+  //   abiType: IABIType.AVaultForArthswapFarm,
+  //   swapLink: 'https://app.arthswap.org/#/add/',
+  //   online_at: 1656525599,
+  //   lpDetail: {
+  //     symbol: 'USDT-USDC LP',
+  //     address: {
+  //       [ChainId.ASTR_MAINNET]: '0xD72A602C714ae36D990dc835eA5F96Ef87657D5e',
+  //       [ChainId.ASTR_TESTNET]: '0xD72A602C714ae36D990dc835eA5F96Ef87657D5e',
+  //     },
+  //     decimals: 18,
+  //   },
+  //   vault: {
+  //     fromSource: IFarmProject.arthswap,
+  //     symbol: 'aUsdtUsdc',
+  //     name: 'avault Arthswap USDT-USDC LP',
+  //     masterChef: '0xc5b016c5597D298Fe9eD22922CE290A048aA5B75',
+  //     token0Address: '0x3795C36e7D12A8c252A20C5a7B455f7c57b60283',
+  //     token1Address: '0x6a2d262D56735DbA19Dd70682B39F6bE9a931D98',
+  //     wantAddress: '0xD72A602C714ae36D990dc835eA5F96Ef87657D5e',
+  //     earnedAddress: '0xDe2578Edec4669BA7F41c5d5D2386300bcEA4678',
+  //     AVAAddress: '0x03065E84748a9e4a1AEbef15AC89da1Cdf18B202',
+  //     decimals: 18,
+  //   },
+  //   farm: {
+  //     pid: 0,
+  //     lpSymbol: 'ARSW-LP',
+  //     lpAddresses: '0xD72A602C714ae36D990dc835eA5F96Ef87657D5e',
+  //     tokenDecimals: 6,
+  //     token: '0x3795C36e7D12A8c252A20C5a7B455f7c57b60283',
+  //     quoteTokenDecimals: 6,
+  //     quoteToken: '0x6a2d262D56735DbA19Dd70682B39F6bE9a931D98',
+  //     lpAddressDecimals: 18,
+  //   },
+  // },
   // normal
   // aUsdtAstr
   {
@@ -1149,4 +1319,10 @@ const vaultsConfig: IVaultConfigItem[] = [
 // aDaiUsdc deployed to: 0x9914Bff0437f914549c673B34808aF6020e2B453
 // aBusdUsdc deployed to: 0x347e53263F8fb843EC605A1577eC7C8c0cAC7a58
 // aUsdtUsdc deployed to: 0x02Dac4898B2c2cA9D50fF8D6a7726166CF7bCFD0
+
+// Add
+// aArswUsdc deployed to: 0x58AD25Aa6B14c3Fd5921EA5BB731C3b2ADE0a099
+// aArswUsdt deployed to: 0x46C3773Bd40bA20Bd77c3B246783CE941f3dB574
+// aArswUsdt deployed to: 0xc365A369EA3eDC896Ba163043603780C7E5A7780
+// aAcaAstr deployed to: 0x360d125366C60Ba20Dc11ebb7120BdEaA0Cc007C
 export default vaultsConfig;

@@ -87,15 +87,15 @@ export const fetchVaultABIAmount = async (vaultsData: IVault[]): Promise<Record<
   };
 
   vaultCallsArr.scale = vaultsData.map((v) => {
-    if (v.type === 1) {
+    if (v.type === 0) {
       return {
         address: v.contractAddress[chainId],
-        name: 'scale',
+        name: 'wantLockedTotal',
       };
     } else {
       return {
         address: v.contractAddress[chainId],
-        name: 'wantLockedTotal',
+        name: 'scale',
       };
     }
   });

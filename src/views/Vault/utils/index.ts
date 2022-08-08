@@ -54,9 +54,9 @@ export const showDecimals = (lpSymbol: string): number => {
   }
 };
 export const showDecimalsWithType = (lpSymbol: string, type: number): number => {
-  if (type) {
-    return 2;
-  } else {
+  if (type === 0) {
     return showDecimals(lpSymbol);
+  } else {
+    return 2;
   }
 };

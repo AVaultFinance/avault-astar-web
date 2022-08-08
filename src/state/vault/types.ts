@@ -24,7 +24,7 @@ interface IAddress {
 }
 export const VaultType = ['All', 'Event'];
 export interface IVaultConfigItem {
-  type: number; // 0 normal  1 active
+  type: number; // 0 normal  1 active   2 addNew
   contractAddress: IAddress;
   fromSource: IFarmProject;
   abiType: IABIType;

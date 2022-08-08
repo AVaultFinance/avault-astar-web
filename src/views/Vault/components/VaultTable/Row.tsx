@@ -158,12 +158,12 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
   };
 
   const { targetRef, tooltip, tooltipVisible } = useTooltip(
-    `1 ${details.vault.symbol} = ${details.type === 0 ? '' : '$'}${Number(details.vault.lpToCLpRate).toLocaleString(
+    `1 ${details.vault.symbol} = ${details.type === 0 ? '$' : ''}${Number(details.vault.lpToCLpRate).toLocaleString(
       'en-US',
       {
         maximumFractionDigits: 6,
       },
-    )} ${details.type === 0 ? details.lpDetail.symbol : ''}`,
+    )} ${details.type !== 0 ? details.lpDetail.symbol : ''}`,
     {
       trigger: 'hover',
       tootipStyle: { padding: '10px', whiteSpace: 'break-spaces', textAlign: 'center', fontSize: '14px' },

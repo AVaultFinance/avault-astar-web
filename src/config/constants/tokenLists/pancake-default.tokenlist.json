@@ -180,6 +180,14 @@
         "chainId": 592,
         "decimals": 18,
         "logoURI": "/images/tokens/ASTR/0xdd90E5E87A2081Dcf0391920868eBc2FFB81a1aF.svg"
+      },
+      {
+        "name": "ACA",
+        "symbol": "ACA",
+        "address": "0xffffffff00000000000000010000000000000000",
+        "chainId": 592,
+        "decimals": 12,
+        "logoURI": "/images/tokens/ASTR/0xffffffff00000000000000010000000000000000.svg"
       }
     ]
   }

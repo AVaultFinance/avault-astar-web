@@ -10,6 +10,7 @@ import {
 } from './fetchVaultUser';
 import { haveNumber } from 'utils';
 import { chainId } from 'config/constants/tokens';
+// import fetchVaults from './fetchVaults';
 import fetchVaultsV2 from './fetchVaultsV2';
 import vaultsConfig from 'state/vault/vaultsConfig';
 
@@ -161,7 +162,7 @@ export const vaultSlice = createSlice({
         state.data[index] = {
           ...state.data[index],
           vault: {
-            ...state.data[index].vault,
+            ...state.data[index]?.vault,
             totalSupply: userDataEl.userVaultSupply,
             wantLockedTotal: userDataEl.vaultWantLockedTotal,
             lpToCLpRate: lpToCLpRate,
