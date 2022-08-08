@@ -373,7 +373,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
               {getFullLocalDisplayBalance(
                 new BigNumber(_userData.stakingTokenBalance),
                 vault.farm.lpAddressDecimals,
-                showDecimalsWithType(vault.lpDetail.symbol, vault.type),
+                showDecimals(vault.lpDetail.symbol),
               )}{' '}
               {vault.lpDetail.symbol}
             </i>
