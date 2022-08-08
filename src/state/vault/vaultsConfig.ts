@@ -86,12 +86,12 @@ const vaultsConfig: IVaultConfigItem[] = [
       lpAddressDecimals: 18,
     },
   },
-  // aArswUsdt
+  // aArswBai
   {
     type: 2,
     contractAddress: {
-      [ChainId.ASTR_MAINNET]: '0xc365A369EA3eDC896Ba163043603780C7E5A7780',
-      [ChainId.ASTR_TESTNET]: '0xc365A369EA3eDC896Ba163043603780C7E5A7780',
+      [ChainId.ASTR_MAINNET]: '0x383C69E3baE31eF1d7DC154CD351B0D734537626',
+      [ChainId.ASTR_TESTNET]: '0x383C69E3baE31eF1d7DC154CD351B0D734537626',
     },
     fromSource: IFarmProject.arthswap,
     abiType: IABIType.AVaultForArthswapFarm,
@@ -1323,6 +1323,6 @@ const vaultsConfig: IVaultConfigItem[] = [
 // Add
 // aArswUsdc deployed to: 0x58AD25Aa6B14c3Fd5921EA5BB731C3b2ADE0a099
 // aArswUsdt deployed to: 0x46C3773Bd40bA20Bd77c3B246783CE941f3dB574
-// aArswUsdt deployed to: 0xc365A369EA3eDC896Ba163043603780C7E5A7780
+// aArswUsdt deployed to: 0x383C69E3baE31eF1d7DC154CD351B0D734537626
 // aAcaAstr deployed to: 0x360d125366C60Ba20Dc11ebb7120BdEaA0Cc007C
 export default vaultsConfig;
