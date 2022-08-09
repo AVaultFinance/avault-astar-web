@@ -223,7 +223,7 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
                     {tooltipVisible && tooltip}
                     <Flex alignItems="center" justifyContent="start">
                       <Text color="text" bold fontSize="15px">
-                        {details.type === 2 ? details.vault.scale : 1}:
+                        {details.type === 2 ? details?.vault?.scale ?? 1 : 1}:
                         {`${new BigNumber(details?.vault?.lpToCLpRate ?? '1').toNumber().toLocaleString('en-US', {
                           maximumFractionDigits: 4,
                         })}`}
