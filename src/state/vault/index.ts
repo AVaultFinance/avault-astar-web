@@ -13,6 +13,7 @@ import { chainId } from 'config/constants/tokens';
 // import fetchVaults from './fetchVaults';
 import fetchVaultsV2 from './fetchVaultsV2';
 import vaultsConfig from 'state/vault/vaultsConfig';
+import BigNumber from 'bignumber.js';
 
 export const initialState: VaultState = {
   data: vaultsConfig.map((v: IVaultConfigItem) => {
@@ -141,13 +142,12 @@ export const vaultSlice = createSlice({
           ? userDataEl.vaultWantLockedTotal
           : state.data[index]?.vault?.wantLockedTotal;
 
-        const scale = state.data[index]?.vault?.scale ?? '1';
         const userVaultSupply = userDataEl.userVaultSupply
           ? userDataEl.userVaultSupply
           : state.data[index]?.vault?.totalSupply;
         const lpToCLpRate =
           vaultWantLockedTotal && userVaultSupply && Number(vaultWantLockedTotal) > 0 && Number(userVaultSupply) > 0
-            ? ((Number(vaultWantLockedTotal) * Number(scale)) / Number(userVaultSupply)).toFixed(18)
+            ? new BigNumber(vaultWantLockedTotal).div(userVaultSupply).toFixed(18)
             : '1';
         // const currentSeconds = Math.floor(Date.now() / 1000);
         // 86400s/day

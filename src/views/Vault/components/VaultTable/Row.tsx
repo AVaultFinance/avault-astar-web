@@ -158,11 +158,14 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
   };
 
   const { targetRef, tooltip, tooltipVisible } = useTooltip(
-    `${details.type === 2 ? details.vault.scale : 1} ${details.vault.symbol} = ${details.type === 1 ? '$' : ''}${Number(
-      details.vault.lpToCLpRate,
-    ).toLocaleString('en-US', {
-      maximumFractionDigits: 6,
-    })} ${details.type !== 1 ? details.lpDetail.symbol : ''}`,
+    `${details.type === 2 ? details.vault.scale : 1} ${details.vault.symbol} = ${
+      details.type === 1 ? '$' : ''
+    }${new BigNumber(details?.vault?.lpToCLpRate ?? '1')
+      .times(details?.vault?.scale ?? '1')
+      .toNumber()
+      .toLocaleString('en-US', {
+        maximumFractionDigits: 6,
+      })} ${details.type !== 1 ? details.lpDetail.symbol : ''}`,
     {
       trigger: 'hover',
       tootipStyle: { padding: '10px', whiteSpace: 'break-spaces', textAlign: 'center', fontSize: '14px' },
@@ -224,9 +227,12 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
                     <Flex alignItems="center" justifyContent="start">
                       <Text color="text" bold fontSize="15px">
                         {details.type === 2 ? details?.vault?.scale ?? 1 : 1}:
-                        {`${new BigNumber(details?.vault?.lpToCLpRate ?? '1').toNumber().toLocaleString('en-US', {
-                          maximumFractionDigits: 4,
-                        })}`}
+                        {`${new BigNumber(details?.vault?.lpToCLpRate ?? '1')
+                          .times(details?.vault?.scale ?? '1')
+                          .toNumber()
+                          .toLocaleString('en-US', {
+                            maximumFractionDigits: 4,
+                          })}`}
                         {/* 1 {details.vault.symbol}={details.vault.lpToCLpRate} {details.lpDetail.symbol} */}
                       </Text>
                       <QuestionWrapper ref={targetRef}>

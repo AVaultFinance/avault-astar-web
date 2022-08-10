@@ -47,7 +47,6 @@ export const callWithEstimateGas = async (
     const tx = await contract[methodName](...methodArgs, {
       // gasLimit: DEFAULT_GAS_LIMIT,
       // gasPrice: DEFAULT_GAS_PRICE,
-
       ...overrides,
     });
     // console.log(tx);

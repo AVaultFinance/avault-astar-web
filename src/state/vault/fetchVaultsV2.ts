@@ -87,7 +87,7 @@ const fetchVaultsV2 = async (
     const _scale = item.type === 0 ? '1' : scale[i];
     const _lpToCLpRate =
       wantLockedTotal[i] && vaultTotalSupply[i] && wantLockedTotal[i] > 0 && vaultTotalSupply[i] > 0
-        ? ((Number(wantLockedTotal[i]) * Number(_scale)) / Number(vaultTotalSupply[i])).toFixed(18)
+        ? new BigNumber(wantLockedTotal[i]).div(vaultTotalSupply[i]).toFixed(18)
         : '1';
     obj[i] = {
       ...item,
