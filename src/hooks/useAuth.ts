@@ -38,6 +38,7 @@ const useAuth = () => {
       if (connector) {
         (async () => {
           const chainId = window?.ethereum?.networkVersion ?? '';
+
           if (connector instanceof InjectedConnector) {
             if (!window?.ethereum?.networkVersion) {
               if (clickBtn) {

@@ -1,8 +1,349 @@
 import { ChainId } from '@my/sdk';
 import { IFarmProject, IABIType, IVaultConfigItem } from 'state/vault/types';
 const vaultsConfig: IVaultConfigItem[] = [
+  // add
+  // aArswUsdc
+  {
+    type: 2,
+    contractAddress: {
+      [ChainId.ASTR_MAINNET]: '0x58AD25Aa6B14c3Fd5921EA5BB731C3b2ADE0a099',
+      [ChainId.ASTR_TESTNET]: '0x58AD25Aa6B14c3Fd5921EA5BB731C3b2ADE0a099',
+    },
+    fromSource: IFarmProject.arthswap,
+    abiType: IABIType.AVaultForArthswapFarm,
+    swapLink: 'https://app.arthswap.org/#/add/',
+    online_at: 1656525599,
+    lpDetail: {
+      symbol: 'ARSW-USDC LP',
+      address: {
+        [ChainId.ASTR_MAINNET]: '0xBD13Fd873d36f7D2A349b35E6854E3183ede18ab',
+        [ChainId.ASTR_TESTNET]: '0xBD13Fd873d36f7D2A349b35E6854E3183ede18ab',
+      },
+      decimals: 18,
+    },
+    vault: {
+      fromSource: IFarmProject.arthswap,
+      symbol: 'aArswUsdc',
+      name: 'avault Arthswap ARSW-USDC LP',
+      masterChef: '0xc5b016c5597D298Fe9eD22922CE290A048aA5B75',
+      token0Address: '0xDe2578Edec4669BA7F41c5d5D2386300bcEA4678',
+      token1Address: '0x6a2d262D56735DbA19Dd70682B39F6bE9a931D98',
+      wantAddress: '0xBD13Fd873d36f7D2A349b35E6854E3183ede18ab',
+      earnedAddress: '0xDe2578Edec4669BA7F41c5d5D2386300bcEA4678',
+      AVAAddress: '0x03065E84748a9e4a1AEbef15AC89da1Cdf18B202',
+      decimals: 18,
+    },
+    farm: {
+      pid: 22,
+      lpSymbol: 'ARSW-LP',
+      lpAddresses: '0xBD13Fd873d36f7D2A349b35E6854E3183ede18ab',
+      tokenDecimals: 18,
+      token: '0xDe2578Edec4669BA7F41c5d5D2386300bcEA4678',
+      quoteTokenDecimals: 6,
+      quoteToken: '0x6a2d262D56735DbA19Dd70682B39F6bE9a931D98',
+      lpAddressDecimals: 18,
+    },
+  },
+  // aArswUsdt
+  {
+    type: 2,
+    contractAddress: {
+      [ChainId.ASTR_MAINNET]: '0x46C3773Bd40bA20Bd77c3B246783CE941f3dB574',
+      [ChainId.ASTR_TESTNET]: '0x46C3773Bd40bA20Bd77c3B246783CE941f3dB574',
+    },
+    fromSource: IFarmProject.arthswap,
+    abiType: IABIType.AVaultForArthswapFarm,
+    swapLink: 'https://app.arthswap.org/#/add/',
+    online_at: 1656525599,
+    lpDetail: {
+      symbol: 'ARSW-USDT LP',
+      address: {
+        [ChainId.ASTR_MAINNET]: '0x7843ecd6F3234D72D0b7034DD9894b77c416c6EF',
+        [ChainId.ASTR_TESTNET]: '0x7843ecd6F3234D72D0b7034DD9894b77c416c6EF',
+      },
+      decimals: 18,
+    },
+    vault: {
+      fromSource: IFarmProject.arthswap,
+      symbol: 'aArswUsdt',
+      name: 'avault Arthswap ARSW-USDT LP',
+      masterChef: '0xc5b016c5597D298Fe9eD22922CE290A048aA5B75',
+      token0Address: '0xDe2578Edec4669BA7F41c5d5D2386300bcEA4678',
+      token1Address: '0x3795C36e7D12A8c252A20C5a7B455f7c57b60283',
+      wantAddress: '0x7843ecd6F3234D72D0b7034DD9894b77c416c6EF',
+      earnedAddress: '0xDe2578Edec4669BA7F41c5d5D2386300bcEA4678',
+      AVAAddress: '0x03065E84748a9e4a1AEbef15AC89da1Cdf18B202',
+      decimals: 18,
+    },
+    farm: {
+      pid: 23,
+      lpSymbol: 'ARSW-LP',
+      lpAddresses: '0x7843ecd6F3234D72D0b7034DD9894b77c416c6EF',
+      tokenDecimals: 18,
+      token: '0xDe2578Edec4669BA7F41c5d5D2386300bcEA4678',
+      quoteTokenDecimals: 6,
+      quoteToken: '0x3795C36e7D12A8c252A20C5a7B455f7c57b60283',
+      lpAddressDecimals: 18,
+    },
+  },
+  // aArswBai
+  {
+    type: 2,
+    contractAddress: {
+      [ChainId.ASTR_MAINNET]: '0x383C69E3baE31eF1d7DC154CD351B0D734537626',
+      [ChainId.ASTR_TESTNET]: '0x383C69E3baE31eF1d7DC154CD351B0D734537626',
+    },
+    fromSource: IFarmProject.arthswap,
+    abiType: IABIType.AVaultForArthswapFarm,
+    swapLink: 'https://app.arthswap.org/#/add/',
+    online_at: 1656525599,
+    lpDetail: {
+      symbol: 'ARSW-BAI LP',
+      address: {
+        [ChainId.ASTR_MAINNET]: '0x8897D79334c2D517b83E7846da4B922E68fdA61B',
+        [ChainId.ASTR_TESTNET]: '0x8897D79334c2D517b83E7846da4B922E68fdA61B',
+      },
+      decimals: 18,
+    },
+    vault: {
+      fromSource: IFarmProject.arthswap,
+      symbol: 'aArswBai',
+      name: 'avault Arthswap ARSW-BAI LP',
+      masterChef: '0xc5b016c5597D298Fe9eD22922CE290A048aA5B75',
+      token0Address: '0xDe2578Edec4669BA7F41c5d5D2386300bcEA4678',
+      token1Address: '0x733ebcC6DF85f8266349DEFD0980f8Ced9B45f35',
+      wantAddress: '0x8897D79334c2D517b83E7846da4B922E68fdA61B',
+      earnedAddress: '0xDe2578Edec4669BA7F41c5d5D2386300bcEA4678',
+      AVAAddress: '0x03065E84748a9e4a1AEbef15AC89da1Cdf18B202',
+      decimals: 18,
+    },
+    farm: {
+      pid: 24,
+      lpSymbol: 'ARSW-LP',
+      lpAddresses: '0x8897D79334c2D517b83E7846da4B922E68fdA61B',
+      tokenDecimals: 18,
+      token: '0xDe2578Edec4669BA7F41c5d5D2386300bcEA4678',
+      quoteTokenDecimals: 18,
+      quoteToken: '0x733ebcC6DF85f8266349DEFD0980f8Ced9B45f35',
+      lpAddressDecimals: 18,
+    },
+  },
+  // aAcaAstr
+  {
+    type: 2,
+    contractAddress: {
+      [ChainId.ASTR_MAINNET]: '0x360d125366C60Ba20Dc11ebb7120BdEaA0Cc007C',
+      [ChainId.ASTR_TESTNET]: '0x360d125366C60Ba20Dc11ebb7120BdEaA0Cc007C',
+    },
+    fromSource: IFarmProject.arthswap,
+    abiType: IABIType.AVaultForArthswapFarm,
+    swapLink: 'https://app.arthswap.org/#/add/',
+    online_at: 1656525599,
+    lpDetail: {
+      symbol: 'ACA-ASTR LP',
+      address: {
+        [ChainId.ASTR_MAINNET]: '0x49d1DB92A8a1511A6eeb867221d801bC974A3073',
+        [ChainId.ASTR_TESTNET]: '0x49d1DB92A8a1511A6eeb867221d801bC974A3073',
+      },
+      decimals: 18,
+    },
+    vault: {
+      fromSource: IFarmProject.arthswap,
+      symbol: 'aAcaAstr',
+      name: 'avault Arthswap ACA-wASTR LP',
+      masterChef: '0xc5b016c5597D298Fe9eD22922CE290A048aA5B75',
+      token0Address: '0xfFFfFFfF00000000000000010000000000000000',
+      token1Address: '0xAeaaf0e2c81Af264101B9129C00F4440cCF0F720',
+      wantAddress: '0x49d1DB92A8a1511A6eeb867221d801bC974A3073',
+      earnedAddress: '0xDe2578Edec4669BA7F41c5d5D2386300bcEA4678',
+      AVAAddress: '0x03065E84748a9e4a1AEbef15AC89da1Cdf18B202',
+      decimals: 18,
+    },
+    farm: {
+      pid: 25,
+      lpSymbol: 'ARSW-LP',
+      lpAddresses: '0x49d1DB92A8a1511A6eeb867221d801bC974A3073',
+      tokenDecimals: 12,
+      token: '0xfFFfFFfF00000000000000010000000000000000',
+      quoteTokenDecimals: 18,
+      quoteToken: '0xAeaaf0e2c81Af264101B9129C00F4440cCF0F720',
+      lpAddressDecimals: 18,
+    },
+  },
+
+  // active
+  // //aBaiUsdc
+  // {
+  //   type: 1,
+  //   contractAddress: {
+  //     [ChainId.ASTR_MAINNET]: '0xDBd71969aC2583A9A20Af3FB81FE9C20547f30F3',
+  //     [ChainId.ASTR_TESTNET]: '0xDBd71969aC2583A9A20Af3FB81FE9C20547f30F3',
+  //   },
+  //   fromSource: IFarmProject.arthswap,
+  //   abiType: IABIType.AVaultForArthswapFarm,
+  //   swapLink: 'https://app.arthswap.org/#/add/',
+  //   online_at: 1656525599,
+  //   lpDetail: {
+  //     symbol: 'BAI-USDC LP',
+  //     address: {
+  //       [ChainId.ASTR_MAINNET]: '0x7644Bf8086d40eD430D5096305830aA97Be77268',
+  //       [ChainId.ASTR_TESTNET]: '0x7644Bf8086d40eD430D5096305830aA97Be77268',
+  //     },
+  //     decimals: 18,
+  //   },
+  //   vault: {
+  //     fromSource: IFarmProject.arthswap,
+  //     symbol: 'aBaiUsdc',
+  //     name: 'avault Arthswap BAI-USDC LP',
+  //     masterChef: '0xc5b016c5597D298Fe9eD22922CE290A048aA5B75',
+  //     token0Address: '0x733ebcC6DF85f8266349DEFD0980f8Ced9B45f35',
+  //     token1Address: '0x6a2d262D56735DbA19Dd70682B39F6bE9a931D98',
+  //     wantAddress: '0x7644Bf8086d40eD430D5096305830aA97Be77268',
+  //     earnedAddress: '0xDe2578Edec4669BA7F41c5d5D2386300bcEA4678',
+  //     AVAAddress: '0x03065E84748a9e4a1AEbef15AC89da1Cdf18B202',
+  //     decimals: 18,
+  //   },
+  //   farm: {
+  //     pid: 14,
+  //     lpSymbol: 'ARSW-LP',
+  //     lpAddresses: '0x7644Bf8086d40eD430D5096305830aA97Be77268',
+  //     tokenDecimals: 18,
+  //     token: '0x733ebcC6DF85f8266349DEFD0980f8Ced9B45f35',
+  //     quoteTokenDecimals: 6,
+  //     quoteToken: '0x6a2d262D56735DbA19Dd70682B39F6bE9a931D98',
+  //     lpAddressDecimals: 18,
+  //   },
+  // },
+  // // aDaiUsdc
+  // {
+  //   type: 1,
+  //   contractAddress: {
+  //     [ChainId.ASTR_MAINNET]: '0x9914Bff0437f914549c673B34808aF6020e2B453',
+  //     [ChainId.ASTR_TESTNET]: '0x9914Bff0437f914549c673B34808aF6020e2B453',
+  //   },
+  //   fromSource: IFarmProject.arthswap,
+  //   abiType: IABIType.AVaultForArthswapFarm,
+  //   swapLink: 'https://app.arthswap.org/#/add/',
+  //   online_at: 1656525599,
+  //   lpDetail: {
+  //     symbol: 'DAI-USDC LP',
+  //     address: {
+  //       [ChainId.ASTR_MAINNET]: '0x996D73aC8F97cf15BD476b77CB92ce47cA0E71Fe',
+  //       [ChainId.ASTR_TESTNET]: '0x996D73aC8F97cf15BD476b77CB92ce47cA0E71Fe',
+  //     },
+  //     decimals: 18,
+  //   },
+  //   vault: {
+  //     fromSource: IFarmProject.arthswap,
+  //     symbol: 'aDaiUsdc',
+  //     name: 'avault Arthswap DAI-USDC LP',
+  //     masterChef: '0xc5b016c5597D298Fe9eD22922CE290A048aA5B75',
+  //     token0Address: '0x6De33698e9e9b787e09d3Bd7771ef63557E148bb',
+  //     token1Address: '0x6a2d262D56735DbA19Dd70682B39F6bE9a931D98',
+  //     wantAddress: '0x996D73aC8F97cf15BD476b77CB92ce47cA0E71Fe',
+  //     earnedAddress: '0xDe2578Edec4669BA7F41c5d5D2386300bcEA4678',
+  //     AVAAddress: '0x03065E84748a9e4a1AEbef15AC89da1Cdf18B202',
+  //     decimals: 18,
+  //   },
+  //   farm: {
+  //     pid: 2,
+  //     lpSymbol: 'ARSW-LP',
+  //     lpAddresses: '0x996D73aC8F97cf15BD476b77CB92ce47cA0E71Fe',
+  //     tokenDecimals: 18,
+  //     token: '0x6De33698e9e9b787e09d3Bd7771ef63557E148bb',
+  //     quoteTokenDecimals: 6,
+  //     quoteToken: '0x6a2d262D56735DbA19Dd70682B39F6bE9a931D98',
+  //     lpAddressDecimals: 18,
+  //   },
+  // },
+  // // aBusdUsdc
+  // {
+  //   type: 1,
+  //   contractAddress: {
+  //     [ChainId.ASTR_MAINNET]: '0x347e53263F8fb843EC605A1577eC7C8c0cAC7a58',
+  //     [ChainId.ASTR_TESTNET]: '0x347e53263F8fb843EC605A1577eC7C8c0cAC7a58',
+  //   },
+  //   fromSource: IFarmProject.arthswap,
+  //   abiType: IABIType.AVaultForArthswapFarm,
+  //   swapLink: 'https://app.arthswap.org/#/add/',
+  //   online_at: 1656525599,
+  //   lpDetail: {
+  //     symbol: 'BUSD-USDC LP',
+  //     address: {
+  //       [ChainId.ASTR_MAINNET]: '0xeee106Aa8a0DE519E8Eb21C66A5c2275b46b3F4d',
+  //       [ChainId.ASTR_TESTNET]: '0xeee106Aa8a0DE519E8Eb21C66A5c2275b46b3F4d',
+  //     },
+  //     decimals: 18,
+  //   },
+  //   vault: {
+  //     fromSource: IFarmProject.arthswap,
+  //     symbol: 'aBusdUsdc',
+  //     name: 'avault Arthswap BUSD-USDC LP',
+  //     masterChef: '0xc5b016c5597D298Fe9eD22922CE290A048aA5B75',
+  //     token0Address: '0x4Bf769b05E832FCdc9053fFFBC78Ca889aCb5E1E',
+  //     token1Address: '0x6a2d262D56735DbA19Dd70682B39F6bE9a931D98',
+  //     wantAddress: '0xeee106Aa8a0DE519E8Eb21C66A5c2275b46b3F4d',
+  //     earnedAddress: '0xDe2578Edec4669BA7F41c5d5D2386300bcEA4678',
+  //     AVAAddress: '0x03065E84748a9e4a1AEbef15AC89da1Cdf18B202',
+  //     decimals: 18,
+  //   },
+  //   farm: {
+  //     pid: 1,
+  //     lpSymbol: 'ARSW-LP',
+  //     lpAddresses: '0xeee106Aa8a0DE519E8Eb21C66A5c2275b46b3F4d',
+  //     tokenDecimals: 18,
+  //     token: '0x4Bf769b05E832FCdc9053fFFBC78Ca889aCb5E1E',
+  //     quoteTokenDecimals: 6,
+  //     quoteToken: '0x6a2d262D56735DbA19Dd70682B39F6bE9a931D98',
+  //     lpAddressDecimals: 18,
+  //   },
+  // },
+  // // aUsdtUsdc
+  // {
+  //   type: 1,
+  //   contractAddress: {
+  //     [ChainId.ASTR_MAINNET]: '0x02Dac4898B2c2cA9D50fF8D6a7726166CF7bCFD0',
+  //     [ChainId.ASTR_TESTNET]: '0x02Dac4898B2c2cA9D50fF8D6a7726166CF7bCFD0',
+  //   },
+  //   fromSource: IFarmProject.arthswap,
+  //   abiType: IABIType.AVaultForArthswapFarm,
+  //   swapLink: 'https://app.arthswap.org/#/add/',
+  //   online_at: 1656525599,
+  //   lpDetail: {
+  //     symbol: 'USDT-USDC LP',
+  //     address: {
+  //       [ChainId.ASTR_MAINNET]: '0xD72A602C714ae36D990dc835eA5F96Ef87657D5e',
+  //       [ChainId.ASTR_TESTNET]: '0xD72A602C714ae36D990dc835eA5F96Ef87657D5e',
+  //     },
+  //     decimals: 18,
+  //   },
+  //   vault: {
+  //     fromSource: IFarmProject.arthswap,
+  //     symbol: 'aUsdtUsdc',
+  //     name: 'avault Arthswap USDT-USDC LP',
+  //     masterChef: '0xc5b016c5597D298Fe9eD22922CE290A048aA5B75',
+  //     token0Address: '0x3795C36e7D12A8c252A20C5a7B455f7c57b60283',
+  //     token1Address: '0x6a2d262D56735DbA19Dd70682B39F6bE9a931D98',
+  //     wantAddress: '0xD72A602C714ae36D990dc835eA5F96Ef87657D5e',
+  //     earnedAddress: '0xDe2578Edec4669BA7F41c5d5D2386300bcEA4678',
+  //     AVAAddress: '0x03065E84748a9e4a1AEbef15AC89da1Cdf18B202',
+  //     decimals: 18,
+  //   },
+  //   farm: {
+  //     pid: 0,
+  //     lpSymbol: 'ARSW-LP',
+  //     lpAddresses: '0xD72A602C714ae36D990dc835eA5F96Ef87657D5e',
+  //     tokenDecimals: 6,
+  //     token: '0x3795C36e7D12A8c252A20C5a7B455f7c57b60283',
+  //     quoteTokenDecimals: 6,
+  //     quoteToken: '0x6a2d262D56735DbA19Dd70682B39F6bE9a931D98',
+  //     lpAddressDecimals: 18,
+  //   },
+  // },
+  // normal
   // aUsdtAstr
   {
+    type: 0,
     contractAddress: {
       [ChainId.ASTR_MAINNET]: '0x8964FAE92bb4b79D408e9Bd3d48e7C9EcaA5f163',
       [ChainId.ASTR_TESTNET]: '0x8964FAE92bb4b79D408e9Bd3d48e7C9EcaA5f163',
@@ -44,6 +385,7 @@ const vaultsConfig: IVaultConfigItem[] = [
   },
   // aUsdcAstr
   {
+    type: 0,
     contractAddress: {
       [ChainId.ASTR_MAINNET]: '0xDaD1D300E9a6f4f36AeD40213EF473Fd019704E9',
       [ChainId.ASTR_TESTNET]: '0xDaD1D300E9a6f4f36AeD40213EF473Fd019704E9',
@@ -85,6 +427,7 @@ const vaultsConfig: IVaultConfigItem[] = [
   },
   // aEthAstr
   {
+    type: 0,
     contractAddress: {
       [ChainId.ASTR_MAINNET]: '0xDaac872a9098aC5620C9D8eaF2DD50FBABc50Bb1',
       [ChainId.ASTR_TESTNET]: '0xDaac872a9098aC5620C9D8eaF2DD50FBABc50Bb1',
@@ -126,6 +469,7 @@ const vaultsConfig: IVaultConfigItem[] = [
   },
   // aDaiUsdc
   {
+    type: 0,
     contractAddress: {
       [ChainId.ASTR_MAINNET]: '0x81FbF3A32D600C65B9Df30404C2D372b6c9eE845',
       [ChainId.ASTR_TESTNET]: '0x81FbF3A32D600C65B9Df30404C2D372b6c9eE845',
@@ -167,6 +511,7 @@ const vaultsConfig: IVaultConfigItem[] = [
   },
   // aBusdUsdc
   {
+    type: 0,
     contractAddress: {
       [ChainId.ASTR_MAINNET]: '0x8552030E314cD15300f75AA93fA8133BB3340E6f',
       [ChainId.ASTR_TESTNET]: '0x8552030E314cD15300f75AA93fA8133BB3340E6f',
@@ -208,6 +553,7 @@ const vaultsConfig: IVaultConfigItem[] = [
   },
   // aUsdtUsdc
   {
+    type: 0,
     contractAddress: {
       [ChainId.ASTR_MAINNET]: '0x41F97524B5E73575F3848E1983181c0622d10e41',
       [ChainId.ASTR_TESTNET]: '0x41F97524B5E73575F3848E1983181c0622d10e41',
@@ -249,6 +595,7 @@ const vaultsConfig: IVaultConfigItem[] = [
   },
   // aAAA
   {
+    type: 0,
     contractAddress: {
       [ChainId.ASTR_MAINNET]: '0x9a45b203Af044ADACceD4D95ca3cDa020E082c8A',
       [ChainId.ASTR_TESTNET]: '0x9a45b203Af044ADACceD4D95ca3cDa020E082c8A',
@@ -291,6 +638,7 @@ const vaultsConfig: IVaultConfigItem[] = [
   },
   // aDotUsdc
   {
+    type: 0,
     contractAddress: {
       [ChainId.ASTR_MAINNET]: '0x898BF9C743a436C9C3F332aF445aAd69c15b10b8',
       [ChainId.ASTR_TESTNET]: '0x898BF9C743a436C9C3F332aF445aAd69c15b10b8',
@@ -332,6 +680,7 @@ const vaultsConfig: IVaultConfigItem[] = [
   },
   // aDotAstr
   {
+    type: 0,
     contractAddress: {
       [ChainId.ASTR_MAINNET]: '0xE66560C1B5FAaE4e4f77ba40F61F21F4ADbb6924',
       [ChainId.ASTR_TESTNET]: '0xE66560C1B5FAaE4e4f77ba40F61F21F4ADbb6924',
@@ -373,6 +722,7 @@ const vaultsConfig: IVaultConfigItem[] = [
   },
   // aMuuuAstr
   {
+    type: 0,
     contractAddress: {
       [ChainId.ASTR_MAINNET]: '0x57D942953d416835F7B60bE2A8b49870cc7bcfe1',
       [ChainId.ASTR_TESTNET]: '0x57D942953d416835F7B60bE2A8b49870cc7bcfe1',
@@ -415,6 +765,7 @@ const vaultsConfig: IVaultConfigItem[] = [
 
   // aKglAstr
   {
+    type: 0,
     contractAddress: {
       [ChainId.ASTR_MAINNET]: '0xe7465336BaA2EfBe52e3e67a8B06a97630d76882',
       [ChainId.ASTR_TESTNET]: '0xe7465336BaA2EfBe52e3e67a8B06a97630d76882',
@@ -456,6 +807,7 @@ const vaultsConfig: IVaultConfigItem[] = [
   },
   // aLayAstr
   {
+    type: 0,
     contractAddress: {
       [ChainId.ASTR_MAINNET]: '0xc59B9d3ECC93967e697accDbfe9EAB74bB3Fba22',
       [ChainId.ASTR_TESTNET]: '0xc59B9d3ECC93967e697accDbfe9EAB74bB3Fba22',
@@ -497,6 +849,7 @@ const vaultsConfig: IVaultConfigItem[] = [
   },
   // aOusdUsdc
   {
+    type: 0,
     contractAddress: {
       [ChainId.ASTR_MAINNET]: '0x40B18bc7AEE5A03515fCf241ad89d548899FB74f',
       [ChainId.ASTR_TESTNET]: '0x40B18bc7AEE5A03515fCf241ad89d548899FB74f',
@@ -538,6 +891,7 @@ const vaultsConfig: IVaultConfigItem[] = [
   },
   // aBaiUsdc
   {
+    type: 0,
     contractAddress: {
       [ChainId.ASTR_MAINNET]: '0x5417F117E4A2283623B3b9A07Ec2B2f269d19A75',
       [ChainId.ASTR_TESTNET]: '0x5417F117E4A2283623B3b9A07Ec2B2f269d19A75',
@@ -579,6 +933,7 @@ const vaultsConfig: IVaultConfigItem[] = [
   },
   // aBaiAstr
   {
+    type: 0,
     contractAddress: {
       [ChainId.ASTR_MAINNET]: '0xC730151a27A4cE6a09d51cFaB115233C2E73D471',
       [ChainId.ASTR_TESTNET]: '0xC730151a27A4cE6a09d51cFaB115233C2E73D471',
@@ -620,6 +975,7 @@ const vaultsConfig: IVaultConfigItem[] = [
   },
   // aNikaAstr
   {
+    type: 0,
     contractAddress: {
       [ChainId.ASTR_MAINNET]: '0x13E01d7Da7b3F211C6972c331DA88c142dF571D8',
       [ChainId.ASTR_TESTNET]: '0x13E01d7Da7b3F211C6972c331DA88c142dF571D8',
@@ -661,6 +1017,7 @@ const vaultsConfig: IVaultConfigItem[] = [
   },
   // aOruAstr
   {
+    type: 0,
     contractAddress: {
       [ChainId.ASTR_MAINNET]: '0x8f0fD0A3b767a67E992F33063817A2d472EFf74f',
       [ChainId.ASTR_TESTNET]: '0x8f0fD0A3b767a67E992F33063817A2d472EFf74f',
@@ -702,6 +1059,7 @@ const vaultsConfig: IVaultConfigItem[] = [
   },
   // aJpycAstr
   {
+    type: 0,
     contractAddress: {
       [ChainId.ASTR_MAINNET]: '0x8d90E9C50Af206a2757e09B56160991Dd7548db9',
       [ChainId.ASTR_TESTNET]: '0x8d90E9C50Af206a2757e09B56160991Dd7548db9',
@@ -743,6 +1101,7 @@ const vaultsConfig: IVaultConfigItem[] = [
   },
   // aSdnAstr
   {
+    type: 0,
     contractAddress: {
       [ChainId.ASTR_MAINNET]: '0x5F612d4155b1CEdE2a2cda61146834280f706B78',
       [ChainId.ASTR_TESTNET]: '0x5F612d4155b1CEdE2a2cda61146834280f706B78',
@@ -784,6 +1143,7 @@ const vaultsConfig: IVaultConfigItem[] = [
   },
   // aMaticAstr
   {
+    type: 0,
     contractAddress: {
       [ChainId.ASTR_MAINNET]: '0x7D7b744CB50Eb228fe23Bbb29bc5918c507180B7',
       [ChainId.ASTR_TESTNET]: '0x7D7b744CB50Eb228fe23Bbb29bc5918c507180B7',
@@ -825,6 +1185,7 @@ const vaultsConfig: IVaultConfigItem[] = [
   },
   // aBnbAstr
   {
+    type: 0,
     contractAddress: {
       [ChainId.ASTR_MAINNET]: '0x6B13DDF4d1E1F2E036619920746318fB79f9EA84',
       [ChainId.ASTR_TESTNET]: '0x6B13DDF4d1E1F2E036619920746318fB79f9EA84',
@@ -866,6 +1227,7 @@ const vaultsConfig: IVaultConfigItem[] = [
   },
   // aBtcAstr
   {
+    type: 0,
     contractAddress: {
       [ChainId.ASTR_MAINNET]: '0x945bC42819F4F612d07DaBd1d57F10Aac494405f',
       [ChainId.ASTR_TESTNET]: '0x945bC42819F4F612d07DaBd1d57F10Aac494405f',
@@ -951,4 +1313,16 @@ const vaultsConfig: IVaultConfigItem[] = [
 // const JPYC-WASTR="0xF041a8e6e27341F5f865a22f01Fa37e065c32156"
 // const ORU-WASTR="0xaC4b7043DA7152726D54B0fB1628a2FFF73f874e"
 // const NIKA-WASTR="0xeF8B14e08c292cc552494ec428A75c8A3cd417B6"
+
+// ACTIVE
+// aBaiUsdc deployed to: 0xDBd71969aC2583A9A20Af3FB81FE9C20547f30F3
+// aDaiUsdc deployed to: 0x9914Bff0437f914549c673B34808aF6020e2B453
+// aBusdUsdc deployed to: 0x347e53263F8fb843EC605A1577eC7C8c0cAC7a58
+// aUsdtUsdc deployed to: 0x02Dac4898B2c2cA9D50fF8D6a7726166CF7bCFD0
+
+// Add
+// aArswUsdc deployed to: 0x58AD25Aa6B14c3Fd5921EA5BB731C3b2ADE0a099
+// aArswUsdt deployed to: 0x46C3773Bd40bA20Bd77c3B246783CE941f3dB574
+// aArswUsdt deployed to: 0x383C69E3baE31eF1d7DC154CD351B0D734537626
+// aAcaAstr deployed to: 0x360d125366C60Ba20Dc11ebb7120BdEaA0Cc007C
 export default vaultsConfig;

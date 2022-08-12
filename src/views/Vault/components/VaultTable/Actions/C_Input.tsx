@@ -21,7 +21,7 @@ const StyledInput = styled(Input)`
   font-size: 12px;
   padding: 0;
   ${({ theme }) => theme.mediaQueries.sm} {
-    width: 50%;
+    width: 60%;
     font-size: 16px;
   }
 `;

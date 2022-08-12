@@ -5,11 +5,10 @@ import { useMemo } from 'react';
 import useActiveWeb3React from 'hooks/useActiveWeb3React';
 import { BIPS_BASE, INITIAL_ALLOWED_SLIPPAGE } from '../config/constants';
 import { useTransactionAdder } from '../state/transactions/hooks';
-import { calculateGasMargin, getRouterContract, isAddress, shortenAddress } from '../utils';
+import { getRouterContract, isAddress, shortenAddress } from '../utils';
 import isZero from '../utils/isZero';
 import useTransactionDeadline from './useTransactionDeadline';
 import useENS from './ENS/useENS';
-import { DEFAULT_GAS_PRICE } from 'config';
 
 export enum SwapCallbackState {
   INVALID,
@@ -176,13 +175,10 @@ export function useSwapCallback(
             contract,
             parameters: { methodName, args, value },
           },
-          gasEstimate,
         } = successfulEstimation;
 
         return contract[methodName](...args, {
           ...(value && !isZero(value) ? { value, from: account } : { from: account }),
-          gasLimit: calculateGasMargin(gasEstimate),
-          gasPrice: DEFAULT_GAS_PRICE,
         })
           .then((response: any) => {
             const inputSymbol = trade.inputAmount.currency.symbol;

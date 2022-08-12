@@ -19,7 +19,7 @@ const IconMenuStyled = styled.div`
     height: 36px;
     top: -6px;
     left: -14px;
-    stroke: ${({ theme }) => theme.colors.primary};
+    stroke: #fff;
     stroke-width: 2px;
     stroke-linecap: round;
     stroke-linejoin: round;

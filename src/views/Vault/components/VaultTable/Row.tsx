@@ -15,7 +15,7 @@ import { IVault } from 'state/vault/types';
 import BigNumber from 'bignumber.js';
 import { getBalanceNumber } from 'utils/formatBalance';
 import Balance from 'components/Balance';
-import { showDecimals } from 'views/Vault/utils';
+import { showDecimals, showDecimalsWithType } from 'views/Vault/utils';
 import { useWeb3React } from '@web3-react/core';
 import { chainId } from 'config/constants/tokens';
 
@@ -158,7 +158,14 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
   };
 
   const { targetRef, tooltip, tooltipVisible } = useTooltip(
-    `1 ${details.vault.symbol} = ${details.vault.lpToCLpRate} ${details.lpDetail.symbol}`,
+    `${details.type === 2 ? details.vault.scale : 1} ${details.vault.symbol} = ${
+      details.type === 1 ? '$' : ''
+    }${new BigNumber(details?.vault?.lpToCLpRate ?? '1')
+      .times(details?.vault?.scale ?? '1')
+      .toNumber()
+      .toLocaleString('en-US', {
+        maximumFractionDigits: 6,
+      })} ${details.type !== 1 ? details.lpDetail.symbol : ''}`,
     {
       trigger: 'hover',
       tootipStyle: { padding: '10px', whiteSpace: 'break-spaces', textAlign: 'center', fontSize: '14px' },
@@ -219,10 +226,13 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
                     {tooltipVisible && tooltip}
                     <Flex alignItems="center" justifyContent="start">
                       <Text color="text" bold fontSize="15px">
-                        1:
-                        {`${new BigNumber(details?.vault?.lpToCLpRate ?? '1').toNumber().toLocaleString('en-US', {
-                          maximumFractionDigits: 4,
-                        })}`}
+                        {details.type === 2 ? details?.vault?.scale ?? 1 : 1}:
+                        {`${new BigNumber(details?.vault?.lpToCLpRate ?? '1')
+                          .times(details?.vault?.scale ?? '1')
+                          .toNumber()
+                          .toLocaleString('en-US', {
+                            maximumFractionDigits: 4,
+                          })}`}
                         {/* 1 {details.vault.symbol}={details.vault.lpToCLpRate} {details.lpDetail.symbol} */}
                       </Text>
                       <QuestionWrapper ref={targetRef}>
@@ -240,7 +250,7 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
                         fontSize="14px"
                         color="text"
                         fontWeight="600"
-                        decimals={showDecimals(details.lpDetail.symbol)}
+                        decimals={showDecimalsWithType(details.lpDetail.symbol, details.type)}
                         // decimals={5}
                         value={getBalanceNumber(new BigNumber(_userData.avaultAddressBalance))}
                       />

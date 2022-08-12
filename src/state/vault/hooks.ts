@@ -62,17 +62,16 @@ export const useVault = (): VaultState => {
   });
   return vault;
 };
-// const useVaultPid = (pid: number) => {
-//   const vault = useSelector((state: State) => state.vault.data.find((f) => f.farm.pid === pid));
-//   return vault;
-// };
+
 export const useVaultAllTotal = () => {
   const vault = useSelector((state: State) => state.vault);
   return vault.tvlTotal;
 };
-export const useVaultFarmUser = (account: string, pid?: number) => {
+export const useVaultFarmUser = (account: string, vaultAccount: string) => {
   try {
-    const vault = useSelector((state: State) => state.vault.data.find((f) => f.farm.pid === pid));
+    const vault = useSelector((state: State) =>
+      state.vault.data.find((f) => f.contractAddress[chainId].toLowerCase() === vaultAccount.toLowerCase()),
+    );
     // const { farm } = useVaultPid(pid);
     const { farm } = vault;
 

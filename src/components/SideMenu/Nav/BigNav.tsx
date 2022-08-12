@@ -1,70 +1,44 @@
-import React, { FC, useRef, useEffect } from 'react';
+import { FC } from 'react';
 import styled from 'styled-components';
 import { Link, useLocation } from 'react-router-dom';
 import { IMenu } from '../config';
 import { Flex, useTooltip } from '@my/ui';
 import CollapseSvg from '../imgs/collapse';
-import NftContent from './NftContent';
-import MoreContent from './MoreContent';
 import IconLink from 'components/svg/IconLink';
+import ALPContent from './ALPContent';
 const BigNav: FC<{ menuItems: IMenu[] }> = ({ menuItems }) => {
   const { pathname } = useLocation();
   const {
-    targetRef: NftTargetRef,
-    tooltip: NftTooltip,
-    tooltipVisible: NftTooltipVisible,
-  } = useTooltip(NftContent, {
+    targetRef: ALPTargetRef,
+    tooltip: ALPTooltip,
+    tooltipVisible: ALPTooltipVisible,
+    setTooltipVisible: ALPSetTooltipVisible,
+  } = useTooltip(ALPContent, {
     trigger: 'hover',
-    tootipStyle: { padding: '10px 20px 20px' },
+    tootipStyle: { padding: '30px 30px 20px', backgroundColor: '#030222', maxWidth: '748px', minWidth: '400px' },
     placement: 'top-end',
     hideArrow: false,
     tooltipOffset: [20, 10],
+    arrowBackground: '#030222',
   });
-  const setMoreTooltipVisible = useRef<React.Dispatch<React.SetStateAction<boolean>>>();
-  const {
-    tooltip: MoreTooltip,
-    tooltipVisible: MoreTooltipVisible,
-    setTooltipVisible,
-  } = useTooltip(
-    <>
-      <MoreContent setTooltipVisible={setMoreTooltipVisible.current} />
-    </>,
-    {
-      trigger: 'hover',
-      tootipStyle: { padding: '0', minWidth: '620px' },
-      placement: 'top-end',
-      hideArrow: false,
-      tooltipOffset: [100, 10],
-    },
-  );
-  const { tooltip: BorrowTooltip, tooltipVisible: BorrowTooltipVisible } = useTooltip('Comming Soon', {
-    placement: 'right-start',
-    trigger: 'hover',
-    tootipStyle: {
-      padding: '0 14px',
-      backgroundImage: 'linear-gradient(270deg, #FC00FF 0%, #7D49FF 100%)',
-      borderRadius: '12px',
-      fontSize: '10px',
-      lineHeight: '24px',
-      border: 'none',
-      fontWeight: 'bold',
-    },
-    hideArrow: true,
-  });
-  useEffect(() => {
-    setMoreTooltipVisible.current = setTooltipVisible;
-  }, [setTooltipVisible]);
   return (
     <>
-      {NftTooltipVisible && NftTooltip}
-      {MoreTooltipVisible && MoreTooltip}
-      {BorrowTooltipVisible && BorrowTooltip}
+      <div
+        onClick={() => {
+          if (ALPTooltipVisible) {
+            ALPSetTooltipVisible(false);
+          }
+        }}
+      >
+        {/* {ALPTooltip} */}
+        {ALPTooltipVisible && ALPTooltip}
+      </div>
       <NavWrap>
         {menuItems.map((item: IMenu, index) => (
           <NavLink
             to={item.link}
             key={index}
-            ref={item.text === 'NFT' ? NftTargetRef : undefined}
+            ref={item.text === 'aLP/aToken' ? ALPTargetRef : undefined}
             onClick={() => {
               if (item.link.indexOf('https://') > -1) {
                 window.open(item.link);
@@ -116,10 +90,10 @@ const NavWrap = styled(Flex)`
   justify-content: flex-start;
   a:hover {
     color: ${({ theme }) => theme.colors.text};
-    // svg {
-    //   fill: ${({ theme }) => theme.colors.text};
-    //   transform: scaleY(-1);
-    // }
+    svg {
+      fill: ${({ theme }) => theme.colors.text};
+      // transform: rotateZ(180deg);
+    }
   }
 `;
 const NavLink = styled(Link)<{ active: 't' | 'f' }>`
@@ -132,9 +106,9 @@ const NavLink = styled(Link)<{ active: 't' | 'f' }>`
   font-weight: 600;
   margin-right: 34px;
   svg {
-    width: 20px;
+    width: 24px;
     fill: ${({ theme, active }) => (active === 't' ? theme.colors.text : theme.colors.textSubtle)};
-    transform: ${({ active }) => (active === 't' ? '' : 'scaleY(-1)')};
+    transform: ${({ active }) => (active === 't' ? 'rotateZ(180deg)' : '')};
   }
 `;
 
@@ -155,7 +129,7 @@ const NavLinkA = styled.a`
     color: ${({ theme }) => theme.colors.text};
     svg {
       fill: ${({ theme }) => theme.colors.text};
-      transform: scaleY(1);
+      // transform: rotateZ(180deg);
       path {
         stroke: #fff;
       }

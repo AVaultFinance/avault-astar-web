@@ -22,7 +22,9 @@ interface IAddress {
   [ChainId.BSC_MAINNET]?: string;
   [ChainId.BSC_TESTNET]?: string;
 }
+export const VaultType = ['All', 'Event'];
 export interface IVaultConfigItem {
+  type: number; // 0 normal  1 active   2 addNew
   contractAddress: IAddress;
   fromSource: IFarmProject;
   abiType: IABIType;
@@ -71,6 +73,7 @@ export interface IVaultFarm {
 export interface IVaultUserData {
   index?: number;
   pid?: number;
+  vaultAccount?: string;
   account: string;
   allowance: string;
   stakingTokenBalance: string;
@@ -92,6 +95,7 @@ export interface IVaultComp {
   wantAddress: string;
   earnedAddress: string;
   wantLockedTotal?: string;
+  scale?: string;
   totalSupply?: string;
   decimals: number;
   balance?: string;

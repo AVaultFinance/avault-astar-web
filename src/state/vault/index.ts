@@ -10,8 +10,10 @@ import {
 } from './fetchVaultUser';
 import { haveNumber } from 'utils';
 import { chainId } from 'config/constants/tokens';
+// import fetchVaults from './fetchVaults';
 import fetchVaultsV2 from './fetchVaultsV2';
 import vaultsConfig from 'state/vault/vaultsConfig';
+import BigNumber from 'bignumber.js';
 
 export const initialState: VaultState = {
   data: vaultsConfig.map((v: IVaultConfigItem) => {
@@ -69,6 +71,7 @@ export const fetchVaultFarmUserDataAsync = createAsyncThunk<
   const [userVaultUsers, userVaultSupply, vaultWantLockedTotal] = await fetchVaultsUsers(account, vaults, index);
   return userVaultsFarmAllowances.map((farmAllowance, _index) => {
     return {
+      vaultAccount: vaults[_index].contractAddress[chainId],
       index: index,
       account: account,
       pid: vaults[_index].farm.pid,
@@ -129,17 +132,22 @@ export const vaultSlice = createSlice({
     });
     builder.addCase(fetchVaultFarmUserDataAsync.fulfilled, (state, action) => {
       action.payload.forEach((userDataEl) => {
-        const { pid, index: _index, account } = userDataEl;
-        const index = haveNumber(_index) ? _index : state.data.findIndex((vault: IVault) => vault.farm.pid === pid);
+        const { vaultAccount, index: _index, account } = userDataEl;
+        const index = haveNumber(_index)
+          ? _index
+          : state.data.findIndex(
+              (vault: IVault) => vault.contractAddress[chainId].toLowerCase() === vaultAccount.toLowerCase(),
+            );
         const vaultWantLockedTotal = userDataEl.vaultWantLockedTotal
           ? userDataEl.vaultWantLockedTotal
           : state.data[index]?.vault?.wantLockedTotal;
+
         const userVaultSupply = userDataEl.userVaultSupply
           ? userDataEl.userVaultSupply
           : state.data[index]?.vault?.totalSupply;
         const lpToCLpRate =
           vaultWantLockedTotal && userVaultSupply && Number(vaultWantLockedTotal) > 0 && Number(userVaultSupply) > 0
-            ? (Number(vaultWantLockedTotal) / Number(userVaultSupply)).toFixed(18)
+            ? new BigNumber(vaultWantLockedTotal).div(userVaultSupply).toFixed(18)
             : '1';
         // const currentSeconds = Math.floor(Date.now() / 1000);
         // 86400s/day
@@ -154,7 +162,7 @@ export const vaultSlice = createSlice({
         state.data[index] = {
           ...state.data[index],
           vault: {
-            ...state.data[index].vault,
+            ...state.data[index]?.vault,
             totalSupply: userDataEl.userVaultSupply,
             wantLockedTotal: userDataEl.vaultWantLockedTotal,
             lpToCLpRate: lpToCLpRate,

@@ -29,9 +29,22 @@ const fetchVaultsV2 = async (
   //   AVAAddress,
   //   vaultDecimals,
   // } = await fetchVaultABIBase(vaultsData);
+  // console.log({
+  //   masterChef,
+  //   name,
+  //   symbol,
+  //   pid,
+  //   wantAddress,
+  //   token0Address,
+  //   token1Address,
+  //   earnedAddress,
+  //   AVAAddress,
+  //   vaultDecimals,
+  // });
+
   // // pid: (22) [21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
   const obj: IVault[] = [];
-  const { wantLockedTotal, vaultTotalSupply } = await fetchVaultABIAmount(vaultsData);
+  const { wantLockedTotal, vaultTotalSupply, scale } = await fetchVaultABIAmount(vaultsData);
   // ----------------AVVATADDRESS  end----------
   // -------------MASTRETADDRESS--------
   const { poolWeight, multiplier } = await fetchMasterChefABI(currentBlock, vaultsData);
@@ -72,9 +85,10 @@ const fetchVaultsV2 = async (
       .times(Number(lpTokenPrice[i]))
       .toNumber();
     _total = _total.plus(_liquidity);
+    const _scale = item.type === 0 ? '1' : scale[i];
     const _lpToCLpRate =
       wantLockedTotal[i] && vaultTotalSupply[i] && wantLockedTotal[i] > 0 && vaultTotalSupply[i] > 0
-        ? (Number(wantLockedTotal[i]) / Number(vaultTotalSupply[i])).toFixed(18)
+        ? new BigNumber(wantLockedTotal[i]).div(vaultTotalSupply[i]).toFixed(18)
         : '1';
     obj[i] = {
       ...item,
@@ -82,6 +96,7 @@ const fetchVaultsV2 = async (
         ...item.vault,
         wantLockedTotal: wantLockedTotal[i],
         totalSupply: vaultTotalSupply[i],
+        scale: _scale,
         liquidity: _liquidity.toLocaleString('en-US', {
           maximumFractionDigits: 2,
         }),

@@ -13,7 +13,15 @@ export const tokens = {
       decimals: 10,
       projectLink: '',
     },
-
+    aca: {
+      symbol: 'ACA',
+      address: {
+        [ChainId.ASTR_MAINNET]: '0xffffffff00000000000000010000000000000000',
+        [ChainId.ASTR_TESTNET]: '0xffffffff00000000000000010000000000000000',
+      },
+      decimals: 12,
+      projectLink: '',
+    },
     muuu: {
       symbol: 'muuu'.toUpperCase(),
       address: {

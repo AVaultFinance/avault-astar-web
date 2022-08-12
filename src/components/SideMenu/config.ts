@@ -41,6 +41,20 @@ export const MorePathConfig: IMenuDetail[] = [
     detail: 'All KACO NFT works can be freely traded on the Galaxy platform at the same time',
   },
 ];
+export const ALPPathConfig: IMenuDetail[] = [
+  {
+    text: 'Sirius Finance',
+    img: '/images/Sirius.svg',
+    link: 'https://app.sirius.finance/#/pools',
+    detail: 'Stable swap AMM',
+  },
+  {
+    text: 'Kagla Finance',
+    img: '/images/Kagla.svg',
+    link: 'https://kagla.finance/app/pools',
+    detail: 'Stable swap AMM',
+  },
+];
 const avaultMenuItems: IMenu[] = [
   {
     text: 'Vault',
@@ -50,6 +64,16 @@ const avaultMenuItems: IMenu[] = [
     text: 'Zap',
     link: '/zap',
   },
+  // {
+  //   text: 'aLP/aToken',
+  //   collapsed: true,
+  //   link: '#',
+  //   children: ALPPathConfig,
+  // },
+  // {
+  //   text: 'NFT',
+  //   link: '/zap',
+  // },
   // {
   //   text: 'Farm',
   //   link: '/farms',

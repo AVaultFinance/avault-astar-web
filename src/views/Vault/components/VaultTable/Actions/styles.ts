@@ -43,6 +43,7 @@ export const ActionContent = styled.div`
 export const HelfButton = styled(Button)<{ disabled: boolean }>`
   height: 36px;
   width: 48%;
+  padding: 0;
   margin-top: 4px;
   transition: all 0.3s ease;
   position: relative;

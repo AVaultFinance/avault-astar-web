@@ -47,6 +47,7 @@ if (window.localStorage.getItem('v2_price')) {
     window.localStorage.removeItem(`v2_${PERSISTED_KEYS[i]}`);
   }
 }
+
 const store = configureStore({
   devTools: process.env.NODE_ENV !== 'production',
   reducer: {
@@ -75,8 +76,8 @@ const store = configureStore({
   },
   // middleware: [...getDefaultMiddleware({ thunk: true }), save({ states: PERSISTED_KEYS, namespace: 'v1' })],
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({ thunk: true }).concat(save({ states: PERSISTED_KEYS, namespace: 'v3' })),
-  preloadedState: load({ states: PERSISTED_KEYS, namespace: 'v3' }),
+    getDefaultMiddleware({ thunk: true }).concat(save({ states: PERSISTED_KEYS, namespace: 'v9' })),
+  preloadedState: load({ states: PERSISTED_KEYS, namespace: 'v9' }),
 });
 
 store.dispatch(updateVersion());

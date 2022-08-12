@@ -5,7 +5,7 @@ import { useTooltip, Flex, CloseIcon } from '@my/ui';
 import { IMenu } from '../config';
 import CollapseSvg from '../imgs/collapse';
 import IconMenu from '../imgs/iconMenu';
-import { NftContentIn } from './NftContent';
+import { ALPContentIn } from './ALPContent';
 import WalletAccountInfo from '../UserWidget/WalletAccount';
 const SmallNavTooltip: FC<{
   _menuItems: IMenu[];
@@ -13,6 +13,7 @@ const SmallNavTooltip: FC<{
 }> = ({ _menuItems, setTooltipVisible }) => {
   const { pathname } = useLocation();
   const [menuItems, setMenuItems] = useState(_menuItems);
+  const [showMore, setShowMore] = useState(false);
 
   return (
     <NavWrap
@@ -26,43 +27,62 @@ const SmallNavTooltip: FC<{
         }}
       >
         <HeaderFlex>
-          <img src="/images/logo.svg" alt="" className="logo" />
+          <img src="/images/logo_beta.svg" alt="" className="logo" />
           <CloseIconStyled
             onClick={() => {
               setTooltipVisible(false);
             }}
           />
         </HeaderFlex>
-        {menuItems.map((item, index) => (
-          <div key={index}>
-            <NavLink
-              active={pathname.startsWith(item.link) ? 't' : 'f'}
-              to={item.link}
-              key={item.link}
-              onClick={() => {
-                setTooltipVisible(false);
-                if (item.link.indexOf('https://') > -1) {
-                  window.open(item.link);
-                  return;
-                }
-                setMenuItems([...menuItems.map((v) => (v.children ? { ...v, collapsed: true } : v))]);
-                if (item.children?.length) {
-                  setMenuItems([
-                    ...menuItems.slice(0, index),
-                    { ...item, collapsed: !item.collapsed },
-                    ...menuItems.slice(index + 1),
-                  ]);
-                }
-              }}
-            >
-              {item.text}
-              {item.children?.length && <CollapseSvg />}
-            </NavLink>
-            {((item.children?.length && !item.collapsed) || pathname.startsWith('/nft')) && (
-              <div className="sub-menu">{item.text === 'NFT' ? <NftContentIn /> : null}</div>
-            )}
-          </div>
-        ))}
+        {menuItems.map((item, index) => {
+          if (item.text === 'aLP/aToken') {
+            return (
+              <NavLinkStyle active={showMore} key={index}>
+                <h3
+                  className="h3"
+                  onClick={() => {
+                    setShowMore(!showMore);
+                  }}
+                >
+                  {item.text} <CollapseSvg />
+                </h3>
+                {showMore ? <ALPContentIn setTooltipVisible={setTooltipVisible} /> : null}
+              </NavLinkStyle>
+            );
+          }
+          return (
+            <div key={index}>
+              <NavLink
+                active={pathname.startsWith(item.link) && !showMore ? 't' : 'f'}
+                to={item.link}
+                key={item.link}
+                onClick={() => {
+                  if (item.children?.length) {
+                  }
+                  setTooltipVisible(false);
+                  if (item.link.indexOf('https://') > -1) {
+                    window.open(item.link);
+                    return;
+                  }
+                  setMenuItems([...menuItems.map((v) => (v.children ? { ...v, collapsed: true } : v))]);
+                  if (item.children?.length) {
+                    setMenuItems([
+                      ...menuItems.slice(0, index),
+                      { ...item, collapsed: !item.collapsed },
+                      ...menuItems.slice(index + 1),
+                    ]);
+                  }
+                }}
+              >
+                {item.text}
+                {item.children?.length && <CollapseSvg />}
+              </NavLink>
+              {/* {((item.children?.length && !item.collapsed) || pathname.startsWith('/nft')) && (
+                <div className="sub-menu">{item.text === 'ISO' ? <ALPContentIn /> : null}</div>
+              )} */}
+            </div>
+          );
+        })}
         {/* <NavLinkP ref={BorrowTargetRef}>
           Borrow
           <i>Comming Soon</i>
@@ -115,8 +135,8 @@ const SmallNav: FC<{ menuItems: IMenu[] }> = ({ menuItems }) => {
 
   return (
     <MenuFooter>
+      {MenuTooltipVisible && MenuTooltip}
       <FlexStyled>
-        {MenuTooltipVisible && MenuTooltip}
         <WalletAccountInfo />
         <MenuBtn ref={MenuTargetRef}>
           <IconMenu active={MenuTooltipVisible} />
@@ -135,15 +155,21 @@ const MenuFooter = styled.div`
   box-shadow: 0 10px 20px 5px rgba(0, 0, 0, 0.03);
   padding: 12px 24px;
   border-top: 1px solid ${({ theme }) => theme.colors.cardBorder};
+  .position {
+    position: relative;
+    z-index: 1000;
+  }
 `;
 const FlexStyled = styled(Flex)`
   align-items: center;
   justify-content: flex-end;
+  position: relative;
+  z-index: 999;
 `;
 const MenuBtn = styled.div`
   cursor: pointer;
   // box-shadow: 0 10px 20px 5px rgba(0, 0, 0, 0.03);
-  border: 1px solid ${({ theme }) => theme.colors.primary};
+  border: 1px solid ${({ theme }) => theme.colors.text};
   border-radius: 6px;
   margin-left: 12px;
   // width: 30px;
@@ -176,8 +202,9 @@ const expandAnimation = keyframes`
 const NavWrapInner = styled.div`
   position: absolute;
   width: 100vw;
+  height: 100vh;
   padding: 40px 30px 40px;
-  border-radius: 24px 24px 0 0;
+  // border-radius: 24px 24px 0 0;
   bottom: 0;
   background: ${({ theme }) => theme.colors.backgroundAlt};
   animation: ${() =>
@@ -201,6 +228,26 @@ const CloseIconStyled = styled(CloseIcon)`
     fill: ${({ theme }) => theme.colors.text};
   }
 `;
+const NavLinkStyle = styled.div<{ active: boolean }>`
+  padding-left: 20px;
+  // padding-right: 20px;
+  padding-bottom: 20px;
+  background-color: ${({ theme, active }) => (active ? theme.colors.background : 'transparent')};
+  border-radius: 8px;
+  .h3 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: ${({ theme, active }) => (active ? theme.colors.text : theme.colors.textSubtle)};
+    height: 48px;
+    line-height: 48px;
+    svg {
+      width: 36px;
+      fill: ${({ theme, active }) => (active ? theme.colors.text : theme.colors.textSubtle)};
+      transform: ${({ active }) => (active ? 'scaleY(-1)' : '')};
+    }
+  }
+`;
 const NavLink = styled(Link)<{ active: 't' | 'f' }>`
   font-size: 16px;
   color: ${({ theme, active }) => (active === 't' ? theme.colors.text : theme.colors.textSubtle)};
@@ -218,38 +265,8 @@ const NavLink = styled(Link)<{ active: 't' | 'f' }>`
   svg {
     width: 36px;
     fill: ${({ theme, active }) => (active === 't' ? theme.colors.text : theme.colors.textSubtle)};
-    transform: ${({ active }) => (active === 't' ? 'none' : 'scaleY(-1)')};
+    transform: ${({ active }) => (active === 't' ? 'scaleY(-1)' : '')};
   }
 `;
-// const NavLinkP = styled.div`
-//   font-size: 16px;
-//   color: ${({ theme }) => theme.colors.textSubtle};
-//   height: 48px;
-//   line-height: 48px;
-//   transition: all 0.3s ease;
-//   font-weight: 600;
-//   position: relative;
-//   text-align: left;
-//   display: block;
-//   padding-left: 20px;
-//   &:hover {
-//     color: ${({ theme }) => theme.colors.text};
-//   }
-//   i {
-//     display: inline-block;
-//     font-style: normal;
-//     padding: 0 14px;
-//     background-image: linear-gradient(270deg, #fc00ff 0%, #7d49ff 100%);
-//     border-radius: 12px;
-//     color: #fff;
-//     font-size: 10px;
-//     line-height: 24px;
-//     border: none;
-//     font-weight: bold;
-//     text-align: center;
-//     margin-left: 12px;
-//     font-weight: 400;
-//   }
-// `;
 
 export default SmallNav;

@@ -1,6 +1,7 @@
 // Set of helper functions to facilitate wallet setup
 
 import { ChainId } from '@my/sdk';
+import { TalismanConnector } from '@talismn/web3react-v6-connector';
 import { BASE_BSC_SCAN_URL, BASE_URL, chainKey } from 'config';
 import { chainId } from 'config/constants/tokens';
 
@@ -82,7 +83,12 @@ const wallet_config = {
 
 export const setupNetwork = async (connector: any) => {
   try {
-    const provider = await connector.getProvider();
+    let provider;
+    if (connector instanceof TalismanConnector) {
+      provider = await connector.getProvider();
+    } else {
+      provider = window.ethereum;
+    }
     if (provider) {
       await provider.request({
         method: 'wallet_addEthereumChain',

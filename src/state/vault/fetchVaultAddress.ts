@@ -1,6 +1,7 @@
 import { chainId } from 'config/constants/tokens';
 import multicall from 'utils/multicall';
 import { IVault } from './types';
+import AVaultForArthswapFarm from 'config/abi/AVaultForArthswapFarm.json';
 import AVaultPCS from 'config/abi/AVaultPCS.json';
 
 export const fetchVaultABIBase = async (vaultsData: IVault[]): Promise<Record<string, any[]>> => {
@@ -81,9 +82,23 @@ export const fetchVaultABIBase = async (vaultsData: IVault[]): Promise<Record<st
 export const fetchVaultABIAmount = async (vaultsData: IVault[]): Promise<Record<string, any[]>> => {
   const vaultCallsArr = {
     wantLockedTotal: [],
+    scale: [],
     vaultTotalSupply: [],
   };
 
+  vaultCallsArr.scale = vaultsData.map((v) => {
+    if (v.type === 0) {
+      return {
+        address: v.contractAddress[chainId],
+        name: 'wantLockedTotal',
+      };
+    } else {
+      return {
+        address: v.contractAddress[chainId],
+        name: 'scale',
+      };
+    }
+  });
   vaultCallsArr.wantLockedTotal = vaultsData.map((v) => ({
     address: v.contractAddress[chainId],
     name: 'wantLockedTotal',
@@ -94,7 +109,7 @@ export const fetchVaultABIAmount = async (vaultsData: IVault[]): Promise<Record<
   }));
 
   const vaultCall = [...Object.values(vaultCallsArr)].flat(2);
-  const result = await multicall(AVaultPCS, vaultCall);
+  const result = await multicall(AVaultForArthswapFarm, vaultCall);
   const obj = {};
   const keyArr = Object.keys(vaultCallsArr);
   for (let i = 0; i < keyArr.length; i++) {
@@ -103,6 +118,7 @@ export const fetchVaultABIAmount = async (vaultsData: IVault[]): Promise<Record<
     obj[`${keyArr[i]}`] = result.slice(start, end).map((v) => v[0]);
     switch (`${keyArr[i]}`) {
       case 'wantLockedTotal':
+      case 'scale':
       case 'vaultTotalSupply':
         obj[`${keyArr[i]}`] = result.slice(start, end).map((v) => v[0].toString());
         break;

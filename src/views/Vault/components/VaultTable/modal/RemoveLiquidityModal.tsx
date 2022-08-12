@@ -290,12 +290,8 @@ const RemoveLiquidityModal: React.FC<RemoveLiquidityModalProps> = ({ vault, acco
       console.error('This transaction would fail. Please contact support.');
     } else {
       const methodName = methodNames[indexOfSuccessfulEstimation];
-      const safeGasEstimate = safeGasEstimates[indexOfSuccessfulEstimation];
-
       setAttemptingTxn(true);
-      await router[methodName](...args, {
-        gasLimit: safeGasEstimate,
-      })
+      await router[methodName](...args)
         .then(async (response: TransactionResponse) => {
           // addTransaction(response, {
           //   summary: `Remove ${formattedAmounts[Field.LIQUIDITY]} ${vault.lpDetail.symbol} success!`,

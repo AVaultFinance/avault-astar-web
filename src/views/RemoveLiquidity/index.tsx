@@ -294,9 +294,7 @@ export default function RemoveLiquidity({
       const safeGasEstimate = safeGasEstimates[indexOfSuccessfulEstimation];
 
       setAttemptingTxn(true);
-      await router[methodName](...args, {
-        gasLimit: safeGasEstimate,
-      })
+      await router[methodName](...args)
         .then((response: TransactionResponse) => {
           setAttemptingTxn(false);
 
