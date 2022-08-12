@@ -59,13 +59,17 @@ const Apr: React.FC<AprProps> = ({ apy, farmApy, feeApy, originalValue, fromSour
     <Container>
       {originalValue ? (
         <>
-          <AprWrapper>{apy}%</AprWrapper>
+          <AprWrapper>
+            {apy === '999.99' ? '>' : ''}
+            {apy}%
+          </AprWrapper>
           <PStyled>
             {/* {vaultSymbol} */}
             Arthswap Fee APY: ≈{feeApy}%
           </PStyled>
           <PStyled>
-            {fromSource} Farm APY: {farmApy}%
+            {fromSource} Farm APY: {farmApy === '999.99' ? '>' : ''}
+            {farmApy}%
           </PStyled>
           {/* <ReferenceElement ref={targetRef}>
             <HelpIcon color="textSubtle" />
@@ -91,13 +95,17 @@ const Apr: React.FC<AprProps> = ({ apy, farmApy, feeApy, originalValue, fromSour
     </Container>
   ) : (
     <Container>
-      <AprWrapper>{apy}%</AprWrapper>
+      <AprWrapper>
+        {apy === '999.99' ? '>' : ''}
+        {apy}%
+      </AprWrapper>
       <PStyled>
         {/* {vaultSymbol} */}
         Arthswap Fee APY: ≈{feeApy}%
       </PStyled>
       <PStyled>
-        {fromSource} Farm APY: {apy}%
+        {fromSource} Farm APY: {farmApy === '999.99' ? '>' : ''}
+        {farmApy}%
       </PStyled>
       {/* <ReferenceElement ref={targetRef}>
         <HelpIcon color="textSubtle" />

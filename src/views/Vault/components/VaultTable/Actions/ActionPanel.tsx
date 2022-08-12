@@ -16,7 +16,6 @@ import { IVault } from 'state/vault/types';
 import { useVault, useVaultFarmUser } from 'state/vault/hooks';
 import useAuth from 'hooks/useAuth';
 import { chainId } from 'config/constants/tokens';
-import { getDisplayApy } from 'views/Farms/Farms';
 import { InfoContainer } from 'style/TableStyled';
 import { showDecimals, showDecimalsWithType } from 'views/Vault/utils';
 import AddLiquidityModal from '../modal/AddLiquidityModal';
@@ -352,11 +351,17 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
         <p>
           APY
           <em>
-            <i className="green">{vault?.farm?.apy ? getDisplayApy(Number(vault.farm.apy)) + '%' : ''}</i>
+            <i className="green">
+              {vault?.farm?.apy ? (vault.farm.apy === '999.99' ? '>' + vault.farm.apy : vault.farm.apy + '%') : ''}
+            </i>
             <i className="grey">Arthswap Fee APY: ≈{vault.farm.feeApy}%</i>
             <i className="grey">
               {vault.lpDetail.symbol} Farm APY: &nbsp;
-              {vault?.farm?.apy ? getDisplayApy(Number(vault.farm.farmApy)) + '%' : ''}
+              {vault?.farm?.farmApy
+                ? vault.farm.farmApy === '999.99'
+                  ? '>' + vault.farm.farmApy
+                  : vault.farm.farmApy + '%'
+                : ''}
             </i>
           </em>
         </p>

@@ -68,7 +68,6 @@ const fetchVaultsV2 = async (
   for (let i = 0; i < vaultsData.length; i++) {
     const item = vaultsData[i];
     const _apyItem: INetValueKeyItemItem = apyArr[item.contractAddress[chainId].toLowerCase()][time];
-
     // const priceAddress =
     //   item.fromSource === IFarmProject.arthswap ? tokens[chainKey].arsw.address[chainId].toLowerCase() : '';
     // const { kacRewardsApr, kacRewardApy } = getFarmApr(
@@ -106,10 +105,10 @@ const fetchVaultsV2 = async (
         ...item.farm,
         poolWeight: poolWeight[i],
         multiplier: multiplier[i],
-        apr: (Number(_apyItem.apr) + Number(_apyItem.aprFee)).toFixed(2),
-        apy: (Number(_apyItem.apy) + Number(_apyItem.apyFee)).toFixed(2),
-        farmApr: _apyItem.apr,
-        farmApy: _apyItem.apy,
+        apr: _apyItem.apr,
+        apy: _apyItem.apy,
+        farmApr: _apyItem.farmApr,
+        farmApy: _apyItem.farmApy,
         feeApr: _apyItem.aprFee,
         feeApy: _apyItem.apyFee,
         tokenAmountMc: tokenAmountMc[i],

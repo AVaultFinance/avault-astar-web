@@ -1,10 +1,6 @@
-import { chainId } from 'config/constants/tokens';
-import vaultsConfig from './vaultsConfig';
-
 export const fetchApy = async () => {
   try {
-    const contractStr = vaultsConfig.map((v) => v.contractAddress[chainId].toLowerCase()).join(',');
-    const apiUrl = `https://www.avault.network/api/v0/update/netValue?data=6&&contract=${contractStr}`;
+    const apiUrl = `https://www.avault.network/api/v0/netValue`;
     const r = await fetch(apiUrl);
     const body = await r.json();
     return body.data;
@@ -31,6 +27,8 @@ interface INetValueKeyItem {
 export interface INetValueKeyItemItem {
   aprFee: string;
   apr: string;
+  farmApr: string;
+  farmApy: string;
   apyFee: string;
   apy: string;
   timestamp: number;
