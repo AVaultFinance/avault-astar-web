@@ -106,6 +106,9 @@ const StyledTr = styled.tr<{ isLast: boolean }>`
     ${({ theme }) => theme.mediaQueries.md} {
       width: 200px;
     }
+    ${({ theme }) => theme.mediaQueries.sm} {
+      width: 100px;
+    }
   }
   td: last-child {
     padding-right: 16px;

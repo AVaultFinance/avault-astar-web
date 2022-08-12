@@ -352,14 +352,14 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
           APY
           <em>
             <i className="green">
-              {vault?.farm?.apy ? (vault.farm.apy === '999.99' ? '>' + vault.farm.apy : vault.farm.apy + '%') : ''}
+              {vault?.farm?.apy ? (vault.farm.apy === '999.99' ? '> ' + vault.farm.apy : vault.farm.apy + '%') : ''}
             </i>
             <i className="grey">Arthswap Fee APY: ≈{vault.farm.feeApy}%</i>
             <i className="grey">
               {vault.lpDetail.symbol} Farm APY: &nbsp;
               {vault?.farm?.farmApy
                 ? vault.farm.farmApy === '999.99'
-                  ? '>' + vault.farm.farmApy
+                  ? '> ' + vault.farm.farmApy
                   : vault.farm.farmApy + '%'
                 : ''}
             </i>
