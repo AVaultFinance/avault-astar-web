@@ -165,7 +165,7 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
           {!isApproved ? (
             <Flex alignItems="center" justifyContent="space-between">
               <HelfButton
-                disabled={requestedApproval || !deadline || !userDataReady || signatureData}
+                disabled={requestedApproval || !deadline || !userDataReady || signatureData || disabled}
                 isLoading={requestedApproval}
                 onClick={handleApprove}
                 variant="secondary"
