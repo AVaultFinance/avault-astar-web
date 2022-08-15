@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { useMatchBreakpoints, Flex, useTooltip, HelpIcon } from '@my/ui';
+import { useMatchBreakpoints, Flex, useTooltip, HelpIcon, Text } from '@my/ui';
 import { TableHeaderStyled } from './VaultTable/VaultTable';
 import styled from 'styled-components';
 import { OptionProps } from 'components/Select/Select';
@@ -46,6 +46,13 @@ const TableHeader: FC<Iprops> = ({ sortKey, sortDir, onOptionChange }) => {
     "Farm APY is calculated based on the last 7 days' Net Value. Abnormally high APY may come from other user's withdrawal fees.",
     {
       placement: 'bottom-end',
+      tootipStyle: {
+        padding: '10px',
+        whiteSpace: 'break-spaces',
+        fontWeight: 'normal',
+        textAlign: 'center',
+        fontSize: '14px',
+      },
       hideArrow: true,
       tooltipOffset: [20, 10],
     },
