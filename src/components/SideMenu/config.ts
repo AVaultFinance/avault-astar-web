@@ -45,7 +45,7 @@ export const ALPPathConfig: IMenuDetail[] = [
   {
     text: 'Sirius Finance',
     img: '/images/Sirius.svg',
-    link: 'https://app.sirius.finance/#/pools',
+    link: 'https://pre-production-siriusfi.vercel.app/#/pools',
     detail: 'Stable swap AMM',
   },
   {
@@ -64,12 +64,12 @@ const avaultMenuItems: IMenu[] = [
     text: 'Zap',
     link: '/zap',
   },
-  // {
-  //   text: 'aLP/aToken',
-  //   collapsed: true,
-  //   link: '#',
-  //   children: ALPPathConfig,
-  // },
+  {
+    text: 'aLP/aToken',
+    collapsed: true,
+    link: '#',
+    children: ALPPathConfig,
+  },
   // {
   //   text: 'NFT',
   //   link: '/zap',
