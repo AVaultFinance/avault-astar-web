@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { useMatchBreakpoints, Flex, useTooltip, HelpIcon, Text } from '@my/ui';
+import { useMatchBreakpoints, Flex, useTooltip, HelpIcon } from '@my/ui';
 import { TableHeaderStyled } from './VaultTable/VaultTable';
 import styled from 'styled-components';
 import { OptionProps } from 'components/Select/Select';
@@ -9,14 +9,14 @@ const TextStyled = styled(Flex)`
   font-weight: 600;
   font-size: 12px;
   color: ${({ theme }) => theme.colors.textSubtle};
-  text-align: left;
+  align-items: center;
 `;
 const FirstTh = styled(TextStyled)`
   padding-left: 20px;
 
   ${({ theme }) => theme.mediaQueries.sm} {
     padding-top: 20px;
-    padding-bottom: 20px;
+    // padding-bottom: 20px;
     padding-left: 40px;
   }
 `;
@@ -27,8 +27,8 @@ const SortIconStyled = styled(SortIcon)`
 `;
 
 const ReferenceElement = styled.div`
-  display: inline-block;
-  vertical-align: middle;
+  // display: inline-block;
+  // vertical-align: middle;
   margin-left: 4px;
   svg {
     width: 18px;
@@ -92,13 +92,11 @@ const TableHeader: FC<Iprops> = ({ sortKey, sortDir, onOptionChange }) => {
           </TrStyled>
           <TrStyled>
             <TextStyled onClick={() => HandleClick('APY', 'apy')}>
-              <p>
-                APY
-                <ReferenceElement ref={targetRef}>
-                  <HelpIcon color="textSubtle" />
-                </ReferenceElement>
-                {tooltipVisible && tooltip}
-              </p>
+              <p>APY</p>
+              <ReferenceElement ref={targetRef}>
+                <HelpIcon color="textSubtle" />
+              </ReferenceElement>
+              {tooltipVisible && tooltip}
               <SortIconStyled sortDir={sortKey === 'apy' ? sortDir : ISortDir.default} />
             </TextStyled>
           </TrStyled>
