@@ -26,13 +26,13 @@ const connectors: Config[] = [
     priority: 2,
     showInstall: false,
   },
-  // {
-  //   title: "SubWallet",
-  //   icon: SubWallet,
-  //   connectorId: ConnectorNames.SubWallet,
-  //   priority: 3,
-  //   showInstall: false,
-  // },
+  {
+    title: "SubWallet",
+    icon: SubWallet,
+    connectorId: ConnectorNames.SubWallet,
+    priority: 3,
+    showInstall: false,
+  },
   {
     title: "Talisman",
     icon: Talisman,
