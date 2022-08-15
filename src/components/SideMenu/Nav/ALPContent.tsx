@@ -37,8 +37,8 @@ export const ALPContentIn = ({ setTooltipVisible }: { setTooltipVisible?: any })
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 24">
                 <defs>
                   <linearGradient x1="0%" y1="50%" x2="100%" y2="50%" id="ori3sxjrja">
-                    <stop stop-color="#A428D0" offset="0%" />
-                    <stop stop-color="#20D4A9" offset="100%" />
+                    <stop stopColor="#A428D0" offset="0%" />
+                    <stop stopColor="#20D4A9" offset="100%" />
                   </linearGradient>
                 </defs>
                 <g fill="none" fillRule="evenodd">
