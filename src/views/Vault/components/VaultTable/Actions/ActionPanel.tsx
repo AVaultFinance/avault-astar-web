@@ -192,28 +192,29 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
   };
 
   // If user didn't connect wallet default balance will be 0
-  if (isApproved) {
-    const _wantLockedTotal = new BigNumber(vault.vault.wantLockedTotal);
-    const _totalSupply = new BigNumber(vault.vault.totalSupply);
-    // _totalSupply： 282962782793973
-    // avaultAddressBalance： 89962782593973
-    // _wantLockedTotal： 284598115334499
-    // console.log('earnings: ', _wantLockedTotal.toString(), _totalSupply.toString(), avaultAddressBalance.toString());
-    if (avaultAddressBalance.toNumber() > 0 && _totalSupply.toNumber() > 0) {
-      // const scale = vault.type === 0 ? 1 : vault.vault?.scale ?? '1';
-      // console.log({scale})
-      earnings = _wantLockedTotal.dividedBy(_totalSupply).times(avaultAddressBalance);
-      // console.log('earnings: ', earnings);
-      // earnings = getBalanceAmount(_value, vault.farm.lpAddressDecimals);
-      // wantLockedTotal / totalSupply()*CLpAmount
-      // earningsBusd = earnings.multipliedBy(cakePrice).toNumber();
-      displayEarningsBalance = getFullLocalDisplayBalance(
-        earnings,
-        vault.farm.lpAddressDecimals,
-        showDecimals(vault.lpDetail.symbol),
-      );
-    }
+  // if (isApproved) {
+  const _wantLockedTotal = new BigNumber(vault.vault.wantLockedTotal);
+  const _totalSupply = new BigNumber(vault.vault.totalSupply);
+  // _totalSupply： 282962782793973
+  // avaultAddressBalance： 89962782593973
+  // _wantLockedTotal： 284598115334499
+  // console.log('earnings: ', _wantLockedTotal.toString(), _totalSupply.toString(), avaultAddressBalance.toString());
+  if (avaultAddressBalance.toNumber() > 0 && _totalSupply.toNumber() > 0) {
+    // const scale = vault.type === 0 ? 1 : vault.vault?.scale ?? '1';
+    // console.log({scale})
+    // console.log(_wantLockedTotal,_totalSupply,avaultAddressBalance)
+    earnings = _wantLockedTotal.dividedBy(_totalSupply).times(avaultAddressBalance);
+    // console.log('earnings: ', earnings);
+    // earnings = getBalanceAmount(_value, vault.farm.lpAddressDecimals);
+    // wantLockedTotal / totalSupply()*CLpAmount
+    // earningsBusd = earnings.multipliedBy(cakePrice).toNumber();
+    displayEarningsBalance = getFullLocalDisplayBalance(
+      earnings,
+      vault.farm.lpAddressDecimals,
+      showDecimals(vault.lpDetail.symbol),
+    );
   }
+  // }
   const [onAddLiquidity] = useModal(
     <AddLiquidityModal account={account} vault={vault} />,
     false,

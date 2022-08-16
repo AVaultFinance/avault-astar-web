@@ -6,6 +6,7 @@ import { OptionProps } from 'components/Select/Select';
 import SortIcon, { ISortDir } from 'components/SortIcon';
 const TextStyled = styled(Flex)`
   padding-top: 30px;
+  padding-bottom: 20px;
   font-weight: 600;
   font-size: 12px;
   color: ${({ theme }) => theme.colors.textSubtle};
@@ -15,7 +16,8 @@ const FirstTh = styled(TextStyled)`
   padding-left: 20px;
 
   ${({ theme }) => theme.mediaQueries.sm} {
-    padding-top: 20px;
+    padding-top: 30px;
+    padding-bottom: 20px;
     // padding-bottom: 20px;
     padding-left: 40px;
   }
