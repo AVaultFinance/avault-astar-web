@@ -188,7 +188,6 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
     stakedBalance: '0',
     pendingReward: '0',
     avaultAddressBalance: '0',
-    userVaultSupply: '0',
   };
 
   // If user didn't connect wallet default balance will be 0

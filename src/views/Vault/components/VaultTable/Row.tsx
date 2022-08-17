@@ -154,7 +154,6 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
     stakedBalance: '0',
     pendingReward: '0',
     avaultAddressBalance: '0',
-    userVaultSupply: '0',
   };
 
   const { targetRef, tooltip, tooltipVisible } = useTooltip(

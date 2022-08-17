@@ -136,7 +136,6 @@ const Vaults: React.FC = () => {
       stakedBalance: '0',
       pendingReward: '0',
       avaultAddressBalance: '0',
-      userVaultSupply: '0',
     };
     //WAIT
     const row: RowProps = {

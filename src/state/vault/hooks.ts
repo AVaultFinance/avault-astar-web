@@ -83,7 +83,6 @@ export const useVaultFarmUser = (account: string, vaultAccount: string) => {
       stakedBalance: '0',
       pendingReward: '0',
       avaultAddressBalance: '0',
-      userVaultSupply: '0',
     };
     return {
       allowance: new BigNumber(_userData.allowance),
