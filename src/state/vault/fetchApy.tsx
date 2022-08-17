@@ -18,6 +18,15 @@ export const nowDate = () => {
   const time = `${year}-${month + 1}-${day}`;
   return time;
 };
+export const preDate = (preDay: number) => {
+  const dateNow = new Date().valueOf() - 86400 * 1000 * preDay;
+  const date = new Date(dateNow);
+  const year = date.getUTCFullYear();
+  const month = date.getUTCMonth();
+  const day = date.getUTCDate();
+  const time = `${year}-${month + 1}-${day}`;
+  return time;
+};
 export interface INetValueKey {
   [key: string]: INetValueKeyItem;
 }

@@ -6,7 +6,7 @@ import { fetchMasterChefABI } from './fetchMasterChefAddress';
 import { fetchFarmDataABICalc } from './fetchFarmAddress';
 import { BIG_TEN, BIG_ZERO } from 'utils/bigNumber';
 import { isNaNString } from 'views/Vault/utils';
-import { fetchApy, INetValueKeyItemItem, nowDate } from './fetchApy';
+import { fetchApy, INetValueKeyItemItem, nowDate, preDate } from './fetchApy';
 
 const fetchVaultsV2 = async (
   currentBlock: number,
@@ -64,10 +64,18 @@ const fetchVaultsV2 = async (
   // calc amount cant stable
   let _total = BIG_ZERO;
   const apyArr = await fetchApy();
-  const time = nowDate();
+  // console.log({ apyArr });
+  let time = nowDate();
   for (let i = 0; i < vaultsData.length; i++) {
     const item = vaultsData[i];
-    const _apyItem: INetValueKeyItemItem = apyArr[item.contractAddress[chainId].toLowerCase()][time];
+    let _apyItem: INetValueKeyItemItem = apyArr[item.contractAddress[chainId].toLowerCase()][time];
+    let ii = 1;
+    while (!_apyItem) {
+      time = preDate(ii);
+      _apyItem = apyArr[item.contractAddress[chainId].toLowerCase()][time];
+      ii++;
+    }
+    // console.log({ _apyItem }, item.contractAddress[chainId].toLowerCase(), time);
     // const priceAddress =
     //   item.fromSource === IFarmProject.arthswap ? tokens[chainKey].arsw.address[chainId].toLowerCase() : '';
     // const { kacRewardsApr, kacRewardApy } = getFarmApr(
