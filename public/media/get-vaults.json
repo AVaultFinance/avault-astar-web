@@ -1,5 +1,13 @@
 {
   "astar": {
+    "aBaiUsdcV2": "0xdbd71969ac2583a9a20af3fb81fe9c20547f30f3",
+    "aDaiUsdcV2": "0x9914bff0437f914549c673b34808af6020e2b453",
+    "aBusdUsdcV2": "0x347e53263f8fb843ec605a1577ec7c8c0cac7a58",
+    "aUsdtUsdcV2": "0x02dac4898b2c2ca9d50ff8d6a7726166cf7bcfd0",
+    "aArswUsdc": "0x58ad25aa6b14c3fd5921ea5bb731c3b2ade0a099",
+    "aArswUsdt": "0x46c3773bd40ba20bd77c3b246783ce941f3db574",
+    "aArswBai": "0x383c69e3bae31ef1d7dc154cd351b0d734537626",
+    "aAcaAstr": "0x360d125366C60Ba20Dc11ebb7120BdEaA0Cc007C",
     "aAAA": "0x9a45b203Af044ADACceD4D95ca3cDa020E082c8A",
     "aDotUsdc": "0x898BF9C743a436C9C3F332aF445aAd69c15b10b8",
     "aDotAstr": "0xE66560C1B5FAaE4e4f77ba40F61F21F4ADbb6924",
