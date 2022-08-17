@@ -1,19 +1,19 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { VaultState } from 'state/types';
 import { IVault, IVaultConfigItem, IVaultUserData } from './types';
-import {
-  fetchVaultsFarmEarnings,
-  fetchVaultsFarmStakedBalances,
-  fetchVaultsFarmUserAllowances,
-  fetchVaultsFarmUserTokenBalances,
-  fetchVaultsUsers,
-} from './fetchVaultUser';
+
 import { haveNumber } from 'utils';
 import { chainId } from 'config/constants/tokens';
 // import fetchVaults from './fetchVaults';
 import fetchVaultsV2 from './fetchVaultsV2';
 import vaultsConfig from 'state/vault/vaultsConfig';
-import BigNumber from 'bignumber.js';
+import {
+  fetchVaultsFarmEarnings,
+  fetchVaultsFarmStakedBalances,
+  fetchVaultsFarmUserAllowances,
+  fetchVaultsFarmUserTokenBalances,
+  fetchVaultsUsersV2,
+} from './fetchVaultUserV2';
 
 export const initialState: VaultState = {
   data: vaultsConfig.map((v: IVaultConfigItem) => {
@@ -68,7 +68,7 @@ export const fetchVaultFarmUserDataAsync = createAsyncThunk<
   const userVaultsFarmTokenBalances = await fetchVaultsFarmUserTokenBalances(account, vaults, index);
   const userVaultsStakedBalances = await fetchVaultsFarmStakedBalances(account, vaults, index);
   const userVaultEarnings = await fetchVaultsFarmEarnings(account, vaults, index);
-  const [userVaultUsers, userVaultSupply, vaultWantLockedTotal] = await fetchVaultsUsers(account, vaults, index);
+  const [userVaultUsers] = await fetchVaultsUsersV2(account, vaults, index);
   return userVaultsFarmAllowances.map((farmAllowance, _index) => {
     return {
       vaultAccount: vaults[_index].contractAddress[chainId],
@@ -80,8 +80,8 @@ export const fetchVaultFarmUserDataAsync = createAsyncThunk<
       stakedBalance: userVaultsStakedBalances[_index],
       pendingReward: userVaultEarnings[_index],
       avaultAddressBalance: userVaultUsers[_index],
-      userVaultSupply: userVaultSupply[_index],
-      vaultWantLockedTotal: vaultWantLockedTotal[_index],
+      // userVaultSupply: userVaultSupply[_index],
+      // vaultWantLockedTotal: vaultWantLockedTotal[_index],
     };
   });
 });
@@ -138,34 +138,10 @@ export const vaultSlice = createSlice({
           : state.data.findIndex(
               (vault: IVault) => vault.contractAddress[chainId].toLowerCase() === vaultAccount.toLowerCase(),
             );
-        const vaultWantLockedTotal = userDataEl.vaultWantLockedTotal
-          ? userDataEl.vaultWantLockedTotal
-          : state.data[index]?.vault?.wantLockedTotal;
-
-        const userVaultSupply = userDataEl.userVaultSupply
-          ? userDataEl.userVaultSupply
-          : state.data[index]?.vault?.totalSupply;
-        const lpToCLpRate =
-          vaultWantLockedTotal && userVaultSupply && Number(vaultWantLockedTotal) > 0 && Number(userVaultSupply) > 0
-            ? new BigNumber(vaultWantLockedTotal).div(userVaultSupply).toFixed(18)
-            : '1';
-        // const currentSeconds = Math.floor(Date.now() / 1000);
-        // 86400s/day
-        // const data = Math.ceil((currentSeconds - state.data[index]?.online_at) / 86400) - 1;
-        // state.data[index]?.online_at
-        // const kacRewardsApr = (Number(lpToCLpRate) - 1) / data + 1;
-        // const kacRewardApy = new BigNumber(kacRewardsApr).pow(365).times(100).minus(100).toFixed(2);
-
-        // const kacRewardsApr = (Number(lpToCLpRate) - 1) / data;
-        // const kacRewardApy = new BigNumber(kacRewardsApr).times(365).times(100).toFixed(2);
-
         state.data[index] = {
           ...state.data[index],
           vault: {
             ...state.data[index]?.vault,
-            totalSupply: userDataEl.userVaultSupply,
-            wantLockedTotal: userDataEl.vaultWantLockedTotal,
-            lpToCLpRate: lpToCLpRate,
           },
           farm: {
             ...state.data[index].farm,

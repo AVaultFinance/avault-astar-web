@@ -80,8 +80,6 @@ export interface IVaultUserData {
   stakedBalance: string;
   pendingReward: string;
   avaultAddressBalance: string;
-  userVaultSupply: string;
-  vaultWantLockedTotal?: string;
 }
 export interface IVaultComp {
   // abi

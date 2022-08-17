@@ -163,7 +163,6 @@ const fetch = async (
           stakedBalance: _userData.stakedBalance,
           pendingReward: _userData.pendingReward,
           avaultAddressBalance: _userData.avaultAddressBalance,
-          userVaultSupply: _userData.userVaultSupply,
         },
       },
     },
