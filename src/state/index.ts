@@ -24,27 +24,11 @@ import burn from './burn/reducer';
 import multicall from './multicall/reducer';
 
 const PERSISTED_KEYS: string[] = ['user', 'transactions', 'ido', 'goverment', 'farms', 'price', 'lists', 'vault'];
-// const PERSISTED_KEYS: string[] = ['user', 'transactions', 'lists'];
-if (window.localStorage.getItem('redux_localstorage_simple_user')) {
-  for (let i = 0; i < PERSISTED_KEYS.length; i++) {
-    // DELET LOCAL
-    // redux_localstorage_simple
-    window.localStorage.removeItem(`redux_localstorage_simple_${PERSISTED_KEYS[i]}`);
-  }
-}
-
-if (window.localStorage.getItem('v1_price')) {
-  for (let i = 0; i < PERSISTED_KEYS.length; i++) {
-    // DELET LOCAL
-    // redux_localstorage_simple
-    window.localStorage.removeItem(`v1_${PERSISTED_KEYS[i]}`);
-  }
-}
-if (window.localStorage.getItem('v2_price')) {
-  for (let i = 0; i < PERSISTED_KEYS.length; i++) {
-    // DELET LOCAL
-    // redux_localstorage_simple
-    window.localStorage.removeItem(`v2_${PERSISTED_KEYS[i]}`);
+for (let i = 1; i < 10; i++) {
+  if (window.localStorage.getItem(`v${i}_price`)) {
+    for (let i = 0; i < PERSISTED_KEYS.length; i++) {
+      window.localStorage.removeItem(`v${i}_price`);
+    }
   }
 }
 
@@ -76,8 +60,8 @@ const store = configureStore({
   },
   // middleware: [...getDefaultMiddleware({ thunk: true }), save({ states: PERSISTED_KEYS, namespace: 'v1' })],
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({ thunk: true }).concat(save({ states: PERSISTED_KEYS, namespace: 'v10' })),
-  preloadedState: load({ states: PERSISTED_KEYS, namespace: 'v10' }),
+    getDefaultMiddleware({ thunk: true }).concat(save({ states: PERSISTED_KEYS, namespace: 'version1' })),
+  preloadedState: load({ states: PERSISTED_KEYS, namespace: 'version1' }),
 });
 
 store.dispatch(updateVersion());
