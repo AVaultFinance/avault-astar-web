@@ -64,11 +64,17 @@ export const fetchVaultFarmUserDataAsync = createAsyncThunk<
     index?: number;
   }
 >('vault/fetchVaultFarmUserDataAsync', async ({ account, vaults, index }) => {
+  console.log(1);
   const userVaultsFarmAllowances = await fetchVaultsFarmUserAllowances(account, vaults, index);
+  console.log(2);
   const userVaultsFarmTokenBalances = await fetchVaultsFarmUserTokenBalances(account, vaults, index);
+  console.log(3);
   const userVaultsStakedBalances = await fetchVaultsFarmStakedBalances(account, vaults, index);
+  console.log(4);
   const userVaultEarnings = await fetchVaultsFarmEarnings(account, vaults, index);
+  console.log(5);
   const [userVaultUsers] = await fetchVaultsUsersV2(account, vaults, index);
+  console.log(6);
   return userVaultsFarmAllowances.map((farmAllowance, _index) => {
     return {
       vaultAccount: vaults[_index].contractAddress[chainId],
