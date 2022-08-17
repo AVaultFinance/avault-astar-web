@@ -72,7 +72,6 @@ export interface IVaultFarm {
 }
 export interface IVaultUserData {
   index?: number;
-  pid?: number;
   vaultAccount?: string;
   account: string;
   allowance: string;

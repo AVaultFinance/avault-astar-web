@@ -74,14 +74,11 @@ export const fetchVaultFarmUserDataAsync = createAsyncThunk<
       vaultAccount: vaults[_index].contractAddress[chainId],
       index: index,
       account: account,
-      pid: vaults[_index].farm.pid,
       allowance: farmAllowance,
       stakingTokenBalance: userVaultsFarmTokenBalances[_index],
       stakedBalance: userVaultsStakedBalances[_index],
       pendingReward: userVaultEarnings[_index],
       avaultAddressBalance: userVaultUsers[_index],
-      // userVaultSupply: userVaultSupply[_index],
-      // vaultWantLockedTotal: vaultWantLockedTotal[_index],
     };
   });
 });

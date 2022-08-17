@@ -72,7 +72,6 @@ export const useVaultFarmUser = (account: string, vaultAccount: string) => {
     const vault = useSelector((state: State) =>
       state.vault.data.find((f) => f.contractAddress[chainId].toLowerCase() === vaultAccount.toLowerCase()),
     );
-    // const { farm } = useVaultPid(pid);
     const { farm } = vault;
 
     const userData = farm.userData ?? {};
