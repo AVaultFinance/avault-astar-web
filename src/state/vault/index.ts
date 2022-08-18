@@ -51,9 +51,8 @@ export const fetchVaultsPublicDataAsync = createAsyncThunk<
     priceVsBusdMap: Record<string, string>;
     vaultsData: IVault[];
   }
->('vault/fetchVaultsPublicDataAsync', async ({ currentBlock, account, priceVsBusdMap, vaultsData }) => {
-  const vaults = await fetchVaultsV2(currentBlock, account, vaultsConfig, priceVsBusdMap, vaultsData);
-  // const vaults = await fetchVaults(currentBlock, account, vaultsConfig, priceVsBusdMap, vaultsData);
+>('vault/fetchVaultsPublicDataAsync', async ({ currentBlock, priceVsBusdMap, vaultsData }) => {
+  const vaults = await fetchVaultsV2(currentBlock, priceVsBusdMap, vaultsData);
   return vaults;
 });
 export const fetchVaultFarmUserDataAsync = createAsyncThunk<

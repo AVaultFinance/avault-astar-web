@@ -45,7 +45,7 @@ export const ALPPathConfig: IMenuDetail[] = [
   {
     text: 'Sirius Finance',
     img: '/images/Sirius.svg',
-    link: 'https://pre-production-siriusfi.vercel.app/#/pools',
+    link: 'https://app.sirius.finance/#/pools',
     detail: 'Stable swap AMM',
   },
   {

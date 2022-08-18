@@ -10,8 +10,6 @@ import { fetchApy, INetValueKeyItemItem, nowDate, preDate } from './fetchApy';
 
 const fetchVaultsV2 = async (
   currentBlock: number,
-  account: string,
-  vaults: IVaultConfigItem[],
   priceVsBusdMap: Record<string, string>,
   vaultsData: IVault[],
 ): Promise<[IVault[], string]> => {
