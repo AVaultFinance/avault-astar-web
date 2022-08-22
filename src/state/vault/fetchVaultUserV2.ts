@@ -1,5 +1,5 @@
 import erc20ABI from 'config/abi/erc20.json';
-import { IFarmProject, IVault } from './types';
+import { IFromSource, IVault } from './types';
 import BigNumber from 'bignumber.js';
 import multicall from 'utils/multicall';
 import masterchefABI from 'config/abi/masterchef.json';
@@ -68,21 +68,21 @@ export const fetchVaultsFarmStakedBalances = async (account: string, vaults: IVa
         const masterChef = vault.vault.masterChef;
         return {
           address: masterChef,
-          name: vault.fromSource === IFarmProject.arthswap ? 'userInfos' : 'userInfo',
+          name: vault.fromSource === IFromSource.arthswap ? 'userInfos' : 'userInfo',
           params: [vault.farm.pid, account],
         };
       })
     : [
         {
           address: vaults[index].vault.masterChef,
-          name: vaults[index].fromSource === IFarmProject.arthswap ? 'userInfos' : 'userInfo',
+          name: vaults[index].fromSource === IFromSource.arthswap ? 'userInfos' : 'userInfo',
           params: [vaults[index].farm.pid, account],
         },
       ];
   const _masterchefABI =
     chainKey === CHAINKEY.SDN
       ? masterchefSdnABI
-      : vaults[0].fromSource === IFarmProject.arthswap
+      : vaults[0].fromSource === IFromSource.arthswap
       ? masterchefArthABI
       : masterchefABI;
   const rawStakedBalances = await multicall(_masterchefABI, calls);
@@ -97,21 +97,21 @@ export const fetchVaultsFarmEarnings = async (account: string, vaults: IVault[],
         const masterChef = vault.vault.masterChef;
         return {
           address: masterChef,
-          name: vault.fromSource === IFarmProject.arthswap ? 'pendingARSW' : 'pendingCake',
+          name: vault.fromSource === IFromSource.arthswap ? 'pendingARSW' : 'pendingCake',
           params: [vault.farm.pid, account],
         };
       })
     : [
         {
           address: vaults[index].vault.masterChef,
-          name: vaults[index].fromSource === IFarmProject.arthswap ? 'pendingARSW' : 'pendingCake',
+          name: vaults[index].fromSource === IFromSource.arthswap ? 'pendingARSW' : 'pendingCake',
           params: [vaults[index].farm.pid, account],
         },
       ];
   const _masterchefABI =
     chainKey === CHAINKEY.SDN
       ? masterchefSdnABI
-      : vaults[0].fromSource === IFarmProject.arthswap
+      : vaults[0].fromSource === IFromSource.arthswap
       ? masterchefArthABI
       : masterchefABI;
   const rawEarnings = await multicall(_masterchefABI, calls);

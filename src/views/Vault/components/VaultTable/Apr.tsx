@@ -4,7 +4,7 @@ import styled from 'styled-components';
 // import { BASE_ADD_LIQUIDITY_URL } from 'config';
 // import getLiquidityUrlPathParts from 'utils/getLiquidityUrlPathParts';
 import { Skeleton } from '@my/ui';
-import { IFarmProject } from 'state/vault/types';
+import { IFromSource } from 'state/vault/types';
 export interface AprProps {
   // apr: string;
   apy: string;
@@ -18,7 +18,7 @@ export interface AprProps {
   originalValue: number;
   hideButton?: boolean;
   // vaultSymbol: string;
-  fromSource?: IFarmProject;
+  fromSource?: IFromSource;
 
   // apy, originalValue, fromSource
 }

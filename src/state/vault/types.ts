@@ -1,5 +1,5 @@
 import { ChainId } from '@my/sdk';
-export enum IFarmProject {
+export enum IFromSource {
   kaco = 'Kacoswap',
   starlay = 'Starlay',
   arthswap = 'Arthswap',
@@ -26,11 +26,11 @@ export const VaultType = ['All', 'Event'];
 export interface IVaultConfigItem {
   type: number; // 0 normal  1 active   2 addNew
   contractAddress: IAddress;
-  fromSource: IFarmProject;
+  fromSource: IFromSource;
   abiType: IABIType;
   swapLink: string;
   online_at: number; //  timestamp  s
-  lpDetail: {
+  lpDetail?: {
     symbol: string;
     address: IAddress;
     decimals: number;
@@ -88,7 +88,7 @@ export interface IVaultComp {
   AVAAddress: string;
   token0Address: string;
   token1Address: string;
-  fromSource: IFarmProject;
+  fromSource: IFromSource;
   wantAddress: string;
   earnedAddress: string;
   wantLockedTotal?: string;

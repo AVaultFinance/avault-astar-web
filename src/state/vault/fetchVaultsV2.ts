@@ -75,7 +75,7 @@ const fetchVaultsV2 = async (
     }
     // console.log({ _apyItem }, item.contractAddress[chainId].toLowerCase(), time);
     // const priceAddress =
-    //   item.fromSource === IFarmProject.arthswap ? tokens[chainKey].arsw.address[chainId].toLowerCase() : '';
+    //   item.fromSource === IFromSource.arthswap ? tokens[chainKey].arsw.address[chainId].toLowerCase() : '';
     // const { kacRewardsApr, kacRewardApy } = getFarmApr(
     //   new BigNumber(perBlock[i]),
     //   new BigNumber(poolWeight[i]),

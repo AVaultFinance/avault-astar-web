@@ -1,5 +1,5 @@
 import { chainId } from 'config/constants/tokens';
-import { IFarmProject, IVault } from './types';
+import { IFromSource, IVault } from './types';
 import masterchefArthABI from 'config/abi/masterchef_arth.json';
 import { BIG_TEN, BIG_ZERO } from 'utils/bigNumber';
 import BigNumber from 'bignumber.js';
@@ -9,7 +9,7 @@ export const fetchMasterChefABI = async (
   currentBlock: number,
   vaultsData: IVault[],
 ): Promise<Record<string, any[]>> => {
-  const multicall01Data = vaultsData.filter((v) => v.fromSource === IFarmProject.arthswap);
+  const multicall01Data = vaultsData.filter((v) => v.fromSource === IFromSource.arthswap);
   let result = {};
   if (multicall01Data.length) {
     const _result = await arthswap(currentBlock, multicall01Data);

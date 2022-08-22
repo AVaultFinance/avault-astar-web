@@ -11,7 +11,7 @@ import masterchefSdnABI from 'config/abi/masterchef_Shiden.json';
 import masterchefArthABI from 'config/abi/masterchef_arth.json';
 import { chainId } from 'config/constants/tokens';
 import { getAultPrice } from 'views/Zap/utils/utils';
-import { IFarmProject, IVault } from 'state/vault/types';
+import { IFromSource, IVault } from 'state/vault/types';
 
 export type PublicFarmData = {
   tokenAmountMc: SerializedBigNumber;
@@ -89,7 +89,7 @@ const fetchFarm = async (
   const _masterchefABI =
     chainKey === CHAINKEY.SDN
       ? masterchefSdnABI
-      : vaultData[0].fromSource === IFarmProject.arthswap
+      : vaultData[0].fromSource === IFromSource.arthswap
       ? masterchefArthABI
       : masterchefABI;
   const [info, totalAllocPoint] =
@@ -97,7 +97,7 @@ const fetchFarm = async (
       ? await multicall(_masterchefABI, [
           {
             address: lpMasterChef,
-            name: vaultData[0].fromSource === IFarmProject.arthswap ? 'poolInfos' : 'poolInfo',
+            name: vaultData[0].fromSource === IFromSource.arthswap ? 'poolInfos' : 'poolInfo',
             params: [pid],
           },
           {
