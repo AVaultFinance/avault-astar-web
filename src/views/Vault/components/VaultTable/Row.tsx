@@ -5,13 +5,12 @@ import useDelayedUnmount from 'hooks/useDelayedUnmount';
 import Apr, { AprProps } from './Apr';
 import Earned, { EarnedProps } from './Earned';
 import Details from './Details';
-import Multiplier, { MultiplierProps } from './Multiplier';
 import Liquidity, { LiquidityProps } from './Liquidity';
 import ActionPanel from './Actions/ActionPanel';
 import CellLayout from './CellLayout';
 import { DesktopColumnSchema } from '../types';
 import Vault, { VaultProps } from './Vault';
-import { IVault } from 'state/vault/types';
+import { IVault, IVaultUserData } from 'state/vault/types';
 import BigNumber from 'bignumber.js';
 import { getBalanceNumber } from 'utils/formatBalance';
 import Balance from 'components/Balance';
@@ -23,12 +22,11 @@ export interface RowProps {
   apr: AprProps;
   vault: VaultProps;
   earned: EarnedProps;
+  liquidity: LiquidityProps;
+  details: IVault;
   net: {
     net: string;
   };
-  multiplier: MultiplierProps;
-  liquidity: LiquidityProps;
-  details: IVault;
 }
 
 interface RowPropsWithLoading extends RowProps {
@@ -43,7 +41,6 @@ const cells = {
   vault: Vault,
   earned: Earned,
   details: Details,
-  multiplier: Multiplier,
   liquidity: Liquidity,
 };
 
@@ -147,24 +144,22 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
   const userData = details?.farm?.userData ?? {};
   const { account } = useWeb3React();
   const _userDataKey = `${account}-${chainId}`;
-  const _userData = userData[_userDataKey] ?? {
+  const _userData: IVaultUserData = userData[_userDataKey] ?? {
     account: '',
     allowance: '0',
     stakingTokenBalance: '0',
-    stakedBalance: '0',
-    pendingReward: '0',
     avaultAddressBalance: '0',
   };
 
   const { targetRef, tooltip, tooltipVisible } = useTooltip(
-    `${details.type === 2 ? details.vault.scale : 1} ${details.vault.symbol} = ${
+    `${details.type === 2 ? details.vault.scale : 1} ${details.vault.vaultSymbol} = ${
       details.type === 1 ? '$' : ''
     }${new BigNumber(details?.vault?.lpToCLpRate ?? '1')
       .times(details?.vault?.scale ?? '1')
       .toNumber()
       .toLocaleString('en-US', {
         maximumFractionDigits: 6,
-      })} ${details.type !== 1 ? details.lpDetail.symbol : ''}`,
+      })} ${details.type !== 1 ? details.vault.vaultSymbol : ''}`,
     {
       trigger: 'hover',
       tootipStyle: { padding: '10px', whiteSpace: 'break-spaces', textAlign: 'center', fontSize: '14px' },
@@ -179,13 +174,16 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
     targetRef: balanceTargetRef,
     tooltip: balanceTooltip,
     tooltipVisible: balanceTooltipVisible,
-  } = useTooltip(`${details.vault.symbol}: ${details.vault.name}, an interest-bearing token synthesized by Avault`, {
-    trigger: 'hover',
-    tootipStyle: { padding: '10px', whiteSpace: 'break-spaces', textAlign: 'center', fontSize: '14px' },
-    placement: 'top-end',
-    hideArrow: true,
-    tooltipOffset: [20, 10],
-  });
+  } = useTooltip(
+    `${details.vault.vaultSymbol}: ${details.vault.name}, an interest-bearing token synthesized by Avault`,
+    {
+      trigger: 'hover',
+      tootipStyle: { padding: '10px', whiteSpace: 'break-spaces', textAlign: 'center', fontSize: '14px' },
+      placement: 'top-end',
+      hideArrow: true,
+      tooltipOffset: [20, 10],
+    },
+  );
 
   const toggleActionPanel = () => {
     setActionPanelExpanded(!actionPanelExpanded);
@@ -232,7 +230,7 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
                           .toLocaleString('en-US', {
                             maximumFractionDigits: 4,
                           })}`}
-                        {/* 1 {details.vault.symbol}={details.vault.lpToCLpRate} {details.lpDetail.symbol} */}
+                        {/* 1 {details.vault.vaultSymbol}={details.vault.lpToCLpRate} {details.vault.vaultSymbol} */}
                       </Text>
                       <QuestionWrapper ref={targetRef}>
                         <HelpIcon color="textSubtle" width="18px" height="18px" />
@@ -249,17 +247,11 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
                         fontSize="14px"
                         color="text"
                         fontWeight="600"
-                        decimals={showDecimalsWithType(details.lpDetail.symbol, details.type)}
-                        // decimals={5}
-                        value={getBalanceNumber(new BigNumber(_userData.avaultAddressBalance))}
+                        decimals={showDecimalsWithType(details.vault.vaultSymbol, details.abiType, details.type)}
+                        value={getBalanceNumber(new BigNumber(_userData.avaultAddressBalance), details.vault.decimals)}
                       />
                       <Text color="text" bold fontSize="14px" paddingLeft="4px">
-                        {/* {getFullDisplayBalance(
-                          new BigNumber(details?.farm?.userData?.avaultAddressBalance ?? '0'),
-                          18,
-                          3,
-                        )} */}
-                        {details.vault.symbol}
+                        {details.vault.vaultSymbol}
                       </Text>
                       <QuestionWrapper ref={balanceTargetRef}>
                         <HelpIcon color="textSubtle" width="18px" height="18px" />
@@ -270,14 +262,14 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
                         fontSize="14px"
                         color="text"
                         fontWeight="600"
-                        decimals={showDecimals(details.lpDetail.symbol)}
+                        decimals={showDecimals(details.vault.symbol, details.abiType)}
                         value={getBalanceNumber(
                           new BigNumber(_userData.stakingTokenBalance),
-                          details.farm.lpAddressDecimals,
+                          details.vault.wantAddressDecimals,
                         )}
                       />
                       <Text color="text" bold fontSize="14px" paddingLeft="4px">
-                        {details.lpDetail.symbol}
+                        {details.vault.symbol}
                       </Text>
                     </Flex>
                   </td>
@@ -288,18 +280,15 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
                     <Details isLoading={details.isLoading} actionPanelToggled={actionPanelExpanded} />
                   </td>
                 );
-              case 'multiplier':
-                return null;
-
               case 'apr':
                 return (
                   <td key={key}>
                     <Apr
-                      lpLabel={details.lpDetail.symbol}
-                      apy={details.farm.apy}
-                      farmApy={details.farm.farmApy}
-                      feeApy={details.farm.feeApy}
-                      originalValue={+details.farm.apy}
+                      lpLabel={details.vault.vaultSymbol}
+                      apy={details.vault.apy}
+                      farmApy={details.vault.farmApy}
+                      feeApy={details.vault.feeApy}
+                      originalValue={+details.vault.apy}
                       fromSource={details.fromSource}
                       hideButton={isMobile}
                     />
@@ -323,7 +312,7 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
             {`${new BigNumber(details?.vault?.lpToCLpRate ?? '1').toNumber().toLocaleString('en-US', {
               maximumFractionDigits: 4,
             })}`}
-            {/* 1 {details.vault.symbol}={details.vault.lpToCLpRate} {details.lpDetail.symbol} */}
+            {/* 1 {details.vault.vaultSymbol}={details.vault.lpToCLpRate} {details.vault.vaultSymbol} */}
           </TextStyled>
         </td>
         <td></td>

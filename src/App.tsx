@@ -6,7 +6,6 @@ import GlobalStyle from './style/Global';
 import SuspenseWithChunkError from './components/SuspenseWithChunkError';
 import { ToastListener } from './contexts/ToastsContext';
 import history from './routerHistory';
-import { PriceProvider } from './contexts/PriceProvider';
 import SideMenu from './components/SideMenu';
 import PageLoader from 'components/Loader/PageLoader';
 import Unbind from 'views/Stake/Unbind';
@@ -14,6 +13,7 @@ import { usePollBlockNumber } from 'state/block/hooks';
 import useEagerConnect from 'hooks/useEagerConnect';
 import { usePollVaultData } from 'state/vault/hooks';
 import { usePollCoreFarmData } from 'state/farms/hooks';
+import { usePollPrice } from 'state/price/hooks';
 
 const Vault = lazy(() => import('./views/Vault/index'));
 const Zap = lazy(() => import('./views/Zap/index'));
@@ -32,6 +32,7 @@ BigNumber.config({
 });
 
 const App: React.FC = () => {
+  usePollPrice();
   usePollBlockNumber();
   useEagerConnect();
   // useFetchProfile();
@@ -41,7 +42,6 @@ const App: React.FC = () => {
     <Router history={history}>
       <ResetCSS />
       <GlobalStyle />
-      <PriceProvider />
       <SideMenu>
         <SuspenseWithChunkError fallback={<PageLoader />}>
           <Switch>

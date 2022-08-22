@@ -47,8 +47,8 @@ const DepositModal: React.FC<DepositModalProps> = ({
 }) => {
   const [val, setVal] = useState('');
   const fullBalance = useMemo(() => {
-    return getFullDisplayBalance(max, lpAddressDecimals, showDecimals(lpSymbol));
-  }, [max, lpAddressDecimals, lpSymbol]);
+    return getFullDisplayBalance(max, lpAddressDecimals, showDecimals(lpSymbol, abiType));
+  }, [max, lpAddressDecimals, lpSymbol, abiType]);
 
   // eslint-disable-next-line
   const valNumber = new BigNumber(val);

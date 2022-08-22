@@ -7,14 +7,12 @@ import { getBalanceNumber } from 'utils/formatBalance';
 import { orderBy } from 'lodash';
 import VaultTable from './components/VaultTable/VaultTable';
 import VaultBanner from './components/VaultBanner/VaultBanner';
-
 import { DesktopColumnSchema } from './components/types';
 import { OptionProps } from 'components/Select/Select';
 import { ISortDir } from 'components/SortIcon';
 import { RowProps } from './components/VaultTable/Row';
 import { useVault, useVaultUserData } from 'state/vault/hooks';
 import { IVault, VaultType } from 'state/vault/types';
-import { usePrice } from 'state/price/hooks';
 import PageLoader from 'components/Loader/PageLoader';
 import { chainId } from 'config/constants/tokens';
 import styled from 'styled-components';
@@ -39,7 +37,6 @@ const Vaults: React.FC = () => {
   const [sortDir, setSortDir] = useState(ISortDir.default);
   const chosenFarmsLength = useRef(0);
   const [type, setType] = useState(0);
-  const { priceVsBusdMap } = usePrice();
   const { data: vaults } = useVault();
   const userDataReady = !account || (!!account && userDataLoaded);
   useVaultUserData(vaults);
@@ -51,21 +48,6 @@ const Vaults: React.FC = () => {
   const vaultsList = useCallback(
     (vaultsToDisplay: IVault[]): IVault[] => {
       const vaultsToDisplayWithAPR: IVault[] = vaultsToDisplay.map((vault) => {
-        const { farm } = vault;
-        // if (!farm.lpTotalInQuoteToken) {
-        //   return vault;
-        // }
-        const totalLiquidity = new BigNumber(farm.lpTotalInQuoteToken).times(
-          priceVsBusdMap[farm.quoteToken.toLocaleLowerCase()],
-        );
-
-        // const currentSeconds = Math.floor(Date.now() / 1000);
-        // // 86400s/day
-        // const data = Math.ceil((currentSeconds - vault.online_at) / 86400) - 1;
-        // // vault.online_at
-        // const kacRewardsApr = (Number(vault.vault.lpToCLpRate) - 1) / data + 1;
-        // const kacRewardApy = new BigNumber(kacRewardsApr).pow(365).times(100).minus(100).toFixed(2);
-
         return {
           ...vault,
           vault: {
@@ -73,11 +55,9 @@ const Vaults: React.FC = () => {
           },
           farm: {
             ...vault.farm,
-            // apr: `${kacRewardsApr}`,
             lpRewardsApr: `0`,
-            liquidity: totalLiquidity.toString(),
-            apy: vault.farm.apy,
-            // apy: `${kacRewardApy}`,
+            liquidity: vault.vault.liquidity,
+            apy: vault.vault.apy,
           },
         };
       });
@@ -86,7 +66,7 @@ const Vaults: React.FC = () => {
       }
       return vaultsToDisplayWithAPR;
     },
-    [priceVsBusdMap, type],
+    [type],
   );
 
   const chosenFarmsMemoized = useMemo(() => {
@@ -96,19 +76,11 @@ const Vaults: React.FC = () => {
       const side = sortDir === ISortDir.default || sortDir === ISortDir.down ? 'desc' : 'asc';
       switch (sortKey) {
         case 'apy':
-          return orderBy(vaults, (vault: IVault) => Number(vault?.farm?.apy ?? '0'), side);
-        case 'apr':
-          return orderBy(vaults, (vault: IVault) => Number(vault.farm.apy), side);
-        case 'multiplier':
-          return orderBy(
-            vaults,
-            (vault: IVault) => (vault.farm.multiplier ? Number(vault.farm.multiplier.slice(0, -1)) : 0),
-            side,
-          );
+          return orderBy(vaults, (vault: IVault) => Number(vault?.vault?.apy ?? '0'), side);
         case 'earned':
           return orderBy(
             vaults,
-            (vault: IVault) => (vault.farm.userData ? Number(vault.farm?.userData?.pendingReward ?? '0') : 0),
+            (vault: IVault) => (vault.farm.userData ? Number(vault.farm?.userData?.stakingTokenBalance ?? '0') : 0),
             side,
           );
         case 'liquidity':
@@ -130,38 +102,34 @@ const Vaults: React.FC = () => {
     } = vault;
     const _userDataKey = `${account}-${chainId}`;
     const _userData = userData[_userDataKey] ?? {
-      account: '',
-      allowance: '0',
       stakingTokenBalance: '0',
-      stakedBalance: '0',
-      pendingReward: '0',
-      avaultAddressBalance: '0',
     };
     //WAIT
     const row: RowProps = {
       apr: {
-        lpLabel: vault.lpDetail.symbol,
-        apy: vault.farm.apy,
-        feeApy: vault.farm.feeApy,
-        farmApy: vault.farm.farmApy,
+        lpLabel: vault.vault.vaultSymbol,
+        apy: vault.vault.apy,
+        feeApy: vault.vault.feeApy,
+        farmApy: vault.vault.farmApy,
         // apr: getDisplayApy(Number(vault.farm.apy)),
         // multiplier: vault.farm.multiplier,
-        // vaultSymbol: vault.vault.symbol,
-        // lpLabel: vault.lpDetail.symbol,
+        // vaultSymbol: vault.vault.vaultSymbol,
+        // lpLabel: vault.vault.vaultSymbol,
         // token0Address,
         // token1Address,
         // cakePrice,
-        originalValue: Number(vault.farm.apy),
+        originalValue: Number(vault.vault.apy),
         fromSource: vault.fromSource,
       },
       vault: {
-        label: vault.lpDetail.symbol,
+        label: vault.vault.symbol,
         farmProject: vault.fromSource,
+        wantAddress: vault.vault.wantAddress,
         token0Address: token0Address,
         token1Address: token1Address,
       },
       earned: {
-        earnings: getBalanceNumber(new BigNumber(_userData.pendingReward)),
+        earnings: getBalanceNumber(new BigNumber(_userData.stakingTokenBalance)),
         pid: vault.farm.pid,
       },
       liquidity: {
@@ -169,9 +137,6 @@ const Vaults: React.FC = () => {
       },
       net: {
         net: '333',
-      },
-      multiplier: {
-        multiplier: vault.farm.multiplier,
       },
       details: vault,
     };

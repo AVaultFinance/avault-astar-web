@@ -8,6 +8,7 @@ import { useVault, useVaultAllTotal } from 'state/vault/hooks';
 import { useFarmsAllTotal } from 'state/farms/hooks';
 // import { useGovernanceAllTotal } from 'views/Governance/state/governance/hooks';
 import { getDisplayApy } from 'views/Vault/Vault';
+import { getImageUrlFromToken } from 'utils';
 
 const HomeTvl = () => {
   const allVaultTotal = useVaultAllTotal();
@@ -46,19 +47,25 @@ const HomeTvl = () => {
                           window.location.href = '/vault';
                         }}
                       >
-                        <TokenPairImage
-                          variant="inverted"
-                          primaryToken={v.vault.token0Address}
-                          secondaryToken={v.vault.token1Address}
-                          width={60}
-                          height={60}
-                        />
+                        {!v.vault.token0Address ? (
+                          <img src={getImageUrlFromToken(v.vault.wantAddress)} className="img" alt="" />
+                        ) : null}
+                        {v.vault.token0Address ? (
+                          <TokenPairImage
+                            variant="inverted"
+                            primaryToken={v.vault.token0Address}
+                            secondaryToken={v.vault.token1Address}
+                            width={60}
+                            height={60}
+                          />
+                        ) : null}
+
                         <div className="flex-middle">
-                          <h3>{v.lpDetail.symbol}</h3>
+                          <h3>{v.vault.symbol}</h3>
                           <h4>{v.fromSource}</h4>
                         </div>
                         <ButtonStyled>
-                          {getDisplayApy(Number(v.farm.apy))}%<i>APY</i>
+                          {getDisplayApy(Number(v.vault.apy))}%<i>APY</i>
                         </ButtonStyled>
                       </li>
                     );
@@ -190,6 +197,10 @@ const HomeTvlStyled = styled.div`
         &:nth-child(3) {
           margin-right: 60px;
         }
+      }
+      .img {
+        width: 40px;
+        padding-bottom: 10px;
       }
       .flex-middle {
         width: 60%;

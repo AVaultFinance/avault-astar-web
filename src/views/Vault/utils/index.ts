@@ -1,5 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { DEFAULT_TOKEN_DECIMAL } from 'config';
+import { IABIType } from 'state/vault/types';
 import { BIG_TEN } from 'utils/bigNumber';
 
 export const isNaNString = (num: string | number) => {
@@ -46,16 +47,27 @@ const isSpecialLp = (lpSymbol: string): boolean => {
   return `${lpSymbol}`.indexOf('USD') > -1 || `${lpSymbol}`.indexOf('DOT') > -1 || `${lpSymbol}`.indexOf('BTC') > -1;
 };
 
-export const showDecimals = (lpSymbol: string): number => {
+export const showDecimals = (lpSymbol: string, abiType?: IABIType): number => {
+  if (abiType && abiType === IABIType.AVaultForStarlay) {
+    if (
+      lpSymbol.toLowerCase().indexOf('btc') > -1 ||
+      lpSymbol.toLowerCase().indexOf('eth') > -1 ||
+      lpSymbol.toLowerCase().indexOf('bnb') > -1
+    ) {
+      return 4;
+    } else {
+      return 2;
+    }
+  }
   if (isSpecialLp(lpSymbol)) {
     return 15;
   } else {
     return 6;
   }
 };
-export const showDecimalsWithType = (lpSymbol: string, type: number): number => {
+export const showDecimalsWithType = (lpSymbol: string, abiType: IABIType, type: number): number => {
   if (type === 0) {
-    return showDecimals(lpSymbol);
+    return showDecimals(lpSymbol, abiType);
   } else {
     return 2;
   }

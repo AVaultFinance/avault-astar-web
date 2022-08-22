@@ -8,8 +8,8 @@ import { chainId } from 'config/constants/tokens';
 import fetchVaultsV2 from './fetchVaultsV2';
 import vaultsConfig from 'state/vault/vaultsConfig';
 import {
-  fetchVaultsFarmEarnings,
-  fetchVaultsFarmStakedBalances,
+  // fetchVaultsFarmEarnings,
+  // fetchVaultsFarmStakedBalances,
   fetchVaultsFarmUserAllowances,
   fetchVaultsFarmUserTokenBalances,
   fetchVaultsUsersV2,
@@ -26,15 +26,15 @@ export const initialState: VaultState = {
       },
       farm: {
         ...v.farm,
-        tokenAmountMc: '',
-        quoteTokenAmountMc: '',
-        tokenAmountTotal: '',
-        quoteTokenAmountTotal: '',
-        lpTotalInQuoteToken: '',
-        lpTotalSupply: '',
-        tokenPriceVsQuote: '',
-        poolWeight: '',
-        multiplier: '',
+        // tokenAmountMc: '',
+        // quoteTokenAmountMc: '',
+        // tokenAmountTotal: '',
+        // quoteTokenAmountTotal: '',
+        // lpTotalInQuoteToken: '',
+        // lpTotalSupply: '',
+        // tokenPriceVsQuote: '',
+        // poolWeight: '',
+        // multiplier: '',
       },
       isLoading: false,
     };
@@ -63,17 +63,13 @@ export const fetchVaultFarmUserDataAsync = createAsyncThunk<
     index?: number;
   }
 >('vault/fetchVaultFarmUserDataAsync', async ({ account, vaults, index }) => {
-  console.log(1);
   const userVaultsFarmAllowances = await fetchVaultsFarmUserAllowances(account, vaults, index);
-  console.log(2);
   const userVaultsFarmTokenBalances = await fetchVaultsFarmUserTokenBalances(account, vaults, index);
-  console.log(3);
-  const userVaultsStakedBalances = await fetchVaultsFarmStakedBalances(account, vaults, index);
-  console.log(4);
-  const userVaultEarnings = await fetchVaultsFarmEarnings(account, vaults, index);
-  console.log(5);
+  // const userVaultsStakedBalances = await fetchVaultsFarmStakedBalances(account, vaults, index);
+  // console.log({ userVaultsStakedBalances });
+
+  // const userVaultEarnings = await fetchVaultsFarmEarnings(account, vaults, index);
   const [userVaultUsers] = await fetchVaultsUsersV2(account, vaults, index);
-  console.log(6);
   return userVaultsFarmAllowances.map((farmAllowance, _index) => {
     return {
       vaultAccount: vaults[_index].contractAddress[chainId],
@@ -81,8 +77,8 @@ export const fetchVaultFarmUserDataAsync = createAsyncThunk<
       account: account,
       allowance: farmAllowance,
       stakingTokenBalance: userVaultsFarmTokenBalances[_index],
-      stakedBalance: userVaultsStakedBalances[_index],
-      pendingReward: userVaultEarnings[_index],
+      // stakedBalance: userVaultsStakedBalances[_index],
+      // pendingReward: userVaultEarnings[_index],
       avaultAddressBalance: userVaultUsers[_index],
     };
   });

@@ -13,6 +13,7 @@ export enum ISwapLink {
 export enum IABIType {
   AVaultPCS = 'AVaultPCS',
   AVaultForArthswapFarm = 'AVaultForArthswapFarm',
+  AVaultForStarlay = 'AVaultForStarlay',
 }
 interface IAddress {
   [ChainId.SDN_MAINNET]?: string;
@@ -29,12 +30,11 @@ export interface IVaultConfigItem {
   fromSource: IFromSource;
   abiType: IABIType;
   swapLink: string;
-  online_at: number; //  timestamp  s
-  lpDetail?: {
-    symbol: string;
-    address: IAddress;
-    decimals: number;
-  };
+  // lpDetail?: {
+  //   symbol: string;
+  //   address: IAddress;
+  //   decimals: number;
+  // };
   farm?: IVaultFarm;
   vault?: IVaultComp;
 }
@@ -47,27 +47,26 @@ export interface IVaultFarm {
   quoteToken: string;
   tokenDecimals: number;
   quoteTokenDecimals: number;
-  lpAddressDecimals: number;
-
-  tokenAmountMc?: string;
-  quoteTokenAmountMc?: string;
-  tokenAmountTotal?: string;
-  quoteTokenAmountTotal?: string;
-  lpTotalInQuoteToken?: string;
-  lpTotalSupply?: string;
-  tokenPriceVsQuote?: string;
-  poolWeight?: string;
-  multiplier?: string;
+  // lpAddressDecimals: number;
+  // tokenAmountMc?: string;
+  // quoteTokenAmountMc?: string;
+  // tokenAmountTotal?: string;
+  // quoteTokenAmountTotal?: string;
+  // lpTotalInQuoteToken?: string;
+  // lpTotalSupply?: string;
+  // tokenPriceVsQuote?: string;
+  // poolWeight?: string;
+  // multiplier?: string;
   // calculate
-  apr?: string;
-  apy?: string;
-  farmApr?: string;
-  farmApy?: string;
-  feeApr?: string;
-  feeApy?: string;
-  lpRewardsApr?: string;
-  liquidity?: string;
-  lpTokenPrice?: string;
+  // apr?: string;
+  // apy?: string;
+  // farmApr?: string;
+  // farmApy?: string;
+  // feeApr?: string;
+  // feeApy?: string;
+  // lpRewardsApr?: string;
+  // liquidity?: string;
+  // lpTokenPrice?: string;
   userData?: Record<string, IVaultUserData>;
 }
 export interface IVaultUserData {
@@ -76,20 +75,19 @@ export interface IVaultUserData {
   account: string;
   allowance: string;
   stakingTokenBalance: string;
-  stakedBalance: string;
-  pendingReward: string;
+  // stakedBalance: string;
+  // pendingReward: string;
   avaultAddressBalance: string;
 }
 export interface IVaultComp {
   // abi
   symbol: string;
+  vaultSymbol: string;
   name: string;
-  masterChef: string;
   AVAAddress: string;
-  token0Address: string;
-  token1Address: string;
   fromSource: IFromSource;
   wantAddress: string;
+  wantAddressDecimals?: number;
   earnedAddress: string;
   wantLockedTotal?: string;
   scale?: string;
@@ -99,6 +97,15 @@ export interface IVaultComp {
   liquidity?: string;
   // calculate
   lpToCLpRate?: string;
+  masterChef?: string;
+  token0Address?: string; // if single Token  token0 =  single Token
+  token1Address?: string;
+  apr?: string;
+  apy?: string;
+  farmApr?: string;
+  farmApy?: string;
+  feeApr?: string;
+  feeApy?: string;
 }
 export interface IVault extends IVaultConfigItem {
   vault: IVaultComp;

@@ -13,3 +13,5 @@ Frontend of Avault
 - 4. vault USDC 0xde22Efc05eC3fCd6c8F4C4f8Fc63759A343783bF
 - 5. websit https://starlay.finance/app
 - 6. have no scale
+
+- eth btc bnb show 5 decimals, others 2 decimals

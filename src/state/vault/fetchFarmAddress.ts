@@ -14,7 +14,7 @@ export const fetchFarmDataABIBase = async (vaultsData: IVault[]): Promise<Record
     lpSymbol: [],
   };
   callArr.lpAddressDecimals = vaultsData.map((v) => ({
-    address: v.lpDetail.address[chainId],
+    address: v.vault.wantAddress,
     name: 'decimals',
   }));
   callArr.tokenDecimals = vaultsData.map((v) => ({
@@ -26,7 +26,7 @@ export const fetchFarmDataABIBase = async (vaultsData: IVault[]): Promise<Record
     name: 'decimals',
   }));
   callArr.lpSymbol = vaultsData.map((v) => ({
-    address: v.lpDetail.address[chainId],
+    address: v.vault.wantAddress,
     name: 'symbol',
   }));
   const vaultCall = [...Object.values(callArr)].flat(2);
@@ -54,22 +54,22 @@ export const fetchFarmDataABICalc = async (
   callArr.tokenBalanceLP = vaultsData.map((v) => ({
     address: v.vault.token0Address,
     name: 'balanceOf',
-    params: [v.lpDetail.address[chainId]],
+    params: [v.vault.wantAddress],
   }));
 
   callArr.quoteTokenBalanceLp = vaultsData.map((v) => ({
     address: v.vault.token1Address,
     name: 'balanceOf',
-    params: [v.lpDetail.address[chainId]],
+    params: [v.vault.wantAddress],
   }));
 
   callArr.lpTokenBalanceMC = vaultsData.map((v) => ({
-    address: v.lpDetail.address[chainId],
+    address: v.vault.wantAddress,
     name: 'balanceOf',
     params: [v.vault.masterChef],
   }));
   callArr.lpTotalSupply = vaultsData.map((v) => ({
-    address: v.lpDetail.address[chainId],
+    address: v.vault.wantAddress,
     name: 'totalSupply',
   }));
 

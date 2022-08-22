@@ -21,7 +21,7 @@ const PoolHeader_: FC<{ className?: string; pairIndex: number; floorPrice: numbe
   floorPrice,
   pair,
 }) => {
-  usePollPrice(NFT_PAIRS[pairIndex].address, '100');
+  usePollPrice();
   return (
     <div className={className}>
       <div>

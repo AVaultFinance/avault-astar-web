@@ -80,23 +80,23 @@ export const useVaultFarmUser = (account: string, vaultAccount: string) => {
       account: '',
       allowance: '0',
       stakingTokenBalance: '0',
-      stakedBalance: '0',
-      pendingReward: '0',
+      // stakedBalance: '0',
+      // pendingReward: '0',
       avaultAddressBalance: '0',
     };
     return {
       allowance: new BigNumber(_userData.allowance),
       stakingTokenBalance: new BigNumber(_userData.stakingTokenBalance),
-      stakedBalance: new BigNumber(_userData.stakedBalance),
-      pendingReward: new BigNumber(_userData.pendingReward),
+      // stakedBalance: new BigNumber(_userData.stakedBalance),
+      // pendingReward: new BigNumber(_userData.pendingReward),
       avaultAddressBalance: new BigNumber(_userData.avaultAddressBalance),
     };
   } catch (e) {
     return {
       allowance: BIG_ZERO,
       stakingTokenBalance: BIG_ZERO,
-      stakedBalance: BIG_ZERO,
-      pendingReward: BIG_ZERO,
+      // stakedBalance: BIG_ZERO,
+      // pendingReward: BIG_ZERO,
       avaultAddressBalance: BIG_ZERO,
     };
   }

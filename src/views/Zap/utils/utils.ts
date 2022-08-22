@@ -12,15 +12,19 @@ import { showDecimals } from 'views/Vault/utils';
 import { IVault } from 'state/vault/types';
 
 export const isCurrencyEquals = (selectedCurrency: IToken, currency: IToken) => {
-  if (!selectedCurrency.address && !currency.address) {
-    return true;
-  }
-  if (selectedCurrency.address && currency.address) {
-    if (selectedCurrency.address[chainId].toLowerCase() === currency.address[chainId].toLowerCase()) {
+  try {
+    if (!selectedCurrency.address && !currency.address) {
       return true;
     }
+    if (selectedCurrency.address && currency.address) {
+      if (selectedCurrency.address[chainId].toLowerCase() === currency.address[chainId].toLowerCase()) {
+        return true;
+      }
+    }
+    return false;
+  } catch (e) {
+    console.log(selectedCurrency.address, currency.address);
   }
-  return false;
 };
 
 export function currencyKey(currency: IToken, index: number): string {

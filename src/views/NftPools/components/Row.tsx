@@ -103,7 +103,7 @@ const TitledItem = styled(TitledItem_)``;
 const Row: FC<{ pair: NftPair; simpleMode: boolean }> = ({ pair, simpleMode }) => {
   const history = useHistory();
   const [collapsed, setCollapsed] = useState(false);
-  usePollPrice(pair.pairAddress, '100');
+  usePollPrice();
   const { priceVsBusdMap } = usePrice();
   return (
     <>

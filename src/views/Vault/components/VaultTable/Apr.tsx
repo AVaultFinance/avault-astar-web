@@ -3,7 +3,6 @@ import styled from 'styled-components';
 // import ApyButton from 'views/Farms/components/FarmCard/ApyButton';
 // import { BASE_ADD_LIQUIDITY_URL } from 'config';
 // import getLiquidityUrlPathParts from 'utils/getLiquidityUrlPathParts';
-import { Skeleton } from '@my/ui';
 import { IFromSource } from 'state/vault/types';
 export interface AprProps {
   // apr: string;
@@ -55,62 +54,29 @@ const PStyled = styled.p`
 const Apr: React.FC<AprProps> = ({ apy, farmApy, feeApy, originalValue, fromSource, lpLabel }) => {
   // const liquidityUrlPathParts = getLiquidityUrlPathParts({ quoteTokenAddress, tokenAddress });
   // const addLiquidityUrl = `${BASE_ADD_LIQUIDITY_URL}/${liquidityUrlPathParts}`;
-  return originalValue !== 0 ? (
-    <Container>
-      {originalValue ? (
-        <>
-          <AprWrapper>
-            {apy === '999.99' ? '> ' : ''}
-            {apy}%
-          </AprWrapper>
-          <PStyled>
-            {/* {vaultSymbol} */}
-            Arthswap Fee APY: ≈{feeApy}%
-          </PStyled>
-          <PStyled>
-            {fromSource} Farm APY: {farmApy === '999.99' ? ' > ' : ''}
-            {farmApy}%
-          </PStyled>
-          {/* <ReferenceElement ref={targetRef}>
-            <HelpIcon color="textSubtle" />
-          </ReferenceElement>
-          {tooltipVisible && tooltip} */}
-          {/* {!hideButton && (
-            <ApyButton
-              lpLabel={lpLabel}
-              cakePrice={cakePrice}
-              apr={originalValue}
-              displayApr={value}
-              addLiquidityUrl={addLiquidityUrl}
-            />
-          )} */}
-        </>
-      ) : (
-        <AprWrapper>
-          <Skeleton width={40} height={16} />
-          <Skeleton width={60} height={13} marginTop="6px" />
-          <Skeleton width={60} height={13} marginTop="3px" />
-        </AprWrapper>
-      )}
-    </Container>
-  ) : (
+  return (
     <Container>
       <AprWrapper>
         {apy === '999.99' ? '> ' : ''}
         {apy}%
       </AprWrapper>
-      <PStyled>
-        {/* {vaultSymbol} */}
-        Arthswap Fee APY: ≈{feeApy}%
-      </PStyled>
-      <PStyled>
-        {fromSource} Farm APY: {farmApy === '999.99' ? ' > ' : ''}
-        {farmApy}%
-      </PStyled>
-      {/* <ReferenceElement ref={targetRef}>
-        <HelpIcon color="textSubtle" />
-      </ReferenceElement> */}
-      {/* {tooltipVisible && tooltip} */}
+      {fromSource === IFromSource.starlay ? (
+        <PStyled>
+          {fromSource} APY: ≈{apy}%
+        </PStyled>
+      ) : null}
+      {fromSource !== IFromSource.starlay ? (
+        <PStyled>
+          {/* {vaultSymbol} */}
+          {fromSource} Fee APY: ≈{feeApy}%
+        </PStyled>
+      ) : null}
+      {fromSource !== IFromSource.starlay ? (
+        <PStyled>
+          {fromSource} Farm APY: {farmApy === '999.99' ? ' > ' : ''}
+          {farmApy}%
+        </PStyled>
+      ) : null}
     </Container>
   );
 };

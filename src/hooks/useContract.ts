@@ -46,6 +46,8 @@ import { getContract } from '../utils';
 
 import AVaultPCS from 'config/abi/AVaultPCS.json';
 import AVaultForArthswapFarm from 'config/abi/AVaultForArthswapFarm.json';
+import AVaultForStarlay from 'config/abi/AVaultForStarlay.json';
+
 import { IABIType } from 'state/vault/types';
 /**
  * Helper hooks to get specific contracts (by ABI)
@@ -261,6 +263,11 @@ export function useAVaultPCSContract(
   abiType: IABIType,
   withSignerIfPossible?: boolean,
 ): Contract | null {
-  const abi = abiType === IABIType.AVaultPCS ? AVaultPCS : AVaultForArthswapFarm;
+  const abi =
+    abiType === IABIType.AVaultPCS
+      ? AVaultPCS
+      : abiType === IABIType.AVaultForStarlay
+      ? AVaultForStarlay
+      : AVaultForArthswapFarm;
   return useContract(avaultAddress, abi, withSignerIfPossible);
 }

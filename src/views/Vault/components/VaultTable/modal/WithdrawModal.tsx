@@ -43,8 +43,8 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
 }) => {
   const [val, setVal] = useState('');
   const fullBalance = useMemo(() => {
-    return getFullDisplayBalance(max, lpAddressDecimals, showDecimals(lpSymbol));
-  }, [max, lpAddressDecimals, lpSymbol]);
+    return getFullDisplayBalance(max, lpAddressDecimals, showDecimals(lpSymbol, abiType));
+  }, [max, lpAddressDecimals, lpSymbol, abiType]);
 
   const handleChange = useCallback(
     (e: React.FormEvent<HTMLInputElement>) => {

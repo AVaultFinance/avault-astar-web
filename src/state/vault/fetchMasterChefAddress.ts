@@ -70,17 +70,17 @@ const arthswap = async (currentBlock: number, vaultsData: IVault[]): Promise<Rec
     return info[index] ? new BigNumber(info[index].allocPoint?._hex) : BIG_ZERO;
   });
   // const lpAddresses = info ? info.lpToken : '';
-  const poolWeight = vaultsData.map((v, index) => {
-    return totalAllocPoint[index]
-      ? allocPoint[index].div(new BigNumber(totalAllocPoint[index])).toString()
-      : v?.farm?.poolWeight
-      ? new BigNumber(v.farm.poolWeight).toString()
-      : BIG_ZERO.toString();
-  });
+  // const poolWeight = vaultsData.map((v, index) => {
+  //   return totalAllocPoint[index]
+  //     ? allocPoint[index].div(new BigNumber(totalAllocPoint[index])).toString()
+  //     : v?.farm?.poolWeight
+  //     ? new BigNumber(v.farm.poolWeight).toString()
+  //     : BIG_ZERO.toString();
+  // });
   const obj = {};
   for (let i = 0; i < vaultsData.length; i++) {
     obj[`${vaultsData[i].contractAddress[chainId]}`] = {
-      poolWeight: poolWeight[i],
+      // poolWeight: poolWeight[i],
       multiplier: `${allocPoint[i].div(new BigNumber(100)).toString()}X`,
       perBlock: new BigNumber(perBlock[i].toString()).div(BIG_TEN.pow(new BigNumber(18))).toFixed(2),
     };

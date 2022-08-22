@@ -9,7 +9,9 @@ const useVaultDeposit = (abiType: IABIType, account: string, contractAddress: st
 
   const handleDeposit = useCallback(
     async (amount: string) => {
+      // console.log(amount, decimal);
       const value = new BigNumber(`${amount}`).times(BIG_TEN.pow(decimal)).toFixed(0);
+      // console.log(value);
       const res = await callWithEstimateGas(contractAddressContract, 'deposit', [account, `${value}`]);
       if (res && res.isOk) {
         return true;

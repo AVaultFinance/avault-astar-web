@@ -60,12 +60,6 @@ export const DesktopColumnSchema: ColumnsDefTypes[] = [
   },
 
   {
-    id: 5,
-    name: 'multiplier',
-    sortable: true,
-    label: 'Multiplier',
-  },
-  {
     id: 6,
     name: 'details',
     sortable: true,

@@ -44,10 +44,9 @@ interface RemoveLiquidityModalProps {
 const RemoveLiquidityModal: React.FC<RemoveLiquidityModalProps> = ({ vault, account, onDismiss }) => {
   const [fullBalance, setMax] = useState('0');
   const [val, setVal] = useState('');
-  const index = vaultsConfig.map((v: IVaultConfigItem) => v.lpDetail.symbol).indexOf(vault.lpDetail.symbol);
+  const index = vaultsConfig.map((v: IVaultConfigItem) => v.vault.vaultSymbol).indexOf(vault.vault.vaultSymbol);
   const { data: vaults } = useVault();
   const { toastSuccess } = useToast();
-
   const token: IToken = tokenIndex[index][1];
   const currencyIdA = token.token.address[chainId];
   const currencyIdB = token.quoteToken.address[chainId];
@@ -294,7 +293,7 @@ const RemoveLiquidityModal: React.FC<RemoveLiquidityModalProps> = ({ vault, acco
       await router[methodName](...args)
         .then(async (response: TransactionResponse) => {
           // addTransaction(response, {
-          //   summary: `Remove ${formattedAmounts[Field.LIQUIDITY]} ${vault.lpDetail.symbol} success!`,
+          //   summary: `Remove ${formattedAmounts[Field.LIQUIDITY]} ${vault.vault.vaultSymbol} success!`,
           // });
 
           const { hash } = response;
@@ -303,7 +302,7 @@ const RemoveLiquidityModal: React.FC<RemoveLiquidityModalProps> = ({ vault, acco
             if (receipt.status) {
               toastSuccess(
                 'Remove Liquidity Successful!',
-                `Remove ${formattedAmounts[Field.LIQUIDITY]} ${vault.lpDetail.symbol} success!`,
+                `Remove ${formattedAmounts[Field.LIQUIDITY]} ${vault.vault.vaultSymbol} success!`,
               );
               setAttemptingTxn(false);
               onLiquidityInput('');
@@ -364,7 +363,7 @@ const RemoveLiquidityModal: React.FC<RemoveLiquidityModalProps> = ({ vault, acco
       onDismiss={onDismiss}
     >
       <TitleStyled>
-        {vault.lpDetail.symbol}
+        {vault.vault.vaultSymbol}
         {' > '}
         {fromCurrency.symbol}+{toCurrency.symbol}
       </TitleStyled>
@@ -380,7 +379,7 @@ const RemoveLiquidityModal: React.FC<RemoveLiquidityModalProps> = ({ vault, acco
         <FlexCol>
           <FlexCol>
             <ZapCurrencyLogo currency={token} />
-            <TokenStyled>{vault.lpDetail.symbol}</TokenStyled>
+            <TokenStyled>{vault.vault.vaultSymbol}</TokenStyled>
           </FlexCol>
           <Flex alignItems="end" justifyContent="center" flexDirection="column">
             <StyledInput

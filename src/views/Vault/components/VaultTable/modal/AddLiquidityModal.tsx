@@ -39,7 +39,7 @@ interface AddLiquidityModalProps {
 const AddLiquidityModal: React.FC<AddLiquidityModalProps> = ({ vault, account, onDismiss }) => {
   const { isMd, isXl, isLg } = useMatchBreakpoints();
   const isMobile = !(isMd || isXl || isLg);
-  const index = vaultsConfig.map((v: IVaultConfigItem) => v.lpDetail.symbol).indexOf(vault.lpDetail.symbol);
+  const index = vaultsConfig.map((v: IVaultConfigItem) => v.vault.vaultSymbol).indexOf(vault.vault.vaultSymbol);
 
   const token = tokenIndex[index][0];
 
@@ -234,7 +234,7 @@ const AddLiquidityModal: React.FC<AddLiquidityModalProps> = ({ vault, account, o
     >
       <TitleStyled>
         {fromCurrency.symbol}+{toCurrency.symbol} {' > '}
-        {vault.lpDetail.symbol}
+        {vault.vault.vaultSymbol}
       </TitleStyled>
       <InnerStyled>
         <PaddingStyled>

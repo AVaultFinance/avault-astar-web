@@ -5,14 +5,13 @@ import { Flex, LinkExternal, useMatchBreakpoints, useModal, useWalletModal } fro
 import DepositAction from './DepositAction';
 import WithdrawAction from './WithdrawAction';
 import { AprProps } from '../Apr';
-import { MultiplierProps } from '../Multiplier';
 import BigNumber from 'bignumber.js';
 import { BIG_ZERO } from 'utils/bigNumber';
 import { getBalanceNumber, getFullLocalDisplayBalance } from 'utils/formatBalance';
 import { useWeb3React } from '@web3-react/core';
 import MobileAction from './MobileAction';
 import { useERC20, usePairContract } from 'hooks/useContract';
-import { IVault } from 'state/vault/types';
+import { IABIType, IFromSource, IVault } from 'state/vault/types';
 import { useVault, useVaultFarmUser } from 'state/vault/hooks';
 import useAuth from 'hooks/useAuth';
 import { chainId } from 'config/constants/tokens';
@@ -32,7 +31,6 @@ import { getAddress } from 'utils/addressHelpers';
 // import { registerToken } from 'utils/wallet';
 export interface ActionPanelProps {
   apr: AprProps;
-  multiplier: MultiplierProps;
   details: IVault;
   userDataReady: boolean;
   expanded: boolean;
@@ -154,14 +152,7 @@ const DetailContainer = styled.div`
   }
 `;
 
-const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
-  details,
-  apr,
-  multiplier,
-  userDataReady,
-  expanded,
-  index,
-}) => {
+const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({ details, userDataReady, expanded, index }) => {
   const vault = details;
   const { isXl, isLg } = useMatchBreakpoints();
   const isMobile = !(isXl || isLg);
@@ -186,7 +177,6 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
     allowance: '0',
     stakingTokenBalance: '0',
     stakedBalance: '0',
-    pendingReward: '0',
     avaultAddressBalance: '0',
   };
 
@@ -204,13 +194,13 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
     // console.log(_wantLockedTotal,_totalSupply,avaultAddressBalance)
     earnings = _wantLockedTotal.dividedBy(_totalSupply).times(avaultAddressBalance);
     // console.log('earnings: ', earnings);
-    // earnings = getBalanceAmount(_value, vault.farm.lpAddressDecimals);
+    // earnings = getBalanceAmount(_value, vault.vault.wantAddressDecimals);
     // wantLockedTotal / totalSupply()*CLpAmount
     // earningsBusd = earnings.multipliedBy(cakePrice).toNumber();
     displayEarningsBalance = getFullLocalDisplayBalance(
       earnings,
-      vault.farm.lpAddressDecimals,
-      showDecimals(vault.lpDetail.symbol),
+      vault.vault.wantAddressDecimals,
+      showDecimals(vault.vault.vaultSymbol, vault.abiType),
     );
   }
   // }
@@ -226,7 +216,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
     false,
     `onRemoveLiquidity${index}`,
   );
-  const lpAddress = getAddress(vault.farm.lpAddresses);
+  const lpAddress = getAddress(vault.vault.wantAddress);
   const lpContract = useERC20(lpAddress);
   const deadline = useTransactionDeadline();
   const [requestedApproval, setRequestedApproval] = useState(false);
@@ -261,7 +251,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
     }
   }, [onApprove, dispatch, onPresentConnectModal, index, account, vaults, toastError, toastSuccess]);
 
-  const pairContract: Contract | null = usePairContract(details.lpDetail.address[chainId]);
+  const pairContract: Contract | null = usePairContract(details.vault.wantAddress);
   const handleApprove = useCallback(async () => {
     if (!account) {
       onPresentConnectModal();
@@ -272,7 +262,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
         setRequestedApproval(true);
         const signature = await avaultApprove({
           pairContract: pairContract,
-          paitAddress: details.lpDetail.address[chainId],
+          paitAddress: details.vault.wantAddress,
           vaultContractAddress: details.contractAddress[chainId],
           library: library,
           account,
@@ -294,7 +284,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
       }
     }
   }, [
-    details.lpDetail.address,
+    details.vault.wantAddress,
     onPresentConnectModal,
     pairContract,
     deadline,
@@ -306,30 +296,34 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
   return (
     <Container expanded={expanded}>
       <InfoContainer>
-        <StyledLinkExternal
-          hideIcon={true}
-          onClick={() => {
-            if (!account) {
-              onPresentConnectModal();
-              return;
-            }
-            onAddLiquidity();
-          }}
-        >
-          Add Liquidity
-        </StyledLinkExternal>
-        <StyledLinkExternal
-          hideIcon={true}
-          onClick={() => {
-            if (!account) {
-              onPresentConnectModal();
-              return;
-            }
-            onRemoveLiquidity();
-          }}
-        >
-          Remove Liquidity
-        </StyledLinkExternal>
+        {details.abiType === IABIType.AVaultForStarlay ? null : (
+          <StyledLinkExternal
+            hideIcon={true}
+            onClick={() => {
+              if (!account) {
+                onPresentConnectModal();
+                return;
+              }
+              onAddLiquidity();
+            }}
+          >
+            Add Liquidity
+          </StyledLinkExternal>
+        )}
+        {details.abiType === IABIType.AVaultForStarlay ? null : (
+          <StyledLinkExternal
+            hideIcon={true}
+            onClick={() => {
+              if (!account) {
+                onPresentConnectModal();
+                return;
+              }
+              onRemoveLiquidity();
+            }}
+          >
+            Remove Liquidity
+          </StyledLinkExternal>
+        )}
         <StyledLinkExternal href={`${getBscScanLink(vault.contractAddress[chainId], 'address')}`}>
           {t('View Contract')}
         </StyledLinkExternal>
@@ -337,7 +331,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
         {account && isMetaMaskInScope && vault.farm.lpAddresses && (
           <StyledLinkExternal
             hideIcon={true}
-            onClick={() => registerToken(vault.farm.lpAddresses, vault.farm.lpSymbol, vault.farm.lpAddressDecimals)}
+            onClick={() => registerToken(vault.farm.lpAddresses, vault.farm.lpSymbol, vault.vault.wantAddressDecimals)}
           >
             Add LP to Metamask
           </StyledLinkExternal>
@@ -352,35 +346,49 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
           APY
           <em>
             <i className="green">
-              {vault?.farm?.apy ? (vault.farm.apy === '999.99' ? '> ' + vault.farm.apy : vault.farm.apy + '%') : ''}
+              {vault?.vault?.apy ? (vault.vault.apy === '999.99' ? '> ' + vault.vault.apy : vault.vault.apy + '%') : ''}
             </i>
-            <i className="grey">Arthswap Fee APY: ≈{vault.farm.feeApy}%</i>
-            <i className="grey">
-              {vault.lpDetail.symbol} Farm APY: &nbsp;
-              {vault?.farm?.farmApy
-                ? vault.farm.farmApy === '999.99'
-                  ? '> ' + vault.farm.farmApy
-                  : vault.farm.farmApy + '%'
-                : ''}
-            </i>
+            {vault.fromSource === IFromSource.starlay ? (
+              <i className="grey">
+                {vault.fromSource} APY: ≈{vault.vault.apy}%
+              </i>
+            ) : null}
+            {vault.fromSource !== IFromSource.starlay ? (
+              <i className="grey">
+                {vault.fromSource} Fee APY: ≈{vault.vault.feeApy}%
+              </i>
+            ) : null}
+            {vault.fromSource !== IFromSource.starlay ? (
+              <i className="grey">
+                {vault.fromSource} Farm APY: &nbsp;
+                {vault?.vault?.farmApy
+                  ? vault.vault.farmApy === '999.99'
+                    ? '> ' + vault.vault.farmApy
+                    : vault.vault.farmApy + '%'
+                  : ''}
+              </i>
+            ) : null}
           </em>
         </p>
         <p>
           wallet balance
           <em>
             <i>
-              {getBalanceNumber(new BigNumber(_userData.avaultAddressBalance)).toLocaleString('en-US', {
-                maximumFractionDigits: showDecimalsWithType(vault.lpDetail.symbol, vault.type),
+              {getBalanceNumber(
+                new BigNumber(_userData.avaultAddressBalance),
+                vault.vault.wantAddressDecimals,
+              ).toLocaleString('en-US', {
+                maximumFractionDigits: showDecimalsWithType(vault.vault.vaultSymbol, vault.abiType, vault.type),
               })}{' '}
-              {vault?.vault.symbol}
+              {vault?.vault.vaultSymbol}
             </i>
             <i>
               {getFullLocalDisplayBalance(
                 new BigNumber(_userData.stakingTokenBalance),
-                vault.farm.lpAddressDecimals,
-                showDecimals(vault.lpDetail.symbol),
+                vault.vault.wantAddressDecimals,
+                showDecimals(vault.vault.vaultSymbol, vault.abiType),
               )}{' '}
-              {vault.lpDetail.symbol}
+              {vault.vault.vaultSymbol}
             </i>
           </em>
         </p>
@@ -405,18 +413,18 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
           pid={vault.farm.pid}
           displayBalance={getFullLocalDisplayBalance(
             new BigNumber(_userData.stakingTokenBalance),
-            vault.farm.lpAddressDecimals,
-            showDecimals(vault.lpDetail.symbol),
+            vault.vault.wantAddressDecimals,
+            showDecimals(vault.vault.vaultSymbol, vault.abiType),
           )}
           displayEarningsBalance={displayEarningsBalance}
           earnings={earnings}
           userDataReady={userDataReady}
           handleApprove={handleApproveV0}
           account={account}
-          lpSymbol={vault.lpDetail.symbol}
+          lpSymbol={vault.vault.vaultSymbol}
           contractAddress={vault.contractAddress[chainId]}
           stakingTokenBalance={new BigNumber(_userData.stakingTokenBalance)}
-          lpAddressDecimals={vault.farm.lpAddressDecimals}
+          lpAddressDecimals={vault.vault.wantAddressDecimals}
           index={index}
         />
       ) : (
@@ -427,13 +435,13 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
             abiType={vault.abiType}
             signatureData={signatureData}
             contractAddress={vault.contractAddress[chainId]}
-            lpAddressDecimals={vault.farm.lpAddressDecimals}
+            lpAddressDecimals={vault.vault.wantAddressDecimals}
             requestedApproval={requestedApproval}
             isApproved={isApproved}
             displayBalance={getFullLocalDisplayBalance(
               new BigNumber(_userData.stakingTokenBalance),
-              vault.farm.lpAddressDecimals,
-              showDecimals(vault.lpDetail.symbol),
+              vault.vault.wantAddressDecimals,
+              showDecimals(vault.vault.vaultSymbol, vault.abiType),
             )}
             displayEarningsBalance={displayEarningsBalance}
             earnings={earnings}
@@ -441,7 +449,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
             userDataReady={userDataReady}
             pid={vault.farm.pid}
             name={vault.vault.name}
-            lpSymbol={vault.lpDetail.symbol}
+            lpSymbol={vault.vault.vaultSymbol}
             index={index}
           />
           <div className="w20"></div>
@@ -449,19 +457,19 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
             abiType={vault.abiType}
             lpToCLpRate={vault.vault.lpToCLpRate}
             contractAddress={vault.contractAddress[chainId]}
-            lpAddressDecimals={vault.farm.lpAddressDecimals}
+            lpAddressDecimals={vault.vault.wantAddressDecimals}
             requestedApproval={requestedApproval}
             isApproved={isApproved}
             displayBalance={getFullLocalDisplayBalance(
               new BigNumber(_userData.stakingTokenBalance),
-              vault.farm.lpAddressDecimals,
-              showDecimals(vault.lpDetail.symbol),
+              vault.vault.wantAddressDecimals,
+              showDecimals(vault.vault.vaultSymbol, vault.abiType),
             )}
             displayEarningsBalance={displayEarningsBalance}
             earnings={earnings}
             userDataReady={userDataReady}
             name={vault.vault.name}
-            lpSymbol={vault.lpDetail.symbol}
+            lpSymbol={vault.vault.vaultSymbol}
             index={index}
           />
         </ActionContainer>

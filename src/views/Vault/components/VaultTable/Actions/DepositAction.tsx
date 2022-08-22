@@ -73,8 +73,8 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
   const { stakingTokenBalance } = useVaultFarmUser(account, contractAddress);
 
   const fullBalance = useMemo(() => {
-    return getFullDisplayBalance(stakingTokenBalance, lpAddressDecimals, showDecimals(lpSymbol));
-  }, [stakingTokenBalance, lpAddressDecimals, lpSymbol]);
+    return getFullDisplayBalance(stakingTokenBalance, lpAddressDecimals, showDecimals(lpSymbol, abiType));
+  }, [stakingTokenBalance, lpAddressDecimals, lpSymbol, abiType]);
   const fullBalanceNumber = new BigNumber(fullBalance);
   const handleChange = useCallback(
     (e: React.FormEvent<HTMLInputElement>) => {
@@ -157,7 +157,7 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
     <ActionContainerSize smallBorder={disabled ? false : true}>
       <Text textAlign="right" fontSize="12px" marginBottom="8px" fontWeight="500">
         {/* {lpSymbol ?? ''} */}
-        LP Balance: {displayBalance}
+        {lpSymbol.toLowerCase().indexOf(' lp') > -1 ? 'LP' : ''} Balance: {displayBalance}
       </Text>
       <ActionContainerBg smallBorder={disabled ? false : true}>
         <FlexStyled>

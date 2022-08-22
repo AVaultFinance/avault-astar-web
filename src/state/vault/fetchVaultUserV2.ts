@@ -1,5 +1,5 @@
 import erc20ABI from 'config/abi/erc20.json';
-import { IFromSource, IVault } from './types';
+import { IABIType, IFromSource, IVault } from './types';
 import BigNumber from 'bignumber.js';
 import multicall from 'utils/multicall';
 import masterchefABI from 'config/abi/masterchef.json';
@@ -15,7 +15,7 @@ import { haveNumber } from 'utils';
 export const fetchVaultsFarmUserAllowances = async (account: string, vaults: IVault[], index?: number) => {
   const calls = !haveNumber(index)
     ? vaults.map((vault: IVault) => {
-        const lpAddresses = vault.lpDetail.address[chainId];
+        const lpAddresses = vault.vault.wantAddress;
         const contractAddress = vault.contractAddress[chainId];
         return {
           address: lpAddresses,
@@ -25,7 +25,7 @@ export const fetchVaultsFarmUserAllowances = async (account: string, vaults: IVa
       })
     : [
         {
-          address: vaults[index].lpDetail.address[chainId],
+          address: vaults[index].vault.wantAddress,
           name: 'allowance',
           params: [account, vaults[index].contractAddress[chainId]],
         },
@@ -40,7 +40,7 @@ export const fetchVaultsFarmUserAllowances = async (account: string, vaults: IVa
 export const fetchVaultsFarmUserTokenBalances = async (account: string, vaults: IVault[], index?: number) => {
   const calls = !haveNumber(index)
     ? vaults.map((vault: IVault) => {
-        const lpAddresses = vault.lpDetail.address[chainId];
+        const lpAddresses = vault.vault.wantAddress;
         return {
           address: lpAddresses,
           name: 'balanceOf',
@@ -49,7 +49,7 @@ export const fetchVaultsFarmUserTokenBalances = async (account: string, vaults: 
       })
     : [
         {
-          address: vaults[index].lpDetail.address[chainId],
+          address: vaults[index].vault.wantAddress,
           name: 'balanceOf',
           params: [account],
         },
@@ -94,6 +94,13 @@ export const fetchVaultsFarmStakedBalances = async (account: string, vaults: IVa
 export const fetchVaultsFarmEarnings = async (account: string, vaults: IVault[], index?: number) => {
   const calls = !haveNumber(index)
     ? vaults.map((vault: IVault) => {
+        if (vault.abiType === IABIType.AVaultForStarlay) {
+          return {
+            address: vault.vault.wantAddress,
+            name: 'balanceOf',
+            params: [account],
+          };
+        }
         const masterChef = vault.vault.masterChef;
         return {
           address: masterChef,
@@ -103,9 +110,17 @@ export const fetchVaultsFarmEarnings = async (account: string, vaults: IVault[],
       })
     : [
         {
-          address: vaults[index].vault.masterChef,
-          name: vaults[index].fromSource === IFromSource.arthswap ? 'pendingARSW' : 'pendingCake',
-          params: [vaults[index].farm.pid, account],
+          address:
+            vaults[index].abiType === IABIType.AVaultForStarlay
+              ? vaults[index].vault.wantAddress
+              : vaults[index].vault.masterChef,
+          name:
+            vaults[index].abiType === IABIType.AVaultForStarlay
+              ? 'balanceOf'
+              : vaults[index].fromSource === IFromSource.arthswap
+              ? 'pendingARSW'
+              : 'pendingCake',
+          params: vaults[index].abiType === IABIType.AVaultForStarlay ? [account] : [vaults[index].farm.pid, account],
         },
       ];
   const _masterchefABI =

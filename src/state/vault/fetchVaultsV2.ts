@@ -1,12 +1,10 @@
-import { IVault, IVaultConfigItem } from './types';
+import { IVault } from './types';
 import BigNumber from 'bignumber.js';
-import { chainId } from 'config/constants/tokens';
 import { fetchVaultABIAmount } from './fetchVaultAddress';
-import { fetchMasterChefABI } from './fetchMasterChefAddress';
-import { fetchFarmDataABICalc } from './fetchFarmAddress';
 import { BIG_TEN, BIG_ZERO } from 'utils/bigNumber';
 import { isNaNString } from 'views/Vault/utils';
 import { fetchApy, INetValueKeyItemItem, nowDate, preDate } from './fetchApy';
+import { chainId } from 'config/constants/tokens';
 
 const fetchVaultsV2 = async (
   currentBlock: number,
@@ -14,7 +12,7 @@ const fetchVaultsV2 = async (
   vaultsData: IVault[],
 ): Promise<[IVault[], string]> => {
   // base
-  // ----------------AVVATADDRESS----------
+  // ----------------AVVATADDRESS Farm----------
   // const {
   //   masterChef,
   //   name,
@@ -39,31 +37,43 @@ const fetchVaultsV2 = async (
   //   AVAAddress,
   //   vaultDecimals,
   // });
+  // ----------------AVVATADDRESS SingleToken----------
+  // const { name, symbol, wantAddress, earnedAddress, AVAAddress, vaultDecimals } = await fetchVaultABIBaseSingleToken(
+  //   vaultsData,
+  // );
+  // console.log({
+  //   name,
+  //   symbol,
+  //   wantAddress,
+  //   earnedAddress,
+  //   AVAAddress,
+  //   vaultDecimals,
+  // });
 
   // // pid: (22) [21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
   const obj: IVault[] = [];
   const { wantLockedTotal, vaultTotalSupply, scale } = await fetchVaultABIAmount(vaultsData);
   // ----------------AVVATADDRESS  end----------
   // -------------MASTRETADDRESS--------
-  const { poolWeight, multiplier } = await fetchMasterChefABI(currentBlock, vaultsData);
+  // const { poolWeight, multiplier } = await fetchMasterChefABI(currentBlock, vaultsData);
   //-----------------Farm----------
   // const { lpAddressDecimals, tokenDecimals, quoteTokenDecimals, lpSymbol } = await fetchFarmDataABIBase(vaultsData);
-  const {
-    tokenAmountMc,
-    tokenAmountTotal,
-    quoteTokenAmountMc,
-    quoteTokenAmountTotal,
-    lpTotalSupply,
-    lpTotalInQuoteToken,
-    liquidity,
-    tokenPriceVsQuote,
-    lpTokenPrice,
-  } = await fetchFarmDataABICalc(vaultsData, priceVsBusdMap);
+  // const {
+  //   // tokenAmountMc,
+  //   // tokenAmountTotal,
+  //   // quoteTokenAmountMc,
+  //   // quoteTokenAmountTotal,
+  //   // lpTotalSupply,
+  //   // lpTotalInQuoteToken,
+  //   liquidity,
+  //   // tokenPriceVsQuote,
+  //   // lpTokenPrice,
+  // } = await fetchFarmDataABICalc(vaultsData, priceVsBusdMap);
   // calc amount cant stable
   let _total = BIG_ZERO;
   const apyArr = await fetchApy();
-  // console.log({ apyArr });
   let time = nowDate();
+
   for (let i = 0; i < vaultsData.length; i++) {
     const item = vaultsData[i];
     let _apyItem: INetValueKeyItemItem = apyArr[item.contractAddress[chainId].toLowerCase()][time];
@@ -83,12 +93,13 @@ const fetchVaultsV2 = async (
     //   new BigNumber(liquidity[i]),
     //   item.lpDetail.address[chainId],
     // );
-    // const feeApr: number = vault_fee_apr[`${item.lpDetail.symbol}`];
+    // const feeApr: number = vault_fee_apr[`${item.vault.symbol}`];
     // const feeApy = aprToApy(feeApr);
     const _liquidity = new BigNumber(wantLockedTotal[i])
       .div(BIG_TEN.pow(new BigNumber(item.vault.decimals)))
-      .times(Number(lpTokenPrice[i]))
+      .times(Number(priceVsBusdMap[item.vault.wantAddress]))
       .toNumber();
+
     _total = _total.plus(_liquidity);
     const _scale = item.type === 0 ? '1' : scale[i];
     const _lpToCLpRate =
@@ -99,6 +110,12 @@ const fetchVaultsV2 = async (
       ...item,
       vault: {
         ...item.vault,
+        apr: _apyItem.apr,
+        apy: _apyItem.apy,
+        farmApr: _apyItem.farmApr,
+        farmApy: _apyItem.farmApy,
+        feeApr: _apyItem.aprFee,
+        feeApy: _apyItem.apyFee,
         wantLockedTotal: wantLockedTotal[i],
         totalSupply: vaultTotalSupply[i],
         scale: _scale,
@@ -109,23 +126,18 @@ const fetchVaultsV2 = async (
       },
       farm: {
         ...item.farm,
-        poolWeight: poolWeight[i],
-        multiplier: multiplier[i],
-        apr: _apyItem.apr,
-        apy: _apyItem.apy,
-        farmApr: _apyItem.farmApr,
-        farmApy: _apyItem.farmApy,
-        feeApr: _apyItem.aprFee,
-        feeApy: _apyItem.apyFee,
-        tokenAmountMc: tokenAmountMc[i],
-        tokenAmountTotal: tokenAmountTotal[i],
-        quoteTokenAmountMc: quoteTokenAmountMc[i],
-        quoteTokenAmountTotal: quoteTokenAmountTotal[i],
-        lpTotalSupply: lpTotalSupply[i],
-        lpTotalInQuoteToken: lpTotalInQuoteToken[i],
-        liquidity: liquidity[i],
-        tokenPriceVsQuote: tokenPriceVsQuote[i],
-        lpTokenPrice: lpTokenPrice[i],
+        // poolWeight: poolWeight[i],
+        // multiplier: multiplier[i],
+
+        // tokenAmountMc: tokenAmountMc[i],
+        // tokenAmountTotal: tokenAmountTotal[i],
+        // quoteTokenAmountMc: quoteTokenAmountMc[i],
+        // quoteTokenAmountTotal: quoteTokenAmountTotal[i],
+        // lpTotalSupply: lpTotalSupply[i],
+        // lpTotalInQuoteToken: lpTotalInQuoteToken[i],
+        // liquidity: liquidity[i],
+        // tokenPriceVsQuote: tokenPriceVsQuote[i],
+        // lpTokenPrice: lpTokenPrice[i],
       },
     };
   }

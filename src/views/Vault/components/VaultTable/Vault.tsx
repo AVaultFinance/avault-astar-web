@@ -8,11 +8,11 @@ import { getImageUrlFromToken } from 'utils';
 import DefaultImg from 'components/DefaultImg';
 
 export interface VaultProps {
-  label?: string;
-  token0Address: string;
-  token1Address: string;
   farmProject: string;
-  isSingle?: boolean;
+  wantAddress: string;
+  label?: string;
+  token0Address?: string;
+  token1Address?: string;
 }
 
 const Container = styled.div`
@@ -49,16 +49,18 @@ const TokenWrapper = styled.div`
   }
 `;
 
-const Vault: React.FunctionComponent<VaultProps> = ({ token0Address, token1Address, label, farmProject, isSingle }) => {
+const Vault: React.FunctionComponent<VaultProps> = ({
+  token0Address,
+  token1Address,
+  wantAddress,
+  label,
+  farmProject,
+}) => {
   return (
     <Container>
       <TokenWrapper>
-        {isSingle ? (
-          token0Address ? (
-            <img src={getImageUrlFromToken(token0Address)} className="img" alt="" />
-          ) : (
-            <DefaultImg />
-          )
+        {!token0Address ? (
+          <img src={getImageUrlFromToken(wantAddress)} className="img" alt="" />
         ) : token0Address ? (
           <TokenPairImage
             variant="inverted"

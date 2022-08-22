@@ -1,8 +1,8 @@
 import tokens, { chainId } from 'config/constants/tokens';
-import { IVaultConfigItem } from 'state/vault/types';
+import { IABIType, IVaultConfigItem } from 'state/vault/types';
 import { IToken, ITokenType } from '../utils/types';
 import { chainKey } from 'config';
-import { CHAINKEY, Currency } from '@my/sdk';
+import { ChainId, CHAINKEY, Currency } from '@my/sdk';
 import vaultsConfig from 'state/vault/vaultsConfig';
 export const zapLocalFromCurrency = 'FromCurrency';
 export const zapLocalToCurrency = 'ToCurrency';
@@ -12,16 +12,22 @@ const _TokenALL = vaultsConfig.map(
     v: IVaultConfigItem,
   ): [
     string[],
-    {
-      token: any;
-      quoteToken: any;
-      symbol: string;
-      address: any;
-      decimals: number;
-      type: ITokenType;
-    },
+    (
+      | {
+          token: any;
+          quoteToken: any;
+          symbol: string;
+          address: any;
+          decimals: number;
+          type: ITokenType;
+        }
+      | undefined
+    ),
   ] => {
-    const [symbol0, symbol1] = v.lpDetail.symbol.replace(' LP', '').split('-');
+    if (v.abiType === IABIType.AVaultForStarlay) {
+      return [[v.vault.symbol.toLowerCase()], undefined];
+    }
+    const [symbol0, symbol1] = v.vault.symbol.replace(' LP', '').split('-');
     const _v0 =
       symbol0.toLowerCase() === 'wastr'
         ? 'astr'
@@ -47,9 +53,14 @@ const _TokenALL = vaultsConfig.map(
       [_v0, _v1],
       {
         type: ITokenType.LP,
-        ...v.lpDetail,
         token: tokens[chainKey][_v0],
         quoteToken: tokens[chainKey][_v1],
+        symbol: v.vault.symbol,
+        address: {
+          [ChainId.ASTR_MAINNET]: v.vault.wantAddress,
+          [ChainId.ASTR_TESTNET]: v.vault.wantAddress,
+        },
+        decimals: 18,
       },
     ];
   },
@@ -70,7 +81,7 @@ export const tokenAll: IToken[] =
 
 export const lpTokenAll = [..._TokenALL.map((v: any[]) => v[1])]
   .concat(tokenAll)
-  .filter((v) => v.symbol !== 'NIKA-WASTR LP');
+  .filter((v) => v && v?.symbol !== 'NIKA-WASTR LP');
 
 export const fromCurrency: IToken = localStorage.getItem(zapLocalFromCurrency)
   ? JSON.parse(localStorage.getItem(zapLocalFromCurrency))

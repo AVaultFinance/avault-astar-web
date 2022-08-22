@@ -63,8 +63,8 @@ const WithdrawAction: React.FunctionComponent<WithdrawActionProps> = ({
   const { onWithdraw } = useVaultWithdraw(abiType, account, contractAddress, lpAddressDecimals);
   const [val, setVal] = useState('');
   const fullBalance = useMemo(() => {
-    return getFullDisplayBalance(earnings, lpAddressDecimals, showDecimals(lpSymbol));
-  }, [earnings, lpAddressDecimals, lpSymbol]);
+    return getFullDisplayBalance(earnings, lpAddressDecimals, showDecimals(lpSymbol, abiType));
+  }, [earnings, lpAddressDecimals, lpSymbol, abiType]);
   const handleChange = useCallback(
     (e: React.FormEvent<HTMLInputElement>) => {
       if (e.currentTarget.validity.valid) {
@@ -114,7 +114,7 @@ const WithdrawAction: React.FunctionComponent<WithdrawActionProps> = ({
   return (
     <ActionContainerSize smallBorder={disabled ? false : true}>
       <Text textAlign="right" fontSize="12px" marginBottom="8px" fontWeight="500">
-        LP Withdrawable: {displayEarningsBalance}
+        {lpSymbol.toLowerCase().indexOf(' lp') > -1 ? 'LP' : ''} Withdrawable: {displayEarningsBalance}
         {/* {lpSymbol ? ` ${lpSymbol}` : ''} */}
       </Text>
       <ActionContainerBg smallBorder={disabled ? false : true}>
