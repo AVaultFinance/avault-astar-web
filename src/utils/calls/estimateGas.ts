@@ -45,7 +45,7 @@ export const callWithEstimateGas = async (
 ): Promise<ethers.providers.TransactionResponse | any> => {
   try {
     const tx = await contract[methodName](...methodArgs, {
-      // gasLimit: DEFAULT_GAS_LIMIT,
+      gasLimit: DEFAULT_GAS_LIMIT,
       // gasPrice: DEFAULT_GAS_PRICE,
       ...overrides,
     });

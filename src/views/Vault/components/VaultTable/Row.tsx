@@ -159,7 +159,7 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
       .toNumber()
       .toLocaleString('en-US', {
         maximumFractionDigits: 6,
-      })} ${details.type !== 1 ? details.vault.vaultSymbol : ''}`,
+      })} ${details.type !== 1 ? details.vault.symbol : ''}`,
     {
       trigger: 'hover',
       tootipStyle: { padding: '10px', whiteSpace: 'break-spaces', textAlign: 'center', fontSize: '14px' },

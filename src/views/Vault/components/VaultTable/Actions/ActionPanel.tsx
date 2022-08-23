@@ -193,7 +193,6 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({ details, userD
     // console.log({scale})
     // console.log(_wantLockedTotal,_totalSupply,avaultAddressBalance)
     earnings = _wantLockedTotal.dividedBy(_totalSupply).times(avaultAddressBalance);
-    // console.log('earnings: ', earnings);
     // earnings = getBalanceAmount(_value, vault.vault.wantAddressDecimals);
     // wantLockedTotal / totalSupply()*CLpAmount
     // earningsBusd = earnings.multipliedBy(cakePrice).toNumber();
@@ -274,13 +273,14 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({ details, userD
           s: signature.s,
           deadline: signature.deadline,
         });
+        setRequestedApproval(false);
       } catch (err: any) {
         console.error(err);
         if (err?.code !== 4001) {
           handleApproveV0();
+        } else {
+          setRequestedApproval(false);
         }
-      } finally {
-        setRequestedApproval(false);
       }
     }
   }, [
@@ -421,7 +421,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({ details, userD
           userDataReady={userDataReady}
           handleApprove={handleApproveV0}
           account={account}
-          lpSymbol={vault.vault.vaultSymbol}
+          lpSymbol={vault.vault.symbol}
           contractAddress={vault.contractAddress[chainId]}
           stakingTokenBalance={new BigNumber(_userData.stakingTokenBalance)}
           lpAddressDecimals={vault.vault.wantAddressDecimals}
@@ -449,7 +449,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({ details, userD
             userDataReady={userDataReady}
             pid={vault.farm.pid}
             name={vault.vault.name}
-            lpSymbol={vault.vault.vaultSymbol}
+            lpSymbol={vault.vault.symbol}
             index={index}
           />
           <div className="w20"></div>
@@ -469,7 +469,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({ details, userD
             earnings={earnings}
             userDataReady={userDataReady}
             name={vault.vault.name}
-            lpSymbol={vault.vault.vaultSymbol}
+            lpSymbol={vault.vault.symbol}
             index={index}
           />
         </ActionContainer>

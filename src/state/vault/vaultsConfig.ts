@@ -4,8 +4,8 @@ const vaultsConfig: IVaultConfigItem[] = [
   {
     type: 0,
     contractAddress: {
-      [ChainId.ASTR_MAINNET]: '0xde22Efc05eC3fCd6c8F4C4f8Fc63759A343783bF',
-      [ChainId.ASTR_TESTNET]: '0xde22Efc05eC3fCd6c8F4C4f8Fc63759A343783bF',
+      [ChainId.ASTR_MAINNET]: '0x070852960efdAE9E49c674A16346489C6EcccE97',
+      [ChainId.ASTR_TESTNET]: '0x070852960efdAE9E49c674A16346489C6EcccE97',
     },
     fromSource: IFromSource.starlay,
     abiType: IABIType.AVaultForStarlay,
@@ -14,7 +14,7 @@ const vaultsConfig: IVaultConfigItem[] = [
       fromSource: IFromSource.starlay,
       vaultSymbol: 'asUSDC',
       symbol: 'USDC',
-      name: 'avault Starlay USDC',
+      name: 'Avault Starlay USDC',
       wantAddress: '0x6a2d262D56735DbA19Dd70682B39F6bE9a931D98'.toLowerCase(),
       wantAddressDecimals: 6,
       earnedAddress: '0xc4335B1b76fA6d52877b3046ECA68F6E708a27dd',
@@ -22,6 +22,201 @@ const vaultsConfig: IVaultConfigItem[] = [
       decimals: 6,
     },
   },
+  {
+    type: 0,
+    contractAddress: {
+      [ChainId.ASTR_MAINNET]: '0x58d65c68Fb2904d9e1e185042ae76E78ff0F1980',
+      [ChainId.ASTR_TESTNET]: '0x58d65c68Fb2904d9e1e185042ae76E78ff0F1980',
+    },
+    fromSource: IFromSource.starlay,
+    abiType: IABIType.AVaultForStarlay,
+    swapLink: 'https://starlay.finance/app',
+    vault: {
+      fromSource: IFromSource.starlay,
+      vaultSymbol: 'asUSDT',
+      symbol: 'USDT',
+      name: 'Avault Starlay USDT',
+      wantAddress: '0x3795C36e7D12A8c252A20C5a7B455f7c57b60283'.toLowerCase(),
+      wantAddressDecimals: 6,
+      earnedAddress: '0xc4335B1b76fA6d52877b3046ECA68F6E708a27dd',
+      AVAAddress: '0x03065E84748a9e4a1AEbef15AC89da1Cdf18B202',
+      decimals: 6,
+    },
+  },
+  {
+    type: 0,
+    contractAddress: {
+      [ChainId.ASTR_MAINNET]: '0xa6Fbf557212dF81921F6EFf441Ba9f952e0292Dd',
+      [ChainId.ASTR_TESTNET]: '0xa6Fbf557212dF81921F6EFf441Ba9f952e0292Dd',
+    },
+    fromSource: IFromSource.starlay,
+    abiType: IABIType.AVaultForStarlay,
+    swapLink: 'https://starlay.finance/app',
+    vault: {
+      fromSource: IFromSource.starlay,
+      vaultSymbol: 'asBTC',
+      symbol: 'BTC',
+      name: 'Avault Starlay wBTC',
+      wantAddress: '0xad543f18cFf85c77E140E3E5E3c3392f6Ba9d5CA'.toLowerCase(),
+      wantAddressDecimals: 8,
+      earnedAddress: '0xc4335B1b76fA6d52877b3046ECA68F6E708a27dd',
+      AVAAddress: '0x03065E84748a9e4a1AEbef15AC89da1Cdf18B202',
+      decimals: 8,
+    },
+  },
+  {
+    type: 0,
+    contractAddress: {
+      [ChainId.ASTR_MAINNET]: '0xf0Ef09463562e3695E93F57234272a6904C3F0F7',
+      [ChainId.ASTR_TESTNET]: '0xf0Ef09463562e3695E93F57234272a6904C3F0F7',
+    },
+    fromSource: IFromSource.starlay,
+    abiType: IABIType.AVaultForStarlay,
+    swapLink: 'https://starlay.finance/app',
+    vault: {
+      fromSource: IFromSource.starlay,
+      vaultSymbol: 'asETH',
+      symbol: 'ETH',
+      name: 'Avault Starlay wETH',
+      wantAddress: '0x81ECac0D6Be0550A00FF064a4f9dd2400585FE9c'.toLowerCase(),
+      wantAddressDecimals: 18,
+      earnedAddress: '0xc4335B1b76fA6d52877b3046ECA68F6E708a27dd',
+      AVAAddress: '0x03065E84748a9e4a1AEbef15AC89da1Cdf18B202',
+      decimals: 18,
+    },
+  },
+  {
+    type: 0,
+    contractAddress: {
+      [ChainId.ASTR_MAINNET]: '0xe02E8ee8c388c3A1E5b4CC2fed9FEcEbb53B95d2',
+      [ChainId.ASTR_TESTNET]: '0xe02E8ee8c388c3A1E5b4CC2fed9FEcEbb53B95d2',
+    },
+    fromSource: IFromSource.starlay,
+    abiType: IABIType.AVaultForStarlay,
+    swapLink: 'https://starlay.finance/app',
+    vault: {
+      fromSource: IFromSource.starlay,
+      vaultSymbol: 'asSDN',
+      symbol: 'SDN',
+      name: 'Avault Starlay wSDN',
+      wantAddress: '0x75364D4F779d0Bd0facD9a218c67f87dD9Aff3b4'.toLowerCase(),
+      wantAddressDecimals: 18,
+      earnedAddress: '0xc4335B1b76fA6d52877b3046ECA68F6E708a27dd',
+      AVAAddress: '0x03065E84748a9e4a1AEbef15AC89da1Cdf18B202',
+      decimals: 18,
+    },
+  },
+
+  {
+    type: 0,
+    contractAddress: {
+      [ChainId.ASTR_MAINNET]: '0xd8669980F47452c926C9C682CF0678F4ad212D1c',
+      [ChainId.ASTR_TESTNET]: '0xd8669980F47452c926C9C682CF0678F4ad212D1c',
+    },
+    fromSource: IFromSource.starlay,
+    abiType: IABIType.AVaultForStarlay,
+    swapLink: 'https://starlay.finance/app',
+    vault: {
+      fromSource: IFromSource.starlay,
+      vaultSymbol: 'asDAI',
+      symbol: 'DAI',
+      name: 'Avault Starlay DAI',
+      wantAddress: '0x6De33698e9e9b787e09d3Bd7771ef63557E148bb'.toLowerCase(),
+      wantAddressDecimals: 18,
+      earnedAddress: '0xc4335B1b76fA6d52877b3046ECA68F6E708a27dd',
+      AVAAddress: '0x03065E84748a9e4a1AEbef15AC89da1Cdf18B202',
+      decimals: 18,
+    },
+  },
+
+  {
+    type: 0,
+    contractAddress: {
+      [ChainId.ASTR_MAINNET]: '0xA5f932D17AaF407cAC8CfdDd31372480820D67Aa',
+      [ChainId.ASTR_TESTNET]: '0xA5f932D17AaF407cAC8CfdDd31372480820D67Aa',
+    },
+    fromSource: IFromSource.starlay,
+    abiType: IABIType.AVaultForStarlay,
+    swapLink: 'https://starlay.finance/app',
+    vault: {
+      fromSource: IFromSource.starlay,
+      vaultSymbol: 'asBUSD',
+      symbol: 'BUSD',
+      name: 'Avault Starlay BUSD',
+      wantAddress: '0x4Bf769b05E832FCdc9053fFFBC78Ca889aCb5E1E'.toLowerCase(),
+      wantAddressDecimals: 18,
+      earnedAddress: '0xc4335B1b76fA6d52877b3046ECA68F6E708a27dd',
+      AVAAddress: '0x03065E84748a9e4a1AEbef15AC89da1Cdf18B202',
+      decimals: 18,
+    },
+  },
+
+  {
+    type: 0,
+    contractAddress: {
+      [ChainId.ASTR_MAINNET]: '0x6097EfbC3D890E1742823A6470Dc52551b940A02',
+      [ChainId.ASTR_TESTNET]: '0x6097EfbC3D890E1742823A6470Dc52551b940A02',
+    },
+    fromSource: IFromSource.starlay,
+    abiType: IABIType.AVaultForStarlay,
+    swapLink: 'https://starlay.finance/app',
+    vault: {
+      fromSource: IFromSource.starlay,
+      vaultSymbol: 'asMATIC',
+      symbol: 'MATIC',
+      name: 'Avault Starlay wMATIC',
+      wantAddress: '0xdd90E5E87A2081Dcf0391920868eBc2FFB81a1aF'.toLowerCase(),
+      wantAddressDecimals: 18,
+      earnedAddress: '0xc4335B1b76fA6d52877b3046ECA68F6E708a27dd',
+      AVAAddress: '0x03065E84748a9e4a1AEbef15AC89da1Cdf18B202',
+      decimals: 18,
+    },
+  },
+
+  {
+    type: 0,
+    contractAddress: {
+      [ChainId.ASTR_MAINNET]: '0xCB1a49f90a2950fcee5975A514d0903b40cc2958',
+      [ChainId.ASTR_TESTNET]: '0xCB1a49f90a2950fcee5975A514d0903b40cc2958',
+    },
+    fromSource: IFromSource.starlay,
+    abiType: IABIType.AVaultForStarlay,
+    swapLink: 'https://starlay.finance/app',
+    vault: {
+      fromSource: IFromSource.starlay,
+      vaultSymbol: 'asBNB',
+      symbol: 'BNB',
+      name: 'Avault Starlay wBNB',
+      wantAddress: '0x7f27352D5F83Db87a5A3E00f4B07Cc2138D8ee52'.toLowerCase(),
+      wantAddressDecimals: 18,
+      earnedAddress: '0xc4335B1b76fA6d52877b3046ECA68F6E708a27dd',
+      AVAAddress: '0x03065E84748a9e4a1AEbef15AC89da1Cdf18B202',
+      decimals: 18,
+    },
+  },
+
+  {
+    type: 0,
+    contractAddress: {
+      [ChainId.ASTR_MAINNET]: '0x04388680CF3cb2346962B220FE02b21a50B0c284',
+      [ChainId.ASTR_TESTNET]: '0x04388680CF3cb2346962B220FE02b21a50B0c284',
+    },
+    fromSource: IFromSource.starlay,
+    abiType: IABIType.AVaultForStarlay,
+    swapLink: 'https://starlay.finance/app',
+    vault: {
+      fromSource: IFromSource.starlay,
+      vaultSymbol: 'asDOT',
+      symbol: 'DOT',
+      name: 'Avault Starlay DOT',
+      wantAddress: '0xFFfFfFffFFfffFFfFFfFFFFFffFFFffffFfFFFfF'.toLowerCase(),
+      wantAddressDecimals: 10,
+      earnedAddress: '0xc4335B1b76fA6d52877b3046ECA68F6E708a27dd',
+      AVAAddress: '0x03065E84748a9e4a1AEbef15AC89da1Cdf18B202',
+      decimals: 10,
+    },
+  },
+
   // active
   //aBaiUsdc
   {
@@ -1287,6 +1482,18 @@ const vaultsConfig: IVaultConfigItem[] = [
     },
   },
 ];
+// asUSDC deployed to: 0x070852960efdAE9E49c674A16346489C6EcccE97
+// asUSDT deployed to: 0x58d65c68Fb2904d9e1e185042ae76E78ff0F1980
+// asBTC deployed to: 0xa6Fbf557212dF81921F6EFf441Ba9f952e0292Dd
+// asETH deployed to: 0xf0Ef09463562e3695E93F57234272a6904C3F0F7
+// asSDN deployed to: 0xe02E8ee8c388c3A1E5b4CC2fed9FEcEbb53B95d2
+
+// asDAI deployed to: 0xd8669980F47452c926C9C682CF0678F4ad212D1c
+// asBUSD deployed to: 0xA5f932D17AaF407cAC8CfdDd31372480820D67Aa
+// asMATIC deployed to: 0x6097EfbC3D890E1742823A6470Dc52551b940A02
+// asBNB deployed to: 0xCB1a49f90a2950fcee5975A514d0903b40cc2958
+// asDOT deployed to: 0x04388680CF3cb2346962B220FE02b21a50B0c284
+
 // aAAA deployed to: 0x9a45b203Af044ADACceD4D95ca3cDa020E082c8A
 // aDotUsdc deployed to: 0x898BF9C743a436C9C3F332aF445aAd69c15b10b8
 // aDotAstr deployed to: 0xE66560C1B5FAaE4e4f77ba40F61F21F4ADbb6924

@@ -60,8 +60,8 @@ const store = configureStore({
   },
   // middleware: [...getDefaultMiddleware({ thunk: true }), save({ states: PERSISTED_KEYS, namespace: 'v1' })],
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({ thunk: true }).concat(save({ states: PERSISTED_KEYS, namespace: 'version1' })),
-  preloadedState: load({ states: PERSISTED_KEYS, namespace: 'version1' }),
+    getDefaultMiddleware({ thunk: true }).concat(save({ states: PERSISTED_KEYS, namespace: 'version3' })),
+  preloadedState: load({ states: PERSISTED_KEYS, namespace: 'version3' }),
 });
 
 store.dispatch(updateVersion());

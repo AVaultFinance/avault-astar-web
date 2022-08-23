@@ -58,11 +58,11 @@ const Apr: React.FC<AprProps> = ({ apy, farmApy, feeApy, originalValue, fromSour
     <Container>
       <AprWrapper>
         {apy === '999.99' ? '> ' : ''}
-        {apy}%
+        {apy === '0' && fromSource === IFromSource.starlay ? '-' : apy}%
       </AprWrapper>
       {fromSource === IFromSource.starlay ? (
         <PStyled>
-          {fromSource} APY: ≈{apy}%
+          {fromSource} APY: {apy === '0' ? '-' : apy}%
         </PStyled>
       ) : null}
       {fromSource !== IFromSource.starlay ? (
