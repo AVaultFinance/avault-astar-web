@@ -65,9 +65,9 @@ const Vaults: React.FC = () => {
         if (type === 1) {
           return vaultsToDisplayWithAPR.filter((v) => v.type === type);
         } else if (type === 2) {
-          return vaultsToDisplayWithAPR.filter((v) => v.abiType === IABIType.AVaultForStarlay);
-        } else if (type === 3) {
           return vaultsToDisplayWithAPR.filter((v) => v.abiType === IABIType.AVaultForArthswapFarm);
+        } else if (type === 3) {
+          return vaultsToDisplayWithAPR.filter((v) => v.abiType === IABIType.AVaultForStarlay);
         }
       }
       return vaultsToDisplayWithAPR;
