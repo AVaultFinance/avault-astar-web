@@ -12,7 +12,7 @@ import { OptionProps } from 'components/Select/Select';
 import { ISortDir } from 'components/SortIcon';
 import { RowProps } from './components/VaultTable/Row';
 import { useVault, useVaultUserData } from 'state/vault/hooks';
-import { IVault, VaultType } from 'state/vault/types';
+import { IABIType, IVault, VaultType } from 'state/vault/types';
 import PageLoader from 'components/Loader/PageLoader';
 import { chainId } from 'config/constants/tokens';
 import styled from 'styled-components';
@@ -62,7 +62,13 @@ const Vaults: React.FC = () => {
         };
       });
       if (type) {
-        return vaultsToDisplayWithAPR.filter((v) => v.type === type);
+        if (type === 1) {
+          return vaultsToDisplayWithAPR.filter((v) => v.type === type);
+        } else if (type === 2) {
+          return vaultsToDisplayWithAPR.filter((v) => v.abiType === IABIType.AVaultForStarlay);
+        } else if (type === 3) {
+          return vaultsToDisplayWithAPR.filter((v) => v.abiType === IABIType.AVaultForArthswapFarm);
+        }
       }
       return vaultsToDisplayWithAPR;
     },

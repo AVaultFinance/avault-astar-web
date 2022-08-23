@@ -23,7 +23,7 @@ interface IAddress {
   [ChainId.BSC_MAINNET]?: string;
   [ChainId.BSC_TESTNET]?: string;
 }
-export const VaultType = ['All', 'Event'];
+export const VaultType = ['All', 'Event', 'Starlay', 'Arthswap'];
 export interface IVaultConfigItem {
   type: number; // 0 normal  1 active   2 addNew
   contractAddress: IAddress;
