@@ -22,6 +22,7 @@ interface DepositModalProps {
   contractAddress: string;
   index: number;
   abiType: IABIType;
+  wantAddress: string;
 }
 const ModalInputStyled = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.cardBorder};
@@ -44,6 +45,7 @@ const DepositModal: React.FC<DepositModalProps> = ({
   contractAddress,
   index,
   abiType,
+  wantAddress,
 }) => {
   const [val, setVal] = useState('');
   const fullBalance = useMemo(() => {
@@ -75,7 +77,7 @@ const DepositModal: React.FC<DepositModalProps> = ({
   const { data: vaults } = useVault();
   const { toastSuccess, toastError } = useToast();
   const dispatch = useAppDispatch();
-  const { onDeposit } = useVaultDeposit(abiType, account, contractAddress, lpAddressDecimals);
+  const { onDeposit } = useVaultDeposit(wantAddress, abiType, account, contractAddress, lpAddressDecimals);
   const handleDeposit = useCallback(async () => {
     setPendingTx(true);
     let result = null;

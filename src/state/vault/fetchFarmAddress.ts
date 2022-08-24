@@ -1,6 +1,5 @@
 import BigNumber from 'bignumber.js';
 import { ERC20_ABI } from 'config/abi/erc20';
-import { chainId } from 'config/constants/tokens';
 import { BIG_TEN, BIG_ZERO } from 'utils/bigNumber';
 import { getBalanceAmount } from 'utils/formatBalance';
 import multicall from 'utils/multicall';

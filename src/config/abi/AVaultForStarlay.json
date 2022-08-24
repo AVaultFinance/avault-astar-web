@@ -428,6 +428,19 @@
         "internalType": "address",
         "name": "_userAddress",
         "type": "address"
+      }
+    ],
+    "name": "depositASTR",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_userAddress",
+        "type": "address"
       },
       {
         "internalType": "uint256",
@@ -1044,6 +1057,24 @@
       }
     ],
     "name": "withdraw",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_userAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_shareAmount",
+        "type": "uint256"
+      }
+    ],
+    "name": "withdrawASTR",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

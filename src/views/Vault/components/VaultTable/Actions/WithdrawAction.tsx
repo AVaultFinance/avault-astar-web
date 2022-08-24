@@ -15,6 +15,8 @@ import { changeLoading, changeVaultItemLoading, fetchVaultFarmUserDataAsync } fr
 import { ActionContainerBg, ActionContainerSize } from 'style/TableStyled';
 import { showDecimals } from 'views/Vault/utils';
 import { IABIType } from 'state/vault/types';
+import { chainId, main_tokens } from 'config/constants/tokens';
+import { chainKey } from 'config';
 
 interface WithdrawActionProps {
   abiType: IABIType;
@@ -30,6 +32,7 @@ interface WithdrawActionProps {
   lpAddressDecimals: number;
   lpToCLpRate: string;
   index: number;
+  wantAddress: string;
 }
 const FlexStyled = styled(Flex)`
   margin-top: 0;
@@ -51,6 +54,7 @@ const WithdrawAction: React.FunctionComponent<WithdrawActionProps> = ({
   lpAddressDecimals,
   lpToCLpRate,
   index,
+  wantAddress,
 }) => {
   // const lpToCLpRate = '1.02819107614203074e+22';
   const { data: vaults } = useVault();
@@ -60,7 +64,7 @@ const WithdrawAction: React.FunctionComponent<WithdrawActionProps> = ({
 
   const dispatch = useAppDispatch();
   const { account } = useWeb3React();
-  const { onWithdraw } = useVaultWithdraw(abiType, account, contractAddress, lpAddressDecimals);
+  const { onWithdraw } = useVaultWithdraw(wantAddress, abiType, account, contractAddress, lpAddressDecimals);
   const [val, setVal] = useState('');
   const fullBalance = useMemo(() => {
     return getFullDisplayBalance(earnings, lpAddressDecimals, showDecimals(lpSymbol, abiType));
@@ -88,6 +92,10 @@ const WithdrawAction: React.FunctionComponent<WithdrawActionProps> = ({
       if (typeof result === 'boolean' && result) {
         dispatch(changeLoading());
         dispatch(changeVaultItemLoading({ index }));
+        const _index = vaults
+          .map((v) => v.vault.wantAddress)
+          .indexOf(main_tokens[chainKey.toLowerCase()].address[chainId].toLowerCase());
+        dispatch(fetchVaultFarmUserDataAsync({ account, vaults, index: _index }));
         dispatch(fetchVaultFarmUserDataAsync({ account, vaults, index }));
         toastSuccess(`Withdraw!`, `'Your ${lpSymbol} earnings have been sent to your wallet!'`);
       } else {

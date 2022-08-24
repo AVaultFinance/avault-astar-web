@@ -7,10 +7,12 @@ import masterchefSdnABI from 'config/abi/masterchef_Shiden.json';
 import masterchefArthABI from 'config/abi/masterchef_arth.json';
 import { chainKey } from 'config';
 import { CHAINKEY } from '@my/sdk';
-import { chainId } from 'config/constants/tokens';
+import { chainId, main_tokens } from 'config/constants/tokens';
 import AVaultPCS from 'config/abi/AVaultPCS.json';
 
 import { haveNumber } from 'utils';
+import { simpleRpcProvider } from 'utils/providers';
+import { BIG_ZERO } from 'utils/bigNumber';
 
 export const fetchVaultsFarmUserAllowances = async (account: string, vaults: IVault[], index?: number) => {
   const calls = !haveNumber(index)
@@ -38,6 +40,24 @@ export const fetchVaultsFarmUserAllowances = async (account: string, vaults: IVa
   return parsedLpAllowances;
 };
 export const fetchVaultsFarmUserTokenBalances = async (account: string, vaults: IVault[], index?: number) => {
+  let _index = index;
+  let walletBalance = '0';
+  if (
+    haveNumber(index) &&
+    vaults[index].vault.wantAddress.toLowerCase() === main_tokens[chainKey.toLowerCase()].address[chainId].toLowerCase()
+  ) {
+    //
+    const walletBalance = await simpleRpcProvider.getBalance(account);
+    return [new BigNumber(walletBalance.toString()).toString()];
+  } else {
+    if (!haveNumber(index)) {
+      _index = vaults
+        .map((v) => v.vault.wantAddress)
+        .indexOf(main_tokens[chainKey.toLowerCase()].address[chainId].toLowerCase());
+      const _walletBalance = await simpleRpcProvider.getBalance(account);
+      walletBalance = new BigNumber(_walletBalance.toString()).toString();
+    }
+  }
   const calls = !haveNumber(index)
     ? vaults.map((vault: IVault) => {
         const lpAddresses = vault.vault.wantAddress;
@@ -59,6 +79,9 @@ export const fetchVaultsFarmUserTokenBalances = async (account: string, vaults: 
   const parsedTokenBalances = rawTokenBalances.map((tokenBalance, index) => {
     return new BigNumber(tokenBalance).toString();
   });
+  if (!haveNumber(index)) {
+    parsedTokenBalances[_index] = walletBalance;
+  }
   return parsedTokenBalances;
 };
 

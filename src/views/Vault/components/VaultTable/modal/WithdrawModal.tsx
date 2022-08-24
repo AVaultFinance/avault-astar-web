@@ -23,6 +23,7 @@ interface WithdrawModalProps {
   contractAddress: string;
   lpToCLpRate: string;
   index: number;
+  wantAddress: string;
 }
 const ModalInputStyled = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.cardBorder};
@@ -40,6 +41,7 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
   contractAddress,
   lpToCLpRate,
   index,
+  wantAddress,
 }) => {
   const [val, setVal] = useState('');
   const fullBalance = useMemo(() => {
@@ -61,7 +63,7 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
   const { data: vaults } = useVault();
   const { toastSuccess, toastError } = useToast();
   const dispatch = useAppDispatch();
-  const { onWithdraw } = useVaultWithdraw(abiType, account, contractAddress, lpAddressDecimals);
+  const { onWithdraw } = useVaultWithdraw(wantAddress, abiType, account, contractAddress, lpAddressDecimals);
 
   const handleSelectMax = useCallback(() => {
     setVal(fullBalance);

@@ -24,6 +24,7 @@ interface MobileActionProps {
   lpToCLpRate: string;
   index: number;
   abiType: IABIType;
+  wantAddress: string;
 }
 const Container = styled(Flex)`
   justify-content: space-between;
@@ -50,9 +51,11 @@ const MobileAction: FC<MobileActionProps> = ({
   lpToCLpRate,
   index,
   abiType,
+  wantAddress,
 }) => {
   const [onPresentDeposit] = useModal(
     <DepositModal
+      wantAddress={wantAddress}
       abiType={abiType}
       max={stakingTokenBalance}
       lpSymbol={lpSymbol}
@@ -64,6 +67,7 @@ const MobileAction: FC<MobileActionProps> = ({
   );
   const [onPresentWithdraw] = useModal(
     <WithdrawModal
+      wantAddress={wantAddress}
       max={earnings}
       lpSymbol={lpSymbol}
       displayEarningsBalance={displayEarningsBalance}

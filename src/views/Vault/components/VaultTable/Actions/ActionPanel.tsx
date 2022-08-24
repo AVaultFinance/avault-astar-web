@@ -14,7 +14,7 @@ import { useERC20, usePairContract } from 'hooks/useContract';
 import { IABIType, IFromSource, IVault } from 'state/vault/types';
 import { useVault, useVaultFarmUser } from 'state/vault/hooks';
 import useAuth from 'hooks/useAuth';
-import { chainId } from 'config/constants/tokens';
+import { chainId, main_tokens } from 'config/constants/tokens';
 import { InfoContainer } from 'style/TableStyled';
 import { showDecimals, showDecimalsWithType } from 'views/Vault/utils';
 import AddLiquidityModal from '../modal/AddLiquidityModal';
@@ -28,6 +28,7 @@ import { useAppDispatch } from 'state';
 import useToast from 'hooks/useToast';
 import { changeLoading, changeVaultItemLoading, fetchVaultFarmUserDataAsync } from 'state/vault';
 import { getAddress } from 'utils/addressHelpers';
+import { chainKey } from 'config';
 // import { registerToken } from 'utils/wallet';
 export interface ActionPanelProps {
   apr: AprProps;
@@ -160,7 +161,9 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({ details, userD
   const { account, library } = useWeb3React();
   const { avaultAddressBalance, allowance } = useVaultFarmUser(account, vault.contractAddress[chainId]);
 
-  const isApproved = account && allowance && allowance.isGreaterThan(0);
+  const isApproved =
+    (account && allowance && allowance.isGreaterThan(0)) ||
+    vault.vault.wantAddress.toLowerCase() === main_tokens[chainKey.toLowerCase()].address[chainId].toLowerCase();
   // allowance handling
   const [signatureData, setSignatureData] = useState<{ v: number; r: string; s: string; deadline: number } | null>(
     null,
@@ -237,6 +240,10 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({ details, userD
       if (typeof result === 'boolean' && result) {
         dispatch(changeLoading());
         dispatch(changeVaultItemLoading({ index }));
+        const _index = vaults
+          .map((v) => v.vault.wantAddress)
+          .indexOf(main_tokens[chainKey.toLowerCase()].address[chainId].toLowerCase());
+        dispatch(fetchVaultFarmUserDataAsync({ account, vaults, index: _index }));
         dispatch(fetchVaultFarmUserDataAsync({ account, vaults, index }));
         toastSuccess('Approve!', 'Your are Approved');
       } else {
@@ -425,6 +432,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({ details, userD
           contractAddress={vault.contractAddress[chainId]}
           stakingTokenBalance={new BigNumber(_userData.stakingTokenBalance)}
           lpAddressDecimals={vault.vault.wantAddressDecimals}
+          wantAddress={vault.vault.wantAddress}
           index={index}
         />
       ) : (
@@ -435,6 +443,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({ details, userD
             abiType={vault.abiType}
             signatureData={signatureData}
             contractAddress={vault.contractAddress[chainId]}
+            wantAddress={vault.vault.wantAddress}
             lpAddressDecimals={vault.vault.wantAddressDecimals}
             requestedApproval={requestedApproval}
             isApproved={isApproved}
@@ -459,6 +468,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({ details, userD
             contractAddress={vault.contractAddress[chainId]}
             lpAddressDecimals={vault.vault.wantAddressDecimals}
             requestedApproval={requestedApproval}
+            wantAddress={vault.vault.wantAddress}
             isApproved={isApproved}
             displayBalance={getFullLocalDisplayBalance(
               new BigNumber(_userData.stakingTokenBalance),

@@ -15,6 +15,8 @@ import { changeLoading, changeVaultItemLoading, fetchVaultFarmUserDataAsync } fr
 import { ActionContainerBg, ActionContainerSize } from 'style/TableStyled';
 import { showDecimals } from 'views/Vault/utils';
 import { IABIType } from 'state/vault/types';
+import { chainId, main_tokens } from 'config/constants/tokens';
+import { chainKey } from 'config';
 
 interface HarvestActionProps {
   setSignatureData: any;
@@ -33,6 +35,7 @@ interface HarvestActionProps {
   index: number;
   abiType: IABIType;
   deadline: number;
+  wantAddress: string;
   signatureData: { v: number; r: string; s: string; deadline: number };
 }
 const FlexStyled = styled(Flex)`
@@ -60,6 +63,7 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
   signatureData,
   setSignatureData,
   deadline,
+  wantAddress,
 }) => {
   const { toastSuccess, toastError } = useToast();
   const { data: vaults } = useVault();
@@ -67,7 +71,13 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
   const [pendingTx, setPendingTx] = useState(false);
 
   const { account } = useWeb3React();
-  const { onDeposit, onDepositWithPermit } = useVaultDeposit(abiType, account, contractAddress, lpAddressDecimals);
+  const { onDeposit, onDepositWithPermit } = useVaultDeposit(
+    wantAddress,
+    abiType,
+    account,
+    contractAddress,
+    lpAddressDecimals,
+  );
   const dispatch = useAppDispatch();
   const [val, setVal] = useState('');
   const { stakingTokenBalance } = useVaultFarmUser(account, contractAddress);
@@ -95,9 +105,14 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
     let result = null;
     try {
       result = await onDeposit(val);
+
       if (typeof result === 'boolean' && result) {
         dispatch(changeLoading());
         dispatch(changeVaultItemLoading({ index }));
+        const _index = vaults
+          .map((v) => v.vault.wantAddress)
+          .indexOf(main_tokens[chainKey.toLowerCase()].address[chainId].toLowerCase());
+        dispatch(fetchVaultFarmUserDataAsync({ account, vaults, index: _index }));
         dispatch(fetchVaultFarmUserDataAsync({ account, vaults, index }));
         toastSuccess(`Deposit!`, `Your ${lpSymbol} deposit!`);
       } else {
@@ -130,6 +145,10 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
         if (typeof result === 'boolean' && result) {
           dispatch(changeLoading());
           dispatch(changeVaultItemLoading({ index }));
+          const _index = vaults
+            .map((v) => v.vault.wantAddress)
+            .indexOf(main_tokens[chainKey.toLowerCase()].address[chainId].toLowerCase());
+          dispatch(fetchVaultFarmUserDataAsync({ account, vaults, index: _index }));
           dispatch(fetchVaultFarmUserDataAsync({ account, vaults, index }));
           toastSuccess(`Deposit!`, `Your ${lpSymbol} deposit!`);
         } else {
