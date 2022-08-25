@@ -40,7 +40,7 @@ const Container = styled.div`
     p:nth-child(1) {
       width: 154px;
       text-align: right;
-      padding-right: 10px;
+      padding-right: 8px;
     }
     p:nth-child(2) {
       min-width: 50px;
@@ -53,7 +53,7 @@ const Container = styled.div`
     .col_fl {
       position: relative;
       text-align: right;
-      padding-right: 10px;
+      padding-right: 8px;
     }
     .col_fr {
       position: relative;
@@ -132,8 +132,8 @@ const Apr: React.FC<AprProps> = ({ apy, farmApy, feeApy, originalValue, fromSour
       {fromSource === IFromSource.starlay ? (
         <div className="col">
           <div className="col_fl">
-            <PStyled>{fromSource} APY</PStyled>
-            <PStyled>Withdrawable Fee APY</PStyled>
+            <PStyled>{fromSource}</PStyled>
+            <PStyled>Withdraw Fee</PStyled>
           </div>
           <div className="col_fr">
             <PStyled>{apy === '0' ? '-' : apy}%</PStyled>
@@ -142,15 +142,15 @@ const Apr: React.FC<AprProps> = ({ apy, farmApy, feeApy, originalValue, fromSour
       ) : null}
       {fromSource !== IFromSource.starlay ? (
         <div className="col col_one">
-          <PStyled>{fromSource} Fee APY</PStyled>
+          <PStyled>{fromSource} Fee</PStyled>
           <PStyled>≈{feeApy}%</PStyled>
         </div>
       ) : null}
       {fromSource !== IFromSource.starlay ? (
         <div className="col">
           <div className="col_fl">
-            <PStyled>{fromSource} Farm APY</PStyled>
-            <PStyled>Withdrawable Fee APY</PStyled>
+            <PStyled>{fromSource} Farm</PStyled>
+            <PStyled>Withdraw Fee</PStyled>
           </div>
           <div className="col_fr">
             <PStyled>

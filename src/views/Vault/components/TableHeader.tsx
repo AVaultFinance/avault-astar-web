@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { useMatchBreakpoints, Flex, useTooltip, HelpIcon } from '@my/ui';
+import { useMatchBreakpoints, Flex } from '@my/ui';
 import { TableHeaderStyled } from './VaultTable/VaultTable';
 import styled from 'styled-components';
 import { OptionProps } from 'components/Select/Select';
@@ -37,14 +37,14 @@ const SortIconStyled = styled(SortIcon)`
   cursor: pointer;
 `;
 
-const ReferenceElement = styled.div`
-  // display: inline-block;
-  // vertical-align: middle;
-  margin-left: 4px;
-  svg {
-    width: 18px;
-  }
-`;
+// const ReferenceElement = styled.div`
+//   // display: inline-block;
+//   // vertical-align: middle;
+//   margin-left: 4px;
+//   svg {
+//     width: 18px;
+//   }
+// `;
 interface Iprops {
   sortKey: string;
   sortDir: ISortDir;
@@ -53,21 +53,21 @@ interface Iprops {
 const TableHeader: FC<Iprops> = ({ sortKey, sortDir, onOptionChange }) => {
   const { isXl, isLg } = useMatchBreakpoints();
   const isMobile = !(isXl || isLg);
-  const { targetRef, tooltip, tooltipVisible } = useTooltip(
-    "Farm APY is calculated based on the last 7 days' Net Value. Abnormally high APY may come from other user's withdrawal fees.",
-    {
-      placement: 'bottom-end',
-      tootipStyle: {
-        padding: '10px',
-        whiteSpace: 'break-spaces',
-        fontWeight: 'normal',
-        textAlign: 'center',
-        fontSize: '14px',
-      },
-      hideArrow: true,
-      tooltipOffset: [20, 10],
-    },
-  );
+  // const { targetRef, tooltip, tooltipVisible } = useTooltip(
+  //   "Farm APY is calculated based on the last 7 days' Net Value. Abnormally high APY may come from other user's withdrawal fees.",
+  //   {
+  //     placement: 'bottom-end',
+  //     tootipStyle: {
+  //       padding: '10px',
+  //       whiteSpace: 'break-spaces',
+  //       fontWeight: 'normal',
+  //       textAlign: 'center',
+  //       fontSize: '14px',
+  //     },
+  //     hideArrow: true,
+  //     tooltipOffset: [20, 10],
+  //   },
+  // );
   const HandleClick = (label: string, value: string) => {
     const side: ISortDir =
       sortKey === value
@@ -104,10 +104,10 @@ const TableHeader: FC<Iprops> = ({ sortKey, sortDir, onOptionChange }) => {
           <TrStyledEnd>
             <TextStyledEnd onClick={() => HandleClick('APY', 'apy')}>
               <p>APY</p>
-              <ReferenceElement ref={targetRef}>
+              {/* <ReferenceElement ref={targetRef}>
                 <HelpIcon color="textSubtle" />
-              </ReferenceElement>
-              {tooltipVisible && tooltip}
+              </ReferenceElement> */}
+              {/* {tooltipVisible && tooltip} */}
               <SortIconStyled sortDir={sortKey === 'apy' ? sortDir : ISortDir.default} />
             </TextStyledEnd>
           </TrStyledEnd>
