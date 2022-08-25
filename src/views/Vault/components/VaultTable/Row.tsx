@@ -96,18 +96,21 @@ const StyledTr = styled.tr<{ isLast: boolean }>`
     ${({ theme }) => theme.mediaQueries.md} {
       padding-top: 35px;
       padding-left: 40px;
-      width: 180px;
-    }
-  }
-  td: nth-child(3) {
-    width: 120px;
-    ${({ theme }) => theme.mediaQueries.md} {
       width: 200px;
     }
-    ${({ theme }) => theme.mediaQueries.sm} {
-      width: 100px;
-    }
   }
+  // td: nth-child(3) {
+  //   width: 120px;
+  //   ${({ theme }) => theme.mediaQueries.md} {
+  //     width: 200px;
+  //   }
+  //   ${({ theme }) => theme.mediaQueries.sm} {
+  //     width: 100px;
+  //   }
+  // }
+  // td:nth-child(4) {
+  //   width: 120px;
+  // }
   td: last-child {
     padding-right: 16px;
     width: 60px;

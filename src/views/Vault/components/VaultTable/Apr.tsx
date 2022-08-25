@@ -38,7 +38,7 @@ const Container = styled.div`
   }
   .col_one {
     p:nth-child(1) {
-      width: 154px;
+      width: 100px;
       text-align: right;
       padding-right: 8px;
     }
