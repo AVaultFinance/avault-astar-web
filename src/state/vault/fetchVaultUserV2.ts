@@ -12,7 +12,6 @@ import AVaultPCS from 'config/abi/AVaultPCS.json';
 
 import { haveNumber } from 'utils';
 import { simpleRpcProvider } from 'utils/providers';
-import { BIG_ZERO } from 'utils/bigNumber';
 
 export const fetchVaultsFarmUserAllowances = async (account: string, vaults: IVault[], index?: number) => {
   const calls = !haveNumber(index)

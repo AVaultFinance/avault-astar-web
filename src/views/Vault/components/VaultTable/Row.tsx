@@ -94,6 +94,7 @@ const StyledTr = styled.tr<{ isLast: boolean }>`
       width: 100%;
     }
     ${({ theme }) => theme.mediaQueries.md} {
+      padding-top: 35px;
       padding-left: 40px;
       width: 180px;
     }

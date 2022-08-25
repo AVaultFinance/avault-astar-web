@@ -12,6 +12,15 @@ const TextStyled = styled(Flex)`
   color: ${({ theme }) => theme.colors.textSubtle};
   align-items: center;
 `;
+const TextStyledEnd = styled(Flex)`
+  padding-top: 30px;
+  padding-bottom: 20px;
+  font-weight: 600;
+  font-size: 12px;
+  color: ${({ theme }) => theme.colors.textSubtle};
+  align-items: center;
+  justify-content: end;
+`;
 const FirstTh = styled(TextStyled)`
   padding-left: 20px;
 
@@ -92,16 +101,16 @@ const TableHeader: FC<Iprops> = ({ sortKey, sortDir, onOptionChange }) => {
               <SortIconStyled sortDir={sortKey === 'liquidity' ? sortDir : ISortDir.default} />
             </TextStyled>
           </TrStyled>
-          <TrStyled>
-            <TextStyled onClick={() => HandleClick('APY', 'apy')}>
+          <TrStyledEnd>
+            <TextStyledEnd onClick={() => HandleClick('APY', 'apy')}>
               <p>APY</p>
               <ReferenceElement ref={targetRef}>
                 <HelpIcon color="textSubtle" />
               </ReferenceElement>
               {tooltipVisible && tooltip}
               <SortIconStyled sortDir={sortKey === 'apy' ? sortDir : ISortDir.default} />
-            </TextStyled>
-          </TrStyled>
+            </TextStyledEnd>
+          </TrStyledEnd>
           <TrStyled>
             <TextStyled>wallet balance</TextStyled>
           </TrStyled>
@@ -117,5 +126,8 @@ const TableHeader: FC<Iprops> = ({ sortKey, sortDir, onOptionChange }) => {
 };
 const TrStyled = styled.th`
   padding-left: 18px;
+`;
+const TrStyledEnd = styled.th`
+  padding-right: 40px;
 `;
 export default TableHeader;
