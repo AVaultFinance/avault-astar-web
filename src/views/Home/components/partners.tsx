@@ -13,11 +13,11 @@ const partnersArr = [
     link: 'https://nextweb.capital/',
   },
 
-  {
-    icon: '/images/home/partner_on/AU21.svg',
-    name: 'AU21',
-    link: 'https://au21.capital/',
-  },
+  // {
+  //   icon: '/images/home/partner_on/AU21.svg',
+  //   name: 'AU21',
+  //   link: 'https://au21.capital/',
+  // },
 
   {
     icon: '/images/home/partner_on/Cogitent.svg',
