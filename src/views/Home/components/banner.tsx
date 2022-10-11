@@ -1,4 +1,3 @@
-import { chainId, DEFAULT_Token } from 'config/constants/tokens';
 import styled, { keyframes } from 'styled-components';
 
 const Banner = () => {
@@ -12,10 +11,10 @@ const Banner = () => {
       <div>
         <h1>Avault</h1>
         <h2>
-          The Best Yield Aggregator <br />
-          on {DEFAULT_Token[chainId].name} Network
+          One-stop Cross-chain <br />
+          Yield Platform
         </h2>
-        <p>Compounding your revenue and unlocking your asset liquidity by using aLP/aToken</p>
+        <p>Lower the threshold for users to use Web 3.0 DeFi Dapps</p>
       </div>
     </BannerStyled>
   );
