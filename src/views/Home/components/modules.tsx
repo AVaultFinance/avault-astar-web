@@ -85,7 +85,9 @@ const HomeModulesStyled = styled.div`
       &:nth-child(1) {
         animation: slide-left 1s ease-in-out;
         animation-fill-mode: forwards;
-        width: 34%;
+        ${({ theme }) => theme.mediaQueries.md} {
+          width: 34%;
+        }
       }
       &:nth-child(2) {
         animation: slide-left 0.4s ease-in-out;
