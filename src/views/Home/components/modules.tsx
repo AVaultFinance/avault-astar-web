@@ -1,33 +1,34 @@
+import { STATIC_BASE_URL } from 'config';
 import styled from 'styled-components';
 
 const modulesArr = [
   {
-    logo: './images/home/icon_cross.webp',
+    logo: `${STATIC_BASE_URL}/images/home/icon_cross.webp`,
     title: 'Cross-chain Protocol Interoperate',
     content:
       "Users can use different chain's dapp and manage their assets in Avault without switch the network and different gas fee required",
   },
   {
-    logo: './images/home/icon_vault.webp',
+    logo: `${STATIC_BASE_URL}/images/home/icon_vault.webp`,
     title: 'Vault',
     content:
       'Helping users to cross-chain auto-compounding their revenue and providing interest-bearing asset(aLP/aToken) to the users to unlock their asset liquidity.',
   },
   {
-    logo: './images/home/icon_farm.webp',
+    logo: `${STATIC_BASE_URL}/images/home/icon_farm.webp`,
     title: 'Farm',
     content:
       'The biggest difference between cross-chain farm and traditional farm is that one emission rate can be used for multiple chains; while traditional farm is one emission rate that can only be used for one chain. Then, if we want to support 10 chains based on the traditional multichain requirements, we have to divide the rewards into 10 parts, and then formulate a corresponding rule for each chain.',
   },
 
   {
-    logo: './images/home/icon_zap.webp',
+    logo: `${STATIC_BASE_URL}/images/home/icon_zap.webp`,
     title: 'Zap',
     content:
       'Allow a user to directly switch from single asset to an LP token in one click without the chain limit. e.g: User A can directly switch his USDC on BNB chain to USDT-ETH LP on Arbitrum in one click',
   },
   {
-    logo: './images/home/icon_governance.webp',
+    logo: `${STATIC_BASE_URL}/images/home/icon_governance.webp`,
     title: 'Governance',
     content:
       'You can stake your $AVAT to get veAVAT. The number of veAVAT you get will depend on how long you choose to lock. Longer will be more. veAVAT will represent your share in the governance reward pool and your voting rights on upcoming governance features.',
@@ -66,7 +67,7 @@ const HomeModulesStyledInner = styled.div`
   padding: 0 20px;
   ${({ theme }) => theme.mediaQueries.md} {
     background-size: 420px;
-    background-position: right 120px;
+    background-position: right 1500px;
   }
   ${({ theme }) => theme.mediaQueries.xl} {
     padding: 0;
@@ -85,9 +86,6 @@ const HomeModulesStyled = styled.div`
       &:nth-child(1) {
         animation: slide-left 1s ease-in-out;
         animation-fill-mode: forwards;
-        ${({ theme }) => theme.mediaQueries.md} {
-          width: 34%;
-        }
       }
       &:nth-child(2) {
         animation: slide-left 0.4s ease-in-out;
@@ -148,9 +146,8 @@ const HomeModulesStyled = styled.div`
       ${({ theme }) => theme.mediaQueries.md} {
         margin-top: 40px;
         justify-content: space-between;
-        width: 31%;
         transition: all 0.5s ease;
-        height: 500px;
+        // height: 500px;
       }
 
       img {
@@ -172,7 +169,7 @@ const HomeModulesStyled = styled.div`
       }
       h4 {
         display: block;
-        font-size: 30px;
+        font-size: 22px;
         margin-top: 40px;
         margin-bottom: 30px;
         text-align: center;
@@ -182,8 +179,9 @@ const HomeModulesStyled = styled.div`
           margin-bottom: 40px;
         }
         ${({ theme }) => theme.mediaQueries.md} {
-          margin-top: 80px;
-          margin-bottom: 50px;
+          font-size: 30px;
+          margin-top: 40px;
+          margin-bottom: 40px;
           display: none;
         }
       }
@@ -191,10 +189,12 @@ const HomeModulesStyled = styled.div`
         transition: all 0.2s ease;
         font-size: 24px;
         display: none;
-        margin-top: 80px;
-        margin-bottom: 50px;
-        font-weight: 700;
+        margin-top: 40px;
+        margin-bottom: 40px;
+        font-weight: 800;
         ${({ theme }) => theme.mediaQueries.md} {
+          height: 80px;
+          line-height: 40px;
           display: block;
         }
         ${({ theme }) => theme.mediaQueries.lg} {
@@ -209,14 +209,6 @@ const HomeModulesStyled = styled.div`
         text-align: center;
         ${({ theme }) => theme.mediaQueries.sm} {
           text-align: left;
-        }
-      }
-      &:nth-child(1) {
-        h3 {
-          margin-bottom: 15px;
-        }
-        div {
-          width: 100%;
         }
       }
     }
