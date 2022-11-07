@@ -12,9 +12,9 @@ import HomeTvl from './components/tvl';
 // import HomeTvl from './components/tvl';
 export const Link = [
   { name: 'Discord', link: 'https://discord.gg/WcARFMy2t8' },
-  { name: 'Github', link: 'https://github.com/AVaultFinance ' },
-  { name: 'Twitter', link: 'https://twitter.com/Avault_Astar ' },
-  { name: 'Medium', link: 'https://medium.com/@avault ' },
+  { name: 'Github', link: 'https://github.com/AVaultFinance' },
+  { name: 'Twitter', link: 'https://twitter.com/Avaultomni' },
+  { name: 'Medium', link: 'https://medium.com/@avault' },
   { name: 'doc', link: 'https://co-go.gitbook.io/avault/ ' },
 ];
 

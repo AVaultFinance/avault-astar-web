@@ -1,3 +1,4 @@
+import { STATIC_BASE_URL } from 'config';
 import styled, { keyframes } from 'styled-components';
 
 const floatingAnim = (x: string, y: string) => keyframes`
@@ -16,11 +17,11 @@ const Banner = () => {
     <BannerStyled className="animate animate__animated" data-animate="animate__show">
       <div className="img">
         <div className="dapp">
-          <img src={`./images/home/banner/banner_c_01.svg`} alt="" className="banner_c_01" />
-          <img src={`./images/home/banner/banner_c_abt.svg`} alt="" className="banner_c_abt" />
-          <img src={`./images/home/banner/banner_c_ast.svg`} alt="" className="banner_c_ast" />
-          <img src={`./images/home/banner/banner_c_bsc.svg`} alt="" className="banner_c_bsc" />
-          <img src={`./images/home/banner/banner_c_eth.svg`} alt="" className="banner_c_eth" />
+          <img src={`${STATIC_BASE_URL}/images/home/banner/banner_c_01.svg`} alt="" className="banner_c_01" />
+          <img src={`${STATIC_BASE_URL}/images/home/banner/banner_c_abt.svg`} alt="" className="banner_c_abt" />
+          <img src={`${STATIC_BASE_URL}/images/home/banner/banner_c_ast.svg`} alt="" className="banner_c_ast" />
+          <img src={`${STATIC_BASE_URL}/images/home/banner/banner_c_bsc.svg`} alt="" className="banner_c_bsc" />
+          <img src={`${STATIC_BASE_URL}/images/home/banner/banner_c_eth.svg`} alt="" className="banner_c_eth" />
           <div className="liner01"></div>
           <div className="liner02"></div>
           <div className="liner03"></div>
@@ -28,32 +29,56 @@ const Banner = () => {
           <div className="liner05"></div>
         </div>
         <div className="center">
-          <img src={`./images/home/banner/banner_center_bottom.svg`} alt="" className="banner_center_bottom" />
-          <img src={`./images/home/banner/banner_center_middle.svg`} alt="" className="banner_center_middle" />
+          <img
+            src={`${STATIC_BASE_URL}/images/home/banner/banner_center_bottom.svg`}
+            alt=""
+            className="banner_center_bottom"
+          />
+          <img
+            src={`${STATIC_BASE_URL}/images/home/banner/banner_center_middle.svg`}
+            alt=""
+            className="banner_center_middle"
+          />
 
-          <img src={`./images/home/banner/banner_center_top.svg`} alt="" className="banner_center_top" />
+          <img
+            src={`${STATIC_BASE_URL}/images/home/banner/banner_center_top.svg`}
+            alt=""
+            className="banner_center_top"
+          />
         </div>
         <div className="circle">
-          <img src={`./images/home/banner/banner_circle_bottom.svg`} alt="" className="banner_circle_bottom" />
-          <img src={`./images/home/banner/banner_circle_middle.svg`} alt="" className="banner_circle_middle" />
-          <img src={`./images/home/banner/banner_circle_top.svg`} alt="" className="banner_circle_top" />
+          <img
+            src={`${STATIC_BASE_URL}/images/home/banner/banner_circle_bottom.svg`}
+            alt=""
+            className="banner_circle_bottom"
+          />
+          <img
+            src={`${STATIC_BASE_URL}/images/home/banner/banner_circle_middle.svg`}
+            alt=""
+            className="banner_circle_middle"
+          />
+          <img
+            src={`${STATIC_BASE_URL}/images/home/banner/banner_circle_top.svg`}
+            alt=""
+            className="banner_circle_top"
+          />
         </div>
-        {/* <img src={`./images/home/banner_v2/banner_middle.svg`} className="banner_middle" alt="" />
-        <img src={`./images/home/banner_v2/banner_avault.svg`} className="banner_avault" alt="" />
-        <img src={`./images/home/banner_v2/banner_top.svg`} className="banner_top" alt="" />
+        {/* <img src={`${STATIC_BASE_URL}/images/home/banner_v2/banner_middle.svg`} className="banner_middle" alt="" />
+        <img src={`${STATIC_BASE_URL}/images/home/banner_v2/banner_avault.svg`} className="banner_avault" alt="" />
+        <img src={`${STATIC_BASE_URL}/images/home/banner_v2/banner_top.svg`} className="banner_top" alt="" />
 
         <img
-          src={`./images/home/banner_v2/banner_circle_green.svg`}
+          src={`${STATIC_BASE_URL}/images/home/banner_v2/banner_circle_green.svg`}
           className="banner_circle_green"
           alt=""
         />
         <img
-          src={`./images/home/banner_v2/banner_circle_red.svg`}
+          src={`${STATIC_BASE_URL}/images/home/banner_v2/banner_circle_red.svg`}
           className="banner_circle_red"
           alt=""
         />
         <img
-          src={`./images/home/banner_v2/banner_circle_yellow.svg`}
+          src={`${STATIC_BASE_URL}/images/home/banner_v2/banner_circle_yellow.svg`}
           className="banner_circle_yellow"
           alt=""
         /> */}
@@ -62,7 +87,7 @@ const Banner = () => {
       <div>
         <h1>Avault</h1>
         <h2>
-          One-stop Cross-chain <br />
+          One-stop Omnichain <br />
           Yield Platform
         </h2>
         <p>Lower the threshold for users to use Web 3.0 DeFi Dapps</p>
@@ -162,6 +187,7 @@ const BannerStyled = styled.div`
     left: 20%;
     right: auto;
     z-index: 999;
+    transform: rotateZ(-30deg);
     ${({ theme }) => theme.mediaQueries.xs} {
       height: 420px;
     }
@@ -251,7 +277,7 @@ const BannerStyled = styled.div`
       animation: ${floatingAnim('1px', '12px')} 2s ease-in-out infinite;
     }
     .banner_c_abt {
-      animation: ${floatingAnim('1px', '12px')} 2s ease-in-out infinite;
+      animation: ${floatingAnim('1px', '12px')} 2.4s ease-in-out infinite;
     }
     .banner_c_ast {
       animation: ${floatingAnim('1px', '18px')} 2.5s ease-in-out infinite;
@@ -323,8 +349,8 @@ const BannerStyled = styled.div`
       }
       .banner_c_abt {
         width: 8%;
-        left: 30%;
-        top: 10%;
+        left: 33%;
+        top: 13%;
       }
       .banner_c_ast {
         width: 8%;
@@ -349,14 +375,14 @@ const BannerStyled = styled.div`
         width: 7px;
         height: 7px;
         left: 55%;
-        top: 4%;
+        top: 5%;
         background-image: linear-gradient(45deg, #a428d0 0%, #20d4a9 100%);
       }
       .liner02 {
         width: 33px;
         height: 33px;
-        left: 47%;
-        top: 10%;
+        left: 45%;
+        top: 12%;
         opacity: 0.3;
         background-image: linear-gradient(90deg, #a428d0 0%, #20d4a9 100%);
       }
@@ -364,7 +390,7 @@ const BannerStyled = styled.div`
         width: 20px;
         height: 20px;
         left: 67%;
-        top: 14%;
+        top: 15%;
         opacity: 0.1;
         background-color: #20d4a9;
       }

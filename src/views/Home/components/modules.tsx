@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const modulesArr = [
   {
     logo: `${STATIC_BASE_URL}/images/home/icon_cross.webp`,
-    title: 'Cross-chain Protocol Interoperate',
+    title: 'Omnichain Protocol Interoperate',
     content:
       "Users can use different chain's dapp and manage their assets in Avault without switch the network and different gas fee required",
   },
@@ -12,13 +12,13 @@ const modulesArr = [
     logo: `${STATIC_BASE_URL}/images/home/icon_vault.webp`,
     title: 'Vault',
     content:
-      'Helping users to cross-chain auto-compounding their revenue and providing interest-bearing asset(aLP/aToken) to the users to unlock their asset liquidity.',
+      'Helping users to Omnichain auto-compounding their revenue and providing interest-bearing asset(aLP/aToken) to the users to unlock their asset liquidity.',
   },
   {
     logo: `${STATIC_BASE_URL}/images/home/icon_farm.webp`,
     title: 'Farm',
     content:
-      'The biggest difference between cross-chain farm and traditional farm is that one emission rate can be used for multiple chains; while traditional farm is one emission rate that can only be used for one chain. Then, if we want to support 10 chains based on the traditional multichain requirements, we have to divide the rewards into 10 parts, and then formulate a corresponding rule for each chain.',
+      'The biggest difference between Omnichain farm and traditional farm is that one emission rate can be used for multiple chains; while traditional farm is one emission rate that can only be used for one chain. Then, if we want to support 10 chains based on the traditional multichain requirements, we have to divide the rewards into 10 parts, and then formulate a corresponding rule for each chain.',
   },
 
   {
@@ -38,7 +38,7 @@ const HomeModules = () => {
   return (
     <HomeModulesStyled>
       <HomeModulesStyledInner>
-        <h2>Main Cross-chain Modules</h2>
+        <h2>Main Omnichain Modules</h2>
         <ul className="animate animate__animated" data-animate="animate__show">
           {modulesArr.map((v) => {
             return (
@@ -59,7 +59,7 @@ const HomeModules = () => {
 };
 const HomeModulesStyledInner = styled.div`
   max-width: 1208px;
-  background-image: url('./images/stake/bg_element.svg');
+  background-image: url('/images/stake/bg_element.svg');
   background-repeat: no-repeat;
   background-size: 220px;
   background-position: right 60px;
@@ -74,7 +74,7 @@ const HomeModulesStyledInner = styled.div`
   }
 `;
 const HomeModulesStyled = styled.div`
-  background-image: url('./images/home/modules_bg.webp');
+  background-image: url('/images/home/modules_bg.webp');
   background-size: 100% 120%;
   background-position: top center;
   background-repeat: no-repeat;
@@ -110,12 +110,12 @@ const HomeModulesStyled = styled.div`
     }
   }
   h2 {
-    font-size: 48px;
+    font-size: 40px;
+    font-weight: 800;
     text-align: center;
     padding: 60px 0 25px;
     position: relative;
     z-index: 2;
-    font-weight: 800;
     ${({ theme }) => theme.mediaQueries.md} {
       font-size: 80px;
       line-height: 84px;
@@ -138,7 +138,7 @@ const HomeModulesStyled = styled.div`
       color: #fff;
       ${({ theme }) => theme.mediaQueries.sm} {
         width: 48%;
-        height: 400px;
+        height: 360px;
         &:nth-child(2n + 1) {
           margin-right: 2%;
         }
@@ -149,7 +149,28 @@ const HomeModulesStyled = styled.div`
         transition: all 0.5s ease;
         // height: 500px;
       }
-
+      &:nth-child(2) {
+        h3 {
+          ${({ theme }) => theme.mediaQueries.md} {
+            height: 80px;
+          }
+        }
+      }
+      &:nth-child(1),
+      &:nth-child(2) {
+        div p {
+          ${({ theme }) => theme.mediaQueries.md} {
+            width: 70%;
+          }
+        }
+      }
+      &:nth-child(3) {
+        div p {
+          ${({ theme }) => theme.mediaQueries.md} {
+            width: 88%;
+          }
+        }
+      }
       img {
         width: 50px;
         display: block;
@@ -193,7 +214,6 @@ const HomeModulesStyled = styled.div`
         margin-bottom: 40px;
         font-weight: 800;
         ${({ theme }) => theme.mediaQueries.md} {
-          height: 80px;
           line-height: 40px;
           display: block;
         }
