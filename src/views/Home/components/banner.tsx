@@ -1,5 +1,6 @@
 import { STATIC_BASE_URL } from 'config';
 import styled, { keyframes } from 'styled-components';
+import ScrollBanner from './scroll_banner';
 
 const floatingAnim = (x: string, y: string) => keyframes`
   from {
@@ -14,56 +15,58 @@ const floatingAnim = (x: string, y: string) => keyframes`
 `;
 const Banner = () => {
   return (
-    <BannerStyled className="animate animate__animated" data-animate="animate__show">
-      <div className="img">
-        <div className="dapp">
-          <img src={`${STATIC_BASE_URL}/images/home/banner/banner_c_01.svg`} alt="" className="banner_c_01" />
-          <img src={`${STATIC_BASE_URL}/images/home/banner/banner_c_abt.svg`} alt="" className="banner_c_abt" />
-          <img src={`${STATIC_BASE_URL}/images/home/banner/banner_c_ast.svg`} alt="" className="banner_c_ast" />
-          <img src={`${STATIC_BASE_URL}/images/home/banner/banner_c_bsc.svg`} alt="" className="banner_c_bsc" />
-          <img src={`${STATIC_BASE_URL}/images/home/banner/banner_c_eth.svg`} alt="" className="banner_c_eth" />
-          <div className="liner01"></div>
-          <div className="liner02"></div>
-          <div className="liner03"></div>
-          <div className="liner04"></div>
-          <div className="liner05"></div>
-        </div>
-        <div className="center">
-          <img
-            src={`${STATIC_BASE_URL}/images/home/banner/banner_center_bottom.svg`}
-            alt=""
-            className="banner_center_bottom"
-          />
-          <img
-            src={`${STATIC_BASE_URL}/images/home/banner/banner_center_middle.svg`}
-            alt=""
-            className="banner_center_middle"
-          />
+    <Bg>
+      <BannerStyled className="animate animate__animated" data-animate="animate__show">
+        <div className="banner_inner">
+          <div className="img">
+            <div className="dapp">
+              <img src={`${STATIC_BASE_URL}/images/home/banner/banner_c_01.svg`} alt="" className="banner_c_01" />
+              <img src={`${STATIC_BASE_URL}/images/home/banner/banner_c_abt.svg`} alt="" className="banner_c_abt" />
+              <img src={`${STATIC_BASE_URL}/images/home/banner/banner_c_ast.svg`} alt="" className="banner_c_ast" />
+              <img src={`${STATIC_BASE_URL}/images/home/banner/banner_c_bsc.svg`} alt="" className="banner_c_bsc" />
+              <img src={`${STATIC_BASE_URL}/images/home/banner/banner_c_eth.svg`} alt="" className="banner_c_eth" />
+              <div className="liner01"></div>
+              <div className="liner02"></div>
+              <div className="liner03"></div>
+              <div className="liner04"></div>
+              <div className="liner05"></div>
+            </div>
+            <div className="center">
+              <img
+                src={`${STATIC_BASE_URL}/images/home/banner/banner_center_bottom.svg`}
+                alt=""
+                className="banner_center_bottom"
+              />
+              <img
+                src={`${STATIC_BASE_URL}/images/home/banner/banner_center_middle.svg`}
+                alt=""
+                className="banner_center_middle"
+              />
 
-          <img
-            src={`${STATIC_BASE_URL}/images/home/banner/banner_center_top.svg`}
-            alt=""
-            className="banner_center_top"
-          />
-        </div>
-        <div className="circle">
-          <img
-            src={`${STATIC_BASE_URL}/images/home/banner/banner_circle_bottom.svg`}
-            alt=""
-            className="banner_circle_bottom"
-          />
-          <img
-            src={`${STATIC_BASE_URL}/images/home/banner/banner_circle_middle.svg`}
-            alt=""
-            className="banner_circle_middle"
-          />
-          <img
-            src={`${STATIC_BASE_URL}/images/home/banner/banner_circle_top.svg`}
-            alt=""
-            className="banner_circle_top"
-          />
-        </div>
-        {/* <img src={`${STATIC_BASE_URL}/images/home/banner_v2/banner_middle.svg`} className="banner_middle" alt="" />
+              <img
+                src={`${STATIC_BASE_URL}/images/home/banner/banner_center_top.svg`}
+                alt=""
+                className="banner_center_top"
+              />
+            </div>
+            <div className="circle">
+              <img
+                src={`${STATIC_BASE_URL}/images/home/banner/banner_circle_bottom.svg`}
+                alt=""
+                className="banner_circle_bottom"
+              />
+              <img
+                src={`${STATIC_BASE_URL}/images/home/banner/banner_circle_middle.svg`}
+                alt=""
+                className="banner_circle_middle"
+              />
+              <img
+                src={`${STATIC_BASE_URL}/images/home/banner/banner_circle_top.svg`}
+                alt=""
+                className="banner_circle_top"
+              />
+            </div>
+            {/* <img src={`${STATIC_BASE_URL}/images/home/banner_v2/banner_middle.svg`} className="banner_middle" alt="" />
         <img src={`${STATIC_BASE_URL}/images/home/banner_v2/banner_avault.svg`} className="banner_avault" alt="" />
         <img src={`${STATIC_BASE_URL}/images/home/banner_v2/banner_top.svg`} className="banner_top" alt="" />
 
@@ -82,37 +85,54 @@ const Banner = () => {
           className="banner_circle_yellow"
           alt=""
         /> */}
-      </div>
+          </div>
 
-      <div>
-        <h1>Avault</h1>
-        <h2>
-          One-stop Omnichain <br />
-          Yield Platform
-        </h2>
-        <p>Lower the threshold for users to use Web 3.0 DeFi Dapps</p>
-      </div>
-    </BannerStyled>
+          <div>
+            <h1>Avault</h1>
+            <h2>
+              One-stop Omnichain <br />
+              Yield Platform
+            </h2>
+            <p>Lower the threshold for users to use Web 3.0 DeFi Dapps</p>
+          </div>
+        </div>
+        <ScrollBanner />
+      </BannerStyled>
+    </Bg>
   );
 };
-
+const Bg = styled.div`
+  background-image: url('https://static.avault.network/images/home/bannerBg.png');
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  max-width: 100vw;
+  overflow: hidden;
+  margin-top: -120px;
+  padding-top: 120px;
+`;
 const BannerStyled = styled.div`
-  padding: 430px 30px 60px;
-  max-width: 1208px;
-  margin: 0 auto;
-  position: relative;
-  ${({ theme }) => theme.mediaQueries.sm} {
-    padding: 100px 20px 200px;
-  }
   ${({ theme }) => theme.mediaQueries.md} {
-    padding: 150px 20px 200px;
+    position: relative;
+    height: calc(100vh - 120px);
+    min-height: 700px;
   }
-  ${({ theme }) => theme.mediaQueries.lg} {
-    padding: 240px 20px 300px;
+  .banner_inner {
+    padding: 430px 30px 60px;
+    max-width: 1208px;
+    margin: 0 auto;
+    position: relative;
+    ${({ theme }) => theme.mediaQueries.sm} {
+      padding: 100px 20px 200px;
+    }
+    ${({ theme }) => theme.mediaQueries.lg} {
+      padding: 16vh 20px;
+    }
+    ${({ theme }) => theme.mediaQueries.xl} {
+      padding: 16vh 0;
+    }
   }
-  ${({ theme }) => theme.mediaQueries.xl} {
-    padding: 240px 0 300px;
-  }
+
   &.animate__show {
     h1 {
       animation: slide-up 0.4s ease-in-out;
@@ -130,14 +150,13 @@ const BannerStyled = styled.div`
     }
   }
   h1 {
-    font-size: 48px;
+    font-size: 40px;
     background: linear-gradient(90deg, #ffd8fe 0%, #c5fff1 100%);
     -webkit-background-clip: text;
     color: transparent;
     display: inline-block;
     padding-bottom: 40px;
     opacity: 0;
-    font-weight: 800;
     width: 100%;
     ${({ theme }) => theme.mediaQueries.sm} {
       font-size: 66px;
@@ -152,9 +171,9 @@ const BannerStyled = styled.div`
     max-width: 70%;
     display: inline-block;
     line-height: 26px;
-    font-size: 22px;
+    font-size: 16px;
     margin-bottom: 30px;
-    font-weight: 800;
+    font-weight: 700;
     background: linear-gradient(90deg, #da78ff 0%, #02f2bc 100%);
     -webkit-background-clip: text;
     color: transparent;
@@ -165,7 +184,7 @@ const BannerStyled = styled.div`
     }
   }
   p {
-    font-size: 13px;
+    font-size: 12px;
     line-height: 22px;
     color: #ffffff;
     opacity: 0;
@@ -198,13 +217,13 @@ const BannerStyled = styled.div`
       left: auto;
     }
     ${({ theme }) => theme.mediaQueries.md} {
-      top: 4%;
+      top: 0;
       height: 450px;
     }
     ${({ theme }) => theme.mediaQueries.lg} {
-      right: -60px;
-      height: 710px;
-      width: 50%;
+      right: -50px;
+      height: 610px;
+      width: 40%;
       max-width: 663px;
       left: auto;
     }
@@ -330,6 +349,7 @@ const BannerStyled = styled.div`
         width: 94%;
         top: 60%;
         left: 3%;
+        opacity: 0.3;
       }
     }
     .dapp {
