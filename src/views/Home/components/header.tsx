@@ -117,5 +117,6 @@ const ButtonStyled = styled.div`
     height: 36px;
     width: 200px;
     line-height: 36px;
+    text-align: center;
   }
 `;
