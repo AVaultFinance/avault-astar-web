@@ -41,7 +41,7 @@ export const routePath = {
     title: 'Avault | Avault',
   },
   vault: {
-    path: '/multi/vault',
+    path: '/vault',
     text: 'Vault',
     title: 'Multi Vault | Avault',
   },

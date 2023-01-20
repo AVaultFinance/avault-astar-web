@@ -1,4 +1,4 @@
-import { Button, Flex, useTooltip } from '@my/ui';
+import { Flex, useTooltip } from '@my/ui';
 import HeaderLogoWhite from 'components/SideMenu/Logo/HeaderLogoWhite';
 import { STATIC_BASE_URL } from 'config';
 import { routePath } from 'config/constants/meta';
@@ -31,7 +31,7 @@ const HomeHeader = ({ collapsed }: IProps) => {
         {collapsed ? (
           <ButtonStyled ref={targetRef}>
             Dapp
-            <img src={STATIC_BASE_URL + '/images/icon_arr02.svg'} />
+            <img src={STATIC_BASE_URL + '/images/icon_arr02.svg'} alt="icon_arr02" />
           </ButtonStyled>
         ) : (
           <>
