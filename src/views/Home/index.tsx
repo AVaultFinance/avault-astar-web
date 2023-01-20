@@ -8,13 +8,13 @@ import HomeFooter from './components/footer';
 import HomeHeader from './components/header';
 import HomeModules from './components/modules';
 import HomePartners from './components/partners';
-import HomeTvl from './components/tvl';
+// import Sign from './Sign';
 // import HomeTvl from './components/tvl';
 export const Link = [
   { name: 'Discord', link: 'https://discord.gg/WcARFMy2t8' },
-  { name: 'Github', link: 'https://github.com/AVaultFinance' },
-  { name: 'Twitter', link: 'https://twitter.com/Avaultomni' },
-  { name: 'Medium', link: 'https://medium.com/@avault' },
+  { name: 'Github', link: 'https://github.com/AVaultFinance ' },
+  { name: 'Twitter', link: 'https://twitter.com/Avaultomni ' },
+  { name: 'Medium', link: 'https://medium.com/@avault ' },
   { name: 'doc', link: 'https://co-go.gitbook.io/avault/ ' },
 ];
 
@@ -33,6 +33,7 @@ const Home = () => {
       const top = dom.offsetTop;
       const scrollTop = window.scrollY;
       const innerHeight = window.innerHeight;
+
       if (scrollTop + innerHeight - innerHeight / 10 > top) {
         dom.className = dom.className.replace('animate', dom.dataset.animate);
       }
@@ -49,46 +50,46 @@ const Home = () => {
 
   return useMemo(
     () => (
-      <Bg>
+      <HomeStyled>
+        {/* <Sign /> */}
         <HomeGlobalStyle />
         <HomeHeader collapsed={collapsed} />
         <Banner />
-        <Line />
-        <HomeTvl />
-        <Line />
+        {/* <Line /> */}
+        {/* <HomeTvl /> */}
+        {/* <Line /> */}
         <HomeModules />
         <HomePartners />
         <Line />
         <HomeFooter collapsed={collapsed} />
         <BackTop />
-      </Bg>
+      </HomeStyled>
     ),
     [collapsed],
   );
 };
-const Bg = styled.div`
-  background-image: url('/images/home/bannerBg.png');
-  background-position: center top;
-  background-repeat: no-repeat;
-  background-size: 100%;
-  max-width: 100vw;
-  overflow: hidden;
+const HomeStyled = styled.div`
+  background-color: #161528;
+  h2,
+  h3 {
+    // color: #fff;
+  }
 `;
 const Line = styled.div`
   height: 1px;
-  background-color: #2e2d5b;
-  max-width: 1208px;
+  background-color: #2e2d50;
+  // max-width: 1208px;
   margin: 0 auto;
   position: relative;
 
-  &:after {
-    content: '';
-    position: absolute;
-    width: 40%;
-    height: 1px;
-    background-color: #2e2d5b;
-    top: 0;
-    right: -40%;
-  }
+  // &:after {
+  //   content: '';
+  //   position: absolute;
+  //   width: 40%;
+  //   height: 1px;
+  //   background-color: #2e2d50;
+  //   top: 0;
+  //   right: -40%;
+  // }
 `;
 export default Home;

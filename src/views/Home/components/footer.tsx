@@ -1,7 +1,9 @@
 import { Link } from '..';
 import styled from 'styled-components';
 import { Flex } from '@my/ui';
-import HomeLogo from './HomeLogo';
+// import HomeLogo from './HomeLogo';
+import { STATIC_BASE_URL } from 'config';
+import HeaderLogo from 'components/SideMenu/Logo';
 interface IProps {
   collapsed: boolean;
 }
@@ -12,14 +14,14 @@ const HomeFooter = ({ collapsed }: IProps) => {
         {Link.map((v, index) => (
           <li key={index}>
             <a href={v.link} target="_blank" rel="noreferrer">
-              <img src={`/images/${v.name.toLowerCase()}.svg`} alt={v.name} />
+              <img src={`${STATIC_BASE_URL}/images/${v.name.toLowerCase()}.svg`} alt={v.name} />
             </a>
           </li>
         ))}
       </UlStyled>
       <p className="footer-text">C 2022 AVAULT Fin Corporation</p>
       <div className="footer-logo">
-        <HomeLogo collapsed={collapsed} />
+        <HeaderLogo collapsed={collapsed} />
       </div>
     </HomeFooterStyled>
   );

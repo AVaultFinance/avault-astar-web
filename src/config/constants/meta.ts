@@ -34,3 +34,64 @@ export const getCustomMeta = (path: string, t: ContextApi['t']): PageMeta => {
       return null;
   }
 };
+export const routePath = {
+  home: {
+    path: '/',
+    text: '',
+    title: 'Avault | Avault',
+  },
+  vault: {
+    path: '/multi/vault',
+    text: 'Vault',
+    title: 'Multi Vault | Avault',
+  },
+  vault_trade_deposit: {
+    pathPre: '/multi/vault/trade/deposit',
+    path: '/multi/vault/trade/deposit/:vaultChain/:contract_address',
+    text: 'Vault Trade',
+    title: 'Multi Vault Trade | Avault',
+  },
+  vault_trade_withdraw: {
+    pathPre: '/multi/vault/trade/withdraw',
+    path: '/multi/vault/trade/withdraw/:vaultChain/:contract_address',
+    text: 'Vault Trade',
+    title: 'Multi Vault Trade | Avault',
+  },
+  trade_withdraw: {
+    pathPre: '/trade/withdraw',
+    path: '/trade/withdraw/:safeContractAddress/:fromchain/:fromtoken',
+    text: 'Trade Withdraw',
+    title: 'Trade Withdraw | Avault',
+  },
+  claim: {
+    pathPre: '/multi/vault/trade/claim',
+    path: '/multi/vault/trade/claim/:vaultChain/:contract_address',
+    text: 'Trade Claim',
+    title: 'Trade Claim | Avault',
+  },
+
+  airdrop: {
+    path: '/multi/airdrop',
+    text: 'Airdrop',
+    title: 'Trade Airdrop | Avault',
+  },
+  airdrop_arbitrum: {
+    pathPre: '/multi/airdrop',
+    path: '/multi/airdrop/:id',
+    text: 'Trade Airdrop Arbitrum',
+    title: 'Trade Airdrop Arbitrum| Avault',
+  },
+
+  vault_transaction_list: {
+    path: '/multi/transaction/list',
+    text: 'Vault Transaction List',
+    title: 'Transaction List | Avault',
+  },
+
+  // vault_transaction_list_detail: {
+  //   pathPre: '/multi/transaction/list',
+  //   path: '/multi/transaction/list/:fromtx',
+  //   text: 'Vault Transaction List Detail',
+  //   title: 'Transaction List | Avault',
+  // },
+};

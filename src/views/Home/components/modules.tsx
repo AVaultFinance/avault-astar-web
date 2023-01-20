@@ -3,32 +3,32 @@ import styled from 'styled-components';
 
 const modulesArr = [
   {
-    logo: `${STATIC_BASE_URL}/images/home/icon_cross.webp`,
+    logo: `${STATIC_BASE_URL}/images/home/icon_cross.svg`,
     title: 'Omnichain Protocol Interoperate',
     content:
       "Users can use different chain's dapp and manage their assets in Avault without switch the network and different gas fee required",
   },
   {
-    logo: `${STATIC_BASE_URL}/images/home/icon_vault.webp`,
+    logo: `${STATIC_BASE_URL}/images/home/icon_vault.svg`,
     title: 'Vault',
     content:
-      'Helping users to Omnichain auto-compounding their revenue and providing interest-bearing asset(aLP/aToken) to the users to unlock their asset liquidity.',
+      'Helping users to Omnichain auto-compound their revenue and providing interest-bearing asset(aLP/aToken) to the users to unlock their asset liquidity.',
   },
   {
-    logo: `${STATIC_BASE_URL}/images/home/icon_farm.webp`,
+    logo: `${STATIC_BASE_URL}/images/home/icon_farm.svg`,
     title: 'Farm',
     content:
       'The biggest difference between Omnichain farm and traditional farm is that one emission rate can be used for multiple chains; while traditional farm is one emission rate that can only be used for one chain. Then, if we want to support 10 chains based on the traditional multichain requirements, we have to divide the rewards into 10 parts, and then formulate a corresponding rule for each chain.',
   },
 
   {
-    logo: `${STATIC_BASE_URL}/images/home/icon_zap.webp`,
+    logo: `${STATIC_BASE_URL}/images/home/icon_zap.svg`,
     title: 'Zap',
     content:
       'Allow a user to directly switch from single asset to an LP token in one click without the chain limit. e.g: User A can directly switch his USDC on BNB chain to USDT-ETH LP on Arbitrum in one click',
   },
   {
-    logo: `${STATIC_BASE_URL}/images/home/icon_governance.webp`,
+    logo: `${STATIC_BASE_URL}/images/home/icon_governance.svg`,
     title: 'Governance',
     content:
       'You can stake your $AVAT to get veAVAT. The number of veAVAT you get will depend on how long you choose to lock. Longer will be more. veAVAT will represent your share in the governance reward pool and your voting rights on upcoming governance features.',
@@ -59,7 +59,7 @@ const HomeModules = () => {
 };
 const HomeModulesStyledInner = styled.div`
   max-width: 1208px;
-  background-image: url('/images/stake/bg_element.svg');
+  background-image: url('https://static.avault.network/images/stake/bg_element.svg');
   background-repeat: no-repeat;
   background-size: 220px;
   background-position: right 60px;
@@ -74,7 +74,7 @@ const HomeModulesStyledInner = styled.div`
   }
 `;
 const HomeModulesStyled = styled.div`
-  background-image: url('/images/home/modules_bg.webp');
+  background-image: url('https://static.avault.network/images/home/modules_bg.webp');
   background-size: 100% 120%;
   background-position: top center;
   background-repeat: no-repeat;
@@ -111,7 +111,7 @@ const HomeModulesStyled = styled.div`
   }
   h2 {
     font-size: 40px;
-    font-weight: 800;
+    font-weight: 700;
     text-align: center;
     padding: 60px 0 25px;
     position: relative;
@@ -212,7 +212,7 @@ const HomeModulesStyled = styled.div`
         display: none;
         margin-top: 40px;
         margin-bottom: 40px;
-        font-weight: 800;
+        font-weight: 700;
         ${({ theme }) => theme.mediaQueries.md} {
           line-height: 40px;
           display: block;

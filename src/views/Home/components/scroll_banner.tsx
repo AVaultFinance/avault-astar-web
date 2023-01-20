@@ -60,13 +60,11 @@ const ScrollBannerStyledWrap = styled.div`
   // overflow: hidden;
   border-top: 1px solid rgba(35, 34, 55, 0.3);
   border-bottom: 1px solid rgba(35, 34, 55, 0.6);
-  box-shadow: 0 10px 20px 5px rgba(0, 0, 0, 0.03);
+  box-shadow: ${({ theme }) => (theme.isDark ? '0 10px 20px 5px rgba(0, 0, 0, 0.03)' : 'none')};
   position: absolute;
   bottom: 0;
   left: 0;
   display: none;
-  // border-bottom: 1px solid #232237;
-  box-shadow: 0 10px 20px 5px rgba(0, 0, 0, 0.03);
   background-image: linear-gradient(269deg, rgba(1, 0, 17, 0.1) 0%, rgba(22, 21, 40, 0.1) 100%);
   ${({ theme }) => theme.mediaQueries.md} {
     display: block;

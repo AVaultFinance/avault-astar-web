@@ -404,7 +404,7 @@ const BannerStyled = styled.div`
         left: 45%;
         top: 12%;
         opacity: 0.3;
-        background-image: linear-gradient(90deg, #a428d0 0%, #20d4a9 100%);
+        background-image: linear-gradient(90deg, #cc64f2 0%, #20d4a9 100%);
       }
       .liner03 {
         width: 20px;
@@ -420,7 +420,7 @@ const BannerStyled = styled.div`
         left: 65%;
         top: 32%;
         opacity: 0.3;
-        background-image: linear-gradient(90deg, #a428d0 0%, #20d4a9 100%);
+        background-image: linear-gradient(90deg, #cc64f2 0%, #20d4a9 100%);
       }
       .liner05 {
         width: 7px;

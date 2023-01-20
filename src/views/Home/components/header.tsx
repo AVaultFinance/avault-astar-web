@@ -1,34 +1,34 @@
 import { Button, Flex } from '@my/ui';
+import HeaderLogoWhite from 'components/SideMenu/Logo/HeaderLogoWhite';
+import { STATIC_BASE_URL } from 'config';
+import { routePath } from 'config/constants/meta';
+import { memo } from 'react';
 import styled from 'styled-components';
 import { Link } from '..';
-import HomeLogo from './HomeLogo';
+import { UlStyled } from './UlStyled';
 interface IProps {
   collapsed: boolean;
 }
 const HomeHeader = ({ collapsed }: IProps) => {
   return (
     <HomeHeaderStyled>
-      <HomeLogo collapsed={collapsed} />
+      {/* <HomeLogo collapsed={collapsed} /> */}
+      <HeaderLogoWhite collapsed={collapsed} />
       <div className="fr">
-        <UlStyled>
-          {Link.map((v, index) => (
-            <li key={index}>
-              <a href={v.link} target="_blank" rel="noreferrer">
-                <img src={`/images/${v.name.toLowerCase()}.svg`} alt={v.name} />
-              </a>
-            </li>
-          ))}
-        </UlStyled>
         <ButtonStyled>
-          <a href="/vault">Launch Dapp</a>
+          <a href={routePath.vault.path}>Launch Dapp (Astar)</a>
+        </ButtonStyled>
+        <ButtonStyled>
+          <a href="https://pre.avault.network/multi/vault">Launch Dapp (Omni)</a>
         </ButtonStyled>
       </div>
     </HomeHeaderStyled>
   );
 };
-export default HomeHeader;
+
+export default memo(HomeHeader);
 const HomeHeaderStyled = styled(Flex)`
-  padding: 20px 20px;
+  padding: 13px 16px;
   max-width: 1208px;
   margin: 0 auto;
   align-content: center;
@@ -52,51 +52,18 @@ const ButtonStyled = styled(Button)`
   font-weight: 600;
   color: #fff;
   height: 36px;
-  background-image: linear-gradient(90deg, #a428d0 0%, #20d4a9 100%);
-  width: 136px;
+  background-image: linear-gradient(90deg, #9733c9 0%, #65d1ab 100%);
+  width: 193px;
   padding: 0;
   cursor: pointer;
+  margin-left: 12px;
   ${({ theme }) => theme.mediaQueries.md} {
-    margin-top: 7px;
+    margin-top: 3px;
   }
   a {
     display: block;
     height: 36px;
     width: 200px;
     line-height: 36px;
-  }
-`;
-
-const UlStyled = styled.ul`
-  display: none;
-  list-style: none;
-  margin-right: 40px;
-  ${({ theme }) => theme.mediaQueries.md} {
-    display: block;
-    height: 50px;
-    line-height: 50px;
-  }
-  li {
-    margin: 0 10px;
-    display: inline-block;
-    vertical-align: middle;
-    &:last-child {
-      img {
-        width: 25px;
-      }
-    }
-    a {
-      display: block;
-      cursor: pointer;
-      opacity: 1;
-      transition: all 0.3s ease;
-      &:hover {
-        opacity: 0.6;
-      }
-    }
-    img {
-      display: block;
-      width: 32px;
-    }
   }
 `;
