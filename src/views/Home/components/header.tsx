@@ -39,7 +39,7 @@ const HomeHeader = ({ collapsed }: IProps) => {
               <a href={routePath.vault.path}>Launch Dapp (Astar)</a>
             </ButtonStyled>
             <ButtonStyled>
-              <a href="https://pre.avault.network/multi/vault">Launch Dapp (Omni)</a>
+              <a href="https://mvp.avault.network/multi/vault">Launch Dapp (Omni)</a>
             </ButtonStyled>
           </>
         )}
