@@ -27,17 +27,19 @@ const useEagerConnect = () => {
   const { login } = useAuth();
 
   useEffect(() => {
-    const connectorId = window.localStorage.getItem(connectorLocalStorageKey) as ConnectorNames;
-
-    if (connectorId) {
-      // Currently BSC & Talisman extensions don't always inject in time.
-      // We must check to see if provider exists, and if not, wait for it before proceeding.
-      if (connectorId === ConnectorNames.BSC) {
-        waitWalletInjected('BinanceChain').then(() => login(connectorId, false));
-      } else if (connectorId === ConnectorNames.Talisman) {
-        waitWalletInjected('talismanEth').then(() => login(connectorId, false));
-      } else {
-        login(connectorId, false);
+    // home
+    if (window.location.href !== 'https://www.avault.network/') {
+      const connectorId = window.localStorage.getItem(connectorLocalStorageKey) as ConnectorNames;
+      if (connectorId) {
+        // Currently BSC & Talisman extensions don't always inject in time.
+        // We must check to see if provider exists, and if not, wait for it before proceeding.
+        if (connectorId === ConnectorNames.BSC) {
+          waitWalletInjected('BinanceChain').then(() => login(connectorId, false));
+        } else if (connectorId === ConnectorNames.Talisman) {
+          waitWalletInjected('talismanEth').then(() => login(connectorId, false));
+        } else {
+          login(connectorId, false);
+        }
       }
     }
   }, [login]);
