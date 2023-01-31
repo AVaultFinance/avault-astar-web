@@ -5,7 +5,7 @@ import styled from 'styled-components';
 const HeaderLogoWhite: FC<{ collapsed: boolean }> = ({ collapsed }) => {
   return (
     <LogoStyle href="/" title="Logo">
-      <img src={collapsed ? STATIC_BASE_URL + '/images/logo_small.svg' : STATIC_BASE_URL + '/images/logo.svg'} alt="" />
+      <img src={collapsed ? '/images/logo_small.svg' : '/images/logo.svg'} alt="" />
     </LogoStyle>
   );
 };
