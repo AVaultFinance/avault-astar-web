@@ -3,6 +3,21 @@ import styled from 'styled-components';
 
 export const partnersArr = [
   {
+    icon: 'Lifi.svg',
+    name: 'Lifi'.toUpperCase(),
+    link: 'https://li.fi/',
+  },
+  {
+    icon: 'Layerzero.svg',
+    name: 'Layerzero'.toUpperCase(),
+    link: 'https://layerzero.network/',
+  },
+  {
+    icon: 'Arbitrum.svg',
+    name: 'Arbitrum'.toUpperCase(),
+    link: 'https://arbitrum.io/',
+  },
+  {
     icon: 'Astar.svg',
     name: 'astar'.toUpperCase(),
     link: 'https://astar.network/',
@@ -76,7 +91,6 @@ export const partnersArr = [
     link: 'https://astriddao.xyz/',
   },
 ];
-
 const HomePartners = () => {
   return (
     <HomePartnersStyled className="partner animate animate__animated" data-animate="animate__show">
