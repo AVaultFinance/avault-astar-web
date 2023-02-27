@@ -1,4 +1,3 @@
-import { STATIC_BASE_URL } from 'config';
 import { FC, memo } from 'react';
 import styled from 'styled-components';
 

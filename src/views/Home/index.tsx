@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 import HomeGlobalStyle from 'style/HomeGlobal';
 import styled from 'styled-components';
 import Banner from './components/banner';
+import Data from './components/data';
 import HomeFooter from './components/footer';
 import HomeHeader from './components/header';
 import HomeModules from './components/modules';
@@ -55,6 +56,7 @@ const Home = () => {
         <HomeGlobalStyle />
         <HomeHeader collapsed={collapsed} />
         <Banner />
+        <Data />
         {/* <Line /> */}
         {/* <HomeTvl /> */}
         {/* <Line /> */}
