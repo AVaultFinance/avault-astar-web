@@ -1,4 +1,6 @@
-import { useEffect, useState } from 'react';
+import BigNumber from 'bignumber.js';
+import { useEffect, useMemo, useState } from 'react';
+import { useVaultAllTotal } from 'state/vault/hooks';
 import styled from 'styled-components';
 
 const Data = () => {
@@ -7,7 +9,14 @@ const Data = () => {
     users: '',
     volume: '',
   });
+  const allTotal = useVaultAllTotal();
 
+  const _all = useMemo(() => {
+    if (allTotal && data.volume) {
+      return Number(new BigNumber(allTotal).plus(data.volume).toFixed(0)).toLocaleString();
+    }
+    return '';
+  }, [allTotal, data.volume]);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -44,7 +53,7 @@ const Data = () => {
         <ul>
           <li>
             <div className="inner">
-              <h5>{Number(data.volume).toLocaleString()}</h5>
+              <h5>{_all}</h5>
               <p>Total Volume</p>
             </div>
           </li>
@@ -150,18 +159,9 @@ const DataStyled = styled.div`
       }
       &:nth-child(1) {
         margin-top: 0;
-        background-image: linear-gradient(180deg, #37b59a 0%, #161527 100%);
-        .inner {
-          background-image: linear-gradient(180deg, #3a2658 0%, #161527 100%);
-          h5 {
-            background: linear-gradient(90deg, #d562ff 0%, #5c1fab 100%);
-            -webkit-background-clip: text;
-            color: transparent;
-          }
-        }
       }
       &:nth-child(2) {
-        background-image: linear-gradient(180deg, #4f8fdd 0%, #161527 100%);
+        background-image: linear-gradient(180deg, #37b59a 0%, #161527 100%);
         .inner {
           background-image: linear-gradient(180deg, #3a2658 0%, #161527 100%);
           h5 {
@@ -171,7 +171,6 @@ const DataStyled = styled.div`
           }
         }
       }
-
       &:nth-child(3) {
         background-image: linear-gradient(180deg, #4f8fdd 0%, #161527 100%);
         .inner {
@@ -183,6 +182,18 @@ const DataStyled = styled.div`
           }
         }
       }
+
+      // &:nth-child(3) {
+      //   background-image: linear-gradient(180deg, #4f8fdd 0%, #161527 100%);
+      //   .inner {
+      //     background-image: linear-gradient(180deg, #3a2658 0%, #161527 100%);
+      //     h5 {
+      //       background: linear-gradient(90deg, #599ef0 0%, #1f427f 100%);
+      //       -webkit-background-clip: text;
+      //       color: transparent;
+      //     }
+      //   }
+      // }
     }
   }
 `;
