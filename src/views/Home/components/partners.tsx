@@ -3,6 +3,27 @@ import styled from 'styled-components';
 
 export const partnersArr = [
   {
+    icon: 'Polygon.svg',
+    name: 'Polygon'.toUpperCase(),
+    link: 'https://www.polygon.technology/',
+  },
+  {
+    icon: 'Op.svg',
+    name: 'Op'.toUpperCase(),
+    link: 'https://optimistic.etherscan.io/',
+  },
+  {
+    icon: 'Bnbchain.svg',
+    name: 'Bnbchain'.toUpperCase(),
+    link: 'https://bscscan.com/',
+  },
+  {
+    icon: 'Arbitrum.svg',
+    name: 'Arbitrum'.toUpperCase(),
+    link: 'https://arbitrum.io/',
+  },
+
+  {
     icon: 'Lifi.svg',
     name: 'Lifi'.toUpperCase(),
     link: 'https://li.fi/',
@@ -12,11 +33,7 @@ export const partnersArr = [
     name: 'Layerzero'.toUpperCase(),
     link: 'https://layerzero.network/',
   },
-  {
-    icon: 'Arbitrum.svg',
-    name: 'Arbitrum'.toUpperCase(),
-    link: 'https://arbitrum.io/',
-  },
+
   {
     icon: 'Astar.svg',
     name: 'astar'.toUpperCase(),
