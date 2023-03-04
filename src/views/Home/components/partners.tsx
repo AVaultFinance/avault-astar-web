@@ -10,12 +10,12 @@ export const partnersArr = [
   {
     icon: 'Op.svg',
     name: 'Op'.toUpperCase(),
-    link: 'https://optimistic.etherscan.io/',
+    link: 'https://www.optimism.io/',
   },
   {
     icon: 'Bnbchain.svg',
     name: 'Bnbchain'.toUpperCase(),
-    link: 'https://bscscan.com/',
+    link: 'https://www.bnbchain.org/en',
   },
   {
     icon: 'Arbitrum.svg',
